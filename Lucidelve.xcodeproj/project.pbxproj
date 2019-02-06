@@ -10,10 +10,24 @@
 		5F77C1532204482B002A8300 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F77C1522204482B002A8300 /* AppDelegate.m */; };
 		5F77C1562204482B002A8300 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F77C1552204482B002A8300 /* ViewController.m */; };
 		5F77C1592204482B002A8300 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F77C1572204482B002A8300 /* Main.storyboard */; };
-		5F77C15B2204482F002A8300 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F77C15A2204482F002A8300 /* Assets.xcassets */; };
 		5F77C15E2204482F002A8300 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F77C15C2204482F002A8300 /* LaunchScreen.storyboard */; };
 		5F77C1612204482F002A8300 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F77C1602204482F002A8300 /* main.m */; };
+		D6A4D46C220A86D7006FB2BB /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A4D46B220A86D7006FB2BB /* Utility.m */; };
+		D6B56A80220AA9930092744F /* UtilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B56A7F220AA9930092744F /* UtilityTests.m */; };
+		D6B56A87220AA9B30092744F /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A4D46B220A86D7006FB2BB /* Utility.m */; };
+		D6B56A95220AB49D0092744F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F77C15A2204482F002A8300 /* Assets.xcassets */; };
+		D6B56A97220AB5710092744F /* Assets in Resources */ = {isa = PBXBuildFile; fileRef = D6B56A96220AB5710092744F /* Assets */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D6B56A82220AA9930092744F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5F77C1462204482B002A8300 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5F77C14D2204482B002A8300;
+			remoteInfo = Lucidelve;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		5F77C14E2204482B002A8300 /* Lucidelve.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lucidelve.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -26,10 +40,23 @@
 		5F77C15D2204482F002A8300 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5F77C15F2204482F002A8300 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5F77C1602204482F002A8300 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D6A4D46A220A86D7006FB2BB /* Utility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
+		D6A4D46B220A86D7006FB2BB /* Utility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
+		D6B56A7D220AA9930092744F /* UtilityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UtilityTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6B56A7F220AA9930092744F /* UtilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UtilityTests.m; sourceTree = "<group>"; };
+		D6B56A81220AA9930092744F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D6B56A96220AB5710092744F /* Assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Assets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		5F77C14B2204482B002A8300 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D6B56A7A220AA9930092744F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -43,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				5F77C1502204482B002A8300 /* Lucidelve */,
+				D6B56A7E220AA9930092744F /* UtilityTests */,
 				5F77C14F2204482B002A8300 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -51,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				5F77C14E2204482B002A8300 /* Lucidelve.app */,
+				D6B56A7D220AA9930092744F /* UtilityTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -67,8 +96,20 @@
 				5F77C15C2204482F002A8300 /* LaunchScreen.storyboard */,
 				5F77C15F2204482F002A8300 /* Info.plist */,
 				5F77C1602204482F002A8300 /* main.m */,
+				D6A4D46A220A86D7006FB2BB /* Utility.h */,
+				D6A4D46B220A86D7006FB2BB /* Utility.m */,
 			);
 			path = Lucidelve;
+			sourceTree = "<group>";
+		};
+		D6B56A7E220AA9930092744F /* UtilityTests */ = {
+			isa = PBXGroup;
+			children = (
+				D6B56A7F220AA9930092744F /* UtilityTests.m */,
+				D6B56A81220AA9930092744F /* Info.plist */,
+				D6B56A96220AB5710092744F /* Assets */,
+			);
+			path = UtilityTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -91,6 +132,24 @@
 			productReference = 5F77C14E2204482B002A8300 /* Lucidelve.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D6B56A7C220AA9930092744F /* UtilityTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D6B56A84220AA9930092744F /* Build configuration list for PBXNativeTarget "UtilityTests" */;
+			buildPhases = (
+				D6B56A79220AA9930092744F /* Sources */,
+				D6B56A7A220AA9930092744F /* Frameworks */,
+				D6B56A7B220AA9930092744F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D6B56A83220AA9930092744F /* PBXTargetDependency */,
+			);
+			name = UtilityTests;
+			productName = UtilityTests;
+			productReference = D6B56A7D220AA9930092744F /* UtilityTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -102,6 +161,10 @@
 				TargetAttributes = {
 					5F77C14D2204482B002A8300 = {
 						CreatedOnToolsVersion = 10.1;
+					};
+					D6B56A7C220AA9930092744F = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 5F77C14D2204482B002A8300;
 					};
 				};
 			};
@@ -119,6 +182,7 @@
 			projectRoot = "";
 			targets = (
 				5F77C14D2204482B002A8300 /* Lucidelve */,
+				D6B56A7C220AA9930092744F /* UtilityTests */,
 			);
 		};
 /* End PBXProject section */
@@ -129,8 +193,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F77C15E2204482F002A8300 /* LaunchScreen.storyboard in Resources */,
-				5F77C15B2204482F002A8300 /* Assets.xcassets in Resources */,
 				5F77C1592204482B002A8300 /* Main.storyboard in Resources */,
+				D6B56A95220AB49D0092744F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D6B56A7B220AA9930092744F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D6B56A97220AB5710092744F /* Assets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,13 +213,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6A4D46C220A86D7006FB2BB /* Utility.m in Sources */,
 				5F77C1562204482B002A8300 /* ViewController.m in Sources */,
 				5F77C1612204482F002A8300 /* main.m in Sources */,
 				5F77C1532204482B002A8300 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D6B56A79220AA9930092744F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D6B56A87220AA9B30092744F /* Utility.m in Sources */,
+				D6B56A80220AA9930092744F /* UtilityTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D6B56A83220AA9930092744F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5F77C14D2204482B002A8300 /* Lucidelve */;
+			targetProxy = D6B56A82220AA9930092744F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		5F77C1572204482B002A8300 /* Main.storyboard */ = {
@@ -305,6 +395,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FPV7K2X4HC;
+				ENABLE_TESTABILITY = NO;
 				INFOPLIST_FILE = Lucidelve/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -314,6 +405,44 @@
 				PRODUCT_BUNDLE_IDENTIFIER = comp8051.Lucidelve;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D6B56A85220AA9930092744F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = W9HSJ7BJF2;
+				INFOPLIST_FILE = UtilityTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = comp8051.Lucidelve.UtilityTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Lucidelve.app/Lucidelve";
+			};
+			name = Debug;
+		};
+		D6B56A86220AA9930092744F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = W9HSJ7BJF2;
+				INFOPLIST_FILE = UtilityTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = comp8051.Lucidelve.UtilityTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Lucidelve.app/Lucidelve";
 			};
 			name = Release;
 		};
@@ -334,6 +463,15 @@
 			buildConfigurations = (
 				5F77C1652204482F002A8300 /* Debug */,
 				5F77C1662204482F002A8300 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D6B56A84220AA9930092744F /* Build configuration list for PBXNativeTarget "UtilityTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D6B56A85220AA9930092744F /* Debug */,
+				D6B56A86220AA9930092744F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
