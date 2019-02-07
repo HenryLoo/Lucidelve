@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  HubVC.h
 //  Lucidelve
 //
 //  Created by Henry Loo on 2019-02-01.
@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <GLKit/GLKit.h>
 
-@interface ViewController : UIViewController
+/*!
+ * @brief The view controller for The Hub
+ */
+@interface HubVC : GLKViewController
 
 
 @end

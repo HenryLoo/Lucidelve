@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F67B670220BD75500227D14 /* HubView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F67B66F220BD75500227D14 /* HubView.m */; };
 		5F77C1532204482B002A8300 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F77C1522204482B002A8300 /* AppDelegate.m */; };
-		5F77C1562204482B002A8300 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F77C1552204482B002A8300 /* ViewController.m */; };
-		5F77C1592204482B002A8300 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F77C1572204482B002A8300 /* Main.storyboard */; };
+		5F77C1562204482B002A8300 /* HubVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F77C1552204482B002A8300 /* HubVC.m */; };
 		5F77C15E2204482F002A8300 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F77C15C2204482F002A8300 /* LaunchScreen.storyboard */; };
 		5F77C1612204482F002A8300 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F77C1602204482F002A8300 /* main.m */; };
+		5F96A4DA220AD39100026AD0 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F96A4D9220AD39100026AD0 /* Player.m */; };
 		D6A4D46C220A86D7006FB2BB /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A4D46B220A86D7006FB2BB /* Utility.m */; };
 		D6B56A80220AA9930092744F /* UtilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B56A7F220AA9930092744F /* UtilityTests.m */; };
 		D6B56A87220AA9B30092744F /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A4D46B220A86D7006FB2BB /* Utility.m */; };
@@ -30,16 +31,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5F67B66E220BD70B00227D14 /* HubView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HubView.h; sourceTree = "<group>"; };
+		5F67B66F220BD75500227D14 /* HubView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HubView.m; sourceTree = "<group>"; };
 		5F77C14E2204482B002A8300 /* Lucidelve.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lucidelve.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F77C1512204482B002A8300 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5F77C1522204482B002A8300 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		5F77C1542204482B002A8300 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		5F77C1552204482B002A8300 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		5F77C1582204482B002A8300 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5F77C1542204482B002A8300 /* HubVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HubVC.h; sourceTree = "<group>"; };
+		5F77C1552204482B002A8300 /* HubVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HubVC.m; sourceTree = "<group>"; };
 		5F77C15A2204482F002A8300 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F77C15D2204482F002A8300 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5F77C15F2204482F002A8300 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5F77C1602204482F002A8300 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5F96A4D8220ACBD200026AD0 /* Player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		5F96A4D9220AD39100026AD0 /* Player.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 		D6A4D46A220A86D7006FB2BB /* Utility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
 		D6A4D46B220A86D7006FB2BB /* Utility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
 		D6B56A7D220AA9930092744F /* UtilityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UtilityTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,15 +93,18 @@
 			children = (
 				5F77C1512204482B002A8300 /* AppDelegate.h */,
 				5F77C1522204482B002A8300 /* AppDelegate.m */,
-				5F77C1542204482B002A8300 /* ViewController.h */,
-				5F77C1552204482B002A8300 /* ViewController.m */,
-				5F77C1572204482B002A8300 /* Main.storyboard */,
+				5F77C1542204482B002A8300 /* HubVC.h */,
+				5F77C1552204482B002A8300 /* HubVC.m */,
 				5F77C15A2204482F002A8300 /* Assets.xcassets */,
 				5F77C15C2204482F002A8300 /* LaunchScreen.storyboard */,
 				5F77C15F2204482F002A8300 /* Info.plist */,
 				5F77C1602204482F002A8300 /* main.m */,
 				D6A4D46A220A86D7006FB2BB /* Utility.h */,
 				D6A4D46B220A86D7006FB2BB /* Utility.m */,
+				5F96A4D8220ACBD200026AD0 /* Player.h */,
+				5F96A4D9220AD39100026AD0 /* Player.m */,
+				5F67B66E220BD70B00227D14 /* HubView.h */,
+				5F67B66F220BD75500227D14 /* HubView.m */,
 			);
 			path = Lucidelve;
 			sourceTree = "<group>";
@@ -193,7 +200,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F77C15E2204482F002A8300 /* LaunchScreen.storyboard in Resources */,
-				5F77C1592204482B002A8300 /* Main.storyboard in Resources */,
 				D6B56A95220AB49D0092744F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -214,9 +220,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6A4D46C220A86D7006FB2BB /* Utility.m in Sources */,
-				5F77C1562204482B002A8300 /* ViewController.m in Sources */,
+				5F77C1562204482B002A8300 /* HubVC.m in Sources */,
+				5F67B670220BD75500227D14 /* HubView.m in Sources */,
 				5F77C1612204482F002A8300 /* main.m in Sources */,
 				5F77C1532204482B002A8300 /* AppDelegate.m in Sources */,
+				5F96A4DA220AD39100026AD0 /* Player.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,14 +248,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		5F77C1572204482B002A8300 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5F77C1582204482B002A8300 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		5F77C15C2204482F002A8300 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
