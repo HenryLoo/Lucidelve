@@ -9,13 +9,13 @@
 #import <Foundation/Foundation.h>
 
 /*!
- * @brief Contains values relating to the player
+ * @brief Contains values relating to the player.
  */
 @interface Player : NSObject
 
 /*!
  * Defines the different states that the player can
- * be in during combat
+ * be in during combat.
  */
 typedef enum
 {

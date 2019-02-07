@@ -6,14 +6,12 @@
 //  Copyright © 2019 COMP 8051. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <GLKit/GLKit.h>
+#import "BaseVC.h"
 
 /*!
- * @brief The view controller for The Hub
+ * @brief The view controller for The Hub.
  */
-@interface HubVC : GLKViewController
-
+@interface HubVC : BaseVC
 
 @end
 

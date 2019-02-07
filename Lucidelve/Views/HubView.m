@@ -7,6 +7,7 @@
 //
 
 #import "HubView.h"
+#import "Constants.h"
 
 @interface HubView()
 {
@@ -16,12 +17,6 @@
 @end
 
 @implementation HubView
-
-// The size of the gold button
-const CGSize GOLD_BUTTON_SIZE = {200, 100};
-
-// The size of the gold label
-const CGSize GOLD_LABEL_SIZE = {300, 50};
 
 - (id)init
 {
@@ -34,12 +29,13 @@ const CGSize GOLD_LABEL_SIZE = {300, 50};
         // Set up elements in the view
         [self setupGoldButton];
         [self setupGoldLabel];
+        [self setupShopButton];
     }
     return self;
 }
 
 /*!
- * Create the button element for generating gold
+ * Create the button element for generating gold.
  * @author Henry Loo
  */
 - (void)setupGoldButton
@@ -55,7 +51,7 @@ const CGSize GOLD_LABEL_SIZE = {300, 50};
 }
 
 /*!
- * Create the label element for displaying the player's gold
+ * Create the label element for displaying the player's gold.
  * @author Henry Loo
  */
 - (void)setupGoldLabel
@@ -67,6 +63,21 @@ const CGSize GOLD_LABEL_SIZE = {300, 50};
     _goldLabel.textColor = [UIColor blackColor];
     _goldLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_goldLabel];
+}
+
+/*!
+ * Create the button element for moving to the shop.
+ * @author Henry Loo
+ */
+- (void)setupShopButton
+{
+    _shopButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _shopButton.frame = CGRectMake(0, 0,
+                                   MENU_BUTTON_SIZE.width, MENU_BUTTON_SIZE.height);
+    [_shopButton setTitle:@"SHOP" forState:UIControlStateNormal];
+    [_shopButton setTitle:@"" forState:UIControlStateDisabled];
+    [_shopButton setEnabled:NO];
+    [self addSubview:_shopButton];
 }
 
 @end

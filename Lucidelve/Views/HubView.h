@@ -10,7 +10,7 @@
 #import <GLKit/GLKit.h>
 
 /*!
- * @brief The view for The Hub
+ * @brief The view for The Hub.
  */
 @interface HubView : GLKView
 
@@ -19,5 +19,8 @@
 
 // Button for generating gold
 @property (nonatomic, strong) UIButton *goldButton;
+
+// Button for moving to the Shop
+@property (nonatomic, strong) UIButton *shopButton;
 
 @end

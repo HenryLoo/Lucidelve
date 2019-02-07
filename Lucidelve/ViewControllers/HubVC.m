@@ -8,7 +8,10 @@
 
 #import "HubVC.h"
 #import "HubView.h"
+#import "ShopVC.h"
+#import "Game.h"
 #import "Player.h"
+#import "Constants.h"
 
 @interface HubVC ()
 {
@@ -31,17 +34,14 @@
     
     // Pointer to the view's gold label
     UILabel *goldLabel;
+    
+    // Pointer to the view's shop button
+    UIButton *shopButton;
 }
 
 @end
 
 @implementation HubVC
-
-// The cooldown on gold button press, in seconds
-const float GOLD_COOLDOWN = 5.f;
-
-// The amount of gold to earn per button press
-const int GOLD_EARN_AMOUNT = 5;
 
 - (void)loadView
 {
@@ -55,15 +55,21 @@ const int GOLD_EARN_AMOUNT = 5;
     
     lastTime = [NSDate date];
     
-    // Initialize the player
-    player = [[Player alloc] init];
+    // Set the player pointer
+    player = [self.game getPlayer];
+    
+    // Set UI element pointers
+    goldButton = ((HubView*) self.view).goldButton;
+    goldLabel = ((HubView*) self.view).goldLabel;
+    shopButton = ((HubView*) self.view).shopButton;
     
     // Attach selector to the gold button
-    goldButton = ((HubView*) self.view).goldButton;
     [goldButton addTarget:self action:@selector(onGoldButtonPress:)
          forControlEvents:UIControlEventTouchDown];
     
-    goldLabel = ((HubView*) self.view).goldLabel;
+    // Attach selector to the shop button
+    [shopButton addTarget:self action:@selector(onShopButtonPress:)
+         forControlEvents:UIControlEventTouchDown];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -77,12 +83,34 @@ const int GOLD_EARN_AMOUNT = 5;
     deltaTime = [lastTime timeIntervalSinceNow];
     lastTime = [NSDate date];
     
-    // Update the gold label's values
+    [self updateGoldLabel];
+    [self updateGoldCooldown];
+    [self updateUnlockables];
+}
+
+- (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
+{
+    
+}
+
+/*!
+ * Update the gold label's values.
+ * @author Henry Loo
+ */
+- (void)updateGoldLabel
+{
     int gold = [player getGold];
     NSString *labelText = [NSString stringWithFormat:@"Gold: %i G", gold];
     goldLabel.text = labelText;
-    
-    // Update the gold button's cooldown
+}
+
+/*!
+ * Update the gold button's cooldown by decrementing it by delta time.
+ * If the cooldown timer reaches 0, then re-enable the gold button.
+ * @author Henry Loo
+ */
+- (void)updateGoldCooldown
+{
     if (goldCooldownTimer > 0)
     {
         // Decrement cooldown timer and make sure it doesn't
@@ -107,11 +135,26 @@ const int GOLD_EARN_AMOUNT = 5;
     }
 }
 
-- (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
+/*!
+ * Check if the player has satisfied any conditions to unlock
+ * a new menu element.
+ * @author Henry Loo
+ */
+- (void)updateUnlockables
 {
-    
+    // Unlock the shop
+    if ([player getGold] >= 10)
+    {
+        [shopButton setEnabled:YES];
+    }
 }
 
+/*!
+ * Handle the gold button's action.
+ * This should increment the player's gold and disable the button.
+ * @author Henry Loo
+ * @param sender The pressed button
+ */
 - (void)onGoldButtonPress:(id)sender
 {
     // Increment the player's gold
@@ -121,6 +164,18 @@ const int GOLD_EARN_AMOUNT = 5;
     [goldButton setEnabled:NO];
     goldCooldownTimer = GOLD_COOLDOWN;
     
+}
+
+/*!
+ * Handle the shop button's action.
+ * This should redirect the player to the shop view.
+ * @author Henry Loo
+ * @param sender The pressed button
+ */
+- (void)onShopButtonPress:(id)sender
+{
+    ShopVC *vc = [[ShopVC alloc] init];
+    [self.game changeScene:self newVC:vc];
 }
 
 @end
