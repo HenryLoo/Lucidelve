@@ -7,6 +7,7 @@
 //
 
 #import "Player.h"
+#import "Constants.h"
 
 @interface Player ()
 {
@@ -25,15 +26,13 @@
 
 @implementation Player
 
-// The default starting life value
-const int DEFAULT_LIFE = 3;
-
 - (id)init
 {
     if (self = [super init]) {
-        currentLife = maxLife = DEFAULT_LIFE;
+        currentLife = maxLife = DEFAULT_PLAYER_LIFE;
         gold = 0;
         state = NEUTRAL;
+        _items = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -67,6 +66,23 @@ const int DEFAULT_LIFE = 3;
 - (void)setCombatState:(CombatState)newState
 {
     state = newState;
+}
+
+- (void)addItem:(Item)item
+{
+    // NSMutableArray can only hold NSObjects, so we need to
+    // wrap the Item struct value
+    NSValue *wrappedItem = [NSValue valueWithBytes:&item objCType:@encode(Item)];
+    [self.items addObject:wrappedItem];
+}
+
+- (Item)getItem:(int)index
+{
+    // Unwrap the Item struct from the stored NSValue
+    Item item;
+    NSValue *wrappedItem = [self.items objectAtIndex:index];
+    [wrappedItem getValue:&item];
+    return item;
 }
 
 @end

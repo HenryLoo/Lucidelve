@@ -8,6 +8,11 @@
 
 #import "Constants.h"
 
+const Item ITEMS[NUM_ITEMS] = {
+    [RUSTY_SWORD] = (Item){.name = @"Rusty Sword", .shopPrice = 10},
+};
+
+const int DEFAULT_PLAYER_LIFE = 3;
 const float GOLD_COOLDOWN = 5.f;
 const int GOLD_EARN_AMOUNT = 5;
 const CGSize GOLD_BUTTON_SIZE = {200, 100};

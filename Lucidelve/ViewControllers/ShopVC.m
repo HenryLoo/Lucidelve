@@ -11,6 +11,8 @@
 #import "HubVC.h"
 #import "Game.h"
 #import "Player.h"
+#import "Constants.h"
+#import "Item.h"
 
 @interface ShopVC ()
 {
@@ -22,6 +24,9 @@
     
     // Pointer to the view's gold label
     UILabel *goldLabel;
+    
+    // Pointer to the view's sword button
+    UIButton *swordButton;
 }
 @end
 
@@ -43,9 +48,14 @@
     // Set UI element pointers
     backButton = ((ShopView*) self.view).backButton;
     goldLabel = ((ShopView*) self.view).goldLabel;
+    swordButton = ((ShopView*) self.view).swordButton;
     
     // Attach selector to the back button
     [backButton addTarget:self action:@selector(onBackButtonPress:)
+         forControlEvents:UIControlEventTouchDown];
+    
+    // Attach selector to the sword button
+    [swordButton addTarget:self action:@selector(onSwordButtonPress:)
          forControlEvents:UIControlEventTouchDown];
 }
 
@@ -85,6 +95,26 @@
 {
     HubVC *vc = [[HubVC alloc] init];
     [self.game changeScene:self newVC:vc];
+}
+
+/*!
+ * Handle the sword button's action.
+ * If the player has enough gold, this should give the player a
+ * Rusty Sword item and decrease the player's gold by the price.
+ * @author Henry Loo
+ * @param sender The pressed button
+ */
+- (void)onSwordButtonPress:(id)sender
+{
+    Item sword = ITEMS[RUSTY_SWORD];
+    if ([player getGold] >= sword.shopPrice)
+    {
+        [player addItem:sword];
+        [player addGold:(-sword.shopPrice)];
+        
+        // The sword can only be bought once
+        [swordButton setEnabled:NO];
+    }
 }
 
 @end

@@ -16,8 +16,22 @@
  */
 @interface Game : NSObject
 
+// The time for the previous frame.
+@property NSDate *lastTime;
+
+// The time between each frame in seconds.
+@property NSTimeInterval deltaTime;
+
+// The current value of the gold button's cooldown.
+// This value should be decremented every frame by deltaTime
+// starting until it reaches 0.
+@property float goldCooldownTimer;
+
+// Flag for if the Shop has been unlocked.
+@property bool isShopUnlocked;
+
 /*!
- * Return the player's data
+ * Return the player's data.
  * @author Henry Loo
  */
 - (Player*)getPlayer;

@@ -15,19 +15,8 @@
 
 @interface HubVC ()
 {
-    // The time for the previous frame
-    NSDate *lastTime;
-    
-    // The time between each frame in seconds
-    NSTimeInterval deltaTime;
-    
     // Pointer to the player object
     Player *player;
-    
-    // The current value of the gold button's cooldown.
-    // This value should be decremented every frame by deltaTime
-    // starting until it reaches 0.
-    float goldCooldownTimer;
     
     // Pointer to the view's gold button
     UIButton *goldButton;
@@ -52,8 +41,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    lastTime = [NSDate date];
     
     // Set the player pointer
     player = [self.game getPlayer];
@@ -80,8 +67,8 @@
 - (void)update
 {
     // Calculate deltaTime for this frame
-    deltaTime = [lastTime timeIntervalSinceNow];
-    lastTime = [NSDate date];
+    self.game.deltaTime = [self.game.lastTime timeIntervalSinceNow];
+    self.game.lastTime = [NSDate date];
     
     [self updateGoldLabel];
     [self updateGoldCooldown];
@@ -111,17 +98,21 @@
  */
 - (void)updateGoldCooldown
 {
-    if (goldCooldownTimer > 0)
+    if (self.game.goldCooldownTimer > 0)
     {
+        // Disable the button
+        [goldButton setEnabled:NO];
+        
         // Decrement cooldown timer and make sure it doesn't
         // drop lower than 0
-        goldCooldownTimer += deltaTime;
-        goldCooldownTimer = MAX(0, goldCooldownTimer);
+        self.game.goldCooldownTimer += self.game.deltaTime;
+        self.game.goldCooldownTimer = MAX(0, self.game.goldCooldownTimer);
         
         // Update the button's text to show the remaining
         // cooldown (can't show animations or the text will keep
         // fading to white)
-        NSString *cooldown = [NSString stringWithFormat:@"%.02f", goldCooldownTimer];
+        NSString *cooldown = [NSString stringWithFormat:@"%.02f",
+                              self.game.goldCooldownTimer];
         [GLKView performWithoutAnimation:^{
             [self->goldButton setTitle:cooldown forState:UIControlStateDisabled];
             [self->goldButton layoutIfNeeded];
@@ -130,7 +121,7 @@
     else
     {
         // Cooldown is over, so re-enable the gold button
-        goldCooldownTimer = 0;
+        self.game.goldCooldownTimer = 0;
         [goldButton setEnabled:YES];
     }
 }
@@ -143,9 +134,10 @@
 - (void)updateUnlockables
 {
     // Unlock the shop
-    if ([player getGold] >= 10)
+    if (self.game.isShopUnlocked || [player getGold] >= 10)
     {
         [shopButton setEnabled:YES];
+        self.game.isShopUnlocked = true;
     }
 }
 
@@ -160,9 +152,8 @@
     // Increment the player's gold
     [player addGold:GOLD_EARN_AMOUNT];
     
-    // Disable the button and put gold generation on cooldown
-    [goldButton setEnabled:NO];
-    goldCooldownTimer = GOLD_COOLDOWN;
+    // Put the button on cooldown
+    self.game.goldCooldownTimer = GOLD_COOLDOWN;
     
 }
 

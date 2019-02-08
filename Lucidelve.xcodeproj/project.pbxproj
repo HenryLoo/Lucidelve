@@ -36,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5F5D8A4A220E0E2B006513C2 /* Item.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
 		5F67B66E220BD70B00227D14 /* HubView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HubView.h; sourceTree = "<group>"; };
 		5F67B66F220BD75500227D14 /* HubView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HubView.m; sourceTree = "<group>"; };
 		5F67B671220BFBC200227D14 /* ShopVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopVC.h; sourceTree = "<group>"; };
@@ -146,6 +147,7 @@
 				5F67B67A220C027C00227D14 /* Game.m */,
 				5F67B680220C0F5D00227D14 /* Constants.h */,
 				5F67B681220C10A800227D14 /* Constants.m */,
+				5F5D8A4A220E0E2B006513C2 /* Item.h */,
 			);
 			path = Lucidelve;
 			sourceTree = "<group>";

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Item.h"
 
 /*!
  * @brief Contains values relating to the player.
@@ -27,6 +28,9 @@ typedef enum
     HURT,
     DEAD
 } CombatState;
+
+// Holds all the player's items
+@property NSMutableArray *items;
 
 /*!
  * Increment the player's current life by a specified amount.
@@ -69,5 +73,22 @@ typedef enum
  * @param newState The new combat state to change to.
  */
 - (void)setCombatState:(CombatState)newState;
+
+/*!
+ * Add an item to the player's inventory.
+ * @author Henry Loo
+ *
+ * @param item The item to give the player.
+ */
+- (void)addItem:(Item)item;
+
+/*!
+ * Return the item from the player's inventory at a given index.
+ * @author Henry Loo
+ *
+ * @param index The index of the item in the player's inventory.
+ * @return The item at the given index.
+ */
+- (Item)getItem:(int)index;
 
 @end

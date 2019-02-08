@@ -30,6 +30,7 @@
         [self setupShopTitle];
         [self setupBackButton];
         [self setupGoldLabel];
+        [self setupSwordButton];
     }
     return self;
 }
@@ -77,6 +78,25 @@
     _goldLabel.textColor = [UIColor blackColor];
     _goldLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_goldLabel];
+}
+
+/*!
+ * Create the button element for buying a sword.
+ * @author Henry Loo
+ */
+- (void)setupSwordButton
+{
+    CGSize frameSize = self.frame.size;
+    _swordButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _swordButton.frame = CGRectMake(0, frameSize.height - BACK_BUTTON_SIZE.height,
+                                   BACK_BUTTON_SIZE.width, BACK_BUTTON_SIZE.height);
+    Item sword = ITEMS[RUSTY_SWORD];
+    NSString *title = [NSString stringWithFormat:@"%@ (%i)",
+                       sword.name, sword.shopPrice];
+    [_swordButton setTitle:title forState:UIControlStateNormal];
+    [_swordButton setTitle:@"" forState:UIControlStateDisabled];
+    [_swordButton setEnabled:YES];
+    [self addSubview:_swordButton];
 }
 
 @end

@@ -23,4 +23,7 @@
 // Displays the player's current gold
 @property (nonatomic, strong) UILabel *goldLabel;
 
+// Displays the button to buy a sword
+@property (nonatomic, strong) UIButton *swordButton;
+
 @end

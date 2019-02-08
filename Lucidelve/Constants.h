@@ -7,6 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Item.h"
+
+// Hold all item values
+extern const Item ITEMS[NUM_ITEMS];
+
+// The player's default starting life value
+extern const int DEFAULT_PLAYER_LIFE;
 
 // The cooldown on gold button press, in seconds
 extern const float GOLD_COOLDOWN;
