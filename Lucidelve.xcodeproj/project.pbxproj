@@ -17,6 +17,7 @@
 		5F77C1562204482B002A8300 /* HubVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F77C1552204482B002A8300 /* HubVC.m */; };
 		5F77C15E2204482F002A8300 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F77C15C2204482F002A8300 /* LaunchScreen.storyboard */; };
 		5F77C1612204482F002A8300 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F77C1602204482F002A8300 /* main.m */; };
+		5F78DCFC220E60730039EA92 /* BaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F78DCFB220E60730039EA92 /* BaseView.m */; };
 		5F96A4DA220AD39100026AD0 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F96A4D9220AD39100026AD0 /* Player.m */; };
 		D6A4D46C220A86D7006FB2BB /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A4D46B220A86D7006FB2BB /* Utility.m */; };
 		D6B56A80220AA9930092744F /* UtilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B56A7F220AA9930092744F /* UtilityTests.m */; };
@@ -58,6 +59,8 @@
 		5F77C15D2204482F002A8300 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5F77C15F2204482F002A8300 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5F77C1602204482F002A8300 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5F78DCFA220E5FB10039EA92 /* BaseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseView.h; sourceTree = "<group>"; };
+		5F78DCFB220E60730039EA92 /* BaseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseView.m; sourceTree = "<group>"; };
 		5F96A4D8220ACBD200026AD0 /* Player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		5F96A4D9220AD39100026AD0 /* Player.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 		D6A4D46A220A86D7006FB2BB /* Utility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
@@ -89,12 +92,12 @@
 		5F67B677220BFE9800227D14 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				5F67B67C220C05E900227D14 /* BaseVC.h */,
+				5F67B67D220C0DA300227D14 /* BaseVC.m */,
 				5F77C1542204482B002A8300 /* HubVC.h */,
 				5F77C1552204482B002A8300 /* HubVC.m */,
 				5F67B671220BFBC200227D14 /* ShopVC.h */,
 				5F67B672220BFBFA00227D14 /* ShopVC.m */,
-				5F67B67C220C05E900227D14 /* BaseVC.h */,
-				5F67B67D220C0DA300227D14 /* BaseVC.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -102,6 +105,8 @@
 		5F67B678220BFECC00227D14 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5F78DCFA220E5FB10039EA92 /* BaseView.h */,
+				5F78DCFB220E60730039EA92 /* BaseView.m */,
 				5F67B66E220BD70B00227D14 /* HubView.h */,
 				5F67B66F220BD75500227D14 /* HubView.m */,
 				5F67B674220BFCB700227D14 /* ShopView.h */,
@@ -273,6 +278,7 @@
 				5F77C1612204482F002A8300 /* main.m in Sources */,
 				5F77C1532204482B002A8300 /* AppDelegate.m in Sources */,
 				5F96A4DA220AD39100026AD0 /* Player.m in Sources */,
+				5F78DCFC220E60730039EA92 /* BaseView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

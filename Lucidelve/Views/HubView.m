@@ -7,7 +7,6 @@
 //
 
 #import "HubView.h"
-#import "Constants.h"
 
 @interface HubView()
 {
@@ -27,11 +26,26 @@
 {
     if (self = [super initWithFrame:frame]) {
         // Set up elements in the view
-        [self setupGoldButton];
-        [self setupGoldLabel];
-        [self setupShopButton];
+        [super setupLayout:0.5f withBody:0.35f withFooter:0.15f];
+        [self setupLayout];
     }
     return self;
+}
+
+- (void)setupHeaderElements
+{
+    [self setupShopButton];
+}
+
+- (void)setupBodyElements
+{
+    
+}
+
+- (void)setupFooterElements
+{
+    [self setupGoldButton];
+    [self setupGoldLabel];
 }
 
 /*!
@@ -40,14 +54,14 @@
  */
 - (void)setupGoldButton
 {
+    _goldButton = [[UIButton alloc] initWithFrame:CGRectZero];
     _goldButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    CGSize frameSize = self.frame.size;
-    _goldButton.frame = CGRectMake((frameSize.width - GOLD_BUTTON_SIZE.width) / 2,
-                                   frameSize.height - GOLD_BUTTON_SIZE.height,
-                                   GOLD_BUTTON_SIZE.width, GOLD_BUTTON_SIZE.height);
     [_goldButton setTitle:@"PICK UP GOLD" forState:UIControlStateNormal];
-    [_goldButton setEnabled:YES];
-    [self addSubview:_goldButton];
+    [_goldButton sizeToFit];
+    [self.footerArea addSubview:_goldButton];
+    
+    // Enable autolayout
+    _goldButton.translatesAutoresizingMaskIntoConstraints = false;
 }
 
 /*!
@@ -56,13 +70,15 @@
  */
 - (void)setupGoldLabel
 {
-    CGSize frameSize = self.frame.size;
-    _goldLabel = [[UILabel alloc] initWithFrame:CGRectMake((frameSize.width - GOLD_LABEL_SIZE.width) / 2,
-                                                          frameSize.height - GOLD_BUTTON_SIZE.height - GOLD_LABEL_SIZE.height,
-                                                          GOLD_LABEL_SIZE.width, GOLD_LABEL_SIZE.height)];
+    _goldLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _goldLabel.textColor = [UIColor blackColor];
     _goldLabel.textAlignment = NSTextAlignmentCenter;
-    [self addSubview:_goldLabel];
+    _goldLabel.text = @"Gold: ";
+    [_goldLabel sizeToFit];
+    [self.footerArea addSubview:_goldLabel];
+    
+    // Enable autolayout
+    _goldLabel.translatesAutoresizingMaskIntoConstraints = false;
 }
 
 /*!
@@ -71,13 +87,41 @@
  */
 - (void)setupShopButton
 {
+    _shopButton = [[UIButton alloc] initWithFrame:CGRectZero];
     _shopButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    _shopButton.frame = CGRectMake(0, 0,
-                                   MENU_BUTTON_SIZE.width, MENU_BUTTON_SIZE.height);
     [_shopButton setTitle:@"SHOP" forState:UIControlStateNormal];
     [_shopButton setTitle:@"" forState:UIControlStateDisabled];
+    [_shopButton sizeToFit];
     [_shopButton setEnabled:NO];
-    [self addSubview:_shopButton];
+    [self.headerArea addSubview:_shopButton];
+    
+    // Enable autolayout
+    _shopButton.translatesAutoresizingMaskIntoConstraints = false;
+}
+
+/*!
+ * Set up the layout constraints of the view
+ * @author Henry Loo
+ */
+- (void)setupLayout
+{
+    // Gold label constraints
+    [_goldLabel.centerXAnchor constraintEqualToAnchor:self.footerArea.centerXAnchor].active = YES;
+    [_goldLabel.centerYAnchor constraintEqualToAnchor:self.footerArea.centerYAnchor constant:-10].active = YES;
+    [_goldLabel.widthAnchor constraintEqualToConstant:self.frame.size.width].active = YES;
+    [_goldLabel.heightAnchor constraintEqualToConstant:_goldLabel.frame.size.height].active = YES;
+    
+    // Gold button constraints
+    [_goldButton.centerXAnchor constraintEqualToAnchor:self.footerArea.centerXAnchor].active = YES;
+    [_goldButton.topAnchor constraintEqualToAnchor:_goldLabel.bottomAnchor].active = YES;
+    [_goldButton.widthAnchor constraintEqualToConstant:_goldButton.frame.size.width].active = YES;
+    [_goldButton.heightAnchor constraintEqualToConstant:_goldButton.frame.size.height].active = YES;
+
+    // Shop button constraints
+    [_shopButton.leftAnchor constraintEqualToAnchor:self.headerArea.leftAnchor constant:25].active = YES;
+    [_shopButton.topAnchor constraintEqualToAnchor:self.headerArea.topAnchor constant:25].active = YES;
+    [_shopButton.widthAnchor constraintEqualToConstant:_shopButton.frame.size.width].active = YES;
+    [_shopButton.heightAnchor constraintEqualToConstant:_shopButton.frame.size.height].active = YES;
 }
 
 @end

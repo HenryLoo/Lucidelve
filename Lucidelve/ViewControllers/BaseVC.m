@@ -1,5 +1,5 @@
 //
-//  IGameVC.m
+//  BaseVC.m
 //  Lucidelve
 //
 //  Created by Henry Loo on 2019-02-06.

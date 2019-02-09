@@ -6,13 +6,12 @@
 //  Copyright © 2019 COMP 8051. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <GLKit/GLKit.h>
+#import "BaseView.h"
 
 /*!
  * @brief The view for the Shop.
  */
-@interface ShopView : GLKView
+@interface ShopView : BaseView
 
 // Displays the shop's title
 @property (nonatomic, strong) UILabel *shopTitle;

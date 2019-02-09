@@ -6,13 +6,12 @@
 //  Copyright © 2019 COMP 8051. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <GLKit/GLKit.h>
+#import "BaseView.h"
 
 /*!
  * @brief The view for The Hub.
  */
-@interface HubView : GLKView
+@interface HubView : BaseView
 
 // Displays the player's current gold
 @property (nonatomic, strong) UILabel *goldLabel;
