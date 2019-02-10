@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @author Jason Chung
  */
 - (void)init:(GLKView *)_view;
+
 /*!
  * Updates any GL states and renderable object states.
  * @author Jason Chung
@@ -29,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param deltaTime The change in time
  */
 - (void)update:(float)deltaTime;
+
 /*!
  * Renders the scene and any renderable objects.
  * @author Jason Chung
@@ -36,8 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
  * @param deltaTime The change in time
  */
 - (void)render:(float)deltaTime drawRect:(CGRect)drawRect;
-
-
 
 @end
 

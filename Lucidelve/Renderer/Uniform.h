@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The name of the Uniform
  */
 - (const NSString *)getName;
+
 /*!
  * Returns the location of the Uniform
  * @author Jason Chung
@@ -35,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The location of the Uniform
  */
 - (GLint)getLocation;
+
 /*!
  * Sets the name of the Uniform
  * @author Jason Chung
@@ -42,11 +44,12 @@ NS_ASSUME_NONNULL_BEGIN
  * @param name The new name of the Uniform
  */
 - (void)setName:(NSString *)name;
+
 /*!
  * Sets the location of the Uniform
  * @author Jason Chung
  *
- * @param name The new location of the Uniform
+ * @param location The new location of the Uniform
  */
 - (void)setLocation:(GLint)location;
 

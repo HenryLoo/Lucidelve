@@ -56,6 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return A pointer to the vertices
  */
 - (GLfloat *)getVertices;
+
 /*!
  * Returns the number of vertices.
  * @author Jason Chung
@@ -63,6 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The number of vertices
  */
 - (GLuint)getNumVertices;
+
 /*!
  * Returns a pointer to the indices.
  * @author Jason Chung
@@ -70,6 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return A pointer to the indices
  */
 - (GLint *)getIndices;
+
 /*!
  * Returns the number of indices.
  * @author Jason Chung

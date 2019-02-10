@@ -48,7 +48,6 @@
 - (void)setupBodyArea
 {
     _bodyArea = [[UIView alloc] initWithFrame:CGRectZero];
-    _bodyArea.backgroundColor = UIColor.grayColor;
     [self addSubview:_bodyArea];
     
     // Enable autolayout
@@ -64,7 +63,6 @@
 - (void)setupFooterArea
 {
     _footerArea = [[UIView alloc] initWithFrame:CGRectZero];
-    _footerArea.backgroundColor = UIColor.lightGrayColor;
     [self addSubview:_footerArea];
     
     // Enable autolayout

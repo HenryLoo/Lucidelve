@@ -73,6 +73,8 @@
     
     glAttachShader(program, vertexShader);
     glAttachShader(program, fragmentShader);
+    glBindAttribLocation(program, 0, "position");
+    glBindAttribLocation(program, 1, "colour");
     glLinkProgram(program);
     
     GLint linked;

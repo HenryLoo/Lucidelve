@@ -36,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return A reference to the compiled shader
  */
 + (GLuint)compileShader:(GLenum)shaderType shaderSource:(const GLchar *)shaderSource;
+
 /*!
  * Compiles and returns a reference to a program given
  * a reference to a vertex and fragment shader.
@@ -46,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return A reference to the compiled program
  */
 + (GLuint)compileProgram:(GLuint)vertexShader fragmentShaderId:(GLuint)fragmentShader;
+
 /*!
  * Retrieves the info log for a shader.
  * @author Jason Chung
@@ -53,6 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param shaderId A reference to a shader
  */
 + (void)printShaderInfoLog:(GLuint)shaderId;
+
 /*!
  * Retrieves the info log for a program.
  * @author Jason Chung
@@ -71,10 +74,12 @@ NS_ASSUME_NONNULL_BEGIN
  * @return A reference to itself
  */
 - (id)initWithSource:(NSString *)vertexShaderSource fragmentShaderSource:(NSString *)fragmentShaderSource;
+
 /*!
  * Binds the program instance to be used
  */
 - (void)bind;
+
 /*!
  * Returns a uniform location from the program, if
  * it doesn't exist, then it is created and returned.
@@ -84,6 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return A pointer to the Uniform
  */
 - (Uniform *)getUniform:(NSString *)name;
+
 /*!
  * Sets the Uniform value.
  * @author Jason Chung
@@ -92,6 +98,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param val The value to set
  */
 - (void)setUniform1i:(NSString *)name value:(GLint)val;
+
 /*!
  * Sets the Uniform value.
  * @author Jason Chung
@@ -109,6 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param f2 The value to set
  */
 - (void)setUniform2f:(NSString *)name f1:(GLfloat)f1 f2:(GLfloat)f2;
+
 /*!
  * Sets the Uniform value.
  * @author Jason Chung
@@ -119,6 +127,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param f3 The value to set
  */
 - (void)setUniform3f:(NSString *)name f1:(GLfloat)f1 f2:(GLfloat)f2 f3:(GLfloat)f3;
+
 /*!
  * Sets the Uniform value.
  * @author Jason Chung
@@ -130,6 +139,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param f4 The value to set
  */
 - (void)setUniform4f:(NSString *)name f1:(GLfloat)f1 f2:(GLfloat)f2 f3:(GLfloat)f3 f4:(GLfloat)f4;
+
 /*!
  * Sets the Uniform value.
  * @author Jason Chung
