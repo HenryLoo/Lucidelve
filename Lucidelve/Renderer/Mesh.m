@@ -23,9 +23,6 @@
     return self;
 }
 
-- (void)allocateMemory {
-}
-
 - (void)render:(GLProgram *)program {
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), _vertices);
     glEnableVertexAttribArray(0);
