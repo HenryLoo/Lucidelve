@@ -15,6 +15,9 @@
 
 @interface HubVC ()
 {
+    // Pointer to the glES renderer
+    Renderer *renderer;
+    
     // Pointer to the player object
     Player *player;
     
@@ -45,6 +48,10 @@
     // Set the player pointer
     player = [self.game getPlayer];
     
+    renderer = [[Renderer alloc] init];
+    GLKView *view = (GLKView *)self.view;
+    [renderer init:view];
+    
     // Set UI element pointers
     goldButton = ((HubView*) self.view).goldButton;
     goldLabel = ((HubView*) self.view).goldLabel;
@@ -73,11 +80,13 @@
     [self updateGoldLabel];
     [self updateGoldCooldown];
     [self updateUnlockables];
+    
+    [renderer update:self.game.deltaTime];
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-    
+    [renderer render:self.game.deltaTime drawRect:rect];
 }
 
 /*!
