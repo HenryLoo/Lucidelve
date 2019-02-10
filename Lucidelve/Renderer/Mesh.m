@@ -16,9 +16,9 @@
         _numVertices = numVertices;
         _numIndices = numIndices;
         _vertices = (GLfloat *)malloc(sizeof (GLfloat) * 3 * numVertices);
-        memcpy(_vertices, vertices, verticesArrSize);
+        memcpy(_vertices, vertices, sizeof (GLfloat) * verticesArrSize);
         _indices = (GLint *)malloc(sizeof (GLint) * numIndices);
-        memcpy(_indices, indices, indicesArrSize);
+        memcpy(_indices, indices, sizeof (GLint) * indicesArrSize);
     }
     return self;
 }
