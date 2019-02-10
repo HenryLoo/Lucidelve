@@ -22,4 +22,7 @@
 // Button for moving to the Shop
 @property (nonatomic, strong) UIButton *shopButton;
 
+// Button for moving to Inventory
+@property (nonatomic, strong) UIButton *inventoryButton;
+
 @end

@@ -9,6 +9,7 @@
 #import "HubVC.h"
 #import "HubView.h"
 #import "ShopVC.h"
+#import "InventoryVC.h"
 #import "Game.h"
 #import "Player.h"
 #import "Constants.h"
@@ -29,6 +30,9 @@
     
     // Pointer to the view's shop button
     UIButton *shopButton;
+    
+    // Pointer to the view's inventory button
+    UIButton *inventoryButton;
 }
 
 @end
@@ -56,13 +60,18 @@
     goldButton = ((HubView*) self.view).goldButton;
     goldLabel = ((HubView*) self.view).goldLabel;
     shopButton = ((HubView*) self.view).shopButton;
+    inventoryButton = ((HubView*) self.view).inventoryButton;
     
     // Attach selector to the gold button
     [goldButton addTarget:self action:@selector(onGoldButtonPress:)
          forControlEvents:UIControlEventTouchDown];
     
-    // Attach selector to the shop button
+    // Attach selector to the Shop button
     [shopButton addTarget:self action:@selector(onShopButtonPress:)
+         forControlEvents:UIControlEventTouchDown];
+    
+    // Attach selector to the Inventory button
+    [inventoryButton addTarget:self action:@selector(onInventoryButtonPress:)
          forControlEvents:UIControlEventTouchDown];
 }
 
@@ -142,11 +151,18 @@
  */
 - (void)updateUnlockables
 {
-    // Unlock the shop
+    // Unlock the Shop
     if (self.game.isShopUnlocked || [player getGold] >= 10)
     {
         [shopButton setEnabled:YES];
         self.game.isShopUnlocked = true;
+    }
+    
+    // Unlock Inventory
+    if (self.game.isInventoryUnlocked || [player.items count] > 0)
+    {
+        [inventoryButton setEnabled:YES];
+        self.game.isInventoryUnlocked = true;
     }
 }
 
@@ -167,14 +183,26 @@
 }
 
 /*!
- * Handle the shop button's action.
- * This should redirect the player to the shop view.
+ * Handle the Shop button's action.
+ * This should redirect the player to the Shop view.
  * @author Henry Loo
  * @param sender The pressed button
  */
 - (void)onShopButtonPress:(id)sender
 {
     ShopVC *vc = [[ShopVC alloc] init];
+    [self.game changeScene:self newVC:vc];
+}
+
+/*!
+ * Handle the Inventory button's action.
+ * This should redirect the player to the Inventory view.
+ * @author Henry Loo
+ * @param sender The pressed button
+ */
+- (void)onInventoryButtonPress:(id)sender
+{
+    InventoryVC *vc = [[InventoryVC alloc] init];
     [self.game changeScene:self newVC:vc];
 }
 

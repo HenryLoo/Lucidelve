@@ -34,7 +34,8 @@
 
 - (void)setupHeaderElements
 {
-    [self setupShopButton];
+    _shopButton = [self setupMenuButton:@"SHOP"];
+    _inventoryButton = [self setupMenuButton:@"INVENTORY"];
 }
 
 - (void)setupBodyElements
@@ -82,21 +83,23 @@
 }
 
 /*!
- * Create the button element for moving to the shop.
+ * Create the button element for moving to a menu.
  * @author Henry Loo
  */
-- (void)setupShopButton
+- (UIButton*)setupMenuButton:(NSString*)title
 {
-    _shopButton = [[UIButton alloc] initWithFrame:CGRectZero];
-    _shopButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_shopButton setTitle:@"SHOP" forState:UIControlStateNormal];
-    [_shopButton setTitle:@"" forState:UIControlStateDisabled];
-    [_shopButton sizeToFit];
-    [_shopButton setEnabled:NO];
-    [self.headerArea addSubview:_shopButton];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectZero];
+    button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button setTitle:title forState:UIControlStateNormal];
+    [button setTitle:@"" forState:UIControlStateDisabled];
+    [button sizeToFit];
+    [button setEnabled:NO];
+    [self.headerArea addSubview:button];
     
     // Enable autolayout
-    _shopButton.translatesAutoresizingMaskIntoConstraints = false;
+    button.translatesAutoresizingMaskIntoConstraints = false;
+    
+    return button;
 }
 
 /*!
@@ -122,6 +125,12 @@
     [_shopButton.topAnchor constraintEqualToAnchor:self.headerArea.topAnchor constant:25].active = YES;
     [_shopButton.widthAnchor constraintEqualToConstant:_shopButton.frame.size.width].active = YES;
     [_shopButton.heightAnchor constraintEqualToConstant:_shopButton.frame.size.height].active = YES;
+    
+    // Inventory button constraints
+    [_inventoryButton.leftAnchor constraintEqualToAnchor:_shopButton.rightAnchor constant:25].active = YES;
+    [_inventoryButton.topAnchor constraintEqualToAnchor:_shopButton.topAnchor].active = YES;
+    [_inventoryButton.widthAnchor constraintEqualToConstant:_inventoryButton.frame.size.width].active = YES;
+    [_inventoryButton.heightAnchor constraintEqualToConstant:_inventoryButton.frame.size.height].active = YES;
 }
 
 @end

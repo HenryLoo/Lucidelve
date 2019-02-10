@@ -71,6 +71,21 @@
     [self setupFooterElements];
 }
 
+- (void)setupHeaderElements
+{
+    // Subclass should implement this
+}
+
+- (void)setupBodyElements
+{
+    // Subclass should implement this
+}
+
+- (void)setupFooterElements
+{
+    // Subclass should implement this
+}
+
 - (void)addBackButton
 {
     _backButton = [[UIButton alloc] initWithFrame:CGRectZero];

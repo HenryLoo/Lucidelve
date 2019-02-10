@@ -8,7 +8,6 @@
 
 #import "ShopVC.h"
 #import "ShopView.h"
-#import "HubVC.h"
 #import "Game.h"
 #import "Player.h"
 #import "Constants.h"
@@ -18,9 +17,6 @@
 {
     // Pointer to the player object
     Player *player;
-    
-    // Pointer to the view's back button
-    UIButton *backButton;
     
     // Pointer to the view's gold label
     UILabel *goldLabel;
@@ -46,13 +42,8 @@
     player = [self.game getPlayer];
     
     // Set UI element pointers
-    backButton = ((ShopView*) self.view).backButton;
     goldLabel = ((ShopView*) self.view).goldLabel;
     swordButton = ((ShopView*) self.view).swordButton;
-    
-    // Attach selector to the back button
-    [backButton addTarget:self action:@selector(onBackButtonPress:)
-         forControlEvents:UIControlEventTouchDown];
     
     // Attach selector to the sword button
     [swordButton addTarget:self action:@selector(onSwordButtonPress:)
@@ -67,6 +58,12 @@
 - (void)update
 {
     [self updateGoldLabel];
+    
+    // The sword can only be bought once
+    if (self.game.isSwordBought)
+    {
+        [swordButton setEnabled:NO];
+    }
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
@@ -86,18 +83,6 @@
 }
 
 /*!
- * Handle the back button's action.
- * This should redirect the player to The Hub.
- * @author Henry Loo
- * @param sender The pressed button
- */
-- (void)onBackButtonPress:(id)sender
-{
-    HubVC *vc = [[HubVC alloc] init];
-    [self.game changeScene:self newVC:vc];
-}
-
-/*!
  * Handle the sword button's action.
  * If the player has enough gold, this should give the player a
  * Rusty Sword item and decrease the player's gold by the price.
@@ -111,9 +96,7 @@
     {
         [player addItem:sword];
         [player addGold:(-sword.shopPrice)];
-        
-        // The sword can only be bought once
-        [swordButton setEnabled:NO];
+        self.game.isSwordBought = true;
     }
 }
 

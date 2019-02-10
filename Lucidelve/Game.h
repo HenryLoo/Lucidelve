@@ -30,6 +30,12 @@
 // Flag for if the Shop has been unlocked.
 @property bool isShopUnlocked;
 
+// Flag for if the Rusty Sword has been bought.
+@property bool isSwordBought;
+
+// Flag for if Inventory has been unlocked.
+@property bool isInventoryUnlocked;
+
 /*!
  * Return the player's data.
  * @author Henry Loo

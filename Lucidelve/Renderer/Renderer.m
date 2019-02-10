@@ -103,7 +103,6 @@
     glUniformMatrix4fv([[_glProgram getUniform:@"modelViewProjectionMatrix"] getLocation], 1, FALSE, (const float *)_square._mvp.m);
     
     glViewport(0, 0, (int)_view.drawableWidth, (int)_view.drawableHeight);
-    NSLog([NSString stringWithFormat:@"%i, %i", (int)_view.drawableWidth, (int)_view.drawableHeight]);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     [_glProgram bind];
     

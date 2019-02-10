@@ -9,13 +9,6 @@
 #import "ShopView.h"
 #import "Constants.h"
 
-@interface ShopView()
-{
-    
-}
-
-@end
-
 @implementation ShopView
 
 - (id)init
