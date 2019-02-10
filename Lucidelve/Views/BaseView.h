@@ -24,6 +24,12 @@
 // The bottom area of the view
 @property (nonatomic, strong) UIView *footerArea;
 
+// The Back button
+@property (nonatomic, strong) UIButton *backButton;
+
+// The view's title
+@property (nonatomic, strong) UILabel *titleLabel;
+
 /*!
  * Create all the elements in the header.
  * This should be implemented by the subclass.
@@ -44,6 +50,20 @@
  * @author Henry Loo
  */
 - (void)setupFooterElements;
+
+/*!
+ * Add a Back button to the header area.
+ * The subclass should call this if it needs a Back button.
+ * @author Henry Loo
+ */
+- (void)addBackButton;
+
+/*!
+ * Add a given title to the header area.
+ * The subclass should call this if it needs title.
+ * @author Henry Loo
+ */
+- (void)addTitle:(NSString*)title;
 
 /*!
  * Set the constraints for the header, body, and footers

@@ -73,10 +73,34 @@
     [self setupFooterElements];
 }
 
-/*!
- * Set up the layout constraints of the view
- * @author Henry Loo
- */
+- (void)addBackButton
+{
+    _backButton = [[UIButton alloc] initWithFrame:CGRectZero];
+    _backButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [_backButton setTitle:@"Back" forState:UIControlStateNormal];
+    [_backButton sizeToFit];
+    [self.headerArea addSubview:_backButton];
+    
+    // Enable autolayout
+    _backButton.translatesAutoresizingMaskIntoConstraints = false;
+}
+
+- (void)addTitle:(NSString*)title
+{
+    // Only allow adding a title if one doesn't already exist
+    if (_titleLabel) return;
+    
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _titleLabel.textColor = [UIColor blackColor];
+    _titleLabel.textAlignment = NSTextAlignmentCenter;
+    _titleLabel.text = title;
+    [_titleLabel sizeToFit];
+    [self.headerArea addSubview:_titleLabel];
+    
+    // Enable autolayout
+    _titleLabel.translatesAutoresizingMaskIntoConstraints = false;
+}
+
 - (void)setupLayout:(float)headerMultiplier withBody:(float)bodyMultiplier withFooter:(float)footerMultiplier
 {
     // Header area constraints
@@ -96,6 +120,22 @@
     [_footerArea.topAnchor constraintEqualToAnchor:_bodyArea.bottomAnchor].active = YES;
     [_footerArea.widthAnchor constraintEqualToConstant:self.frame.size.width].active = YES;
     [_footerArea.heightAnchor constraintEqualToConstant:self.frame.size.height*footerMultiplier].active = YES;
+    
+    // Title constraints
+    if (_titleLabel) {
+        [_titleLabel.centerXAnchor constraintEqualToAnchor:self.headerArea.centerXAnchor].active = YES;
+        [_titleLabel.topAnchor constraintEqualToAnchor:self.headerArea.topAnchor constant:50].active = YES;
+        [_titleLabel.widthAnchor constraintEqualToConstant:_titleLabel.frame.size.width].active = YES;
+        [_titleLabel.heightAnchor constraintEqualToConstant:_titleLabel.frame.size.height].active = YES;
+    }
+    
+    // Back button constraints
+    if (_backButton) {
+        [_backButton.leftAnchor constraintEqualToAnchor:self.headerArea.leftAnchor constant:25].active = YES;
+        [_backButton.topAnchor constraintEqualToAnchor:self.headerArea.topAnchor constant:25].active = YES;
+        [_backButton.widthAnchor constraintEqualToConstant:_backButton.frame.size.width].active = YES;
+        [_backButton.heightAnchor constraintEqualToConstant:_backButton.frame.size.height].active = YES;
+    }
 }
 
 @end

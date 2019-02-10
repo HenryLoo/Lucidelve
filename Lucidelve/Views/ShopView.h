@@ -13,12 +13,6 @@
  */
 @interface ShopView : BaseView
 
-// Displays the shop's title
-@property (nonatomic, strong) UILabel *shopTitle;
-
-// Displays the back button
-@property (nonatomic, strong) UIButton *backButton;
-
 // Displays the player's current gold
 @property (nonatomic, strong) UILabel *goldLabel;
 
