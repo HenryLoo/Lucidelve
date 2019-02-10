@@ -155,6 +155,10 @@
     glUniform4f([[self getUniform:name] getLocation], f1, f2, f3, f4);
 }
 
+- (void)setUniformMatrix3fv:(NSString *)name matrix:(GLKMatrix3)mat {
+    glUniformMatrix3fv([[self getUniform:name] getLocation], 1, GL_FALSE, mat.m);
+}
+
 - (void)setUniformMatrix4fv:(NSString *)name matrix:(GLKMatrix4)mat {
     glUniformMatrix4fv([[self getUniform:name] getLocation], 1, GL_FALSE, mat.m);
 }
