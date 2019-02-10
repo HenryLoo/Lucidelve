@@ -19,6 +19,14 @@
 		5F77C1612204482F002A8300 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F77C1602204482F002A8300 /* main.m */; };
 		5F78DCFC220E60730039EA92 /* BaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F78DCFB220E60730039EA92 /* BaseView.m */; };
 		5F96A4DA220AD39100026AD0 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F96A4D9220AD39100026AD0 /* Player.m */; };
+		D62CEBB6220D035500E778F6 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D62CEBB5220D035500E778F6 /* OpenGLES.framework */; };
+		D62CEBB8220D035B00E778F6 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D62CEBB7220D035B00E778F6 /* GLKit.framework */; };
+		D62CEBBD220D049700E778F6 /* Renderer.m in Sources */ = {isa = PBXBuildFile; fileRef = D62CEBBC220D049700E778F6 /* Renderer.m */; };
+		D62CEBC4220D281700E778F6 /* basic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = D62CEBC2220D281700E778F6 /* basic.vsh */; };
+		D62CEBC5220D281700E778F6 /* basic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = D62CEBC3220D281700E778F6 /* basic.fsh */; };
+		D62CEBC8220EBD0400E778F6 /* GLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = D62CEBC7220EBD0400E778F6 /* GLProgram.m */; };
+		D62CEBCB220F8E4A00E778F6 /* Uniform.m in Sources */ = {isa = PBXBuildFile; fileRef = D62CEBCA220F8E4A00E778F6 /* Uniform.m */; };
+		D62CEBD0220F947D00E778F6 /* Mesh.m in Sources */ = {isa = PBXBuildFile; fileRef = D62CEBCF220F947D00E778F6 /* Mesh.m */; };
 		D6A4D46C220A86D7006FB2BB /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A4D46B220A86D7006FB2BB /* Utility.m */; };
 		D6B56A80220AA9930092744F /* UtilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B56A7F220AA9930092744F /* UtilityTests.m */; };
 		D6B56A87220AA9B30092744F /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A4D46B220A86D7006FB2BB /* Utility.m */; };
@@ -63,6 +71,19 @@
 		5F78DCFB220E60730039EA92 /* BaseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseView.m; sourceTree = "<group>"; };
 		5F96A4D8220ACBD200026AD0 /* Player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		5F96A4D9220AD39100026AD0 /* Player.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		D62CEBB5220D035500E778F6 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		D62CEBB7220D035B00E778F6 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		D62CEBB9220D037300E778F6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D62CEBBB220D049700E778F6 /* Renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
+		D62CEBBC220D049700E778F6 /* Renderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Renderer.m; sourceTree = "<group>"; };
+		D62CEBC2220D281700E778F6 /* basic.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = basic.vsh; sourceTree = "<group>"; };
+		D62CEBC3220D281700E778F6 /* basic.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = basic.fsh; sourceTree = "<group>"; };
+		D62CEBC6220EBD0400E778F6 /* GLProgram.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLProgram.h; sourceTree = "<group>"; };
+		D62CEBC7220EBD0400E778F6 /* GLProgram.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GLProgram.m; sourceTree = "<group>"; };
+		D62CEBC9220F8D3A00E778F6 /* Uniform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Uniform.h; sourceTree = "<group>"; };
+		D62CEBCA220F8E4A00E778F6 /* Uniform.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Uniform.m; sourceTree = "<group>"; };
+		D62CEBCE220F947D00E778F6 /* Mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
+		D62CEBCF220F947D00E778F6 /* Mesh.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Mesh.m; sourceTree = "<group>"; };
 		D6A4D46A220A86D7006FB2BB /* Utility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
 		D6A4D46B220A86D7006FB2BB /* Utility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
 		D6B56A7D220AA9930092744F /* UtilityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UtilityTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,6 +97,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D62CEBB8220D035B00E778F6 /* GLKit.framework in Frameworks */,
+				D62CEBB6220D035500E778F6 /* OpenGLES.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +144,7 @@
 				5F77C1502204482B002A8300 /* Lucidelve */,
 				D6B56A7E220AA9930092744F /* UtilityTests */,
 				5F77C14F2204482B002A8300 /* Products */,
+				D62CEBB4220D035400E778F6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -136,6 +160,9 @@
 		5F77C1502204482B002A8300 /* Lucidelve */ = {
 			isa = PBXGroup;
 			children = (
+				D62CEBC3220D281700E778F6 /* basic.fsh */,
+				D62CEBC2220D281700E778F6 /* basic.vsh */,
+				D62CEBB3220D010200E778F6 /* Renderer */,
 				5F67B677220BFE9800227D14 /* ViewControllers */,
 				5F67B678220BFECC00227D14 /* Views */,
 				5F77C1512204482B002A8300 /* AppDelegate.h */,
@@ -155,6 +182,31 @@
 				5F5D8A4A220E0E2B006513C2 /* Item.h */,
 			);
 			path = Lucidelve;
+			sourceTree = "<group>";
+		};
+		D62CEBB3220D010200E778F6 /* Renderer */ = {
+			isa = PBXGroup;
+			children = (
+				D62CEBBB220D049700E778F6 /* Renderer.h */,
+				D62CEBBC220D049700E778F6 /* Renderer.m */,
+				D62CEBC6220EBD0400E778F6 /* GLProgram.h */,
+				D62CEBC7220EBD0400E778F6 /* GLProgram.m */,
+				D62CEBC9220F8D3A00E778F6 /* Uniform.h */,
+				D62CEBCA220F8E4A00E778F6 /* Uniform.m */,
+				D62CEBCE220F947D00E778F6 /* Mesh.h */,
+				D62CEBCF220F947D00E778F6 /* Mesh.m */,
+			);
+			path = Renderer;
+			sourceTree = "<group>";
+		};
+		D62CEBB4220D035400E778F6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D62CEBB9220D037300E778F6 /* QuartzCore.framework */,
+				D62CEBB7220D035B00E778F6 /* GLKit.framework */,
+				D62CEBB5220D035500E778F6 /* OpenGLES.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D6B56A7E220AA9930092744F /* UtilityTests */ = {
@@ -247,6 +299,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D62CEBC5220D281700E778F6 /* basic.fsh in Resources */,
+				D62CEBC4220D281700E778F6 /* basic.vsh in Resources */,
 				5F77C15E2204482F002A8300 /* LaunchScreen.storyboard in Resources */,
 				D6B56A95220AB49D0092744F /* Assets.xcassets in Resources */,
 			);
@@ -271,10 +325,14 @@
 				5F67B67B220C027C00227D14 /* Game.m in Sources */,
 				D6A4D46C220A86D7006FB2BB /* Utility.m in Sources */,
 				5F67B673220BFBFA00227D14 /* ShopVC.m in Sources */,
+				D62CEBCB220F8E4A00E778F6 /* Uniform.m in Sources */,
+				D62CEBD0220F947D00E778F6 /* Mesh.m in Sources */,
 				5F67B676220BFCF900227D14 /* ShopView.m in Sources */,
 				5F77C1562204482B002A8300 /* HubVC.m in Sources */,
 				5F67B670220BD75500227D14 /* HubView.m in Sources */,
 				5F67B67E220C0DA300227D14 /* BaseVC.m in Sources */,
+				D62CEBBD220D049700E778F6 /* Renderer.m in Sources */,
+				D62CEBC8220EBD0400E778F6 /* GLProgram.m in Sources */,
 				5F77C1612204482F002A8300 /* main.m in Sources */,
 				5F77C1532204482B002A8300 /* AppDelegate.m in Sources */,
 				5F96A4DA220AD39100026AD0 /* Player.m in Sources */,

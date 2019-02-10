@@ -7,6 +7,7 @@
 //
 
 #import "BaseVC.h"
+#import "Renderer.h"
 
 /*!
  * @brief The view controller for The Hub.
