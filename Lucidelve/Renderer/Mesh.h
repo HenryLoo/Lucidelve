@@ -19,27 +19,25 @@ NS_ASSUME_NONNULL_BEGIN
     GLfloat *_uvs;
     GLfloat *_normals;
     GLint *_indices;
+    GLuint _textureId;
     
     // Data count
     GLuint _numVertices;
     GLuint _numIndices;
+    GLuint _numUVs;
+    GLuint _numNormals;
 }
 
 // Allows the MVP to be accessed outside of the class
 @property GLKMatrix4 _mvp;
+// Allows the normal matrix to be accessed outside of the class
+@property GLKMatrix3 _normalMatrix;
 
 /*!
  * Initializes the Mesh with some data
  * @author Jason Chung
- *
- * @param vertices The floats that make up the Mesh
- * @param verticesArrSize The size of the array
- * @param numVertices The number of vertices
- * @param indices The integers that make up the indices
- * @param indicesArrSize The size of the array
- * @param numIndices The number of indices
  */
-- (id)initWithValues:(GLfloat *)vertices verticesArrSize:(GLsizei)verticesArrSize numVertices:(GLsizei)numVertices indices:(GLint *)indices indicesArrSize:(GLsizei)indicesArrSize numIndices:(GLsizei)numIndices;
+- (id)initWithValues;
 
 /*!
  * Renders the mesh.
@@ -49,6 +47,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)render:(GLProgram *)program;
 
+/*!
+ * Sets the vertices for the Mesh
+ * @author Jason Chung
+ */
+- (void)setVertices:(GLfloat *)vertices arrSize:(GLsizei)arrSize numVertices:(GLsizei)numVertices;
 /*!
  * Returns a pointer to the vertices.
  * @author Jason Chung
@@ -66,6 +69,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (GLuint)getNumVertices;
 
 /*!
+ * Sets the indices for the Mesh
+ * @author Jason Chung
+ *
+ * @param indices The integers that make up the indices
+ * @param arrSize The size of the array
+ * @param numIndices The number of indices
+ */
+- (void)setIndices:(GLint *)indices arrSize:(GLsizei)arrSize numIndices:(GLsizei)numIndices;
+/*!
  * Returns a pointer to the indices.
  * @author Jason Chung
  *
@@ -80,6 +92,67 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The number of indices
  */
 - (GLuint)getNumIndices;
+/*!
+ * Sets the UVs for the Mesh
+ * @author Jason Chung
+ */
+- (void)setUVs:(GLfloat *)uvs arrSize:(GLsizei)arrSize numUVs:(GLsizei)numUVs;
+/*!
+ * Returns a pointer to the UVs.
+ * @author Jason Chung
+ *
+ * @return A pointer to the UVs
+ */
+- (GLfloat *)getUVs;
+/*!
+ * Returns the number of UVs.
+ * @author Jason Chung
+ *
+ * @return The number of UVs
+ */
+- (GLuint)getNumUVs;
+/*!
+ * Sets the normals for the Mesh
+ * @author Jason Chung
+ */
+- (void)setNormals:(GLfloat *)normals arrSize:(GLsizei)arrSize numNormals:(GLsizei)numNormals;
+/*!
+ * Returns a pointer to the normals.
+ * @author Jason Chung
+ *
+ * @return A pointer to the normals
+ */
+- (GLfloat *)getNormals;
+/*!
+ * Returns the number of normals.
+ * @author Jason Chung
+ *
+ * @return The number of normals
+ */
+- (GLuint)getNumNormals;
+/*!
+ * Sets the texture id
+ * @author Jason Chung
+ *
+ * @param textureId The texture id
+ */
+- (void)setTextureId:(GLuint)textureId;
+/*!
+ * Returns the texture id
+ * @author Jason Chung
+ *
+ * @return The texture id
+ */
+- (GLuint)getTextureId;
+/*!
+ * Returns the texture id of a loaded texture,
+ * from Borna Noureddin's example code.
+ * @author Jason Chung
+ *
+ * @param fileName The name of a file
+ * @return The texture id
+ */
++ (GLuint)loadTexture:(NSString *)fileName;
 
 @end
 

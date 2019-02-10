@@ -147,6 +147,14 @@ NS_ASSUME_NONNULL_BEGIN
  * @param name The name of the uniform
  * @param mat The value to set
  */
+- (void)setUniformMatrix3fv:(NSString *)name matrix:(GLKMatrix3)mat;
+/*!
+ * Sets the Uniform value.
+ * @author Jason Chung
+ *
+ * @param name The name of the uniform
+ * @param mat The value to set
+ */
 - (void)setUniformMatrix4fv:(NSString *)name matrix:(GLKMatrix4)mat;
 
 @end

@@ -38,6 +38,50 @@
     
     [self initShaders];
     
+    // Establishes that there is a modelViewProjectionMatrix uniform
+    [_glProgram getUniform:@"modelViewProjectionMatrix"];
+    [_glProgram getUniform:@"texSampler"];
+    
+    GLfloat cubeVerts[] =
+    {
+        -0.5f, -0.5f, 0.0f,
+        0.5f, 0.5f,  0.0f,
+        -0.5f, 0.5f,  0.0f,
+        0.5f, -0.5f,  0.0f,
+    };
+    
+    GLint cubeIndices[] =
+    {
+        0, 1, 2,
+        0, 3, 1,
+    };
+    
+    GLfloat cubeUVs[] =
+    {
+        0.0f, 0.0f, // top left
+        1.0f, 0.0f, // top right
+        1.0f, 1.0f, // bottom right
+        0.0f, 1.0f, // bottom left
+    };
+    
+    GLfloat *vertices = cubeVerts;
+    GLint *indices = cubeIndices;
+    GLfloat *uvs = cubeUVs;
+    
+    // Creates a Square mesh from the given values
+    _square = [[Mesh alloc] initWithValues];
+    [_square setVertices:vertices arrSize:12 numVertices:4];
+    [_square setIndices:indices arrSize:6 numIndices:6];
+    [_square setUVs:uvs arrSize:8 numUVs:4];
+    [_square setTextureId:[[Mesh class] loadTexture:@"thinking.jpg"]];
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, [_square getTextureId]);
+    [_glProgram setUniform1i:@"texSampler" value:0];
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glEnable(GL_DEPTH_TEST);
 }
@@ -61,28 +105,6 @@
     
     // Creates and compiles the GL program
     _glProgram = [[GLProgram alloc] initWithSource:vertexShaderString fragmentShaderSource:fragmentShaderString];
-    // Establishes that there is a modelViewProjectionMatrix uniform
-    [_glProgram getUniform:@"modelViewProjectionMatrix"];
-    
-    GLfloat cubeVerts[] =
-    {
-        -0.5f, -0.5f, 0.0f,
-        0.5f, 0.5f,  0.0f,
-        -0.5f, 0.5f,  0.0f,
-        0.5f, -0.5f,  0.0f,
-    };
-           
-    GLint cubeIndices[] =
-    {
-       0, 1, 2,
-       0, 3, 1,
-    };
-    
-    GLfloat *vertices = cubeVerts;
-    GLint *indices = cubeIndices;
-    
-    // Creates a Square mesh from the given values
-    _square = [[Mesh alloc] initWithValues:vertices verticesArrSize:12 numVertices:4 indices:indices indicesArrSize: 6 numIndices:6];
 }
 
 - (void)update:(float)deltaTime {
@@ -93,6 +115,8 @@
     _square._mvp = GLKMatrix4Identity;
     _square._mvp = GLKMatrix4Multiply(baseMVM, _square._mvp);
     
+    _square._normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(_square._mvp), NULL);
+    
     // Applies the perspective matrix
     float aspect = (float)_view.drawableWidth / (float)_view.drawableHeight;
     GLKMatrix4 perspectiveMatrix = GLKMatrix4MakePerspective(60.0f * M_PI / 180.0f, aspect, 1.0f, 20.0f);
@@ -100,10 +124,9 @@
 }
 
 - (void)render:(float)deltaTime drawRect:(CGRect)drawRect {
-    glUniformMatrix4fv([[_glProgram getUniform:@"modelViewProjectionMatrix"] getLocation], 1, FALSE, (const float *)_square._mvp.m);
+    [_glProgram setUniformMatrix4fv:@"modelViewProjectionMatrix" matrix:_square._mvp];
     
     glViewport(0, 0, (int)_view.drawableWidth, (int)_view.drawableHeight);
-    NSLog([NSString stringWithFormat:@"%i, %i", (int)_view.drawableWidth, (int)_view.drawableHeight]);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     [_glProgram bind];
     
