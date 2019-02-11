@@ -75,6 +75,7 @@
     glAttachShader(program, fragmentShader);
     glBindAttribLocation(program, 0, "position");
     glBindAttribLocation(program, 1, "colour");
+    glBindAttribLocation(program, 2, "texCoordIn");
     glLinkProgram(program);
     
     GLint linked;

@@ -23,7 +23,7 @@
     glEnableVertexAttribArray(0);
     
     // The colour in the vertex shader
-    glVertexAttrib4f(1, 1.0f, 0.0f, 0.0f, 1.0f);
+    glVertexAttrib4f(1, 1.0f, 1.0f, 1.0f, 1.0f);
     
     // The uv coordinates in the vertex shader
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 2 * sizeof (GLfloat), _uvs);
