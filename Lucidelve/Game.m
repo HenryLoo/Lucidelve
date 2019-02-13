@@ -25,7 +25,6 @@
         player = [[Player alloc] init];
         _lastTime = [NSDate date];
         _goldCooldownTimer = 0;
-        _isShopUnlocked = false;
     }
     return self;
 }

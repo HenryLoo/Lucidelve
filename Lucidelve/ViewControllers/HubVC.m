@@ -10,6 +10,7 @@
 #import "HubView.h"
 #import "ShopVC.h"
 #import "InventoryVC.h"
+#import "DungeonsVC.h"
 #import "Game.h"
 #import "Player.h"
 #import "Constants.h"
@@ -33,6 +34,9 @@
     
     // Pointer to the view's inventory button
     UIButton *inventoryButton;
+    
+    // Pointer to the view's dungeons button
+    UIButton *dungeonsButton;
 }
 
 @end
@@ -61,6 +65,7 @@
     goldLabel = ((HubView*) self.view).goldLabel;
     shopButton = ((HubView*) self.view).shopButton;
     inventoryButton = ((HubView*) self.view).inventoryButton;
+    dungeonsButton = ((HubView*) self.view).dungeonsButton;
     
     // Attach selector to the gold button
     [goldButton addTarget:self action:@selector(onGoldButtonPress:)
@@ -73,6 +78,10 @@
     // Attach selector to the Inventory button
     [inventoryButton addTarget:self action:@selector(onInventoryButtonPress:)
          forControlEvents:UIControlEventTouchDown];
+    
+    // Attach selector to the Dungeons button
+    [dungeonsButton addTarget:self action:@selector(onDungeonsButtonPress:)
+              forControlEvents:UIControlEventTouchDown];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -164,6 +173,13 @@
         [inventoryButton setEnabled:YES];
         self.game.isInventoryUnlocked = true;
     }
+    
+    // Unlock Dungeons
+    if (self.game.isDungeonsUnlocked || self.game.isSwordBought)
+    {
+        [dungeonsButton setEnabled:YES];
+        self.game.isDungeonsUnlocked = true;
+    }
 }
 
 /*!
@@ -203,6 +219,18 @@
 - (void)onInventoryButtonPress:(id)sender
 {
     InventoryVC *vc = [[InventoryVC alloc] init];
+    [self.game changeScene:self newVC:vc];
+}
+    
+/*!
+ * Handle the Dungeons button's action.
+ * This should redirect the player to the Dungeon view.
+ * @author Henry Loo
+ * @param sender The pressed button
+ */
+- (void)onDungeonsButtonPress:(id)sender
+{
+    DungeonsVC *vc = [[DungeonsVC alloc] init];
     [self.game changeScene:self newVC:vc];
 }
 

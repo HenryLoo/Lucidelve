@@ -24,5 +24,9 @@
 
 // Button for moving to Inventory
 @property (nonatomic, strong) UIButton *inventoryButton;
+    
+// Button for moving to Dungeons
+@property (nonatomic, strong) UIButton *dungeonsButton;
+    
 
 @end

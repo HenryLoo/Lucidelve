@@ -10,12 +10,7 @@
 #import "Constants.h"
 
 @implementation InventoryView
-
-- (id)init
-{
-    return [self initWithFrame:CGRectZero];
-}
-
+    
 - (id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
@@ -99,8 +94,6 @@
     [_items.rightAnchor constraintEqualToAnchor:self.footerArea.rightAnchor constant:-25].active = YES;
     [_items.topAnchor constraintEqualToAnchor:self.footerArea.topAnchor constant:25].active = YES;
     [_items.bottomAnchor constraintEqualToAnchor:self.footerArea.bottomAnchor constant:-25].active = YES;
-    [_items.widthAnchor constraintEqualToConstant:self.frame.size.width].active = YES;
-    [_items.heightAnchor constraintEqualToConstant:self.footerArea.frame.size.height].active = YES;
 }
 
 @end

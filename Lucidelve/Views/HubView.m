@@ -16,12 +16,7 @@
 @end
 
 @implementation HubView
-
-- (id)init
-{
-    return [self initWithFrame:CGRectZero];
-}
-
+    
 - (id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
@@ -36,6 +31,7 @@
 {
     _shopButton = [self setupMenuButton:@"SHOP"];
     _inventoryButton = [self setupMenuButton:@"INVENTORY"];
+    _dungeonsButton = [self setupMenuButton:@"DUNGEONS"];
 }
 
 - (void)setupBodyElements
@@ -131,6 +127,12 @@
     [_inventoryButton.topAnchor constraintEqualToAnchor:_shopButton.topAnchor].active = YES;
     [_inventoryButton.widthAnchor constraintEqualToConstant:_inventoryButton.frame.size.width].active = YES;
     [_inventoryButton.heightAnchor constraintEqualToConstant:_inventoryButton.frame.size.height].active = YES;
+    
+    // Dungeons button constraints
+    [_dungeonsButton.leftAnchor constraintEqualToAnchor:_inventoryButton.rightAnchor constant:25].active = YES;
+    [_dungeonsButton.topAnchor constraintEqualToAnchor:_shopButton.topAnchor].active = YES;
+    [_dungeonsButton.widthAnchor constraintEqualToConstant:_dungeonsButton.frame.size.width].active = YES;
+    [_dungeonsButton.heightAnchor constraintEqualToConstant:_dungeonsButton.frame.size.height].active = YES;
 }
 
 @end

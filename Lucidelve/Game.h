@@ -35,6 +35,9 @@
 
 // Flag for if Inventory has been unlocked.
 @property bool isInventoryUnlocked;
+    
+// Flag for if Dungeons has been unlocked.
+@property bool isDungeonsUnlocked;
 
 /*!
  * Return the player's data.

@@ -1,68 +1,64 @@
 //
-//  InventoryVC.m
+//  DungeonsVC.m
 //  Lucidelve
 //
-//  Created by Henry Loo on 2019-02-09.
+//  Created by Henry Loo on 2019-02-13.
 //  Copyright © 2019 COMP 8051. All rights reserved.
 //
 
-#import "InventoryVC.h"
+#import "DungeonsVC.h"
 #import "Player.h"
 #import "Game.h"
-#import "InventoryView.h"
+#import "DungeonsView.h"
 
-@interface InventoryVC ()
+@interface DungeonsVC ()
 {
-    // Pointer to the player object
-    Player *player;
-    
-    // Pointer to the view's items tableview
-    UITableView *items;
+    // Pointer to the view's dungeons tableview
+    UITableView *dungeons;
 }
 @end
 
-@implementation InventoryVC
-
+@implementation DungeonsVC
+    
 - (void)loadView
 {
-    InventoryView *view = [[InventoryView alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    DungeonsView *view = [[DungeonsView alloc] initWithFrame:UIScreen.mainScreen.bounds];
     view.delegate = self;
     self.view = view;
 }
-
+    
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Set the player pointer
-    player = [self.game getPlayer];
     
     // Initialize items list
-    items = ((InventoryView*) self.view).items;
-    items.delegate = self;
-    items.dataSource = self;
-    [items registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CellId"];
+    dungeons = ((DungeonsView*) self.view).dungeons;
+    dungeons.delegate = self;
+    dungeons.dataSource = self;
+    [dungeons registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CellId"];
 }
-
+    
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+    
 - (void)update
 {
     
 }
-
+    
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
     
 }
-
+    
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return player.items.count;
+    // TODO: replace hard-coded value, only 1 dungeon for now
+    return 1;
 }
-
+    
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellId = @"CellId";
@@ -72,8 +68,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
     
-    // Show the item's name for this row
-    cell.textLabel.text = [player getItem:indexPath.row].name;
+    // TODO: replace hard-coded dungeon name
+    cell.textLabel.text = @"Forest";
     
     return cell;
 }

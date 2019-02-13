@@ -11,11 +11,6 @@
 
 @implementation ShopView
 
-- (id)init
-{
-    return [self initWithFrame:CGRectZero];
-}
-
 - (id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {

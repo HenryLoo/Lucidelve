@@ -21,6 +21,8 @@
 		5F77C1612204482F002A8300 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F77C1602204482F002A8300 /* main.m */; };
 		5F78DCFC220E60730039EA92 /* BaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F78DCFB220E60730039EA92 /* BaseView.m */; };
 		5F96A4DA220AD39100026AD0 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F96A4D9220AD39100026AD0 /* Player.m */; };
+		8AB49F772214A720004E6C5C /* DungeonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB49F762214A720004E6C5C /* DungeonsView.m */; };
+		8AB49F7A2214A7CF004E6C5C /* DungeonsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB49F792214A7CF004E6C5C /* DungeonsVC.m */; };
 		D62CEBB6220D035500E778F6 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D62CEBB5220D035500E778F6 /* OpenGLES.framework */; };
 		D62CEBB8220D035B00E778F6 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D62CEBB7220D035B00E778F6 /* GLKit.framework */; };
 		D62CEBBD220D049700E778F6 /* Renderer.m in Sources */ = {isa = PBXBuildFile; fileRef = D62CEBBC220D049700E778F6 /* Renderer.m */; };
@@ -77,6 +79,10 @@
 		5F78DCFB220E60730039EA92 /* BaseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseView.m; sourceTree = "<group>"; };
 		5F96A4D8220ACBD200026AD0 /* Player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		5F96A4D9220AD39100026AD0 /* Player.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		8AB49F752214A6DB004E6C5C /* DungeonsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DungeonsView.h; sourceTree = "<group>"; };
+		8AB49F762214A720004E6C5C /* DungeonsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DungeonsView.m; sourceTree = "<group>"; };
+		8AB49F782214A7AE004E6C5C /* DungeonsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DungeonsVC.h; sourceTree = "<group>"; };
+		8AB49F792214A7CF004E6C5C /* DungeonsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DungeonsVC.m; sourceTree = "<group>"; };
 		D62CEBB5220D035500E778F6 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		D62CEBB7220D035B00E778F6 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		D62CEBB9220D037300E778F6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -129,6 +135,8 @@
 				5F67B672220BFBFA00227D14 /* ShopVC.m */,
 				5F6CB67F220FE5B1004B5312 /* InventoryVC.h */,
 				5F6CB680220FE5D4004B5312 /* InventoryVC.m */,
+				8AB49F782214A7AE004E6C5C /* DungeonsVC.h */,
+				8AB49F792214A7CF004E6C5C /* DungeonsVC.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -144,6 +152,8 @@
 				5F67B675220BFCF900227D14 /* ShopView.m */,
 				5F6CB682220FE70E004B5312 /* InventoryView.h */,
 				5F6CB683220FE73D004B5312 /* InventoryView.m */,
+				8AB49F752214A6DB004E6C5C /* DungeonsView.h */,
+				8AB49F762214A720004E6C5C /* DungeonsView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -331,6 +341,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AB49F772214A720004E6C5C /* DungeonsView.m in Sources */,
 				5F67B682220C10A800227D14 /* Constants.m in Sources */,
 				5F67B67B220C027C00227D14 /* Game.m in Sources */,
 				D6A4D46C220A86D7006FB2BB /* Utility.m in Sources */,
@@ -349,6 +360,7 @@
 				5F77C1532204482B002A8300 /* AppDelegate.m in Sources */,
 				5F96A4DA220AD39100026AD0 /* Player.m in Sources */,
 				5F78DCFC220E60730039EA92 /* BaseView.m in Sources */,
+				8AB49F7A2214A7CF004E6C5C /* DungeonsVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
