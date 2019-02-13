@@ -19,4 +19,7 @@
 // Displays the button to buy a sword
 @property (nonatomic, strong) UIButton *swordButton;
 
+// Displays the button to buy a healing potion
+@property (nonatomic, strong) UIButton *potionButton;
+
 @end

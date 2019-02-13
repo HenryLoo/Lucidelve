@@ -26,7 +26,7 @@
 {
     if (self = [super initWithFrame:frame]) {
         // Set up elements in the view
-        [super setupLayout:0.5f withBody:0.35f withFooter:0.15f];
+        [super setupLayout:0.5f withBody:0.35f];
         [self setupLayout];
     }
     return self;

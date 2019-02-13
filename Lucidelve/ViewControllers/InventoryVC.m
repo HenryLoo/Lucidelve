@@ -15,6 +15,9 @@
 {
     // Pointer to the player object
     Player *player;
+    
+    // Pointer to the view's item scrollview
+    UITableView *items;
 }
 @end
 
@@ -29,9 +32,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+//
     // Set the player pointer
     player = [self.game getPlayer];
+    
+    // Initialize items list
+    items = ((InventoryView*) self.view).items;
+    items.delegate = self;
+    items.dataSource = self;
+    [items registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CellId"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,9 +58,24 @@
     
 }
 
-- (void)onBackButtonPress:(id)sender
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    [super onBackButtonPress:sender];
+    return player.items.count;
+}
+
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellId = @"CellId";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
+    if (cell == nil)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+    }
+    
+    // Show the item's name for this row
+    cell.textLabel.text = [player getItem:indexPath.row].name;
+    
+    return cell;
 }
 
 @end

@@ -20,7 +20,7 @@
 {
     if (self = [super initWithFrame:frame]) {
         // Set up elements in the view
-        [super setupLayout:0.25f withBody:0.375f withFooter:0.375f];
+        [super setupLayout:0.25f withBody:0.375f];
         [self setupLayout];
     }
     return self;
@@ -40,7 +40,8 @@
 
 - (void)setupFooterElements
 {
-    [self setupSwordButton];
+    _swordButton = [self setupItemButton:RUSTY_SWORD];
+    _potionButton = [self setupItemButton:HEALING_POTION];
 }
 
 /*!
@@ -61,23 +62,25 @@
 }
 
 /*!
- * Create the button element for buying a sword.
+ * Create the button element for buying an item.
  * @author Henry Loo
  */
-- (void)setupSwordButton
+- (UIButton*)setupItemButton:(ItemType)itemType
 {
-    _swordButton = [[UIButton alloc] initWithFrame:CGRectZero];
-    _swordButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    Item sword = ITEMS[RUSTY_SWORD];
-    NSString *title = [NSString stringWithFormat:@"%@ (%i)",
-                       sword.name, sword.shopPrice];
-    [_swordButton setTitle:title forState:UIControlStateNormal];
-    [_swordButton setTitle:@"" forState:UIControlStateDisabled];
-    [_swordButton sizeToFit];
-    [self.footerArea addSubview:_swordButton];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectZero];
+    button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    Item item = ITEMS[itemType];
+    NSString *title = [NSString stringWithFormat:@"%@ (%i G)",
+                       item.name, item.shopPrice];
+    [button setTitle:title forState:UIControlStateNormal];
+    [button setTitle:@"" forState:UIControlStateDisabled];
+    [button sizeToFit];
+    [self.footerArea addSubview:button];
     
     // Enable autolayout
-    _swordButton.translatesAutoresizingMaskIntoConstraints = false;
+    button.translatesAutoresizingMaskIntoConstraints = false;
+    
+    return button;
 }
 
 /*!
@@ -97,6 +100,12 @@
     [_swordButton.topAnchor constraintEqualToAnchor:self.footerArea.topAnchor constant:25].active = YES;
     [_swordButton.widthAnchor constraintEqualToConstant:_swordButton.frame.size.width].active = YES;
     [_swordButton.heightAnchor constraintEqualToConstant:_swordButton.frame.size.height].active = YES;
+    
+    // Healing potion button constraints
+    [_potionButton.leftAnchor constraintEqualToAnchor:_swordButton.rightAnchor constant:25].active = YES;
+    [_potionButton.topAnchor constraintEqualToAnchor:_swordButton.topAnchor].active = YES;
+    [_potionButton.widthAnchor constraintEqualToConstant:_potionButton.frame.size.width].active = YES;
+    [_potionButton.heightAnchor constraintEqualToConstant:_potionButton.frame.size.height].active = YES;
 }
 
 @end

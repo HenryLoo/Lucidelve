@@ -114,25 +114,38 @@
     _titleLabel.translatesAutoresizingMaskIntoConstraints = false;
 }
 
-- (void)setupLayout:(float)headerMultiplier withBody:(float)bodyMultiplier withFooter:(float)footerMultiplier
+- (void)setupLayout:(float)headerMultiplier withBody:(float)bodyMultiplier
 {
+    if (headerMultiplier + bodyMultiplier > 1.0f)
+    {
+        NSLog(@"Sum of headerMultiplier and bodyMultiplier exceeds 1.0");
+        return;
+    }
+    
     // Header area constraints
+    _headerArea.frame = CGRectMake(0, 0, self.frame.size.width,
+                                   self.frame.size.height * headerMultiplier);
     [_headerArea.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
     [_headerArea.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
-    [_headerArea.widthAnchor constraintEqualToConstant:self.frame.size.width].active = YES;
-    [_headerArea.heightAnchor constraintEqualToConstant:self.frame.size.height*headerMultiplier].active = YES;
+    [_headerArea.widthAnchor constraintEqualToConstant:_headerArea.frame.size.width].active = YES;
+    [_headerArea.heightAnchor constraintEqualToConstant:_headerArea.frame.size.height].active = YES;
     
     // Body area constraints
+    _bodyArea.frame = CGRectMake(0, 0, self.frame.size.width,
+                                   self.frame.size.height * bodyMultiplier);
     [_bodyArea.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
     [_bodyArea.topAnchor constraintEqualToAnchor:_headerArea.bottomAnchor].active = YES;
-    [_bodyArea.widthAnchor constraintEqualToConstant:self.frame.size.width].active = YES;
-    [_bodyArea.heightAnchor constraintEqualToConstant:self.frame.size.height*bodyMultiplier].active = YES;
+    [_bodyArea.widthAnchor constraintEqualToConstant:_bodyArea.frame.size.width].active = YES;
+    [_bodyArea.heightAnchor constraintEqualToConstant:_bodyArea.frame.size.height].active = YES;
     
     // Footer area constraints
+    float footerMultiplier = 1 - headerMultiplier - bodyMultiplier;
+    _footerArea.frame = CGRectMake(0, 0, self.frame.size.width,
+                                 self.frame.size.height * footerMultiplier);
     [_footerArea.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
     [_footerArea.topAnchor constraintEqualToAnchor:_bodyArea.bottomAnchor].active = YES;
-    [_footerArea.widthAnchor constraintEqualToConstant:self.frame.size.width].active = YES;
-    [_footerArea.heightAnchor constraintEqualToConstant:self.frame.size.height*footerMultiplier].active = YES;
+    [_footerArea.widthAnchor constraintEqualToConstant:_footerArea.frame.size.width].active = YES;
+    [_footerArea.heightAnchor constraintEqualToConstant:_footerArea.frame.size.height].active = YES;
     
     // Title constraints
     if (_titleLabel) {

@@ -67,16 +67,16 @@
 
 /*!
  * Set the constraints for the header, body, and footers
- * areas of the view.
+ * areas of the view. The header and body multipliers are
+ * specified, and the footer takes the remaining amount of
+ * vertical space.
  * @author Henry Loo
  *
  * @param headerMultiplier The percentage of vertical space
  * that the header occupies.
  * @param bodyMultiplier The percentage of vertical space
  * that the body occupies.
- * @param footerMultiplier The percentage of vertical space
- * that the footer occupies.
  */
-- (void)setupLayout:(float)headerMultiplier withBody:(float)bodyMultiplier withFooter:(float)footerMultiplier;
+- (void)setupLayout:(float)headerMultiplier withBody:(float)bodyMultiplier;
 
 @end

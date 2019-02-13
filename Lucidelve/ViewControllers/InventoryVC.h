@@ -11,7 +11,7 @@
 /*!
  * @brief The view controller for Inventory.
  */
-@interface InventoryVC : BaseVC
+@interface InventoryVC : BaseVC <UITableViewDataSource, UITableViewDelegate>
 
 @end
 

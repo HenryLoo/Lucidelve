@@ -13,4 +13,13 @@
  */
 @interface InventoryView : BaseView
 
+// Show all player's items
+@property (nonatomic, strong) UITableView *items;
+
+// Displays the label for item 1
+@property (nonatomic, strong) UILabel *item1Label;
+
+// Displays the label for item 2
+@property (nonatomic, strong) UILabel *item2Label;
+
 @end
