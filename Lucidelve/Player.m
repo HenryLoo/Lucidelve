@@ -69,6 +69,12 @@
 - (void)setCombatState:(CombatState)newState
 {
     state = newState;
+    NSLog(@"Player.setCombatState: Changed to %i", newState);
+}
+
+- (CombatState)getCombatState
+{
+    return state;
 }
 
 - (void)addItem:(Item)item

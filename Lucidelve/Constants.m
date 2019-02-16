@@ -16,3 +16,4 @@ const Item ITEMS[ITEM_NUM_ITEMS] = {
 const int DEFAULT_PLAYER_LIFE = 3;
 const float GOLD_COOLDOWN = 5.f;
 const int GOLD_EARN_AMOUNT = 10;
+const float PLAYER_COMBAT_COOLDOWN = 0.3f;

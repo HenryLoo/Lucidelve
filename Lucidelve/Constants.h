@@ -20,3 +20,6 @@ extern const float GOLD_COOLDOWN;
 
 // The amount of gold to earn per button press
 extern const int GOLD_EARN_AMOUNT;
+
+// The cooldown between player combat actions
+extern const float PLAYER_COMBAT_COOLDOWN;

@@ -10,6 +10,7 @@
 #import <GLKit/GLKit.h>
 
 @class Game;
+@class Renderer;
 
 /*!
  * @brief A base class implemented by all view controllers
@@ -17,7 +18,18 @@
  */
 @interface BaseVC : GLKViewController
 
+// Pointer to the Game instance, which holds all persistent data
 @property Game *game;
+
+// Pointer to the glES renderer
+@property Renderer *renderer;
+
+/*!
+ * The update loop.
+ * Subclasses should call this every frame.
+ * @author Henry Loo
+ */
+- (void)update;
 
 /*!
  * Handle the back button's action.

@@ -11,6 +11,7 @@
 #import "Game.h"
 #import "DungeonsView.h"
 #import "Dungeon.h"
+#import "CombatVC.h"
 
 @interface DungeonsVC ()
 {
@@ -68,11 +69,21 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
     
-    // TODO: replace hard-coded dungeon name
+    // Populate the dungeons list with available dungeons
     Dungeon *dungeon = [self.game getDungeon:indexPath.row];
     cell.textLabel.text = dungeon.name;
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Set the current dungeon to the selected one
+    [self.game setDungeon:indexPath.row];
+    
+    // Move to the Combat scene
+    CombatVC *vc = [[CombatVC alloc] init];
+    [self.game changeScene:self newVC:vc];
 }
 
 @end

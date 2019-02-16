@@ -19,6 +19,9 @@
     
     // Hold the different dungeon types
     NSMutableArray *dungeons;
+    
+    // The current dungeon being played.
+    Dungeon *currentDungeon;
 }
 
 @end
@@ -51,6 +54,11 @@
 - (Dungeon*)getDungeon:(NSUInteger)level
 {
     return [dungeons objectAtIndex:level];
+}
+
+- (void)setDungeon:(NSUInteger)level
+{
+    currentDungeon = [dungeons objectAtIndex:level];
 }
 
 - (NSUInteger)getNumDungeons

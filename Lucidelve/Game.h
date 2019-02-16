@@ -63,6 +63,13 @@
 - (Dungeon*)getDungeon:(NSUInteger)level;
 
 /*!
+ * Set the current dungeon to the given level,
+ * starting with index 0.
+ * @author Henry Loo
+ */
+- (void)setDungeon:(NSUInteger)level;
+
+/*!
  * Get the number of dungeons types.
  * @author Henry Loo
  *

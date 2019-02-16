@@ -10,6 +10,7 @@
 #import "Game.h"
 #import "HubVC.h"
 #import "BaseView.h"
+#import "Renderer.h"
 
 @interface BaseVC ()
 {
@@ -20,17 +21,20 @@
 
 @implementation BaseVC
 
-@synthesize game = _game;
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     // Instantiate the Game instance if it doesn't exist yet
-    if (!self.game)
+    if (!_game)
     {
-        self.game = [[Game alloc] init];
+        _game = [[Game alloc] init];
     }
+    
+    // Initialize renderer
+    _renderer = [[Renderer alloc] init];
+    GLKView *view = (GLKView *)self.view;
+    [_renderer init:view];
     
     // Set UI element pointers
     backButton = ((BaseView*) self.view).backButton;
@@ -43,10 +47,15 @@
     }
 }
 
+- (void)update
+{
+    [_renderer update:self.game.deltaTime];
+}
+
 - (void)onBackButtonPress:(id)sender
 {
     HubVC *vc = [[HubVC alloc] init];
-    [self.game changeScene:self newVC:vc];
+    [_game changeScene:self newVC:vc];
 }
 
 @end

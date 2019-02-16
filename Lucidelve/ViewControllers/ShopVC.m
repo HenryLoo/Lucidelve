@@ -51,11 +51,11 @@
     
     // Attach selector to the sword button
     [swordButton addTarget:self action:@selector(onSwordButtonPress:)
-         forControlEvents:UIControlEventTouchDown];
+          forControlEvents:UIControlEventTouchDown];
     
     // Attach selector to the healing potion button
     [potionButton addTarget:self action:@selector(onPotionButtonPress:)
-          forControlEvents:UIControlEventTouchDown];
+           forControlEvents:UIControlEventTouchDown];
 }
 
 - (void)didReceiveMemoryWarning {

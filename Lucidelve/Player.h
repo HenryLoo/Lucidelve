@@ -72,6 +72,15 @@ typedef enum
 - (void)setCombatState:(CombatState)newState;
 
 /*!
+ * Return the player's combat state.
+ * @author Henry Loo
+ *
+ * @return The player's combat state.
+ */
+- (CombatState)getCombatState;
+
+
+/*!
  * Add an item to the player's inventory.
  * @author Henry Loo
  *
