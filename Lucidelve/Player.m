@@ -20,6 +20,9 @@
     
     // The player's current combat state
     CombatState state;
+    
+    // Holds all the player's items
+    NSMutableArray *items;
 }
 
 @end
@@ -31,8 +34,8 @@
     if (self = [super init]) {
         currentLife = maxLife = DEFAULT_PLAYER_LIFE;
         gold = 0;
-        state = NEUTRAL;
-        _items = [[NSMutableArray alloc] init];
+        state = COMBAT_NEUTRAL;
+        items = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -73,16 +76,21 @@
     // NSMutableArray can only hold NSObjects, so we need to
     // wrap the Item struct value
     NSValue *wrappedItem = [NSValue valueWithBytes:&item objCType:@encode(Item)];
-    [self.items addObject:wrappedItem];
+    [items addObject:wrappedItem];
 }
 
-- (Item)getItem:(int)index
+- (Item)getItem:(NSUInteger)index
 {
     // Unwrap the Item struct from the stored NSValue
     Item item;
-    NSValue *wrappedItem = [self.items objectAtIndex:index];
+    NSValue *wrappedItem = [items objectAtIndex:index];
     [wrappedItem getValue:&item];
     return item;
+}
+
+- (NSUInteger)getNumItems
+{
+    return items.count;
 }
 
 @end

@@ -10,7 +10,7 @@
 #import "Item.h"
 
 // Hold all item values
-extern const Item ITEMS[NUM_ITEMS];
+extern const Item ITEMS[ITEM_NUM_ITEMS];
 
 // The player's default starting life value
 extern const int DEFAULT_PLAYER_LIFE;

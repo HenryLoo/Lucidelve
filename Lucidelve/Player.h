@@ -20,17 +20,14 @@
  */
 typedef enum
 {
-    NEUTRAL,
-    REGULAR_ATTACKING,
-    HIGH_ATTACKING,
-    BLOCKING,
-    DODGING,
-    HURT,
-    DEAD
+    COMBAT_NEUTRAL,
+    COMBAT_REGULAR_ATTACKING,
+    COMBAT_HIGH_ATTACKING,
+    COMBAT_BLOCKING,
+    COMBAT_DODGING,
+    COMBAT_HURT,
+    COMBAT_DEAD
 } CombatState;
-
-// Holds all the player's items
-@property NSMutableArray *items;
 
 /*!
  * Increment the player's current life by a specified amount.
@@ -89,6 +86,14 @@ typedef enum
  * @param index The index of the item in the player's inventory.
  * @return The item at the given index.
  */
-- (Item)getItem:(int)index;
+- (Item)getItem:(NSUInteger)index;
+
+/*!
+ * Return the number of items that the player owns.
+ * @author Henry Loo
+ *
+ * @return The number of items that the player owns.
+ */
+- (NSUInteger)getNumItems;
 
 @end

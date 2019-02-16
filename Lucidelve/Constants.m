@@ -8,9 +8,9 @@
 
 #import "Constants.h"
 
-const Item ITEMS[NUM_ITEMS] = {
-    [RUSTY_SWORD] = (Item){.name = @"Rusty Sword", .shopPrice = 10},
-    [HEALING_POTION] = (Item){.name = @"Healing Potion", .shopPrice = 0}
+const Item ITEMS[ITEM_NUM_ITEMS] = {
+    [ITEM_RUSTY_SWORD] = (Item){.name = @"Rusty Sword", .shopPrice = 10},
+    [ITEM_HEALING_POTION] = (Item){.name = @"Healing Potion", .shopPrice = 0}
 };
 
 const int DEFAULT_PLAYER_LIFE = 3;

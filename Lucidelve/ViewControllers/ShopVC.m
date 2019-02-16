@@ -105,7 +105,7 @@
         [player addItem:item];
         [player addGold:(-item.shopPrice)];
         
-        if (itemType == RUSTY_SWORD)
+        if (itemType == ITEM_RUSTY_SWORD)
         {
             self.game.isSwordBought = true;
         }
@@ -121,7 +121,7 @@
  */
 - (void)onSwordButtonPress:(id)sender
 {
-    [self buyItem:RUSTY_SWORD];
+    [self buyItem:ITEM_RUSTY_SWORD];
 }
 
 /*!
@@ -133,7 +133,7 @@
  */
 - (void)onPotionButtonPress:(id)sender
 {
-    [self buyItem:HEALING_POTION];
+    [self buyItem:ITEM_HEALING_POTION];
 }
 
 @end

@@ -10,6 +10,7 @@
 
 @class Player;
 @class BaseVC;
+@class Dungeon;
 
 /*!
  * @brief Handle general persistent data throughout the life of the game.
@@ -53,5 +54,20 @@
  * @param newVC The view controller for the new scene.
  */
 - (void)changeScene:(BaseVC*)currentVC newVC:(BaseVC*)newVC;
+
+/*!
+ * Return the dungeon corresponding to the given level,
+ * starting with index 0.
+ * @author Henry Loo
+ */
+- (Dungeon*)getDungeon:(NSUInteger)level;
+
+/*!
+ * Get the number of dungeons types.
+ * @author Henry Loo
+ *
+ * @return The number of dungeon types.
+ */
+- (NSUInteger)getNumDungeons;
 
 @end

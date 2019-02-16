@@ -10,6 +10,7 @@
 #import "Player.h"
 #import "Game.h"
 #import "DungeonsView.h"
+#import "Dungeon.h"
 
 @interface DungeonsVC ()
 {
@@ -55,8 +56,7 @@
     
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // TODO: replace hard-coded value, only 1 dungeon for now
-    return 1;
+    return [self.game getNumDungeons];
 }
     
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -69,7 +69,8 @@
     }
     
     // TODO: replace hard-coded dungeon name
-    cell.textLabel.text = @"Forest";
+    Dungeon *dungeon = [self.game getDungeon:indexPath.row];
+    cell.textLabel.text = dungeon.name;
     
     return cell;
 }

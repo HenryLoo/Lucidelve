@@ -35,8 +35,8 @@
 
 - (void)setupFooterElements
 {
-    _swordButton = [self setupItemButton:RUSTY_SWORD];
-    _potionButton = [self setupItemButton:HEALING_POTION];
+    _swordButton = [self setupItemButton:ITEM_RUSTY_SWORD];
+    _potionButton = [self setupItemButton:ITEM_HEALING_POTION];
 }
 
 /*!

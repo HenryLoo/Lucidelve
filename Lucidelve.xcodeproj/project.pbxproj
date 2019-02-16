@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F632F72221511F5009DBB0F /* Dungeon.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F632F71221511F5009DBB0F /* Dungeon.m */; };
 		5F67B670220BD75500227D14 /* HubView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F67B66F220BD75500227D14 /* HubView.m */; };
 		5F67B673220BFBFA00227D14 /* ShopVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F67B672220BFBFA00227D14 /* ShopVC.m */; };
 		5F67B676220BFCF900227D14 /* ShopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F67B675220BFCF900227D14 /* ShopView.m */; };
@@ -21,6 +22,8 @@
 		5F77C1612204482F002A8300 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F77C1602204482F002A8300 /* main.m */; };
 		5F78DCFC220E60730039EA92 /* BaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F78DCFB220E60730039EA92 /* BaseView.m */; };
 		5F96A4DA220AD39100026AD0 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F96A4D9220AD39100026AD0 /* Player.m */; };
+		5FE09D5B221788EA00F8B952 /* DungeonNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE09D5A221788EA00F8B952 /* DungeonNode.m */; };
+		5FE09D6122179D0300F8B952 /* Enemy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE09D6022179D0200F8B952 /* Enemy.m */; };
 		8AB49F772214A720004E6C5C /* DungeonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB49F762214A720004E6C5C /* DungeonsView.m */; };
 		8AB49F7A2214A7CF004E6C5C /* DungeonsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB49F792214A7CF004E6C5C /* DungeonsVC.m */; };
 		D62CEBB6220D035500E778F6 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D62CEBB5220D035500E778F6 /* OpenGLES.framework */; };
@@ -49,7 +52,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5F572A632214EC4200580EAF /* Dungeon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Dungeon.h; sourceTree = "<group>"; };
+		5F572A642215080B00580EAF /* DungeonNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DungeonNode.h; sourceTree = "<group>"; };
 		5F5D8A4A220E0E2B006513C2 /* Item.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		5F632F71221511F5009DBB0F /* Dungeon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Dungeon.m; sourceTree = "<group>"; };
 		5F67B66E220BD70B00227D14 /* HubView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HubView.h; sourceTree = "<group>"; };
 		5F67B66F220BD75500227D14 /* HubView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HubView.m; sourceTree = "<group>"; };
 		5F67B671220BFBC200227D14 /* ShopVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopVC.h; sourceTree = "<group>"; };
@@ -79,6 +85,9 @@
 		5F78DCFB220E60730039EA92 /* BaseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseView.m; sourceTree = "<group>"; };
 		5F96A4D8220ACBD200026AD0 /* Player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		5F96A4D9220AD39100026AD0 /* Player.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		5FCD5350221676E5003FF7C6 /* Enemy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Enemy.h; sourceTree = "<group>"; };
+		5FE09D5A221788EA00F8B952 /* DungeonNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DungeonNode.m; sourceTree = "<group>"; };
+		5FE09D6022179D0200F8B952 /* Enemy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Enemy.m; sourceTree = "<group>"; };
 		8AB49F752214A6DB004E6C5C /* DungeonsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DungeonsView.h; sourceTree = "<group>"; };
 		8AB49F762214A720004E6C5C /* DungeonsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DungeonsView.m; sourceTree = "<group>"; };
 		8AB49F782214A7AE004E6C5C /* DungeonsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DungeonsVC.h; sourceTree = "<group>"; };
@@ -200,6 +209,12 @@
 				5F67B680220C0F5D00227D14 /* Constants.h */,
 				5F67B681220C10A800227D14 /* Constants.m */,
 				5F5D8A4A220E0E2B006513C2 /* Item.h */,
+				5F572A632214EC4200580EAF /* Dungeon.h */,
+				5F632F71221511F5009DBB0F /* Dungeon.m */,
+				5F572A642215080B00580EAF /* DungeonNode.h */,
+				5FE09D5A221788EA00F8B952 /* DungeonNode.m */,
+				5FCD5350221676E5003FF7C6 /* Enemy.h */,
+				5FE09D6022179D0200F8B952 /* Enemy.m */,
 			);
 			path = Lucidelve;
 			sourceTree = "<group>";
@@ -346,6 +361,7 @@
 				5F67B67B220C027C00227D14 /* Game.m in Sources */,
 				D6A4D46C220A86D7006FB2BB /* Utility.m in Sources */,
 				5F6CB684220FE73D004B5312 /* InventoryView.m in Sources */,
+				5F632F72221511F5009DBB0F /* Dungeon.m in Sources */,
 				5F67B673220BFBFA00227D14 /* ShopVC.m in Sources */,
 				D62CEBCB220F8E4A00E778F6 /* Uniform.m in Sources */,
 				D62CEBD0220F947D00E778F6 /* Mesh.m in Sources */,
@@ -354,7 +370,9 @@
 				5F67B670220BD75500227D14 /* HubView.m in Sources */,
 				5F67B67E220C0DA300227D14 /* BaseVC.m in Sources */,
 				D62CEBBD220D049700E778F6 /* Renderer.m in Sources */,
+				5FE09D5B221788EA00F8B952 /* DungeonNode.m in Sources */,
 				D62CEBC8220EBD0400E778F6 /* GLProgram.m in Sources */,
+				5FE09D6122179D0300F8B952 /* Enemy.m in Sources */,
 				5F77C1612204482F002A8300 /* main.m in Sources */,
 				5F6CB681220FE5D4004B5312 /* InventoryVC.m in Sources */,
 				5F77C1532204482B002A8300 /* AppDelegate.m in Sources */,

@@ -168,7 +168,7 @@
     }
     
     // Unlock Inventory
-    if (self.game.isInventoryUnlocked || [player.items count] > 0)
+    if (self.game.isInventoryUnlocked || [player getNumItems] > 0)
     {
         [inventoryButton setEnabled:YES];
         self.game.isInventoryUnlocked = true;
