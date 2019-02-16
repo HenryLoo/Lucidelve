@@ -32,10 +32,19 @@ NS_ASSUME_NONNULL_BEGIN
  * @author Jason Chung
  *
  * @param filePath An absolute path to the resource.
- * @param errorPtr A reference to an error if the resource does not exist at the specified file path.
  * @return A reference to a byte-array of the resource.
  */
-- (NSData *)loadResource:(NSString *)filePath error:(NSError **)errorPtr;
+- (NSData *)loadResource:(NSString *)filePath;
+
+/*!
+ * Given a byte-array of JSON data, it will return a reference
+ * to a NSDictionary of the contents for the JSON file.
+ * @author Jason Chung
+ *
+ * @param jsonData A byte-array of the JSON data
+ * @return A reference to a NSDictionary
+ */
+- (NSDictionary *)decodeJSON:(NSData *)jsonData;
 
 @end
 

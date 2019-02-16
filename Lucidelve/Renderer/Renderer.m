@@ -95,9 +95,9 @@
     // Obtain a reference to the bundle with all of our assets
     NSBundle *bundle = [NSBundle mainBundle];
     // Load the vertex shader into a byte array
-    NSData *vertexShaderData = [[Utility getInstance] loadResource:[bundle pathForResource:@"basic.vsh" ofType:nil] error:NULL];
+    NSData *vertexShaderData = [[Utility getInstance] loadResource:[bundle pathForResource:@"basic.vsh" ofType:nil]];
     // Load the fragment shader into a byte array
-    NSData *fragmentShaderData = [[Utility getInstance] loadResource:[bundle pathForResource:@"basic.fsh" ofType:nil] error:NULL];
+    NSData *fragmentShaderData = [[Utility getInstance] loadResource:[bundle pathForResource:@"basic.fsh" ofType:nil]];
     // Create an NSString from the byte array
     NSString *vertexShaderString = [[NSString alloc] initWithData:vertexShaderData encoding:NSUTF8StringEncoding];
     // Create an NSString from the byte array

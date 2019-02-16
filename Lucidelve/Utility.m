@@ -26,7 +26,7 @@
     return self;
 }
 
-- (NSData *)loadResource:(NSString *)filePath error:(NSError **)errorPtr {
+- (NSData *)loadResource:(NSString *)filePath {
     if (filePath == nil) {
         [NSException raise:@"Null pointer" format:@"The file path was null"];
     }
@@ -37,6 +37,31 @@
     
     NSURL *fileUrl = [NSURL fileURLWithPath:filePath];
     return [NSData dataWithContentsOfURL:fileUrl];
+}
+
+- (NSDictionary *)decodeJSON:(NSData *)jsonData {
+    NSDictionary *results = nil;
+    
+    if (NSClassFromString(@"NSJSONSerialization")) {
+        // Validate the JSON
+        NSError *error = nil;
+        id object = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+        if (error) {
+            // Malformed data
+            [NSException raise:@"JSON error" format:@"The JSON is malformed."];
+        }
+        
+        if ([object isKindOfClass:[NSDictionary class]]) {
+            results = object;
+        } else {
+            [NSException raise:@"JSON error" format:@"The resulting data was not a NSDictionary"];
+        }
+    } else {
+        // The user is using some a version of iOS older than 4
+        // Use a third-party solution
+    }
+    
+    return results;
 }
 
 @end
