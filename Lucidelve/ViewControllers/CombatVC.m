@@ -21,14 +21,6 @@
     // Pointer to the player instance.
     Player *player;
     
-    // The remaining delay in seconds between each player action,
-    // before the player's combat state reverts to Neutral.
-    float playerCooldown;
-    
-    // The remaining delay in seconds between each enemy action,
-    // before the enemy's state reverts to Neutral.
-    float enemyCooldown;
-    
     // Pointer to the current dungeon node.
     DungeonNode *currentNode;
     
@@ -146,23 +138,26 @@
         {
             // Initialize the enemy
             currentEnemy = [self.game getEnemy:enemyType];
-            [currentEnemy reset];
+            [currentEnemy reset:true];
+            
+            [player reset:false];
         }
         
         isNodeCleared = false;
         remainingNodes--;
         [self updateRemainingNodes];
-        
-        // Reset cooldowns
-        playerCooldown = 0;
-        [player setCombatState:COMBAT_NEUTRAL];
-        enemyCooldown = 0;
     }
     // Otherwise, continue performing updates for this node
     else
     {
-        [self updatePlayer];
-        [self updateEnemy];
+        [player update:self.game.deltaTime];
+        [self updatePlayerLabel];
+        
+        if (currentEnemy != nil)
+        {
+            [currentEnemy update:self.game.deltaTime];
+            [self updateEnemyLabels];
+        }
     }
     
     [super update];
@@ -179,7 +174,7 @@
     {
         // If the enemy is dead, clear the node and add reward gold
         // onto the total amount of reward gold.
-        if ([currentEnemy getState] == ENEMY_DEAD)
+        if ([currentEnemy getCombatState] == COMBAT_DEAD)
         {
             isNodeCleared = true;
             totalRewardGold += [currentNode getGoldReward];
@@ -256,7 +251,7 @@
     // Can only attack from Neutral state
     if ([player getCombatState] == COMBAT_NEUTRAL)
     {
-        [player setCombatState:COMBAT_REGULAR_ATTACKING];
+        [player setCombatState:COMBAT_ATTACKING];
         [self dealSwordDamageToEnemy];
     }
 }
@@ -270,7 +265,7 @@
     // Can only attack from Neutral state
     if ([player getCombatState] == COMBAT_NEUTRAL)
     {
-        [player setCombatState:COMBAT_HIGH_ATTACKING];
+        [player setCombatState:COMBAT_ATTACKING2];
         [self dealSwordDamageToEnemy];
     }
 }
@@ -279,9 +274,6 @@
 {
     // TODO: replace hard-coded damage value to reflect the player's sword
     [currentEnemy addLife:-1];
-    
-    // Restart the enemy's cooldown
-    enemyCooldown = COMBAT_COOLDOWN;
 }
 
 /*!
@@ -323,38 +315,6 @@
     }
 }
 
-
-/*!
-* Update the player's values.
-* This should be called every frame in the update loop.
-* @author Henry Loo
-*/
-- (void)updatePlayer
-{
-    CombatState state = [player getCombatState];
-    if (state != COMBAT_NEUTRAL && state != COMBAT_DEAD)
-    {
-        // We just changed from Neutral, so start the cooldown
-        if (playerCooldown == 0)
-        {
-            playerCooldown = COMBAT_COOLDOWN;
-        }
-        
-        // Decrement cooldown timer and make sure it doesn't
-        // drop lower than 0
-        playerCooldown += self.game.deltaTime;
-        playerCooldown = MAX(0, playerCooldown);
-        
-        // Cooldown is over, so reset to Neutral
-        if (playerCooldown == 0)
-        {
-            [player setCombatState:COMBAT_NEUTRAL];
-        }
-    }
-    
-    [self updatePlayerLabel];
-}
-
 // TODO: replace these with visual assets
 - (void)updatePlayerLabel
 {
@@ -377,7 +337,7 @@
             stateString = @"BLOCKING";
             break;
             
-        case COMBAT_REGULAR_ATTACKING:
+        case COMBAT_ATTACKING:
             stateString = @"REGULAR ATTACKING";
             break;
             
@@ -389,45 +349,16 @@
             stateString = @"HURT";
             break;
             
-        case COMBAT_HIGH_ATTACKING:
+        case COMBAT_ATTACKING2:
             stateString = @"HIGH ATTACKING";
+            break;
+            
+        case COMBAT_ALERT:
+            stateString = @"ALERT";
             break;
     }
     
     playerStateLabel.text = stateString;
-}
-
-/*!
- * Update the enemy's values.
- * This should be called every frame in the update loop.
- * @author Henry Loo
- */
-- (void)updateEnemy
-{
-    if (currentEnemy == nil) return;
-    
-    EnemyState state = [currentEnemy getState];
-    if (state != ENEMY_NEUTRAL && state != ENEMY_DEAD)
-    {
-        // We just changed from Neutral, so start the cooldown
-        if (enemyCooldown == 0)
-        {
-            enemyCooldown = COMBAT_COOLDOWN;
-        }
-        
-        // Decrement cooldown timer and make sure it doesn't
-        // drop lower than 0
-        enemyCooldown += self.game.deltaTime;
-        enemyCooldown = MAX(0, enemyCooldown);
-        
-        // Cooldown is over, so reset to Neutral
-        if (enemyCooldown == 0)
-        {
-            [currentEnemy setState:ENEMY_NEUTRAL];
-        }
-    }
-    
-    [self updateEnemyLabels];
 }
 
 // TODO: replace these with visual assets
@@ -440,27 +371,43 @@
                            currentLife, maxLife];
     
     NSString *stateString;
-    switch ([currentEnemy getState])
+    switch ([currentEnemy getCombatState])
     {
-        case ENEMY_NEUTRAL:
+        case COMBAT_NEUTRAL:
             stateString = @"NEUTRAL";
             break;
             
-        case ENEMY_ALERT:
-            stateString = @"ALERT";
+        case COMBAT_DODGING_LEFT:
+            stateString = @"DODGING LEFT";
             break;
             
-        case ENEMY_ATTACKING:
-            stateString = @"ATTACKING";
+        case COMBAT_DODGING_RIGHT:
+            stateString = @"DODGING RIGHT";
             break;
             
-        case ENEMY_DEAD:
+        case COMBAT_BLOCKING:
+            stateString = @"BLOCKING";
+            break;
+            
+        case COMBAT_ATTACKING:
+            stateString = @"REGULAR ATTACKING";
+            break;
+            
+        case COMBAT_DEAD:
             stateString = [NSString stringWithFormat:@"DEAD\n<Tap to continue - Reward: %i G>",
-                               [currentNode getGoldReward]];
+                           [currentNode getGoldReward]];
             break;
             
-        case ENEMY_HURT:
+        case COMBAT_HURT:
             stateString = @"HURT";
+            break;
+            
+        case COMBAT_ATTACKING2:
+            stateString = @"HIGH ATTACKING";
+            break;
+            
+        case COMBAT_ALERT:
+            stateString = @"ALERT";
             break;
     }
     

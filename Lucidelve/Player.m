@@ -11,15 +11,8 @@
 
 @interface Player ()
 {
-    // The player's life values, in the form: currentLife / maxLife
-    int currentLife;
-    int maxLife;
-    
     // The player's current gold value
     int gold;
-    
-    // The player's current combat state
-    CombatState state;
     
     // Holds all the player's items
     NSMutableArray *items;
@@ -31,36 +24,11 @@
 
 - (id)init
 {
-    if (self = [super init]) {
-        currentLife = maxLife = DEFAULT_PLAYER_LIFE;
+    if (self = [super initWithData:DEFAULT_PLAYER_LIFE]) {
         gold = 0;
-        state = COMBAT_NEUTRAL;
         items = [[NSMutableArray alloc] init];
     }
     return self;
-}
-
-- (void)addLife:(int)amount
-{
-    if (amount < 0)
-    {
-        [self setCombatState:COMBAT_HURT];
-    }
-    
-    currentLife += amount;
-    
-    // Clamp the life value between 0 and max
-    currentLife = MAX(0, MIN(currentLife, maxLife));
-    
-    if (currentLife == 0)
-    {
-        [self setCombatState:COMBAT_DEAD];
-    }
-}
-
-- (void)addMaxLife
-{
-    ++maxLife;
 }
 
 - (void)addGold:(int)amount
@@ -74,16 +42,6 @@
 - (int)getGold
 {
     return gold;
-}
-
-- (void)setCombatState:(CombatState)newState
-{
-    state = newState;
-}
-
-- (CombatState)getCombatState
-{
-    return state;
 }
 
 - (void)addItem:(Item)item

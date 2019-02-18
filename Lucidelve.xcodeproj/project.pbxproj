@@ -21,6 +21,7 @@
 		5F77C15E2204482F002A8300 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F77C15C2204482F002A8300 /* LaunchScreen.storyboard */; };
 		5F77C1612204482F002A8300 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F77C1602204482F002A8300 /* main.m */; };
 		5F78DCFC220E60730039EA92 /* BaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F78DCFB220E60730039EA92 /* BaseView.m */; };
+		5F8AF59A221B72F7002A715E /* GameCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8AF599221B72F7002A715E /* GameCharacter.m */; };
 		5F96A4DA220AD39100026AD0 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F96A4D9220AD39100026AD0 /* Player.m */; };
 		5FE09D5B221788EA00F8B952 /* DungeonNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE09D5A221788EA00F8B952 /* DungeonNode.m */; };
 		5FE09D6122179D0300F8B952 /* Enemy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE09D6022179D0200F8B952 /* Enemy.m */; };
@@ -85,6 +86,8 @@
 		5F77C1602204482F002A8300 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5F78DCFA220E5FB10039EA92 /* BaseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseView.h; sourceTree = "<group>"; };
 		5F78DCFB220E60730039EA92 /* BaseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseView.m; sourceTree = "<group>"; };
+		5F8AF598221B70DB002A715E /* GameCharacter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameCharacter.h; sourceTree = "<group>"; };
+		5F8AF599221B72F7002A715E /* GameCharacter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameCharacter.m; sourceTree = "<group>"; };
 		5F96A4D8220ACBD200026AD0 /* Player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		5F96A4D9220AD39100026AD0 /* Player.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 		5FCD5350221676E5003FF7C6 /* Enemy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Enemy.h; sourceTree = "<group>"; };
@@ -225,6 +228,8 @@
 				5FE09D5A221788EA00F8B952 /* DungeonNode.m */,
 				5FCD5350221676E5003FF7C6 /* Enemy.h */,
 				5FE09D6022179D0200F8B952 /* Enemy.m */,
+				5F8AF598221B70DB002A715E /* GameCharacter.h */,
+				5F8AF599221B72F7002A715E /* GameCharacter.m */,
 			);
 			path = Lucidelve;
 			sourceTree = "<group>";
@@ -385,6 +390,7 @@
 				D62CEBC8220EBD0400E778F6 /* GLProgram.m in Sources */,
 				5FE33DDF221890E500FCE3D8 /* CombatView.m in Sources */,
 				5FE09D6122179D0300F8B952 /* Enemy.m in Sources */,
+				5F8AF59A221B72F7002A715E /* GameCharacter.m in Sources */,
 				5F77C1612204482F002A8300 /* main.m in Sources */,
 				5F6CB681220FE5D4004B5312 /* InventoryVC.m in Sources */,
 				5F77C1532204482B002A8300 /* AppDelegate.m in Sources */,
@@ -542,7 +548,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W9HSJ7BJF2;
+				DEVELOPMENT_TEAM = FPV7K2X4HC;
 				INFOPLIST_FILE = Lucidelve/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -560,7 +566,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W9HSJ7BJF2;
+				DEVELOPMENT_TEAM = FPV7K2X4HC;
 				ENABLE_TESTABILITY = NO;
 				INFOPLIST_FILE = Lucidelve/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

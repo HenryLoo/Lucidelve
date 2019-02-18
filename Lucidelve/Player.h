@@ -8,44 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "Item.h"
+#import "GameCharacter.h"
 
 /*!
  * @brief Contains values relating to the player.
  */
-@interface Player : NSObject
-
-/*!
- * Defines the different states that the player can
- * be in during combat.
- */
-typedef enum
-{
-    COMBAT_NEUTRAL,
-    COMBAT_REGULAR_ATTACKING,
-    COMBAT_HIGH_ATTACKING,
-    COMBAT_BLOCKING,
-    COMBAT_DODGING_LEFT,
-    COMBAT_DODGING_RIGHT,
-    COMBAT_HURT,
-    COMBAT_DEAD
-} CombatState;
-
-/*!
- * Increment the player's current life by a specified amount.
- * @author Henry Loo
- *
- * @param amount The value to increment the player's current life by.
- * A positive value corresponds to a "heal", while a negative value
- * corresponds to taking "damage".
- */
-- (void)addLife:(int)amount;
-
-/*!
- * Increment the player's max life by one.
- * This will typically be used during health upgrades.
- * @author Henry Loo
- */
-- (void)addMaxLife;
+@interface Player : GameCharacter
 
 /*!
  * Increment the player's gold by a specified amount.
@@ -63,23 +31,6 @@ typedef enum
  * @return The player's gold
  */
 - (int)getGold;
-
-/*!
- * Change the player's current combat state to a new one.
- * @author Henry Loo
- *
- * @param newState The new combat state to change to.
- */
-- (void)setCombatState:(CombatState)newState;
-
-/*!
- * Return the player's combat state.
- * @author Henry Loo
- *
- * @return The player's combat state.
- */
-- (CombatState)getCombatState;
-
 
 /*!
  * Add an item to the player's inventory.
