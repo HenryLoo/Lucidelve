@@ -85,8 +85,8 @@
 - (void)update
 {
     // Calculate deltaTime for this frame
-    self.game.deltaTime = [self.game.lastTime timeIntervalSinceNow];
-    self.game.lastTime = [NSDate date];
+    self.game.deltaTime = [self.game.hubLastTime timeIntervalSinceNow];
+    self.game.hubLastTime = [NSDate date];
     
     [self updateGoldLabel];
     [self updateGoldCooldown];

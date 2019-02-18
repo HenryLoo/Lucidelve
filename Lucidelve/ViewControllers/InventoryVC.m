@@ -10,6 +10,7 @@
 #import "Player.h"
 #import "Game.h"
 #import "InventoryView.h"
+#import "Renderer.h"
 
 @interface InventoryVC ()
 {
@@ -50,12 +51,12 @@
 
 - (void)update
 {
-    
+    [super update];
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-    
+    [self.renderer render:self.game.deltaTime drawRect:rect];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

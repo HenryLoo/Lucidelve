@@ -7,18 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Enemy.h"
 
 @class Player;
 @class BaseVC;
 @class Dungeon;
+@class DungeonNode;
 
 /*!
  * @brief Handle general persistent data throughout the life of the game.
  */
 @interface Game : NSObject
 
-// The time for the previous frame.
-@property NSDate *lastTime;
+// The time for the previous frame, used in The Hub's scenes.
+@property NSDate *hubLastTime;
+
+// The time for the previous frame, used in The Dungeon's scenes.
+@property NSDate *dungeonLastTime;
 
 // The time between each frame in seconds.
 @property NSTimeInterval deltaTime;
@@ -63,18 +68,20 @@
 - (Dungeon*)getDungeon:(NSUInteger)level;
 
 /*!
- * Set the current dungeon to the given level,
- * starting with index 0.
- * @author Henry Loo
- */
-- (void)setDungeon:(NSUInteger)level;
-
-/*!
  * Get the number of dungeons types.
  * @author Henry Loo
  *
  * @return The number of dungeon types.
  */
 - (NSUInteger)getNumDungeons;
+
+/*!
+ * Get an enemy, given its type.
+ * @author Henry Loo
+ *
+ * @param type The enemy's type.
+ * @return The enemy.
+ */
+- (Enemy*)getEnemy:(EnemyType)type;
 
 @end

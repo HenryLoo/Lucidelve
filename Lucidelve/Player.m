@@ -42,10 +42,20 @@
 
 - (void)addLife:(int)amount
 {
+    if (amount < 0)
+    {
+        [self setCombatState:COMBAT_HURT];
+    }
+    
     currentLife += amount;
     
     // Clamp the life value between 0 and max
     currentLife = MAX(0, MIN(currentLife, maxLife));
+    
+    if (currentLife == 0)
+    {
+        [self setCombatState:COMBAT_DEAD];
+    }
 }
 
 - (void)addMaxLife
@@ -69,7 +79,6 @@
 - (void)setCombatState:(CombatState)newState
 {
     state = newState;
-    NSLog(@"Player.setCombatState: Changed to %i", newState);
 }
 
 - (CombatState)getCombatState

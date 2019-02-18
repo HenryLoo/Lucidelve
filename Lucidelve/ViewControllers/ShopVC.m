@@ -12,6 +12,7 @@
 #import "Player.h"
 #import "Constants.h"
 #import "Item.h"
+#import "Renderer.h"
 
 @interface ShopVC ()
 {
@@ -72,11 +73,13 @@
     {
         [swordButton setEnabled:NO];
     }
+    
+    [super update];
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-    
+    [self.renderer render:self.game.deltaTime drawRect:rect];
 }
 
 /*!

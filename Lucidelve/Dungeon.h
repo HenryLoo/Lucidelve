@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class DungeonNode;
+
 /*!
  * @brief Defines a dungeon, which contains a collection of nodes.
  */
@@ -36,5 +38,11 @@
 - (id)init:(NSString*)name withCombatNodes:(NSMutableArray*)combatNodes
 withEventNodes:(NSMutableArray*)eventNodes withMinNodes:(int)minNodes
 withMaxNodes:(int)maxNodes;
+
+/*!
+ * Return a random node for this dungeon.
+ * @author Henry Loo
+ */
+- (DungeonNode*)getDungeonNode;
 
 @end

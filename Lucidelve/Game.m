@@ -11,6 +11,7 @@
 #import "Player.h"
 #import "Dungeon.h"
 #import "DungeonNode.h"
+#include <stdlib.h>
 
 @interface Game ()
 {
@@ -20,8 +21,8 @@
     // Hold the different dungeon types
     NSMutableArray *dungeons;
     
-    // The current dungeon being played.
-    Dungeon *currentDungeon;
+    // Hold the different enemy types
+    Enemy *enemies[ENEMY_NUM_ENEMIES];
 }
 
 @end
@@ -32,7 +33,7 @@
 {
     if (self = [super init]) {
         player = [[Player alloc] init];
-        _lastTime = [NSDate date];
+        _hubLastTime = _dungeonLastTime = [NSDate date];
         _goldCooldownTimer = 0;
         [self initDungeons];
     }
@@ -56,11 +57,6 @@
     return [dungeons objectAtIndex:level];
 }
 
-- (void)setDungeon:(NSUInteger)level
-{
-    currentDungeon = [dungeons objectAtIndex:level];
-}
-
 - (NSUInteger)getNumDungeons
 {
     return dungeons.count;
@@ -75,7 +71,12 @@
     NSMutableArray *combatNodes = [[NSMutableArray alloc] init];
     NSMutableArray *eventNodes = [[NSMutableArray alloc] init];
     int minNodes = 2;
-    int maxNodes = 3;
+    int maxNodes = 4;
+    
+    // Create Tree enemy type
+    NSMutableArray *attackPatterns;
+    Enemy *tree = [[Enemy alloc] initWithData:@"Tree" withLife:5 withAttackDelay:3 withAttackPatterns:attackPatterns];
+    enemies[ENEMY_TREE] = tree;
     
     // Add Tree enemy node
     DungeonNode *node = [[DungeonNode alloc] initWithData:10 withEnemy:ENEMY_TREE];
@@ -86,6 +87,11 @@
                                    withMaxNodes:maxNodes];
     
     [dungeons addObject:forestDun];
+}
+
+- (Enemy*)getEnemy:(EnemyType)type
+{
+    return enemies[type];
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "Dungeon.h"
+#import "DungeonNode.h"
 
 @implementation Dungeon
 
@@ -23,6 +24,13 @@ withMaxNodes:(int)maxNodes;
     }
     
     return self;
+}
+
+- (DungeonNode*)getDungeonNode
+{
+    // Get a random index between 0 to size of nodes array
+    int random = arc4random_uniform(_combatNodes.count);
+    return [_combatNodes objectAtIndex:random];
 }
 
 @end

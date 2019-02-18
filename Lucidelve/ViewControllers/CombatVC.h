@@ -8,9 +8,14 @@
 
 #import "BaseVC.h"
 
+@class Dungeon;
+
 /*!
  * @brief The view controller for Combat during dungeon runs.
  */
 @interface CombatVC : BaseVC
+
+    // The current dungeon being played.
+    @property Dungeon *currentDungeon;
 
 @end

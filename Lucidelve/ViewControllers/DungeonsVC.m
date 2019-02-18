@@ -12,6 +12,7 @@
 #import "DungeonsView.h"
 #import "Dungeon.h"
 #import "CombatVC.h"
+#import "Renderer.h"
 
 @interface DungeonsVC ()
 {
@@ -47,12 +48,12 @@
     
 - (void)update
 {
-    
+    [super update];
 }
     
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-    
+    [self.renderer render:self.game.deltaTime drawRect:rect];
 }
     
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -78,11 +79,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Set the current dungeon to the selected one
-    [self.game setDungeon:indexPath.row];
-    
     // Move to the Combat scene
     CombatVC *vc = [[CombatVC alloc] init];
+    
+    // Set the current dungeon to the selected one
+    Dungeon *dungeon = [self.game getDungeon:indexPath.row];
+    vc.currentDungeon = dungeon;
+    
     [self.game changeScene:self newVC:vc];
 }
 
