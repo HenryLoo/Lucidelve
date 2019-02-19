@@ -1,5 +1,5 @@
 //
-//  Uniform.h
+//  Attribute.h
 //  ABC
 //
 //  Created by Choy on 2019-02-17.
@@ -10,12 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Uniform : NSObject
+@interface Attribute : NSObject
 
 @property const char *_name;
-@property unsigned int _location;
+@property unsigned int _index;
 
-- (id)initWithName:(const char *)name location:(unsigned int)location;
+- (id)initWithName:(const char *)name index:(unsigned int)index;
 
 @end
 

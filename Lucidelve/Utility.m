@@ -64,4 +64,8 @@
     return results;
 }
 
+- (void)log:(const char *)str {
+    NSLog(@"%s", str);
+}
+
 @end

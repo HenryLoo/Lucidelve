@@ -1,19 +1,19 @@
 //
-//  Uniform].m
+//  Attribute.m
 //  ABC
 //
 //  Created by Choy on 2019-02-17.
 //  Copyright © 2019 Choy. All rights reserved.
 //
 
-#import "Uniform.h"
+#import "Attribute.h"
 
-@implementation Uniform
+@implementation Attribute
 
-- (id)initWithName:(const char *)name location:(unsigned int)location {
+- (id)initWithName:(const char *)name index:(unsigned int)index {
     if (self == [super init]) {
         self._name = name;
-        self._location = location;
+        self._index = index;
     }
     return self;
 }

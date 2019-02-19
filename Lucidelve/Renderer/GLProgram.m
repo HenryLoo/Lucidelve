@@ -1,167 +1,134 @@
 //
 //  GLProgram.m
-//  Lucidelve
+//  ABC
 //
-//  Created by Choy on 2019-02-08.
-//  Copyright © 2019 COMP 8051. All rights reserved.
+//  Created by Choy on 2019-02-17.
+//  Copyright © 2019 Choy. All rights reserved.
 //
 
 #import "GLProgram.h"
+#import <OpenGLES/ES2/glext.h>
+
+#import "Uniform.h"
+#import "../Utility.h"
+
+@interface GLProgram() {
+    // A reference to the program id on the GPU
+    // GLuint _programId;
+    NSMutableArray<Uniform *> *_uniforms;
+}
+
+@end
 
 @implementation GLProgram
 
-+ (void)printShaderInfoLog:(GLuint)shaderId {
-    GLint logLength = 0;
-    GLint charsWritten = 0;
+- (void)printInfoLog {
+    GLsizei logLen = 0;
+    GLsizei charsWritten = 0;
     GLchar *message;
     
-    glGetShaderiv(shaderId, GL_INFO_LOG_LENGTH, &logLength);
+    glGetProgramiv(_programId, GL_INFO_LOG_LENGTH, &logLen);
     
-    if (logLength > 0) {
-        message = (GLchar *)malloc(logLength);
-        glGetShaderInfoLog(shaderId, logLength, &charsWritten, message);
-        NSLog(@"%@", [NSString stringWithFormat:@"%s", message]);
+    if (logLen > 0) {
+        message = (GLchar *)malloc(logLen);
+        glGetProgramInfoLog(_programId, logLen, &charsWritten, message);
+        [[Utility getInstance] log:message];
         free(message);
     }
 }
 
-+ (void)printProgramInfoLog:(GLuint)programId {
-    GLint logLength = 0;
-    GLint charsWritten = 0;
-    GLchar *message;
-    
-    glGetProgramiv(programId, GL_INFO_LOG_LENGTH, &logLength);
-    
-    if (logLength > 0) {
-        message = (GLchar *)malloc(logLength);
-        glGetProgramInfoLog(programId, logLength, &charsWritten, message);
-        NSLog(@"%@", [NSString stringWithFormat:@"%s", message]);
-        free(message);
-    }
-}
-
-+ (GLuint)compileShader:(GLenum)shaderType shaderSource:(const GLchar *)shaderSource {
-    GLuint shader = glCreateShader(shaderType);
-    
-    if (shader == 0) {
-        NSLog(@"Failed to create the shader.");
-        return 0;
-    }
-    
-    glShaderSource(shader, 1, &shaderSource, NULL);
-    glCompileShader(shader);
-    
-    GLint compiled;
-    glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
-    if (!compiled) {
-        [[self class] printShaderInfoLog:shader];
-        glDeleteShader(shader);
-        return 0;
-    }
-    
-    return shader;
-}
-
-+ (GLuint)compileProgram:(GLuint)vertexShader fragmentShaderId:(GLuint)fragmentShader {
-    GLuint program = glCreateProgram();
-    if (program == 0) {
-        NSLog(@"Failed to create the program.");
-        glDeleteShader(vertexShader);
-        glDeleteShader(fragmentShader);
-        return 0;
-    }
-    
-    glAttachShader(program, vertexShader);
-    glAttachShader(program, fragmentShader);
-    glBindAttribLocation(program, 0, "position");
-    glBindAttribLocation(program, 1, "colour");
-    glBindAttribLocation(program, 2, "texCoordIn");
-    glLinkProgram(program);
-    
-    GLint linked;
-    glGetProgramiv(program, GL_LINK_STATUS, &linked);
-    if (!linked) {
-        [[self class] printProgramInfoLog:program];
-        glDeleteShader(vertexShader);
-        glDeleteShader(fragmentShader);
-        glDeleteProgram(program);
-        return 0;
-    }
-    
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
-    
-    return program;
-}
-
-- (id)initWithSource:(NSString *)vertexShaderSource fragmentShaderSource:(NSString *)fragmentShaderSource {
-    self = [super init];
-    if (self) {
-        const GLchar *vertexString = [vertexShaderSource UTF8String];
-        const GLchar *fragmentString = [fragmentShaderSource UTF8String];
-        
-        _vertexShaderId = [[self class] compileShader:GL_VERTEX_SHADER shaderSource:vertexString];
-        _fragmentShaderId = [[self class] compileShader:GL_FRAGMENT_SHADER shaderSource:fragmentString];
-        _programId = [[self class] compileProgram:_vertexShaderId fragmentShaderId:_fragmentShaderId];
-        
-        _uniforms = [[NSMutableArray alloc] init];
+- (id)initWithShaders:(NSMutableArray<Shader *> *__autoreleasing *)shaders attributes:(NSMutableArray<Attribute *> **)attributes {
+    if (self == [super init]) {
+        _programId = glCreateProgram();
+        for (Shader *shader in *shaders) {
+            glAttachShader(_programId, shader._id);
+        }
+        for (Attribute *attribute in *attributes) {
+            glBindAttribLocation(_programId, attribute._index, attribute._name);
+        }
+        [self compile];
+        for (Shader *shader in *shaders) {
+            glDetachShader(_programId, shader._id);
+            glDeleteShader(shader._id);
+        }
+        _uniforms = [[NSMutableArray<Uniform *> alloc] init];
     }
     return self;
+}
+
+- (void)dealloc {
+    if (_programId) {
+        glDeleteProgram(_programId);
+    }
+}
+
+- (void)compile {
+    GLsizei success;
+    
+    glLinkProgram(_programId);
+    
+    glGetProgramiv(_programId, GL_LINK_STATUS, &success);
+    
+    if (!success) {
+        [self printInfoLog];
+    }
 }
 
 - (void)bind {
     glUseProgram(_programId);
 }
 
-- (void)dealloc {
-    glDetachShader(_programId, _vertexShaderId);
-    glDetachShader(_programId, _fragmentShaderId);
-    glDeleteShader(_vertexShaderId);
-    glDeleteShader(_fragmentShaderId);
-    glDeleteProgram(_programId);
+- (void)unbind {
+    glUseProgram(0);
 }
 
-- (Uniform *)getUniform:(NSString *)name {
+- (GLuint)getUniform:(const char *)name {
     for (Uniform *uniform in _uniforms) {
-        if ([[uniform getName] isEqualToString:name]) {
-            return uniform;
+        if (uniform._name == name) {
+            return uniform._location;
         }
     }
     
-    Uniform *uniform = [[Uniform alloc] init];
-    [uniform setName:name];
-    [uniform setLocation:glGetUniformLocation(_programId, name.UTF8String)];
+    GLuint location = glGetUniformLocation(_programId, name);
+    Uniform *uniform = [[Uniform alloc] initWithName:name location:location];
     [_uniforms addObject:uniform];
-    
-    return _uniforms.lastObject;
+    return [_uniforms lastObject]._location;
 }
 
-- (void)setUniform1i:(NSString *)name value:(GLint)val {
-    glUniform1i([[self getUniform:name] getLocation], val);
+- (void)set1i:(int)value uniformName:(const char *)name {
+    glUniform1i([self getUniform:name], value);
 }
 
-- (void)setUniform1f:(NSString *)name value:(GLfloat)val {
-    glUniform1f([[self getUniform:name] getLocation], val);
+- (void)set1f:(float)value uniformName:(const char *)name {
+    glUniform1f([self getUniform:name], value);
 }
 
-- (void)setUniform2f:(NSString *)name f1:(GLfloat)f1 f2:(GLfloat)f2 {
-    glUniform2f([[self getUniform:name] getLocation], f1, f2);
+- (void)set2f:(float)f1 f2:(float)f2 uniformName:(const char *)name {
+    glUniform2f([self getUniform:name], f1, f2);
 }
 
-- (void)setUniform3f:(NSString *)name f1:(GLfloat)f1 f2:(GLfloat)f2 f3:(GLfloat)f3 {
-    glUniform3f([[self getUniform:name] getLocation], f1, f2, f3);
+- (void)set3f:(float)f1 f2:(float)f2 f3:(float)f3 uniformName:(const char *)name {
+    glUniform3f([self getUniform:name], f1, f2, f3);
 }
 
-- (void)setUniform4f:(NSString *)name f1:(GLfloat)f1 f2:(GLfloat)f2 f3:(GLfloat)f3 f4:(GLfloat)f4 {
-    glUniform4f([[self getUniform:name] getLocation], f1, f2, f3, f4);
+- (void)set4f:(float)f1 f2:(float)f2 f3:(float)f3 f4:(float)f4 uniformName:(const char *)name {
+    glUniform4f([self getUniform:name], f1, f2, f3, f4);
 }
 
-- (void)setUniformMatrix3fv:(NSString *)name matrix:(GLKMatrix3)mat {
-    glUniformMatrix3fv([[self getUniform:name] getLocation], 1, GL_FALSE, mat.m);
+- (void)set3fv:(GLfloat *)value uniformName:(const char *)name {
+    glUniform3fv([self getUniform:name], 1, value);
 }
 
-- (void)setUniformMatrix4fv:(NSString *)name matrix:(GLKMatrix4)mat {
-    glUniformMatrix4fv([[self getUniform:name] getLocation], 1, GL_FALSE, mat.m);
+- (void)set4fv:(GLfloat *)value uniformName:(const char *)name {
+    glUniform4fv([self getUniform:name], 1, value);
+}
+
+- (void)set3fvm:(GLfloat *)value uniformName:(const char *)name {
+    glUniformMatrix3fv([self getUniform:name], 1, 0, value);
+}
+
+- (void)set4fvm:(GLfloat *)value uniformName:(const char *)name {
+    glUniformMatrix4fv([self getUniform:name], 1, 0, value);
 }
 
 @end

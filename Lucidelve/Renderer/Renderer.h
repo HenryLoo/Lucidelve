@@ -1,43 +1,29 @@
 //
-//  Renderer.h based on code by Borna Noureddin.
-//  Lucidelve
+//  Renderer.h
+//  ass_2
 //
-//  Created by Choy on 2019-02-07.
-//  Copyright © 2019 COMP 8051. All rights reserved.
+//  Created by Choy on 2019-02-16.
+//  Copyright © 2019 Choy. All rights reserved.
 //
 
 #import <GLKit/GLKit.h>
+#import "Camera.h"
+#import "Mesh.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-/*
- * @brief A glES renderer based on code by Borna Noureddin.
- */
 @interface Renderer : NSObject
 
-/*!
- * Initializes the Renderer instance, keeps
- * a pointer to the GLKView and creates a GL context
- * for the GLKView. Initializes shaders and sets some GL states.
- * @author Jason Chung
- */
-- (void)init:(GLKView *)_view;
+@property (strong, nonatomic) EAGLContext *_context;
+@property (strong, nonatomic) Camera *_camera;
+@property (strong, nonatomic) NSMutableArray<Mesh *> *_meshes;
 
-/*!
- * Updates any GL states and renderable object states.
- * @author Jason Chung
- *
- * @param deltaTime The change in time
- */
+- (void)initWithView:(GLKView *)view;
 - (void)update:(float)deltaTime;
-
-/*!
- * Renders the scene and any renderable objects.
- * @author Jason Chung
- *
- * @param deltaTime The change in time
- */
-- (void)render:(float)deltaTime drawRect:(CGRect)drawRect;
+- (void)render:(float)deltaTime drawInRect:(CGRect)rect;
+- (void)cleanUp;
+- (void)setMeshes:(NSMutableArray<Mesh *> *)meshes;
+- (void)addMesh:(Mesh *)mesh;
 
 @end
 

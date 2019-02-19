@@ -53,7 +53,7 @@
     
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-    [self.renderer render:self.game.deltaTime drawRect:rect];
+    [self.renderer render:self.game.deltaTime drawInRect:rect];
 }
     
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

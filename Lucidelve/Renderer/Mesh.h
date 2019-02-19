@@ -1,158 +1,37 @@
 //
 //  Mesh.h
-//  Lucidelve
+//  Adapted from Joey DeVries LearnOpenGL tutorials found at
+//  https://learnopengl.com/
+//  ass_2
 //
-//  Created by Choy on 2019-02-09.
-//  Copyright © 2019 COMP 8051. All rights reserved.
+//  Created by Choy on 2019-02-17.
 //
 
 #import "GLProgram.h"
+#import "Texture.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-/*!
- * @brief A renderable Mesh class
- */
-@interface Mesh : NSObject {
-    // Data
-    GLfloat *_vertices;
-    GLfloat *_uvs;
-    GLfloat *_normals;
-    GLint *_indices;
-    GLuint _textureId;
-    
-    // Data count
-    GLuint _numVertices;
-    GLuint _numIndices;
-    GLuint _numUVs;
-    GLuint _numNormals;
-}
+@interface Mesh : NSObject
 
-// Allows the MVP to be accessed outside of the class
-@property GLKMatrix4 _mvp;
-// Allows the normal matrix to be accessed outside of the class
-@property GLKMatrix3 _normalMatrix;
+@property GLfloat *_vertices;
+@property GLfloat *_normals;
+@property GLfloat *_uvs;
+@property GLuint *_indices;
+@property (nonatomic, strong) NSMutableArray<Texture *> *_textures;
 
-/*!
- * Initializes the Mesh with some data
- * @author Jason Chung
- */
-- (id)initWithValues;
+@property GLsizei _numVertices;
+@property GLsizei _numUvs;
+@property GLsizei _numIndices;
 
-/*!
- * Renders the mesh.
- * @author Jason Chung
- *
- * @param program A pointer to the GL program
- */
-- (void)render:(GLProgram *)program;
+@property GLKVector3 _position;
+@property GLKVector3 _rotation;
 
-/*!
- * Sets the vertices for the Mesh
- * @author Jason Chung
- */
-- (void)setVertices:(GLfloat *)vertices arrSize:(GLsizei)arrSize numVertices:(GLsizei)numVertices;
-/*!
- * Returns a pointer to the vertices.
- * @author Jason Chung
- *
- * @return A pointer to the vertices
- */
-- (GLfloat *)getVertices;
+- (id)initWithVertexData:(GLfloat *)vertexData numVertices:(GLsizei)numVertices normals:(GLfloat *)normals uvs:(GLfloat *)uvs numUvs:(GLsizei)numUvs indices:(GLuint *)indices numIndices:(GLsizei)numIndices;
 
-/*!
- * Returns the number of vertices.
- * @author Jason Chung
- *
- * @return The number of vertices
- */
-- (GLuint)getNumVertices;
-
-/*!
- * Sets the indices for the Mesh
- * @author Jason Chung
- *
- * @param indices The integers that make up the indices
- * @param arrSize The size of the array
- * @param numIndices The number of indices
- */
-- (void)setIndices:(GLint *)indices arrSize:(GLsizei)arrSize numIndices:(GLsizei)numIndices;
-/*!
- * Returns a pointer to the indices.
- * @author Jason Chung
- *
- * @return A pointer to the indices
- */
-- (GLint *)getIndices;
-
-/*!
- * Returns the number of indices.
- * @author Jason Chung
- *
- * @return The number of indices
- */
-- (GLuint)getNumIndices;
-/*!
- * Sets the UVs for the Mesh
- * @author Jason Chung
- */
-- (void)setUVs:(GLfloat *)uvs arrSize:(GLsizei)arrSize numUVs:(GLsizei)numUVs;
-/*!
- * Returns a pointer to the UVs.
- * @author Jason Chung
- *
- * @return A pointer to the UVs
- */
-- (GLfloat *)getUVs;
-/*!
- * Returns the number of UVs.
- * @author Jason Chung
- *
- * @return The number of UVs
- */
-- (GLuint)getNumUVs;
-/*!
- * Sets the normals for the Mesh
- * @author Jason Chung
- */
-- (void)setNormals:(GLfloat *)normals arrSize:(GLsizei)arrSize numNormals:(GLsizei)numNormals;
-/*!
- * Returns a pointer to the normals.
- * @author Jason Chung
- *
- * @return A pointer to the normals
- */
-- (GLfloat *)getNormals;
-/*!
- * Returns the number of normals.
- * @author Jason Chung
- *
- * @return The number of normals
- */
-- (GLuint)getNumNormals;
-/*!
- * Sets the texture id
- * @author Jason Chung
- *
- * @param textureId The texture id
- */
-- (void)setTextureId:(GLuint)textureId;
-/*!
- * Returns the texture id
- * @author Jason Chung
- *
- * @return The texture id
- */
-- (GLuint)getTextureId;
-/*!
- * Returns the texture id of a loaded texture,
- * from Borna Noureddin's example code.
- * @author Jason Chung
- *
- * @param fileName The name of a file
- * @return The texture id
- */
-+ (GLuint)loadTexture:(NSString *)fileName;
+- (void)cleanUp;
+- (void)draw:(GLProgram *)program;
+- (void)addTexture:(Texture *)texture;
 
 @end
 

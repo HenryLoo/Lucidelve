@@ -7,13 +7,15 @@
 //
 
 #import "HubVC.h"
-#import "HubView.h"
+#import "../Views/HubView.h"
 #import "ShopVC.h"
 #import "InventoryVC.h"
 #import "DungeonsVC.h"
-#import "Game.h"
-#import "Player.h"
-#import "Constants.h"
+#import "../Game.h"
+#import "../Player.h"
+#import "../Constants.h"
+#import "../Renderer/Mesh.h"
+#import "../Renderer/Primitives.h"
 
 @interface HubVC ()
 {
@@ -34,6 +36,9 @@
     
     // Pointer to the view's dungeons button
     UIButton *dungeonsButton;
+    
+    // Demonstrative Mesh
+    Mesh *mesh;
 }
 
 @end
@@ -75,6 +80,15 @@
     // Attach selector to the Dungeons button
     [dungeonsButton addTarget:self action:@selector(onDungeonsButtonPress:)
               forControlEvents:UIControlEventTouchDown];
+    
+    Texture *diffuse = [[Texture alloc] initWithFilename:"container2.png"];
+    Texture *specular = [[Texture alloc] initWithFilename:"container2_specular.png" type:"texture_specular"];
+    
+    mesh = [[Primitives getInstance] cube];
+    [mesh addTexture:diffuse];
+    [mesh addTexture:specular];
+    
+    [self.renderer addMesh:mesh];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -92,12 +106,14 @@
     [self updateGoldCooldown];
     [self updateUnlockables];
     
+    mesh._rotation = GLKVector3AddScalar(mesh._rotation, 0.01f);
+    
     [super update];
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-    [self.renderer render:self.game.deltaTime drawRect:rect];
+    [self.renderer render:self.game.deltaTime drawInRect:rect];
 }
 
 /*!

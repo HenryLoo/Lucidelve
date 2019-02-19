@@ -46,6 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSDictionary *)decodeJSON:(NSData *)jsonData;
 
+- (void)log:(const char *)str;
+
 @end
 
 NS_ASSUME_NONNULL_END
