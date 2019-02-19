@@ -41,6 +41,9 @@
 - (void)setupFooterElements
 {
     self.footerArea.backgroundColor = UIColor.grayColor;
+    
+    [self setupLifeLabel];
+    [self setupItemViews];
 }
 
 /*!
@@ -50,9 +53,9 @@
 - (void)setupRemainingNodesLabel
 {
     _remainingNodesLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    [self.headerArea addSubview:_remainingNodesLabel];
     _remainingNodesLabel.text = @"Rooms: ";
     [_remainingNodesLabel sizeToFit];
+    [self.headerArea addSubview:_remainingNodesLabel];
     
     // Enable autolayout
     _remainingNodesLabel.translatesAutoresizingMaskIntoConstraints = false;
@@ -85,13 +88,47 @@
     _playerNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _playerStateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _playerNameLabel.textAlignment = _playerStateLabel.textAlignment = NSTextAlignmentCenter;
+    _playerNameLabel.text = @"Player";
     [self.bodyArea addSubview:_playerNameLabel];
     [self.bodyArea addSubview:_playerStateLabel];
-    _playerNameLabel.text = @"Player";
     
     // Enable autolayout
     _playerNameLabel.translatesAutoresizingMaskIntoConstraints = false;
     _playerStateLabel.translatesAutoresizingMaskIntoConstraints = false;
+}
+
+/*!
+ * Create the label element to show the player's life.
+ * @author Henry Loo
+ */
+- (void)setupLifeLabel
+{
+    _playerLifeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _playerLifeLabel.text = @"Life: ";
+    [_playerLifeLabel sizeToFit];
+    [self.footerArea addSubview:_playerLifeLabel];
+    
+    // Enable autolayout
+    _playerLifeLabel.translatesAutoresizingMaskIntoConstraints = false;
+}
+
+/*!
+ * Create the view elements to show the player's item 1 and item 2.
+ * @author Henry Loo
+ */
+- (void)setupItemViews
+{
+    _item1View = [[UILabel alloc] initWithFrame:CGRectZero];
+    _item1View.backgroundColor = UIColor.darkGrayColor;
+    [self.footerArea addSubview:_item1View];
+    
+    _item2View = [[UILabel alloc] initWithFrame:CGRectZero];
+    _item2View.backgroundColor = UIColor.darkGrayColor;
+    [self.footerArea addSubview:_item2View];
+    
+    // Enable autolayout
+    _item1View.translatesAutoresizingMaskIntoConstraints = false;
+    _item2View.translatesAutoresizingMaskIntoConstraints = false;
 }
 
 /*!
@@ -126,6 +163,23 @@
     [_playerNameLabel.bottomAnchor constraintEqualToAnchor:_playerStateLabel.topAnchor].active = YES;
     [_playerNameLabel.widthAnchor constraintEqualToConstant:self.bodyArea.frame.size.width].active = YES;
     [_playerNameLabel.heightAnchor constraintEqualToConstant:50].active = YES;
+    
+    // Life label constraints
+    [_playerLifeLabel.leftAnchor constraintEqualToAnchor:self.footerArea.leftAnchor constant:25].active = YES;
+    [_playerLifeLabel.centerYAnchor constraintEqualToAnchor:self.footerArea.centerYAnchor].active = YES;
+    
+    // Item 1 and item 2 constraints
+    float itemViewSize = self.footerArea.frame.size.height * 2 / 3;
+    float itemViewOffset = (self.footerArea.frame.size.height - itemViewSize) / 2;
+    [_item2View.rightAnchor constraintEqualToAnchor:self.footerArea.rightAnchor constant:-itemViewOffset].active = YES;
+    [_item2View.topAnchor constraintEqualToAnchor:self.footerArea.topAnchor constant:itemViewOffset].active = YES;
+    [_item2View.widthAnchor constraintEqualToConstant:itemViewSize].active = YES;
+    [_item2View.heightAnchor constraintEqualToConstant:itemViewSize].active = YES;
+    
+    [_item1View.rightAnchor constraintEqualToAnchor:_item2View.leftAnchor constant:-itemViewOffset].active = YES;
+    [_item1View.topAnchor constraintEqualToAnchor:_item2View.topAnchor].active = YES;
+    [_item1View.widthAnchor constraintEqualToConstant:itemViewSize].active = YES;
+    [_item1View.heightAnchor constraintEqualToConstant:itemViewSize].active = YES;
 }
 
 @end

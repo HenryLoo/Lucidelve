@@ -17,7 +17,7 @@
     float attackDelay;
     
     // The current cooldown timer for attacks.
-    float attackCooldown;
+    float attackTimer;
     
     // The enemy's attack patterns. The different attacks are
     // uniquely identified by their index in the array.

@@ -51,6 +51,7 @@
     
     // Pointer to UI elements
     UILabel *remainingNodesLabel;
+    UILabel *playerLifeLabel;
     
     // TODO: pointer to temporary label elements, remove this later
     UILabel *enemyNameLabel;
@@ -77,7 +78,7 @@
     isNodeCleared = true;
     
     // Randomize the number of nodes, bounded by the the min and max values.
-    numNodes = _currentDungeon.minNumNodes + arc4random() % (_currentDungeon.maxNumNodes - _currentDungeon.minNumNodes);
+    numNodes = _currentDungeon.minNumNodes + arc4random() % (_currentDungeon.maxNumNodes - _currentDungeon.minNumNodes + 1);
     remainingNodes = numNodes;
     
     // Initialize gestures
@@ -104,6 +105,7 @@
     
     // Set up UI element pointers
     remainingNodesLabel = ((CombatView*) self.view).remainingNodesLabel;
+    playerLifeLabel = ((CombatView*) self.view).playerLifeLabel;
     
     // TODO: set up pointers to temporary labels, remove this later
     enemyNameLabel = ((CombatView*) self.view).enemyNameLabel;
@@ -151,7 +153,7 @@
     else
     {
         [player update:self.game.deltaTime];
-        [self updatePlayerLabel];
+        [self updatePlayerLabels];
         
         if (currentEnemy != nil)
         {
@@ -316,8 +318,13 @@
 }
 
 // TODO: replace these with visual assets
-- (void)updatePlayerLabel
+- (void)updatePlayerLabels
 {
+    int currentLife = [player getCurrentLife];
+    int maxLife = [player getMaxLife];
+    playerLifeLabel.text = [NSString stringWithFormat:@"Life: [%i / %i]",
+                           currentLife, maxLife];
+    
     NSString *stateString;
     switch ([player getCombatState])
     {
