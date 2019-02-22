@@ -130,8 +130,8 @@
     {
         currentNode = [_currentDungeon getDungeonNode];
         
-        EnemyType enemyType = [currentNode getEnemyType];
-        if (enemyType == ENEMY_NONE)
+        NSString *enemyType = [currentNode getEnemyType];
+        if (enemyType == nil)
         {
             // No enemy in this node
             currentEnemy = nil;

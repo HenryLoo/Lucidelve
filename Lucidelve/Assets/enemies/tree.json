@@ -1,0 +1,8 @@
+{
+    "name": "Tree",
+    "life": 5,
+    "attackDelay": 3,
+    "attackPatterns": [
+        
+    ]
+}

@@ -82,6 +82,6 @@
  * @param type The enemy's type.
  * @return The enemy.
  */
-- (Enemy*)getEnemy:(EnemyType)type;
+- (Enemy*)getEnemy:(NSString*)type;
 
 @end

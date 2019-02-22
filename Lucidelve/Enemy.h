@@ -14,16 +14,6 @@
  */
 @interface Enemy : GameCharacter
 
-/*!
- * Defines the different types of enemies.
- */
-typedef enum
-{
-    ENEMY_NONE,
-    ENEMY_TREE,
-    ENEMY_NUM_ENEMIES
-} EnemyType;
-
 typedef struct EnemyAttack
 {
     // The amount of damage this attack deals.

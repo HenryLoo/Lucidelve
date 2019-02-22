@@ -14,14 +14,14 @@
     int goldReward;
     
     // The enemy type to fight in this node, if applicable
-    EnemyType enemyType;
+    NSString *enemyType;
 }
 
 @end
 
 @implementation DungeonNode
 
-- (id)initWithData:(int)goldReward withEnemy:(EnemyType)enemyType
+- (id)initWithData:(int)goldReward withEnemy:(NSString*)enemyType
 {
     if (self = [super init]) {
         self->goldReward = goldReward;
@@ -35,7 +35,7 @@
     return goldReward;
 }
 
-- (EnemyType)getEnemyType
+- (NSString*)getEnemyType
 {
     return enemyType;
 }

@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Enemy.h"
 
 /*!
  * @brief Defines the different kinds of dungeon nodes.
@@ -22,7 +21,7 @@
  * @param enemy The enemy to encounter in this node.
  * @return A pointer to this instance.
  */
-- (id)initWithData:(int)goldReward withEnemy:(EnemyType)enemy;
+- (id)initWithData:(int)goldReward withEnemy:(NSString*)enemy;
 
 /*!
  * Get the amount of gold rewarded for this node.
@@ -38,6 +37,6 @@
  *
  * @return The node's enemy type.
  */
-- (EnemyType)getEnemyType;
+- (NSString*)getEnemyType;
 
 @end

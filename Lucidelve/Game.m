@@ -23,7 +23,8 @@
     NSMutableArray *dungeons;
     
     // Hold the different enemy types
-    Enemy *enemies[ENEMY_NUM_ENEMIES];
+    //Enemy *enemies[ENEMY_NUM_ENEMIES];
+    NSMutableDictionary *enemies;
 }
 
 @end
@@ -36,8 +37,9 @@
         player = [[Player alloc] init];
         _hubLastTime = _dungeonLastTime = [NSDate date];
         _goldCooldownTimer = 0;
-        [self initDungeons];
+        [self initAssets];
         
+        // Reload saved gold value
         [player addGold:[[Utility getInstance] getInt:@"gold"]];
     }
     return self;
@@ -65,26 +67,106 @@
     return dungeons.count;
 }
 
-- (void)initDungeons
+/*!
+ * Load all assets from the main assets list JSON.
+ * This should be called once on initalization.
+ * @author Henry Loo
+ */
+- (void)initAssets
 {
-    // TODO: replace hard-coded Forest dungeon definition with JSON file
+    // Load main assets list
+    NSString *assetsPath = [[NSBundle mainBundle] pathForResource:@"assets.json"
+                            ofType:nil inDirectory:@"Assets/"];
+    NSData *assetsData = [[Utility getInstance] loadResource:assetsPath];
+    NSDictionary *assetsJSON = [[Utility getInstance] decodeJSON:assetsData];
+
+    // Load all enemies
+    NSArray *enemiesArray = [assetsJSON objectForKey:@"enemies"];
+    enemies = [[NSMutableDictionary alloc] initWithCapacity:enemiesArray.count];
+    for (id enemyType in enemiesArray)
+    {
+        [self initEnemy:enemyType];
+    }
+    
+    // Load all dungeons
+    NSArray *dungeonsArray = [assetsJSON objectForKey:@"dungeons"];
     dungeons = [[NSMutableArray alloc] init];
+    for (id dungeonType in dungeonsArray)
+    {
+        [self initDungeon:dungeonType];
+    }
+}
+
+/*!
+ * Load an enemy from its JSON file given its type.
+ * @author Henry Loo
+ */
+- (void)initEnemy:(NSString*)enemyType
+{
+    const char *path = [[NSString stringWithFormat:@"%@.json", enemyType] UTF8String];
+    NSString *enemyPath = [[Utility getInstance] getFilepath:path fileType:"enemies"];
+    NSData *enemyData = [[Utility getInstance] loadResource:enemyPath];
+    NSDictionary *enemyJSON = [[Utility getInstance] decodeJSON:enemyData];
+    NSString *name = [enemyJSON valueForKey:@"name"];
+    int life = [[enemyJSON valueForKey:@"life"] intValue];
+    int attackDelay = [[enemyJSON valueForKey:@"attackDelay"] intValue];
     
-    NSString *name = @"Forest";
+    // Add the enemy's attack patterns
+    NSMutableArray *attackPatterns = [[NSMutableArray alloc] init];
+    NSArray *attackData = [enemyJSON objectForKey:@"attackPatterns"];
+    for (id object in attackData)
+    {
+        int damage = [[object valueForKey:@"damage"] intValue];
+        bool isDodgeable = [[object valueForKey:@"isDodgeable"] boolValue];
+        bool isBlockable = [[object valueForKey:@"isBlockable"] boolValue];
+        EnemyAttack attack = (EnemyAttack){.damage = damage, .isDodgeable = isDodgeable, .isBlockable = isBlockable};
+        NSValue *wrappedAttack = [NSValue valueWithBytes:&attack objCType:@encode(EnemyAttack)];
+        [attackPatterns addObject:wrappedAttack];
+    }
+
+    // Instantiate the enemy and add it to the list of enemies
+    Enemy *enemy = [[Enemy alloc] initWithData:name withLife:life withAttackDelay:attackDelay
+                            withAttackPatterns:attackPatterns];
+    [enemies setValue:enemy forKey:enemyType];
+}
+
+/*!
+ * Load a dungeon from its JSON file given its type.
+ * @author Henry Loo
+ */
+- (void)initDungeon:(NSString*)dungeonType
+{
+    // Get the dungeon's JSON file
+    const char *path = [[NSString stringWithFormat:@"%@.json", dungeonType] UTF8String];
+    NSString *dungeonPath = [[Utility getInstance] getFilepath:path fileType:"dungeons"];
+    NSData *dungeonData = [[Utility getInstance] loadResource:dungeonPath];
+    NSDictionary *dungeonJSON = [[Utility getInstance] decodeJSON:dungeonData];
+    NSString *name = [dungeonJSON valueForKey:@"name"];
+    int minNodes = [[dungeonJSON valueForKey:@"minNodes"] intValue];
+    int maxNodes = [[dungeonJSON valueForKey:@"maxNodes"] intValue];
+    
+    // Add combat nodes
     NSMutableArray *combatNodes = [[NSMutableArray alloc] init];
+    NSArray *combatNodeData = [dungeonJSON objectForKey:@"combatNodes"];
+    for (id object in combatNodeData)
+    {
+        int goldReward = [[object valueForKey:@"goldReward"] intValue];
+        NSString *enemyName = [object valueForKey:@"enemy"];
+        DungeonNode *node = [[DungeonNode alloc] initWithData:goldReward withEnemy:enemyName];
+        [combatNodes addObject:node];
+    }
+    
+    // TODO: Add event nodes
     NSMutableArray *eventNodes = [[NSMutableArray alloc] init];
-    int minNodes = 2;
-    int maxNodes = 4;
+    NSArray *eventNodeData = [dungeonJSON objectForKey:@"eventNodes"];
+    for (id object in eventNodeData)
+    {
+        int goldReward = [[object valueForKey:@"goldReward"] intValue];
+        DungeonNode *node = [[DungeonNode alloc] initWithData:goldReward withEnemy:nil];
+        [eventNodes addObject:node];
+    }
     
-    // Create Tree enemy type
-    NSMutableArray *attackPatterns;
-    Enemy *tree = [[Enemy alloc] initWithData:@"Tree" withLife:5 withAttackDelay:3 withAttackPatterns:attackPatterns];
-    enemies[ENEMY_TREE] = tree;
-    
-    // Add Tree enemy node
-    DungeonNode *node = [[DungeonNode alloc] initWithData:10 withEnemy:ENEMY_TREE];
-    [combatNodes addObject:node];
-    
+    // Instantiate the dungeon and add it to the list of dungeons
     Dungeon *forestDun = [[Dungeon alloc] init:name withCombatNodes:combatNodes
                                  withEventNodes:eventNodes withMinNodes:minNodes
                                    withMaxNodes:maxNodes];
@@ -92,9 +174,9 @@
     [dungeons addObject:forestDun];
 }
 
-- (Enemy*)getEnemy:(EnemyType)type
+- (Enemy*)getEnemy:(NSString*)type
 {
-    return enemies[type];
+    return [enemies objectForKey:type];
 }
 
 @end
