@@ -46,9 +46,35 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSDictionary *)decodeJSON:(NSData *)jsonData;
 
+/*!
+ * @brief Outputs a string to the console, we can do more stuff with the log
+ * information in the future.
+ * @author Jason Chung
+ *
+ * @param str The string to output
+ */
 - (void)log:(const char *)str;
 
+/*!
+ * @brief Gets an absolute path to a file.
+ * @author Jason Chung
+ *
+ * @param filename The name of the file
+ * @param fileType The directory for the Assets
+ *
+ * @return A string containing the absolute filepath or nil
+ */
 - (NSString *)getFilepath:(const char *)filename fileType:(const char *)fileType;
+/*!
+ * @brief Gets an absolute path to a file.
+ * @author Jason Chung
+ *
+ * @param filename The name of the file
+ * @param fileType The directory for the Assets
+ * @param bundle If not the main bundle, specify it here
+ *
+ * @return A string containing the absolute filepath or nil
+ */
 - (NSString *)getFilepath:(const char *)filename fileType:(const char *)fileType bundle:(NSBundle *)bundle;
 
 @end

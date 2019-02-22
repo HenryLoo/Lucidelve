@@ -12,13 +12,49 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/*!
+ * @brief A singleton class which can return primitive shapes
+ */
 @interface Primitives : NSObject
 
+/*!
+ * @brief Returns the singleton instance of the Primitives class.
+ * @author Jason Chung
+ *
+ * @return An id to the created instance
+ */
 + (id)getInstance;
 
+/*!
+ * @brief Returns a triangle
+ * @author Jason Chung
+ *
+ * @return A triangle mesh
+ */
 - (Mesh *)triangle;
+/*!
+ * @brief Returns a square
+ * @author Jason Chung
+ *
+ * @return A square mesh
+ */
 - (Mesh *)square;
+/*!
+ * @brief Returns a cube
+ * @author Jason Chung
+ *
+ * @return A cube mesh
+ */
 - (Mesh *)cube;
+/*!
+ * @brief Returns a sphere
+ * @author Jason Chung
+ *
+ * @param numSlices The number of slices in the sphere
+ * @param radius The radius of the sphere
+ *
+ * @return A sphere mesh
+ */
 - (Mesh *)sphere:(GLint)numSlices radius:(GLfloat)radius;
 
 @end

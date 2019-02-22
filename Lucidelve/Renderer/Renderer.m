@@ -15,12 +15,15 @@
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
 @interface Renderer() {
+    // The compiled GL program
     GLProgram *_glProgram;
     
-    GLKMatrix4 _viewMatrix;
+    // Used to convert the view space to clip space
     GLKMatrix4 _projectionMatrix;
     
+    // A directional light
     DirectionalLight *dirLight;
+    // A spotlight
     SpotLight *spotLight;
 }
 
@@ -28,39 +31,40 @@
 
 @implementation Renderer
 
-- (void)initWithView:(GLKView *)view {
-    self._context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-    
-    if (!self._context) {
-        [[Utility getInstance] log:"Failed to create GLES context."];
+- (id)initWithView:(GLKView *)view {
+    if (self == [super init]) {
+        self._context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+        
+        if (!self._context) {
+            [[Utility getInstance] log:"Failed to create GLES context."];
+        }
+        
+        view.context = self._context;
+        view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
+        
+        [EAGLContext setCurrentContext:self._context];
+        
+        if (![self loadShaders]) {
+            [[Utility getInstance] log:"Failed to setup shaders."];
+        }
+        
+        dirLight = [[DirectionalLight alloc] init];
+        spotLight = [[SpotLight alloc] init];
+        
+        glEnable(GL_DEPTH_TEST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glViewport(0, 0, (GLsizei)view.bounds.size.width, (GLsizei)view.bounds.size.height);
+        
+        self._camera = [[Camera alloc] initWithPosition:GLKVector3Make(0.0f, 0.0f, 3.0f)];
+        self._meshes = [[NSMutableArray<Mesh *> alloc] init];
+        
+        float aspect = fabsf((float)(view.bounds.size.width / view.bounds.size.height));
+        _projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 1.f, 100.0f);
     }
-    
-    view.context = self._context;
-    view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
-    
-    [EAGLContext setCurrentContext:self._context];
-    
-    if (![self loadShaders]) {
-        [[Utility getInstance] log:"Failed to setup shaders."];
-    }
-    
-    dirLight = [[DirectionalLight alloc] init];
-    spotLight = [[SpotLight alloc] init];
-    spotLight._cutOff = 0.5f;
-    
-    glEnable(GL_DEPTH_TEST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glViewport(0, 0, (GLsizei)view.bounds.size.width, (GLsizei)view.bounds.size.height);
-    
-    self._camera = [[Camera alloc] initWithPosition:GLKVector3Make(0.0f, 0.0f, 3.0f)];
-    self._meshes = [[NSMutableArray<Mesh *> alloc] init];
-    
-    _viewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -5.0f);
-    float aspect = fabsf((float)(view.bounds.size.width / view.bounds.size.height));
-    _projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 1.f, 100.0f);
+    return self;
 }
 
 - (void)cleanUp {
@@ -100,7 +104,7 @@
         modelMatrix = GLKMatrix4Rotate(modelMatrix, mesh._rotation.y, 0.0f, 1.0f, 0.0f);
         modelMatrix = GLKMatrix4Rotate(modelMatrix, mesh._rotation.z, 0.0f, 0.0f, 1.0f);
         modelMatrix = GLKMatrix4Scale(modelMatrix, mesh._scale.x, mesh._scale.y, mesh._scale.z);
-        GLKMatrix3 normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(GLKMatrix4Multiply(_viewMatrix, modelMatrix)), NULL);
+        GLKMatrix3 normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(GLKMatrix4Multiply([self._camera getViewMatrix], modelMatrix)), NULL);
         [_glProgram set3fvm:normalMatrix.m uniformName:"normalMatrix"];
         [_glProgram set4fvm:modelMatrix.m uniformName:"model"];
         [mesh draw:_glProgram];

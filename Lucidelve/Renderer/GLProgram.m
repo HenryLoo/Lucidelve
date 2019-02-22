@@ -13,8 +13,7 @@
 #import "../Utility.h"
 
 @interface GLProgram() {
-    // A reference to the program id on the GPU
-    // GLuint _programId;
+    // The list of known uniforms for the program
     NSMutableArray<Uniform *> *_uniforms;
 }
 
@@ -22,6 +21,9 @@
 
 @implementation GLProgram
 
+/*!
+ * @brief Prints the current info log for the program
+ */
 - (void)printInfoLog {
     GLsizei logLen = 0;
     GLsizei charsWritten = 0;
@@ -62,6 +64,9 @@
     }
 }
 
+/*!
+ * @brief Compiles the program
+ */
 - (void)compile {
     GLsizei success;
     

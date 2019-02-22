@@ -32,9 +32,8 @@
     }
     
     // Initialize renderer
-    _renderer = [[Renderer alloc] init];
     GLKView *view = (GLKView *)self.view;
-    [_renderer initWithView:view];
+    _renderer = [[Renderer alloc] initWithView:view];
     
     // Set UI element pointers
     backButton = ((BaseView*) self.view).backButton;

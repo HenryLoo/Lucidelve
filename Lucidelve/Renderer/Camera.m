@@ -50,11 +50,14 @@
 }
 
 - (void)update {
+    // Calculate the new Front vector
     GLKVector3 front;
     front.x = cosf(GLKMathDegreesToRadians(self._yaw)) * cosf(GLKMathDegreesToRadians(self._pitch));
     front.y = sinf(GLKMathDegreesToRadians(self._pitch));
     front.z = sinf(GLKMathDegreesToRadians(self._yaw)) * cosf(GLKMathDegreesToRadians(self._pitch));
     self._front = GLKVector3Normalize(front);
+    // Also re-calculate the Right and Up vector
+    // normalize their vectors, because their length gets closer to 0 the more you look up or down which results in slower movement
     self._right = GLKVector3Normalize(GLKVector3CrossProduct(self._front, self._worldUp));
     self._up = GLKVector3Normalize(GLKVector3CrossProduct(self._right, self._front));
 }

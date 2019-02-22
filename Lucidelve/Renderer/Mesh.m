@@ -12,8 +12,11 @@
 #import "../Utility.h"
 
 @interface Mesh() {
+    // Three buffers for position, normals, texels
     GLuint _vbo[3];
+    // A vertex array
     GLuint _vao;
+    // Index buffer
     GLuint _ebo;
 }
 @end
@@ -106,25 +109,25 @@
         }
         
         NSUInteger vertexCount = vertices.count;
-        self._numVertices = vertexCount;
+        self._numVertices = (GLsizei)vertexCount;
         self._vertices = malloc(sizeof(GLfloat) * vertexCount);
         for (int i = 0; i < vertexCount; i++) {
             self._vertices[i] = [[vertices objectAtIndex:i] floatValue];
         }
         NSUInteger normalsCount = normals.count;
-        self._numNormals = normalsCount;
+        self._numNormals = (GLsizei)normalsCount;
         self._normals = malloc(sizeof(GLfloat) * normalsCount);
         for (int i = 0; i < normalsCount; i++) {
             self._normals[i] = [[normals objectAtIndex:i] floatValue];
         }
         NSUInteger uvsCount = uvs.count;
-        self._numUvs = uvsCount;
+        self._numUvs = (GLsizei)uvsCount;
         self._uvs = malloc(sizeof(GLfloat) * uvsCount);
         for (int i = 0; i < uvsCount; i++) {
             self._uvs[i] = [[uvs objectAtIndex:i] floatValue];
         }
         NSUInteger indicesCount = indices.count;
-        self._numIndices = indicesCount;
+        self._numIndices = (GLsizei)indicesCount;
         self._indices = malloc(sizeof(GLuint) * indicesCount);
         for (int i = 0; i < indicesCount; i++) {
             self._indices[i] = [[indices objectAtIndex:i] unsignedIntValue] - 1;
