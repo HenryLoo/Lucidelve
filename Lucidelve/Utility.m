@@ -68,4 +68,12 @@
     NSLog(@"%s", str);
 }
 
+- (NSString *)getFilepath:(const char *)filename fileType:(const char *)fileType {
+    return [self getFilepath:filename fileType:fileType bundle:[NSBundle mainBundle]];
+}
+
+- (NSString *)getFilepath:(const char *)filename fileType:(const char *)fileType bundle:(NSBundle *)bundle {
+    return [bundle pathForResource:[NSString stringWithUTF8String:filename] ofType:nil inDirectory:[NSString stringWithFormat:@"Assets/%s/", fileType]];
+}
+
 @end

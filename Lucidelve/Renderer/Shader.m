@@ -29,7 +29,7 @@
 - (id)initWithFilename:(const char *)filename shaderType:(GLenum)shaderType {
     if (self == [super init]) {
         self._id = glCreateShader(shaderType);
-        NSString *filePath = [[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:filename] ofType:nil inDirectory:@"Assets/shaders/"];
+        NSString *filePath = [[Utility getInstance] getFilepath:filename fileType:"shaders"];
         const char *shaderSource = [[NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil] UTF8String];
         glShaderSource(self._id, 1, &shaderSource, NULL);
         [self compile];

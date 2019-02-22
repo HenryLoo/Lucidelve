@@ -48,6 +48,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)log:(const char *)str;
 
+- (NSString *)getFilepath:(const char *)filename fileType:(const char *)fileType;
+- (NSString *)getFilepath:(const char *)filename fileType:(const char *)fileType bundle:(NSBundle *)bundle;
+
 @end
 
 NS_ASSUME_NONNULL_END

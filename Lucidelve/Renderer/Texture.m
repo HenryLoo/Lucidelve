@@ -17,7 +17,7 @@
 
 - (id)initWithFilename:(const char *)filename type:(const char *)type {
     if (self == [super init]) {
-        NSString *filePath = [[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:filename] ofType:nil inDirectory:@"Assets/textures/"];
+        NSString *filePath = [[Utility getInstance] getFilepath:filename fileType:"textures"];
         CGImageRef imageRef = [[UIImage imageWithContentsOfFile:filePath] CGImage];
         if (!imageRef) {
             [[Utility getInstance] log:"Failed to load the image."];
