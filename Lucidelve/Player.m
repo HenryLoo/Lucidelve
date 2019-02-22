@@ -8,6 +8,7 @@
 
 #import "Player.h"
 #import "Constants.h"
+#import "Utility.h"
 
 @interface Player ()
 {
@@ -37,6 +38,8 @@
     
     // Can't go into negative gold
     gold = MAX(0, gold);
+    
+    [[Utility getInstance] saveInt:gold key:@"gold"];
 }
 
 - (int)getGold

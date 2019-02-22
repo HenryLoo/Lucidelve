@@ -7,11 +7,12 @@
 //
 
 #import "Game.h"
-#import "BaseVC.h"
+#import "ViewControllers/BaseVC.h"
 #import "Player.h"
 #import "Dungeon.h"
 #import "DungeonNode.h"
 #include <stdlib.h>
+#import "Utility.h"
 
 @interface Game ()
 {
@@ -36,6 +37,8 @@
         _hubLastTime = _dungeonLastTime = [NSDate date];
         _goldCooldownTimer = 0;
         [self initDungeons];
+        
+        [player addGold:[[Utility getInstance] getInt:@"gold"]];
     }
     return self;
 }

@@ -77,6 +77,47 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSString *)getFilepath:(const char *)filename fileType:(const char *)fileType bundle:(NSBundle *)bundle;
 
+/*!
+ * @brief Saves the float value to user preferences.
+ *
+ * @param value The value to set
+ * @param key The key for the key/value pair
+ */
+- (void)saveFloat:(float)value key:(NSString *)key;
+/*!
+ * @brief Saves the int value to user preferences.
+ *
+ * @param value The value to set
+ * @param key The key for the key/value pair
+ */
+- (void)saveInt:(int)value key:(NSString *)key;
+/*!
+ * @brief Saves the string value to user preferences.
+ *
+ * @param value The value to set
+ * @param key The key for the key/value pair
+ */
+- (void)saveString:(NSString *)value key:(NSString *)key;
+
+/*!
+ * @brief Returns the value at the specified key
+ *
+ * @return The value at the specified key
+ */
+- (float)getFloat:(NSString *)key;
+/*!
+ * @brief Returns the value at the specified key
+ *
+ * @return The value at the specified key
+ */
+- (int)getInt:(NSString *)key;
+/*!
+ * @brief Returns the value at the specified key
+ *
+ * @return The value at the specified key
+ */
+- (NSString *)getString:(NSString *)key;
+
 @end
 
 NS_ASSUME_NONNULL_END
