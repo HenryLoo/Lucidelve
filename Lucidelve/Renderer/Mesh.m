@@ -9,6 +9,7 @@
 
 #import "Mesh.h"
 #import <OpenGLES/ES2/glext.h>
+#import "../Utility.h"
 
 @interface Mesh() {
     GLuint _vbo[3];
@@ -22,15 +23,12 @@
 - (id)initWithVertexData:(GLfloat *)vertexData numVertices:(GLsizei)numVertices normals:(GLfloat *)normals uvs:(GLfloat *)uvs numUvs:(GLsizei)numUvs indices:(GLuint *)indices numIndices:(GLsizei)numIndices {
     if (self == [super init]) {
         self._numVertices = numVertices;
+        self._numNormals = numVertices;
         self._numIndices = numIndices;
         self._numUvs = numUvs;
         self._vertices = malloc(sizeof(GLfloat) * numVertices);
         if (vertexData != NULL) {
             memcpy(self._vertices, vertexData, sizeof(GLfloat) * numVertices);
-        }
-        self._indices = malloc(sizeof(GLuint) * numIndices);
-        if (indices != NULL) {
-            memcpy(self._indices, indices, sizeof(GLuint) * numIndices);
         }
         self._normals = malloc(sizeof(GLfloat) * numVertices);
         if (normals != NULL) {
@@ -40,13 +38,106 @@
         if (self._uvs != NULL) {
             memcpy(self._uvs, uvs, sizeof(GLfloat) * numUvs);
         }
+        self._indices = malloc(sizeof(GLuint) * numIndices);
+        if (indices != NULL) {
+            memcpy(self._indices, indices, sizeof(GLuint) * numIndices);
+        }
         
         self._position = GLKVector3Make(0.0f, 0.0f, 0.0f);
         self._rotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
+        self._scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
         self._textures = [[NSMutableArray<Texture *> alloc] init];
         
         [self setup];
     }
+    
+    return self;
+}
+
+- (id)initWithFilename:(const char *)filename {
+    if (self == [super init]) {
+        NSString *filePath = [[Utility getInstance] getFilepath:filename fileType:"models"];
+        NSString *contents = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+        NSArray *lines = [contents componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+        
+        NSMutableArray<NSNumber *> *vertices = [[NSMutableArray<NSNumber *> alloc] init];
+        NSMutableArray<NSNumber *> *normals = [[NSMutableArray<NSNumber *> alloc] init];
+        NSMutableArray<NSNumber *> *uvs = [[NSMutableArray<NSNumber *> alloc] init];
+        NSMutableArray<NSNumber *> *indices = [[NSMutableArray<NSNumber *> alloc] init];
+        
+        NSEnumerator *lineEnumerator = [lines objectEnumerator];
+        id object;
+        while (object = [lineEnumerator nextObject]) {
+            if ([object length] < 2) continue;
+            NSString *type = [object substringToIndex:2];
+            NSString *line = [object substringFromIndex:2];
+            int results = 0;
+            
+            if ([type isEqualToString:@"v "]) {
+                GLfloat x, y, z;
+                results = sscanf(line.UTF8String, "%f %f %f", &x, &y, &z);
+                [vertices addObject:[NSNumber numberWithFloat:x]];
+                [vertices addObject:[NSNumber numberWithFloat:y]];
+                [vertices addObject:[NSNumber numberWithFloat:z]];
+            } else if ([type isEqualToString:@"vn"]) {
+                GLfloat x, y, z;
+                results = sscanf(line.UTF8String, "%f %f %f", &x, &y, &z);
+                [normals addObject:[NSNumber numberWithFloat:x]];
+                [normals addObject:[NSNumber numberWithFloat:y]];
+                [normals addObject:[NSNumber numberWithFloat:z]];
+            } else if ([type isEqualToString:@"vt"]) {
+                GLfloat x, y;
+                results = sscanf(line.UTF8String, "%f %f", &x, &y);
+                [uvs addObject:[NSNumber numberWithFloat:x]];
+                [uvs addObject:[NSNumber numberWithFloat:y]];
+            } else if ([type isEqualToString:@"f "]) {
+                GLuint indexVertex[3], indexUV[3], indexNormal[3];
+                results = sscanf(line.UTF8String, "%d/%d/%d %d/%d/%d %d/%d/%d"
+                                 , &indexVertex[0], &indexUV[0], &indexNormal[0]
+                                 , &indexVertex[1], &indexUV[1], &indexNormal[1]
+                                 , &indexVertex[2], &indexUV[2], &indexNormal[2]);
+                [indices addObject:[NSNumber numberWithUnsignedInt:indexVertex[0]]];
+                [indices addObject:[NSNumber numberWithUnsignedInt:indexVertex[1]]];
+                [indices addObject:[NSNumber numberWithUnsignedInt:indexVertex[2]]];
+            } else {
+                // we don't handle advanced OBJ models
+                continue;
+            }
+        }
+        
+        NSUInteger vertexCount = vertices.count;
+        self._numVertices = vertexCount;
+        self._vertices = malloc(sizeof(GLfloat) * vertexCount);
+        for (int i = 0; i < vertexCount; i++) {
+            self._vertices[i] = [[vertices objectAtIndex:i] floatValue];
+        }
+        NSUInteger normalsCount = normals.count;
+        self._numNormals = normalsCount;
+        self._normals = malloc(sizeof(GLfloat) * normalsCount);
+        for (int i = 0; i < normalsCount; i++) {
+            self._normals[i] = [[normals objectAtIndex:i] floatValue];
+        }
+        NSUInteger uvsCount = uvs.count;
+        self._numUvs = uvsCount;
+        self._uvs = malloc(sizeof(GLfloat) * uvsCount);
+        for (int i = 0; i < uvsCount; i++) {
+            self._uvs[i] = [[uvs objectAtIndex:i] floatValue];
+        }
+        NSUInteger indicesCount = indices.count;
+        self._numIndices = indicesCount;
+        self._indices = malloc(sizeof(GLuint) * indicesCount);
+        for (int i = 0; i < indicesCount; i++) {
+            self._indices[i] = [[indices objectAtIndex:i] unsignedIntValue] - 1;
+        }
+        
+        self._position = GLKVector3Make(0.0f, 0.0f, 0.0f);
+        self._rotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
+        self._scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
+        self._textures = [[NSMutableArray<Texture *> alloc] init];
+        
+        [self setup];
+    }
+    
     return self;
 }
 
@@ -102,8 +193,7 @@
     glEnableVertexAttribArray(GLKVertexAttribPosition);
     
     glBindBuffer(GL_ARRAY_BUFFER, _vbo[1]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 3 * self._numVertices, self._normals, GL_STATIC_DRAW
-                 );
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 3 * self._numNormals, self._normals, GL_STATIC_DRAW);
     glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (const GLvoid *)0);
     glEnableVertexAttribArray(GLKVertexAttribNormal);
     
@@ -114,7 +204,6 @@
     
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * self._numIndices, self._indices, GL_STATIC_DRAW);
-    
     
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArrayOES(0);
@@ -142,11 +231,12 @@
         [program set1i:i uniformName:[[NSString stringWithFormat:@"%s%u", name, number] UTF8String]];
         glBindTexture(GL_TEXTURE_2D, self._textures[i]._id);
     }
-    glActiveTexture(GL_TEXTURE0);
     
     glBindVertexArrayOES(_vao);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
     glDrawElements(GL_TRIANGLES, self._numIndices, GL_UNSIGNED_INT, 0);
+    glBindVertexArrayOES(0);
+    
+    glActiveTexture(GL_TEXTURE0);
 }
 
 - (void)addTexture:(Texture *)texture {

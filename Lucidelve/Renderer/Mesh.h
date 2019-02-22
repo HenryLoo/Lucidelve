@@ -14,20 +14,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Mesh : NSObject
 
-@property GLfloat *_vertices;
-@property GLfloat *_normals;
-@property GLfloat *_uvs;
-@property GLuint *_indices;
+@property (nonatomic) GLfloat *_vertices;
+@property (nonatomic) GLfloat *_normals;
+@property (nonatomic) GLfloat *_uvs;
+@property (nonatomic) GLuint *_indices;
 @property (nonatomic, strong) NSMutableArray<Texture *> *_textures;
 
-@property GLsizei _numVertices;
-@property GLsizei _numUvs;
-@property GLsizei _numIndices;
+@property (nonatomic) GLsizei _numVertices;
+@property (nonatomic) GLsizei _numNormals;
+@property (nonatomic) GLsizei _numUvs;
+@property (nonatomic) GLsizei _numIndices;
 
-@property GLKVector3 _position;
-@property GLKVector3 _rotation;
+@property (nonatomic) GLKVector3 _position;
+@property (nonatomic) GLKVector3 _rotation;
+@property (nonatomic) GLKVector3 _scale;
 
 - (id)initWithVertexData:(GLfloat *)vertexData numVertices:(GLsizei)numVertices normals:(GLfloat *)normals uvs:(GLfloat *)uvs numUvs:(GLsizei)numUvs indices:(GLuint *)indices numIndices:(GLsizei)numIndices;
+- (id)initWithFilename:(const char *)filename;
 
 - (void)cleanUp;
 - (void)draw:(GLProgram *)program;

@@ -84,7 +84,8 @@
     Texture *diffuse = [[Texture alloc] initWithFilename:"container2.png"];
     Texture *specular = [[Texture alloc] initWithFilename:"container2_specular.png" type:"texture_specular"];
     
-    mesh = [[Primitives getInstance] cube];
+    mesh = [[Mesh alloc] initWithFilename:"cube.obj"];
+    mesh._scale = GLKVector3Make(0.5f, 0.5f, 0.5f);
     [mesh addTexture:diffuse];
     [mesh addTexture:specular];
     

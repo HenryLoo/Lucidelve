@@ -99,6 +99,7 @@
         modelMatrix = GLKMatrix4Rotate(modelMatrix, mesh._rotation.x, 1.0f, 0.0f, 0.0f);
         modelMatrix = GLKMatrix4Rotate(modelMatrix, mesh._rotation.y, 0.0f, 1.0f, 0.0f);
         modelMatrix = GLKMatrix4Rotate(modelMatrix, mesh._rotation.z, 0.0f, 0.0f, 1.0f);
+        modelMatrix = GLKMatrix4Scale(modelMatrix, mesh._scale.x, mesh._scale.y, mesh._scale.z);
         GLKMatrix3 normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(GLKMatrix4Multiply(_viewMatrix, modelMatrix)), NULL);
         [_glProgram set3fvm:normalMatrix.m uniformName:"normalMatrix"];
         [_glProgram set4fvm:modelMatrix.m uniformName:"model"];
