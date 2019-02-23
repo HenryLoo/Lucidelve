@@ -48,6 +48,21 @@
 
 - (void)update
 {
+    // Calculate deltaTime for this frame
+    _game.deltaTime = [_game.lastTime timeIntervalSinceNow];
+    _game.lastTime = [NSDate date];
+    
+    // Decrement cooldown timer and make sure it doesn't
+    // drop lower than 0
+    _game.goldCooldownTimer += _game.deltaTime;
+    _game.goldCooldownTimer = MAX(0, _game.goldCooldownTimer);
+    
+    // Update the Golden Goose timer if it has been unlocked
+    if (_game.isGooseUnlocked)
+    {
+        [_game updateGooseGold];
+    }
+    
     [_renderer update:self.game.deltaTime];
 }
 

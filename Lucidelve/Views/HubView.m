@@ -32,6 +32,7 @@
     _shopButton = [self setupMenuButton:@"SHOP"];
     _inventoryButton = [self setupMenuButton:@"INVENTORY"];
     _dungeonsButton = [self setupMenuButton:@"DUNGEONS"];
+    _gooseButton = [self setupMenuButton:@"GOLDEN GOOSE"];
 }
 
 - (void)setupBodyElements
@@ -133,6 +134,12 @@
     [_dungeonsButton.topAnchor constraintEqualToAnchor:_shopButton.topAnchor].active = YES;
     [_dungeonsButton.widthAnchor constraintEqualToConstant:_dungeonsButton.frame.size.width].active = YES;
     [_dungeonsButton.heightAnchor constraintEqualToConstant:_dungeonsButton.frame.size.height].active = YES;
+    
+    // Golden Goose button constraints
+    [_gooseButton.leftAnchor constraintEqualToAnchor:self.headerArea.leftAnchor constant:25].active = YES;
+    [_gooseButton.topAnchor constraintEqualToAnchor:_shopButton.bottomAnchor constant:25].active = YES;
+    [_gooseButton.widthAnchor constraintEqualToConstant:_gooseButton.frame.size.width].active = YES;
+    [_gooseButton.heightAnchor constraintEqualToConstant:_gooseButton.frame.size.height].active = YES;
 }
 
 @end

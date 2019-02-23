@@ -120,10 +120,6 @@
 
 - (void)update
 {
-    // Calculate deltaTime for this frame
-    self.game.deltaTime = [self.game.dungeonLastTime timeIntervalSinceNow];
-    self.game.dungeonLastTime = [NSDate date];
-    
     // If current node is cleared and the dungeon run is not over,
     // then process the next node
     if (isNodeCleared && remainingNodes > 0)

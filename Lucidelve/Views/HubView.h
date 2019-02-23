@@ -27,6 +27,8 @@
     
 // Button for moving to Dungeons
 @property (nonatomic, strong) UIButton *dungeonsButton;
-    
+
+// Button for moving to the Golden Goose
+@property (nonatomic, strong) UIButton *gooseButton;
 
 @end

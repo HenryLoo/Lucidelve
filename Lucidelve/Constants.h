@@ -23,3 +23,20 @@ extern const int GOLD_EARN_AMOUNT;
 
 // The cooldown between combat actions
 extern const float COMBAT_COOLDOWN;
+
+// The maximum number of upgrades for the Golden Goose
+extern const int MAX_GOOSE_UPGRADES;
+
+// The cost for the first Golden Goose upgrade
+extern const int GOOSE_BASE_PRICE;
+
+// The amount of gold earned per instance for the first
+// Golden Goose upgrade
+extern const int GOOSE_BASE_AMOUNT;
+
+// The delay between instances in seconds for the first
+// Golden Goose upgrade
+extern const int GOOSE_BASE_DELAY;
+
+// The multipler to increase price by per upgrade level
+extern const float GOOSE_PRICE_MULTIPLIER;

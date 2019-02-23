@@ -11,6 +11,7 @@
 #import "ShopVC.h"
 #import "InventoryVC.h"
 #import "DungeonsVC.h"
+#import "GooseVC.h"
 #import "../Game.h"
 #import "../Player.h"
 #import "../Constants.h"
@@ -36,6 +37,9 @@
     
     // Pointer to the view's dungeons button
     UIButton *dungeonsButton;
+    
+    // Pointer to the view's Golden Goose button
+    UIButton *gooseButton;
     
     // Demonstrative Mesh
     Mesh *mesh;
@@ -64,6 +68,7 @@
     shopButton = ((HubView*) self.view).shopButton;
     inventoryButton = ((HubView*) self.view).inventoryButton;
     dungeonsButton = ((HubView*) self.view).dungeonsButton;
+    gooseButton = ((HubView*) self.view).gooseButton;
     
     // Attach selector to the gold button
     [goldButton addTarget:self action:@selector(onGoldButtonPress:)
@@ -75,11 +80,15 @@
     
     // Attach selector to the Inventory button
     [inventoryButton addTarget:self action:@selector(onInventoryButtonPress:)
-         forControlEvents:UIControlEventTouchDown];
+              forControlEvents:UIControlEventTouchDown];
     
     // Attach selector to the Dungeons button
     [dungeonsButton addTarget:self action:@selector(onDungeonsButtonPress:)
-              forControlEvents:UIControlEventTouchDown];
+             forControlEvents:UIControlEventTouchDown];
+    
+    // Attach selector to the Golden Goose button
+    [gooseButton addTarget:self action:@selector(onGooseButtonPress:)
+             forControlEvents:UIControlEventTouchDown];
     
     Texture *diffuse = [[Texture alloc] initWithFilename:"container2.png"];
     Texture *specular = [[Texture alloc] initWithFilename:"container2_specular.png" type:"texture_specular"];
@@ -99,17 +108,14 @@
 
 - (void)update
 {
-    // Calculate deltaTime for this frame
-    self.game.deltaTime = [self.game.hubLastTime timeIntervalSinceNow];
-    self.game.hubLastTime = [NSDate date];
+    [super update];
     
+    // Update UI elements
     [self updateGoldLabel];
     [self updateGoldCooldown];
     [self updateUnlockables];
     
     mesh._rotation = GLKVector3AddScalar(mesh._rotation, 0.01f);
-    
-    [super update];
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
@@ -140,11 +146,6 @@
         // Disable the button
         [goldButton setEnabled:NO];
         
-        // Decrement cooldown timer and make sure it doesn't
-        // drop lower than 0
-        self.game.goldCooldownTimer += self.game.deltaTime;
-        self.game.goldCooldownTimer = MAX(0, self.game.goldCooldownTimer);
-        
         // Update the button's text to show the remaining
         // cooldown (can't show animations or the text will keep
         // fading to white)
@@ -158,7 +159,6 @@
     else
     {
         // Cooldown is over, so re-enable the gold button
-        self.game.goldCooldownTimer = 0;
         [goldButton setEnabled:YES];
     }
 }
@@ -189,6 +189,13 @@
     {
         [dungeonsButton setEnabled:YES];
         self.game.isDungeonsUnlocked = true;
+    }
+    
+    // Unlock the Golden Goose
+    if (self.game.isGooseUnlocked || [player getGold] >= 100)
+    {
+        [gooseButton setEnabled:YES];
+        self.game.isGooseUnlocked = true;
     }
 }
 
@@ -231,7 +238,7 @@
     InventoryVC *vc = [[InventoryVC alloc] init];
     [self.game changeScene:self newVC:vc];
 }
-    
+
 /*!
  * Handle the Dungeons button's action.
  * This should redirect the player to the Dungeon view.
@@ -241,6 +248,18 @@
 - (void)onDungeonsButtonPress:(id)sender
 {
     DungeonsVC *vc = [[DungeonsVC alloc] init];
+    [self.game changeScene:self newVC:vc];
+}
+
+/*!
+ * Handle the Golden Goose button's action.
+ * This should redirect the player to the Golden Goose view.
+ * @author Henry Loo
+ * @param sender The pressed button
+ */
+- (void)onGooseButtonPress:(id)sender
+{
+    GooseVC *vc = [[GooseVC alloc] init];
     [self.game changeScene:self newVC:vc];
 }
 

@@ -13,6 +13,7 @@
 #import "DungeonNode.h"
 #include <stdlib.h>
 #import "Utility.h"
+#import "Constants.h"
 
 @interface Game ()
 {
@@ -35,12 +36,15 @@
 {
     if (self = [super init]) {
         player = [[Player alloc] init];
-        _hubLastTime = _dungeonLastTime = [NSDate date];
+        _lastTime = [NSDate date];
         _goldCooldownTimer = 0;
         [self initAssets];
         
         // Reload saved gold value
         [player addGold:[[Utility getInstance] getInt:@"gold"]];
+        
+        // Initialize the Golden Goose's gold generation rate
+        [self updateGooseRate];
     }
     return self;
 }
@@ -65,6 +69,33 @@
 - (NSUInteger)getNumDungeons
 {
     return dungeons.count;
+}
+
+- (Enemy*)getEnemy:(NSString*)type
+{
+    return [enemies objectForKey:type];
+}
+
+- (void)updateGooseRate
+{
+    const int maxAmount = 10;
+    _gooseAmount = GOOSE_BASE_AMOUNT + _numGooseUpgrades % maxAmount;
+    
+    const float multiplier = 1.2;
+    _gooseDelay = GOOSE_BASE_DELAY / pow(multiplier, _numGooseUpgrades);
+    
+    // Reset the cooldown to reflect the new delay
+    _gooseCooldownTimer = _gooseDelay;
+}
+
+- (void)updateGooseGold
+{
+    _gooseCooldownTimer += _deltaTime;
+    if (_gooseCooldownTimer <= 0)
+    {
+        [player addGold:_gooseAmount];
+        _gooseCooldownTimer = _gooseDelay;
+    }
 }
 
 /*!
@@ -172,11 +203,6 @@
                                    withMaxNodes:maxNodes];
     
     [dungeons addObject:forestDun];
-}
-
-- (Enemy*)getEnemy:(NSString*)type
-{
-    return [enemies objectForKey:type];
 }
 
 @end

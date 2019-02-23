@@ -46,8 +46,6 @@
 - (void)setupGoldLabel
 {
     _goldLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    _goldLabel.textColor = [UIColor blackColor];
-    _goldLabel.textAlignment = NSTextAlignmentLeft;
     _goldLabel.text = @"Gold: ";
     [_goldLabel sizeToFit];
     [self.headerArea addSubview:_goldLabel];
