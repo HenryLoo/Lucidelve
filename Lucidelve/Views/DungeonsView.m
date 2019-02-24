@@ -57,7 +57,7 @@
 }
     
 /*!
- * Create the element for displaying the player's items.
+ * @brief Create the element for displaying the player's items.
  * @author Henry Loo
  */
 - (void)setupItemsTable
@@ -70,7 +70,7 @@
 }
 
 /*!
- * Set up the layout constraints of the view
+ * @brief Set up the layout constraints of the view
  * @author Henry Loo
  */
 - (void)setupLayout

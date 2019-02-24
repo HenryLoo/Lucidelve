@@ -27,7 +27,7 @@
 }
 
 /*!
- * Create the subview for the header area of the view.
+ * @brief Create the subview for the header area of the view.
  * @author Henry Loo
  */
 - (void)setupHeaderArea
@@ -42,7 +42,7 @@
 }
 
 /*!
- * Create the subview for the body area of the view.
+ * @brief Create the subview for the body area of the view.
  * @author Henry Loo
  */
 - (void)setupBodyArea
@@ -57,7 +57,7 @@
 }
 
 /*!
- * Create the subview for the footer area of the view.
+ * @brief Create the subview for the footer area of the view.
  * @author Henry Loo
  */
 - (void)setupFooterArea

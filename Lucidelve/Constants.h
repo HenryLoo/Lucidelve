@@ -10,7 +10,7 @@
 #import "Item.h"
 
 // Hold all item values
-extern const Item ITEMS[ITEM_NUM_ITEMS];
+extern const Item ITEMS[];
 
 // The player's default starting life value
 extern const int DEFAULT_PLAYER_LIFE;
@@ -38,5 +38,17 @@ extern const int GOOSE_BASE_AMOUNT;
 // Golden Goose upgrade
 extern const int GOOSE_BASE_DELAY;
 
-// The multipler to increase price by per upgrade level
+// The multipler to increase price by per upgrade level for the Golden Goose
 extern const float GOOSE_PRICE_MULTIPLIER;
+
+// The maximum number of upgrades for the Blacksmith
+extern const int MAX_BLACKSMITH_UPGRADES;
+
+// The cost for the first Blacksmith upgrade
+extern const int BLACKSMITH_BASE_PRICE;
+
+// The multipler to increase price by per upgrade level for the Blacksmith
+extern const float BLACKSMITH_PRICE_MULTIPLIER;
+
+// Hold the sword items corresponding to each upgrade level
+extern const int SWORD_UPGRADES[];

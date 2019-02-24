@@ -59,14 +59,20 @@
 // starting until it reaches 0.
 @property float gooseCooldownTimer;
 
+// Flag for if the Blacksmith has been unlocked.
+@property bool isBlacksmithUnlocked;
+
+// The number of upgrades purchased for the Blacksmith.
+@property int numBlacksmithUpgrades;
+
 /*!
- * Return the player's data.
+ * @brief Return the player's data.
  * @author Henry Loo
  */
 - (Player*)getPlayer;
 
 /*!
- * Change the current scene to a new specified one.
+ * @brief Change the current scene to a new specified one.
  * @author Henry Loo
  *
  * @param currentVC The view controller for the current scene.
@@ -75,14 +81,14 @@
 - (void)changeScene:(BaseVC*)currentVC newVC:(BaseVC*)newVC;
 
 /*!
- * Return the dungeon corresponding to the given level,
+ * @brief Return the dungeon corresponding to the given level,
  * starting with index 0.
  * @author Henry Loo
  */
 - (Dungeon*)getDungeon:(NSUInteger)level;
 
 /*!
- * Get the number of dungeons types.
+ * @brief Get the number of dungeons types.
  * @author Henry Loo
  *
  * @return The number of dungeon types.
@@ -90,26 +96,35 @@
 - (NSUInteger)getNumDungeons;
 
 /*!
- * Get an enemy, given its type.
+ * @brief Get an enemy, given its type.
  * @author Henry Loo
  *
  * @param type The enemy's type.
+ *
  * @return The enemy.
  */
 - (Enemy*)getEnemy:(NSString*)type;
 
 /*!
- * Update the rate of gold generation by the Golden Goose
+ * @brief Update the rate of gold generation by the Golden Goose
  * based on the current number of upgrades.
  * @author Henry Loo
  */
 - (void)updateGooseRate;
 
 /*!
- * Increment the player's gold by the Golden Goose's
+ * @brief Increment the player's gold by the Golden Goose's
  * amount, if the cooldown timer reaches 0.
  * @author Henry Loo
  */
 - (void)updateGooseGold;
+
+/*!
+ * @brief Get the player's damage, based on their sword.
+ * @author Henry Loo
+ *
+ * @return The amount of damage the player can deal.
+ */
+- (int)getSwordDamage;
 
 @end

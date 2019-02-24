@@ -24,7 +24,6 @@
     NSMutableArray *dungeons;
     
     // Hold the different enemy types
-    //Enemy *enemies[ENEMY_NUM_ENEMIES];
     NSMutableDictionary *enemies;
 }
 
@@ -98,8 +97,13 @@
     }
 }
 
+- (int)getSwordDamage
+{
+    return (_numBlacksmithUpgrades * 2) + pow(1.5, _numBlacksmithUpgrades);
+}
+
 /*!
- * Load all assets from the main assets list JSON.
+ * @brief Load all assets from the main assets list JSON.
  * This should be called once on initalization.
  * @author Henry Loo
  */
@@ -129,7 +133,7 @@
 }
 
 /*!
- * Load an enemy from its JSON file given its type.
+ * @brief Load an enemy from its JSON file given its type.
  * @author Henry Loo
  */
 - (void)initEnemy:(NSString*)enemyType
@@ -162,7 +166,7 @@
 }
 
 /*!
- * Load a dungeon from its JSON file given its type.
+ * @brief Load a dungeon from its JSON file given its type.
  * @author Henry Loo
  */
 - (void)initDungeon:(NSString*)dungeonType
@@ -198,11 +202,11 @@
     }
     
     // Instantiate the dungeon and add it to the list of dungeons
-    Dungeon *forestDun = [[Dungeon alloc] init:name withCombatNodes:combatNodes
+    Dungeon *dungeon = [[Dungeon alloc] init:name withCombatNodes:combatNodes
                                  withEventNodes:eventNodes withMinNodes:minNodes
                                    withMaxNodes:maxNodes];
     
-    [dungeons addObject:forestDun];
+    [dungeons addObject:dungeon];
 }
 
 @end

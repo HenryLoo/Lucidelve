@@ -241,7 +241,7 @@
 }
 
 /*!
- * Perform the player's regular attack
+ * @brief Perform the player's regular attack.
  * @author Henry Loo
  */
 - (void)performRegularAttack
@@ -255,7 +255,7 @@
 }
 
 /*!
- * Perform the player's high attack
+ * @brief Perform the player's high attack.
  * @author Henry Loo
  */
 - (void)performHighAttack
@@ -268,14 +268,18 @@
     }
 }
 
+/*!
+ * @brief Inflict damage on the enemy depending on the player's sword.
+ * @author Henry Loo
+ */
 - (void)dealSwordDamageToEnemy
 {
-    // TODO: replace hard-coded damage value to reflect the player's sword
-    [currentEnemy addLife:-1];
+    // Deal damage depending on the number of sword upgrades
+    [currentEnemy addLife:-[self.game getSwordDamage]];
 }
 
 /*!
- * Perform the player's blocking action
+ * @brief Perform the player's blocking action.
  * @author Henry Loo
  */
 - (void)performBlock
@@ -288,7 +292,7 @@
 }
 
 /*!
- * Perform the player's dodge left action
+ * @brief Perform the player's dodge left action.
  * @author Henry Loo
  */
 - (void)performDodgeLeft
@@ -301,7 +305,7 @@
 }
 
 /*!
- * Perform the player's dodge right action
+ * @brief Perform the player's dodge right action.
  * @author Henry Loo
  */
 - (void)performDodgeRight
@@ -418,7 +422,7 @@
 }
 
 /*!
- * Update the remaining nodes label.
+ * @brief Update the remaining nodes label.
  * @author Henry Loo
  */
 - (void)updateRemainingNodes

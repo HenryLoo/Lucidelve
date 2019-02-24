@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F60B95822232F7600583CCD /* BlacksmithVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F60B95722232F7600583CCD /* BlacksmithVC.m */; };
+		5F60B95B22232FC400583CCD /* BlacksmithView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F60B95A22232FC400583CCD /* BlacksmithView.m */; };
 		5F632F72221511F5009DBB0F /* Dungeon.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F632F71221511F5009DBB0F /* Dungeon.m */; };
 		5F67B670220BD75500227D14 /* HubView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F67B66F220BD75500227D14 /* HubView.m */; };
 		5F67B673220BFBFA00227D14 /* ShopVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F67B672220BFBFA00227D14 /* ShopVC.m */; };
@@ -68,6 +70,10 @@
 		5F572A632214EC4200580EAF /* Dungeon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Dungeon.h; sourceTree = "<group>"; };
 		5F572A642215080B00580EAF /* DungeonNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DungeonNode.h; sourceTree = "<group>"; };
 		5F5D8A4A220E0E2B006513C2 /* Item.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		5F60B95622232F6600583CCD /* BlacksmithVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlacksmithVC.h; sourceTree = "<group>"; };
+		5F60B95722232F7600583CCD /* BlacksmithVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlacksmithVC.m; sourceTree = "<group>"; };
+		5F60B95922232FB500583CCD /* BlacksmithView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlacksmithView.h; sourceTree = "<group>"; };
+		5F60B95A22232FC400583CCD /* BlacksmithView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlacksmithView.m; sourceTree = "<group>"; };
 		5F632F71221511F5009DBB0F /* Dungeon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Dungeon.m; sourceTree = "<group>"; };
 		5F67B66E220BD70B00227D14 /* HubView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HubView.h; sourceTree = "<group>"; };
 		5F67B66F220BD75500227D14 /* HubView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HubView.m; sourceTree = "<group>"; };
@@ -190,6 +196,8 @@
 				5FE33DE02218910000FCE3D8 /* CombatVC.m */,
 				5FFA34C32220C58200994AEF /* GooseVC.h */,
 				5FFA34C42220C63100994AEF /* GooseVC.m */,
+				5F60B95622232F6600583CCD /* BlacksmithVC.h */,
+				5F60B95722232F7600583CCD /* BlacksmithVC.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -211,6 +219,8 @@
 				5FE33DDE221890E500FCE3D8 /* CombatView.m */,
 				5FFA34C62220C8AD00994AEF /* GooseView.h */,
 				5FFA34C72220C93A00994AEF /* GooseView.m */,
+				5F60B95922232FB500583CCD /* BlacksmithView.h */,
+				5F60B95A22232FC400583CCD /* BlacksmithView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -428,6 +438,7 @@
 				D6A4D46C220A86D7006FB2BB /* Utility.m in Sources */,
 				5F6CB684220FE73D004B5312 /* InventoryView.m in Sources */,
 				5F632F72221511F5009DBB0F /* Dungeon.m in Sources */,
+				5F60B95822232F7600583CCD /* BlacksmithVC.m in Sources */,
 				D632C64C221C02B500A315BA /* Mesh.m in Sources */,
 				5F67B673220BFBFA00227D14 /* ShopVC.m in Sources */,
 				5F67B676220BFCF900227D14 /* ShopView.m in Sources */,
@@ -454,6 +465,7 @@
 				D632C648221C02B500A315BA /* Uniform.m in Sources */,
 				5F6CB681220FE5D4004B5312 /* InventoryVC.m in Sources */,
 				5F77C1532204482B002A8300 /* AppDelegate.m in Sources */,
+				5F60B95B22232FC400583CCD /* BlacksmithView.m in Sources */,
 				D632C646221C02B500A315BA /* GLProgram.m in Sources */,
 				5F96A4DA220AD39100026AD0 /* Player.m in Sources */,
 				5F78DCFC220E60730039EA92 /* BaseView.m in Sources */,

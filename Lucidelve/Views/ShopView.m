@@ -40,7 +40,7 @@
 }
 
 /*!
- * Create the label element for displaying the player's current gold.
+ * @brief Create the label element for displaying the player's current gold.
  * @author Henry Loo
  */
 - (void)setupGoldLabel
@@ -55,7 +55,7 @@
 }
 
 /*!
- * Create the button element for buying an item.
+ * @brief Create the button element for buying an item.
  * @author Henry Loo
  */
 - (UIButton*)setupItemButton:(ItemType)itemType
@@ -77,7 +77,7 @@
 }
 
 /*!
- * Set up the layout constraints of the view
+ * @brief Set up the layout constraints of the view
  * @author Henry Loo
  */
 - (void)setupLayout

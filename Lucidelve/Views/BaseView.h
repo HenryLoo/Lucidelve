@@ -31,42 +31,42 @@
 @property (nonatomic, strong) UILabel *titleLabel;
 
 /*!
- * Create all the elements in the header.
+ * @brief Create all the elements in the header.
  * This should be implemented by the subclass.
  * @author Henry Loo
  */
 - (void)setupHeaderElements;
 
 /*!
- * Create all the elements in the body.
+ * @brief Create all the elements in the body.
  * This should be implemented by the subclass.
  * @author Henry Loo
  */
 - (void)setupBodyElements;
 
 /*!
- * Create all the elements in the footer.
+ * @brief Create all the elements in the footer.
  * This should be implemented by the subclass.
  * @author Henry Loo
  */
 - (void)setupFooterElements;
 
 /*!
- * Add a Back button to the header area.
+ * @brief Add a Back button to the header area.
  * The subclass should call this if it needs a Back button.
  * @author Henry Loo
  */
 - (void)addBackButton;
 
 /*!
- * Add a given title to the header area.
+ * @brief Add a given title to the header area.
  * The subclass should call this if it needs title.
  * @author Henry Loo
  */
 - (void)addTitle:(NSString*)title;
 
 /*!
- * Set the constraints for the header, body, and footers
+ * @brief Set the constraints for the header, body, and footers
  * areas of the view. The header and body multipliers are
  * specified, and the footer takes the remaining amount of
  * vertical space.

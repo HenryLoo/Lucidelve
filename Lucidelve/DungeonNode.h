@@ -14,17 +14,18 @@
 @interface DungeonNode : NSObject
 
 /*!
- * Initialize a dungeon node with a type, gold reward, and enemy.
+ * @brief Initialize a dungeon node with a type, gold reward, and enemy.
  * @author Henry Loo
  *
  * @param goldReward The amount of gold to earn when clearing this node.
  * @param enemy The enemy to encounter in this node.
+ *
  * @return A pointer to this instance.
  */
 - (id)initWithData:(int)goldReward withEnemy:(NSString*)enemy;
 
 /*!
- * Get the amount of gold rewarded for this node.
+ * @brief Get the amount of gold rewarded for this node.
  * @author Henry Loo
  *
  * @return The node's gold reward.
@@ -32,7 +33,7 @@
 - (int)getGoldReward;
 
 /*!
- * Get the type of enemy encountered in this node.
+ * @brief Get the type of enemy encountered in this node.
  * @author Henry Loo
  *
  * @return The node's enemy type.

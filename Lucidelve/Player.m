@@ -52,7 +52,16 @@
     // NSMutableArray can only hold NSObjects, so we need to
     // wrap the Item struct value
     NSValue *wrappedItem = [NSValue valueWithBytes:&item objCType:@encode(Item)];
-    [items addObject:wrappedItem];
+    
+    // Always place the Rusty Sword in the player's first inventory slot
+    if (item.name == ITEMS[ITEM_RUSTY_SWORD].name)
+    {
+        [items insertObject:wrappedItem atIndex:0];
+    }
+    else
+    {
+        [items addObject:wrappedItem];
+    }
 }
 
 - (Item)getItem:(NSUInteger)index
@@ -67,6 +76,18 @@
 - (NSUInteger)getNumItems
 {
     return items.count;
+}
+
+- (void)setSwordLevel:(int)level
+{
+    Item sword = ITEMS[SWORD_UPGRADES[level]];
+    
+    // NSMutableArray can only hold NSObjects, so we need to
+    // wrap the Item struct value
+    NSValue *wrappedItem = [NSValue valueWithBytes:&sword objCType:@encode(Item)];
+    
+    // The sword is always in the player's first inventory slot
+    [items replaceObjectAtIndex:0 withObject:wrappedItem];
 }
 
 @end

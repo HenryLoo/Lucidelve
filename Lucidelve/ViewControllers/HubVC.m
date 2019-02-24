@@ -12,6 +12,7 @@
 #import "InventoryVC.h"
 #import "DungeonsVC.h"
 #import "GooseVC.h"
+#import "BlacksmithVC.h"
 #import "../Game.h"
 #import "../Player.h"
 #import "../Constants.h"
@@ -41,6 +42,9 @@
     // Pointer to the view's Golden Goose button
     UIButton *gooseButton;
     
+    // Pointer to the view's Blacksmith button
+    UIButton *blacksmithButton;
+    
     // Demonstrative Mesh
     Mesh *mesh;
 }
@@ -69,6 +73,7 @@
     inventoryButton = ((HubView*) self.view).inventoryButton;
     dungeonsButton = ((HubView*) self.view).dungeonsButton;
     gooseButton = ((HubView*) self.view).gooseButton;
+    blacksmithButton = ((HubView*) self.view).blacksmithButton;
     
     // Attach selector to the gold button
     [goldButton addTarget:self action:@selector(onGoldButtonPress:)
@@ -89,6 +94,10 @@
     // Attach selector to the Golden Goose button
     [gooseButton addTarget:self action:@selector(onGooseButtonPress:)
              forControlEvents:UIControlEventTouchDown];
+    
+    // Attach selector to the Blacksmith button
+    [blacksmithButton addTarget:self action:@selector(onBlacksmithButtonPress:)
+          forControlEvents:UIControlEventTouchDown];
     
     Texture *diffuse = [[Texture alloc] initWithFilename:"container2.png"];
     Texture *specular = [[Texture alloc] initWithFilename:"container2_specular.png" type:"texture_specular"];
@@ -124,7 +133,7 @@
 }
 
 /*!
- * Update the gold label's values.
+ * @brief Update the gold label's values.
  * @author Henry Loo
  */
 - (void)updateGoldLabel
@@ -135,7 +144,7 @@
 }
 
 /*!
- * Update the gold button's cooldown by decrementing it by delta time.
+ * @brief Update the gold button's cooldown by decrementing it by delta time.
  * If the cooldown timer reaches 0, then re-enable the gold button.
  * @author Henry Loo
  */
@@ -164,8 +173,7 @@
 }
 
 /*!
- * Check if the player has satisfied any conditions to unlock
- * a new menu element.
+ * @brief Check if the player has satisfied any conditions to unlock a new menu element.
  * @author Henry Loo
  */
 - (void)updateUnlockables
@@ -197,12 +205,21 @@
         [gooseButton setEnabled:YES];
         self.game.isGooseUnlocked = true;
     }
+    
+    // Unlock the Blacksmith
+    if (self.game.isBlacksmithUnlocked ||
+        (self.game.isSwordBought && [player getGold] >= 150))
+    {
+        [blacksmithButton setEnabled:YES];
+        self.game.isBlacksmithUnlocked = true;
+    }
 }
 
 /*!
- * Handle the gold button's action.
+ * @brief Handle the gold button's action.
  * This should increment the player's gold and disable the button.
  * @author Henry Loo
+ *
  * @param sender The pressed button
  */
 - (void)onGoldButtonPress:(id)sender
@@ -216,9 +233,10 @@
 }
 
 /*!
- * Handle the Shop button's action.
+ * @brief Handle the Shop button's action.
  * This should redirect the player to the Shop view.
  * @author Henry Loo
+ *
  * @param sender The pressed button
  */
 - (void)onShopButtonPress:(id)sender
@@ -228,9 +246,10 @@
 }
 
 /*!
- * Handle the Inventory button's action.
+ * @brief Handle the Inventory button's action.
  * This should redirect the player to the Inventory view.
  * @author Henry Loo
+ *
  * @param sender The pressed button
  */
 - (void)onInventoryButtonPress:(id)sender
@@ -240,9 +259,10 @@
 }
 
 /*!
- * Handle the Dungeons button's action.
+ * @brief Handle the Dungeons button's action.
  * This should redirect the player to the Dungeon view.
  * @author Henry Loo
+ *
  * @param sender The pressed button
  */
 - (void)onDungeonsButtonPress:(id)sender
@@ -252,14 +272,28 @@
 }
 
 /*!
- * Handle the Golden Goose button's action.
+ * @brief Handle the Golden Goose button's action.
  * This should redirect the player to the Golden Goose view.
  * @author Henry Loo
+ *
  * @param sender The pressed button
  */
 - (void)onGooseButtonPress:(id)sender
 {
     GooseVC *vc = [[GooseVC alloc] init];
+    [self.game changeScene:self newVC:vc];
+}
+
+/*!
+ * @brief Handle the Blacksmith button's action.
+ * This should redirect the player to the Blacksmith view.
+ * @author Henry Loo
+ *
+ * @param sender The pressed button
+ */
+- (void)onBlacksmithButtonPress:(id)sender
+{
+    BlacksmithVC *vc = [[BlacksmithVC alloc] init];
     [self.game changeScene:self newVC:vc];
 }
 

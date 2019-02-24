@@ -83,7 +83,7 @@
 }
 
 /*!
- * Update the gold label's values.
+ * @brief Update the gold label's values.
  * @author Henry Loo
  */
 - (void)updateGoldLabel
@@ -94,10 +94,11 @@
 }
 
 /*!
- * Buy an item, given its type.
+ * @brief Buy an item, given its type.
  * If the player has enough gold, this should give the player a
  * specified item and decrease the player's gold by the price.
  * @author Henry Loo
+ *
  * @param itemType The type of item to buy
  */
 - (void)buyItem:(ItemType)itemType
@@ -116,10 +117,11 @@
 }
 
 /*!
- * Handle the sword button's action.
+ * @brief Handle the sword button's action.
  * This should give the player a Rusty Sword if they
  * have enough gold.
  * @author Henry Loo
+ *
  * @param sender The pressed button
  */
 - (void)onSwordButtonPress:(id)sender
@@ -128,10 +130,11 @@
 }
 
 /*!
- * Handle the healing potion button's action.
+ * @brief Handle the healing potion button's action.
  * This should give the player a Healing Potion if they
  * have enough gold.
  * @author Henry Loo
+ *
  * @param sender The pressed button
  */
 - (void)onPotionButtonPress:(id)sender

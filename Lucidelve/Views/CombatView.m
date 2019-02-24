@@ -47,7 +47,7 @@
 }
 
 /*!
- * Create the label element to show the number of remaining nodes.
+ * @brief Create the label element to show the number of remaining nodes.
  * @author Henry Loo
  */
 - (void)setupRemainingNodesLabel
@@ -62,7 +62,7 @@
 }
 
 /*!
- * Create the label elements for enemy.
+ * @brief Create the label elements for enemy.
  * @author Henry Loo
  */
 - (void)setupEnemyLabels
@@ -80,7 +80,7 @@
 }
 
 /*!
- * Create the label elements for player.
+ * @brief Create the label elements for player.
  * @author Henry Loo
  */
 - (void)setupPlayerLabels
@@ -98,7 +98,7 @@
 }
 
 /*!
- * Create the label element to show the player's life.
+ * @brief Create the label element to show the player's life.
  * @author Henry Loo
  */
 - (void)setupLifeLabel
@@ -113,7 +113,7 @@
 }
 
 /*!
- * Create the view elements to show the player's item 1 and item 2.
+ * @brief Create the view elements to show the player's item 1 and item 2.
  * @author Henry Loo
  */
 - (void)setupItemViews
@@ -132,7 +132,7 @@
 }
 
 /*!
- * Set up the layout constraints of the view
+ * @brief Set up the layout constraints of the view
  * @author Henry Loo
  */
 - (void)setupLayout

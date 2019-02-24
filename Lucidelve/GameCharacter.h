@@ -14,7 +14,7 @@
 @interface GameCharacter : NSObject
 
 /*!
- * Defines the different states that the characters can
+ * @brief Defines the different states that the characters can
  * be in during combat.
  */
 typedef enum
@@ -31,16 +31,17 @@ typedef enum
 } CombatState;
 
 /*!
- * Initialize a character with a life value.
+ * @brief Initialize a character with a life value.
  * @author Henry Loo
  *
  * @param life The amount of health this character has.
+ *
  * @return A pointer to this instance.
  */
 - (id)initWithData:(int)life;
 
 /*!
- * Reset the character's life, attack cooldown, and state to
+ * @brief Reset the character's life, attack cooldown, and state to
  * default values.
  * @author Henry Loo
  *
@@ -49,13 +50,13 @@ typedef enum
 - (void)reset:(bool)isResettingLife;
 
 /*!
- * Update the character's values.
+ * @brief Update the character's values.
  * This should be called each frame in the update loop.
  */
 - (void)update:(float)deltaTime;
 
 /*!
- * Increment the character's current life by a specified amount.
+ * @brief Increment the character's current life by a specified amount.
  * @author Henry Loo
  *
  * @param amount The value to increment the character's current life by.
@@ -65,14 +66,14 @@ typedef enum
 - (void)addLife:(int)amount;
 
 /*!
- * Increment the player's max life by one.
+ * @brief Increment the player's max life by one.
  * This will typically be used during health upgrades.
  * @author Henry Loo
  */
 - (void)addMaxLife;
 
 /*!
- * Return the character's current life.
+ * @brief Return the character's current life.
  * @author Henry Loo
  *
  * @return The character's current life.
@@ -80,7 +81,7 @@ typedef enum
 - (int)getCurrentLife;
 
 /*!
- * Return the character's max life.
+ * @brief Return the character's max life.
  * @author Henry Loo
  *
  * @return The character's max life.
@@ -88,7 +89,7 @@ typedef enum
 - (int)getMaxLife;
 
 /*!
- * Change the character's current combat state to a new one.
+ * @brief Change the character's current combat state to a new one.
  * @author Henry Loo
  *
  * @param newState The new combat state to change to.
@@ -96,7 +97,7 @@ typedef enum
 - (void)setCombatState:(CombatState)newState;
 
 /*!
- * Return the character's combat state.
+ * @brief Return the character's combat state.
  * @author Henry Loo
  *
  * @return The character's combat state.

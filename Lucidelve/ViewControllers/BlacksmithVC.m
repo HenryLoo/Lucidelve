@@ -1,26 +1,26 @@
 //
-//  GooseVC.m
+//  BlacksmithVC.m
 //  Lucidelve
 //
-//  Created by Henry Loo on 2019-02-22.
+//  Created by Henry Loo on 2019-02-24.
 //  Copyright © 2019 COMP 8051. All rights reserved.
 //
 
-#import "GooseVC.h"
-#import "GooseView.h"
+#import "BlacksmithVC.h"
+#import "BlacksmithView.h"
 #import "Game.h"
 #import "Player.h"
 #import "Renderer.h"
 #import "Constants.h"
 
-@interface GooseVC ()
+@interface BlacksmithVC ()
 {
     // Pointer to the player object
     Player *player;
     
     // Pointer to UI elements
     UILabel *goldLabel;
-    UILabel *goldRateLabel;
+    UILabel *swordLabel;
     UIButton *upgradeButton;
     
     // The next upgrade's gold price.
@@ -28,11 +28,11 @@
 }
 @end
 
-@implementation GooseVC
+@implementation BlacksmithVC
 
 - (void)loadView
 {
-    GooseView *view = [[GooseView alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    BlacksmithView *view = [[BlacksmithView alloc] initWithFrame:UIScreen.mainScreen.bounds];
     view.delegate = self;
     self.view = view;
 }
@@ -44,16 +44,16 @@
     player = [self.game getPlayer];
     
     // Set UI element pointers
-    goldLabel = ((GooseView*) self.view).goldLabel;
-    goldRateLabel = ((GooseView*) self.view).goldRateLabel;
-    upgradeButton = ((GooseView*) self.view).upgradeButton;
+    goldLabel = ((BlacksmithView*) self.view).goldLabel;
+    swordLabel = ((BlacksmithView*) self.view).swordLabel;
+    upgradeButton = ((BlacksmithView*) self.view).upgradeButton;
     
     // Attach selector to the upgrade button
     [upgradeButton addTarget:self action:@selector(onUpgradeButtonPress:)
             forControlEvents:UIControlEventTouchDown];
     
     upgradePrice = [self getUpgradePrice];
-    [self updateGoldRateLabel];
+    [self updateSwordLabel];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -69,10 +69,15 @@
     [self updateUpgradeButton];
 }
 
+- (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
+{
+    [self.renderer render:self.game.deltaTime drawInRect:rect];
+}
+
 /*!
-* @brief Update the gold label's values.
-* @author Henry Loo
-*/
+ * @brief Update the gold label's values.
+ * @author Henry Loo
+ */
 - (void)updateGoldLabel
 {
     int gold = [player getGold];
@@ -81,41 +86,15 @@
 }
 
 /*!
- * @brief Update the gold rate label's values.
+ * @brief Update the sword label's values.
  * @author Henry Loo
  */
-- (void)updateGoldRateLabel
+- (void)updateSwordLabel
 {
-    // Format the delay string
-    const int SECONDS_PER_MINUTE = 60;
-    const int SECONDS_PER_HOUR = SECONDS_PER_MINUTE * 60;
-    const int SECONDS_PER_DAY = SECONDS_PER_HOUR * 24;
-    
-    int delay = self.game.gooseDelay;
-    NSString *delayStr;
-    if (delay >= SECONDS_PER_DAY)
-    {
-        delay /= SECONDS_PER_DAY;
-        delayStr = @"day(s)";
-    }
-    else if (delay >= SECONDS_PER_HOUR)
-    {
-        delay /= SECONDS_PER_HOUR;
-        delayStr = @"hr(s)";
-    }
-    else if (delay >= SECONDS_PER_MINUTE)
-    {
-        delay /= SECONDS_PER_MINUTE;
-        delayStr = @"min(s)";
-    }
-    else
-    {
-        delayStr = @"s";
-    }
-    
-    NSString *labelText = [NSString stringWithFormat:@"Rate: %i G per %i %@",
-                           self.game.gooseAmount, delay, delayStr];
-    goldRateLabel.text = labelText;
+    NSString *labelText = [NSString stringWithFormat:@"%@ (ATK: %i)",
+                           ITEMS[SWORD_UPGRADES[self.game.numBlacksmithUpgrades]].name,
+                           [self.game getSwordDamage]];
+    swordLabel.text = labelText;
 }
 
 /*!
@@ -125,7 +104,7 @@
 - (void)updateUpgradeButton
 {
     // Maximum number of upgrades reached, don't allow any more
-    if (self.game.numGooseUpgrades >= MAX_GOOSE_UPGRADES)
+    if (self.game.numBlacksmithUpgrades >= MAX_BLACKSMITH_UPGRADES)
     {
         [upgradeButton setTitle:@"FULLY UPGRADED" forState:UIControlStateDisabled];
         [upgradeButton setEnabled:false];
@@ -134,7 +113,7 @@
     else
     {
         int price = upgradePrice;
-        NSString *title = [NSString stringWithFormat:@"FEED (%i G)", price];
+        NSString *title = [NSString stringWithFormat:@"UPGRADE (%i G)", price];
         [upgradeButton setTitle:title forState:UIControlStateNormal];
         [upgradeButton setTitle:title forState:UIControlStateDisabled];
         
@@ -145,8 +124,7 @@
 
 /*!
  * @brief Handle the upgrade button's action.
- * This should increase the rate of gold generation if the player
- * has enough gold to invest.
+ * This should replace the player's sword if they have enough gold to invest.
  * @author Henry Loo
  *
  * @param sender The pressed button
@@ -156,12 +134,10 @@
     if ([player getGold] >= upgradePrice)
     {
         [player addGold:-upgradePrice];
-        self.game.numGooseUpgrades++;
+        self.game.numBlacksmithUpgrades++;
+        [player setSwordLevel:self.game.numBlacksmithUpgrades];
         upgradePrice = [self getUpgradePrice];
-        [self.game updateGooseRate];
-        
-        // Update UI elements
-        [self updateGoldRateLabel];
+        [self updateSwordLabel];
     }
 }
 
@@ -173,7 +149,7 @@
  */
 - (int)getUpgradePrice
 {
-    return GOOSE_BASE_PRICE * pow(GOOSE_PRICE_MULTIPLIER, self.game.numGooseUpgrades);
+    return BLACKSMITH_BASE_PRICE * pow(BLACKSMITH_PRICE_MULTIPLIER, self.game.numBlacksmithUpgrades);
 }
 
 @end

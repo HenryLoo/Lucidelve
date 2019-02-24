@@ -33,6 +33,7 @@
     _inventoryButton = [self setupMenuButton:@"INVENTORY"];
     _dungeonsButton = [self setupMenuButton:@"DUNGEONS"];
     _gooseButton = [self setupMenuButton:@"GOLDEN GOOSE"];
+    _blacksmithButton = [self setupMenuButton:@"BLACKSMITH"];
 }
 
 - (void)setupBodyElements
@@ -47,7 +48,7 @@
 }
 
 /*!
- * Create the button element for generating gold.
+ * @brief Create the button element for generating gold.
  * @author Henry Loo
  */
 - (void)setupGoldButton
@@ -63,7 +64,7 @@
 }
 
 /*!
- * Create the label element for displaying the player's gold.
+ * @brief Create the label element for displaying the player's gold.
  * @author Henry Loo
  */
 - (void)setupGoldLabel
@@ -80,7 +81,7 @@
 }
 
 /*!
- * Create the button element for moving to a menu.
+ * @brief Create the button element for moving to a menu.
  * @author Henry Loo
  */
 - (UIButton*)setupMenuButton:(NSString*)title
@@ -100,7 +101,7 @@
 }
 
 /*!
- * Set up the layout constraints of the view
+ * @brief Set up the layout constraints of the view
  * @author Henry Loo
  */
 - (void)setupLayout
@@ -140,6 +141,12 @@
     [_gooseButton.topAnchor constraintEqualToAnchor:_shopButton.bottomAnchor constant:25].active = YES;
     [_gooseButton.widthAnchor constraintEqualToConstant:_gooseButton.frame.size.width].active = YES;
     [_gooseButton.heightAnchor constraintEqualToConstant:_gooseButton.frame.size.height].active = YES;
+    
+    // Blacksmith button constraints
+    [_blacksmithButton.leftAnchor constraintEqualToAnchor:_gooseButton.rightAnchor constant:25].active = YES;
+    [_blacksmithButton.topAnchor constraintEqualToAnchor:_gooseButton.topAnchor].active = YES;
+    [_blacksmithButton.widthAnchor constraintEqualToConstant:_blacksmithButton.frame.size.width].active = YES;
+    [_blacksmithButton.heightAnchor constraintEqualToConstant:_blacksmithButton.frame.size.height].active = YES;
 }
 
 @end

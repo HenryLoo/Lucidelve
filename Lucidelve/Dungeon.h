@@ -30,7 +30,7 @@
 @property int maxNumNodes;
 
 /*!
- * Initialize a dungeon with a name.
+ * @brief Initialize a dungeon with a name.
  * @author Henry Loo
  *
  * @param name The dungeon's name.
@@ -40,7 +40,7 @@ withEventNodes:(NSMutableArray*)eventNodes withMinNodes:(int)minNodes
 withMaxNodes:(int)maxNodes;
 
 /*!
- * Return a random node for this dungeon.
+ * @brief Return a random node for this dungeon.
  * @author Henry Loo
  */
 - (DungeonNode*)getDungeonNode;

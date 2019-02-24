@@ -25,16 +25,17 @@
 @property Renderer *renderer;
 
 /*!
- * The update loop.
+ * @brief The update loop.
  * Subclasses should call this every frame.
  * @author Henry Loo
  */
 - (void)update;
 
 /*!
- * Handle the back button's action.
+ * @brief Handle the back button's action.
  * This should redirect the player to The Hub.
  * @author Henry Loo
+ *
  * @param sender The pressed button
  */
 - (void)onBackButtonPress:(id)sender;

@@ -27,7 +27,7 @@ typedef struct EnemyAttack
 } EnemyAttack;
 
 /*!
- * Initialize an enemy with a life value, attack delay value in seconds,
+ * @brief Initialize an enemy with a life value, attack delay value in seconds,
  * and an array of attack patterns.
  * @author Henry Loo
  *
@@ -36,13 +36,14 @@ typedef struct EnemyAttack
  * @param attackDelay The delay between attacks, in seconds.
  * @param attackPatterns The different types of attacks that this enemy
  * can perform.
+ *
  * @return A pointer to this instance.
  */
 - (id)initWithData:(NSString *)name withLife:(int)life
    withAttackDelay:(float)attackDelay withAttackPatterns:(NSMutableArray*)attackPatterns;
 
 /*!
- * Return the enemy's name.
+ * @brief Return the enemy's name.
  * @author Henry Loo
  *
  * @return The enemy's name.

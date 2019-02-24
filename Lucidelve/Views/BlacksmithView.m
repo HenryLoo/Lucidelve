@@ -1,14 +1,14 @@
 //
-//  GooseView.m
+//  BlacksmithView.m
 //  Lucidelve
 //
-//  Created by Henry Loo on 2019-02-22.
+//  Created by Henry Loo on 2019-02-24.
 //  Copyright © 2019 COMP 8051. All rights reserved.
 //
 
-#import "GooseView.h"
+#import "BlacksmithView.h"
 
-@implementation GooseView
+@implementation BlacksmithView
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -23,7 +23,7 @@
 - (void)setupHeaderElements
 {
     [super addBackButton];
-    [super addTitle:@"GOLDEN GOOSE"];
+    [super addTitle:@"BLACKSMITH"];
     [self setupGoldLabel];
 }
 
@@ -34,7 +34,7 @@
 
 - (void)setupFooterElements
 {
-    [self setupGoldRateLabel];
+    [self setupSwordLabel];
     [self setupUpgradeButton];
 }
 
@@ -54,17 +54,17 @@
 }
 
 /*!
- * @brief Create the label element for displaying the current gold generation rate.
+ * @brief Create the label element for displaying the name of the player's sword.
  * @author Henry Loo
  */
-- (void)setupGoldRateLabel
+- (void)setupSwordLabel
 {
-    _goldRateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    _goldRateLabel.textAlignment = NSTextAlignmentCenter;
-    [self.footerArea addSubview:_goldRateLabel];
+    _swordLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _swordLabel.textAlignment = NSTextAlignmentCenter;
+    [self.footerArea addSubview:_swordLabel];
     
     // Enable autolayout
-    _goldRateLabel.translatesAutoresizingMaskIntoConstraints = false;
+    _swordLabel.translatesAutoresizingMaskIntoConstraints = false;
 }
 
 /*!
@@ -97,9 +97,9 @@
     [_upgradeButton.centerXAnchor constraintEqualToAnchor:self.footerArea.centerXAnchor].active = YES;
     [_upgradeButton.bottomAnchor constraintEqualToAnchor:self.footerArea.bottomAnchor constant:-25].active = YES;
     
-    // Gold rate label constraints
-    [_goldRateLabel.centerXAnchor constraintEqualToAnchor:self.footerArea.centerXAnchor].active = YES;
-    [_goldRateLabel.bottomAnchor constraintEqualToAnchor:_upgradeButton.bottomAnchor constant:-25].active = YES;
+    // Sword label constraints
+    [_swordLabel.centerXAnchor constraintEqualToAnchor:self.footerArea.centerXAnchor].active = YES;
+    [_swordLabel.bottomAnchor constraintEqualToAnchor:_upgradeButton.bottomAnchor constant:-25].active = YES;
 }
 
 @end

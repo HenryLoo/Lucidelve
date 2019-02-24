@@ -7,7 +7,7 @@
 //
 
 /*!
- * Defines the different types of items
+ * @brief Defines the different types of items
  */
 typedef enum
 {
@@ -25,7 +25,7 @@ typedef enum
 } ItemType;
 
 /*!
- * Defines the structure of an item
+ * @brief Defines the structure of an item
  */
 typedef struct Item
 {
