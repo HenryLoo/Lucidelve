@@ -21,8 +21,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) EAGLContext *_context;
 // The camera we render with
 @property (strong, nonatomic) Camera *_camera;
+// An array of GL programs
+@property (strong, nonatomic) NSMutableDictionary<NSString *,  GLProgram *> *_programs;
 // An array of meshes to render
 @property (strong, nonatomic) NSMutableArray<Mesh *> *_meshes;
+// An array of sprites (passthrough)
+@property (strong, nonatomic) NSMutableArray<Mesh *> *_sprites;
 
 /*!
  * @brief Initializes the renderer and keeps track of the GL context
@@ -67,6 +71,13 @@ NS_ASSUME_NONNULL_BEGIN
  * @param mesh The new mesh to add
  */
 - (void)addMesh:(Mesh *)mesh;
+/*!
+ * @brief Adds a mesh to the sprite array
+ * @author Jason Chung
+ *
+ * @param mesh The new mesh to add
+ */
+- (void)addSprite:(Mesh *)mesh;
 
 @end
 

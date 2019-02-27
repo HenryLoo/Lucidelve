@@ -106,7 +106,7 @@
     mesh._scale = GLKVector3Make(0.5f, 0.5f, 0.5f);
     [mesh addTexture:diffuse];
     
-    [self.renderer addMesh:mesh];
+    [self.renderer addSprite:mesh];
 }
 
 - (void)didReceiveMemoryWarning {
