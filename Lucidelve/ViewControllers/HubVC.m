@@ -45,7 +45,7 @@
     // Pointer to the view's Blacksmith button
     UIButton *blacksmithButton;
     
-    // Demonstrative Mesh
+    // TODO: replace placeholder mesh
     Mesh *mesh;
 }
 
@@ -99,13 +99,11 @@
     [blacksmithButton addTarget:self action:@selector(onBlacksmithButtonPress:)
           forControlEvents:UIControlEventTouchDown];
     
-    Texture *diffuse = [[Texture alloc] initWithFilename:"placeholder_goose.png"];
-    
-    // mesh = [[Mesh alloc] initWithFilename:"cube.obj"];
+    // TODO: replace placeholder art
+    Texture *diffuse = [[Texture alloc] initWithFilename:"placeholder_hub.png"];
     mesh = [[Primitives getInstance] square];
-    mesh._scale = GLKVector3Make(0.5f, 0.5f, 0.5f);
+    mesh._scale = GLKVector3Make(2.5f, 4.0f, 1);
     [mesh addTexture:diffuse];
-    
     [self.renderer addSprite:mesh];
 }
 

@@ -12,6 +12,7 @@
 #import "Player.h"
 #import "Renderer.h"
 #import "Constants.h"
+#import "Primitives.h"
 
 @interface BlacksmithVC ()
 {
@@ -25,6 +26,9 @@
     
     // The next upgrade's gold price.
     int upgradePrice;
+    
+    // TODO: replace placeholder mesh
+    Mesh *mesh;
 }
 @end
 
@@ -54,6 +58,13 @@
     
     upgradePrice = [self getUpgradePrice];
     [self updateSwordLabel];
+    
+    // TODO: replace placeholder art
+    Texture *texture = [[Texture alloc] initWithFilename:"placeholder_blacksmith.png"];
+    mesh = [[Primitives getInstance] square];
+    mesh._scale = GLKVector3Make(1.5f, 1.5f, 1);
+    [mesh addTexture:texture];
+    [self.renderer addSprite:mesh];
 }
 
 - (void)didReceiveMemoryWarning {

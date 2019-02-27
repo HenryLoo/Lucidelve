@@ -13,11 +13,15 @@
 #import "Dungeon.h"
 #import "CombatVC.h"
 #import "Renderer.h"
+#import "Primitives.h"
 
 @interface DungeonsVC ()
 {
     // Pointer to the view's dungeons tableview
     UITableView *dungeons;
+    
+    // TODO: replace placeholder mesh
+    Mesh *mesh;
 }
 @end
 
@@ -39,6 +43,13 @@
     dungeons.delegate = self;
     dungeons.dataSource = self;
     [dungeons registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CellId"];
+    
+    // TODO: replace placeholder art
+    Texture *texture = [[Texture alloc] initWithFilename:"placeholder_dungeons.png"];
+    mesh = [[Primitives getInstance] square];
+    mesh._scale = GLKVector3Make(1.5f, 1.5f, 1);
+    [mesh addTexture:texture];
+    [self.renderer addSprite:mesh];
 }
     
 - (void)didReceiveMemoryWarning {
