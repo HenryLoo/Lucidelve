@@ -23,8 +23,6 @@
     
     // A directional light
     DirectionalLight *dirLight;
-    // A spotlight
-    SpotLight *spotLight;
 }
 
 @end
@@ -49,13 +47,10 @@
         }
         
         dirLight = [[DirectionalLight alloc] init];
-        spotLight = [[SpotLight alloc] init];
         
         glEnable(GL_DEPTH_TEST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glEnable(GL_TEXTURE_2D);
+        glEnable(GL_BLEND);
         glViewport(0, 0, (GLsizei)view.bounds.size.width, (GLsizei)view.bounds.size.height);
         
         self._camera = [[Camera alloc] initWithPosition:GLKVector3Make(0.0f, 0.0f, 3.0f)];
@@ -77,8 +72,7 @@
 }
 
 - (void)update:(float)deltaTime {
-    spotLight._position = self._camera._position;
-    spotLight._direction = self._camera._front;
+    
 }
 
 - (void)render:(float)deltaTime drawInRect:(CGRect)rect {
@@ -91,7 +85,6 @@
     [_glProgram set3fv:self._camera._position.v uniformName:"viewPos"];
     
     [dirLight draw:_glProgram];
-    [spotLight draw:_glProgram];
 
     [_glProgram set4fvm:[self._camera getViewMatrix].m uniformName:"view"];
     [_glProgram set4fvm:_projectionMatrix.m uniformName:"projection"];

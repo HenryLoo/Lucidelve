@@ -99,13 +99,12 @@
     [blacksmithButton addTarget:self action:@selector(onBlacksmithButtonPress:)
           forControlEvents:UIControlEventTouchDown];
     
-    Texture *diffuse = [[Texture alloc] initWithFilename:"container2.png"];
-    Texture *specular = [[Texture alloc] initWithFilename:"container2_specular.png" type:"texture_specular"];
+    Texture *diffuse = [[Texture alloc] initWithFilename:"placeholder_goose.png"];
     
-    mesh = [[Mesh alloc] initWithFilename:"cube.obj"];
+    // mesh = [[Mesh alloc] initWithFilename:"cube.obj"];
+    mesh = [[Primitives getInstance] square];
     mesh._scale = GLKVector3Make(0.5f, 0.5f, 0.5f);
     [mesh addTexture:diffuse];
-    [mesh addTexture:specular];
     
     [self.renderer addMesh:mesh];
 }
@@ -123,8 +122,6 @@
     [self updateGoldLabel];
     [self updateGoldCooldown];
     [self updateUnlockables];
-    
-    mesh._rotation = GLKVector3AddScalar(mesh._rotation, 0.01f);
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
