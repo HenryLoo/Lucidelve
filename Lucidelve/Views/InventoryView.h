@@ -16,10 +16,12 @@
 // Show all player's items
 @property (nonatomic, strong) UITableView *items;
 
-// Displays the label for item 1
+// Displays the labels for item 1 and item 2
 @property (nonatomic, strong) UILabel *item1Label;
-
-// Displays the label for item 2
 @property (nonatomic, strong) UILabel *item2Label;
+
+// Show the player's item 1 and item 2
+@property (nonatomic, strong) UIButton *item1Button;
+@property (nonatomic, strong) UIButton *item2Button;
 
 @end

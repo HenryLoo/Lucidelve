@@ -28,8 +28,6 @@
         size_t width = CGImageGetWidth(imageRef);
         size_t height = CGImageGetHeight(imageRef);
         
-        NSLog(@"%lu %lu", width, height);
-        
         GLubyte *spriteData = (GLubyte *)calloc(width * height * 4, sizeof(GLubyte));
         
         CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();

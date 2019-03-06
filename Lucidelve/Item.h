@@ -35,4 +35,8 @@ typedef struct Item
     
     // The item's price in the shop
     int shopPrice;
+    
+    // Flag for if the player can equip this item in an
+    // item slot from the Inventory
+    bool isEquippable;
 } Item;

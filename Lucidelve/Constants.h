@@ -24,6 +24,12 @@ extern const float GOLD_COOLDOWN;
 // The amount of gold to earn per button press
 extern const int GOLD_EARN_AMOUNT;
 
+// The index that represents no item selected in the Inventory
+extern const int NO_SELECTED_ITEM;
+
+// The maximum number of equipped items
+extern const int MAX_EQUIPPED_ITEMS;
+
 // The cooldown between combat actions
 extern const float COMBAT_COOLDOWN;
 

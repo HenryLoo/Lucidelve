@@ -70,6 +70,14 @@
 - (void)removeItem:(Item)item;
 
 /*!
+ * @brief Remove the item at the given index from the player's inventory.
+ * @author Henry Loo
+ *
+ * @param index The index of the item to remove.
+ */
+- (void)removeItemAtIndex:(NSUInteger)index;
+
+/*!
  * @brief Replace the first instance of an item with a new item.
  * @author Henry Loo
  *
@@ -95,5 +103,33 @@
  * @return The number of items that the player owns.
  */
 - (NSUInteger)getNumItems;
+
+/*!
+ * @brief Equip an item from a given index onto the given Inventory item slot.
+ * @author Henry Loo
+ *
+ * @param index The index of the item to equip.
+ * @param itemSlot The item slot to equip the item to.
+ */
+- (void)equipItem:(NSUInteger)index withItemSlot:(int)itemSlot;
+
+
+/*!
+ * @brief Unequip an item from the given Inventory item slot.
+ * @author Henry Loo
+ *
+ * @param itemSlot The item slot to unequip the item from.
+ */
+- (void)unequipItem:(int)itemSlot;
+
+/*!
+ * @brief Get the equipped item from the given Inventory item slot.
+ * @author Henry Loo
+ *
+ * @param itemSlot The item slot to check.
+ *
+ * @return The equipped item.
+ */
+- (Item)getEquippedItem:(int)itemSlot;
 
 @end
