@@ -114,14 +114,8 @@
  */
 - (void)updateUpgradeButton
 {
-    // Maximum number of upgrades reached, don't allow any more
-    if (self.game.numBlacksmithUpgrades >= MAX_BLACKSMITH_UPGRADES)
-    {
-        [upgradeButton setTitle:@"FULLY UPGRADED" forState:UIControlStateDisabled];
-        [upgradeButton setEnabled:false];
-    }
-    // Update the button's label to show the price of the next upgrade
-    else
+    // If there are still upgrades available
+    if (self.game.numBlacksmithUpgrades < MAX_BLACKSMITH_UPGRADES)
     {
         int price = upgradePrice;
         NSString *title = [NSString stringWithFormat:@"UPGRADE (%i G)", price];
@@ -130,6 +124,19 @@
         
         // Disable the button if the player doesn't have enough gold
         [upgradeButton setEnabled:([player getGold] >= price)];
+    }
+    // All upgrades have been purchased and the player owns the Golden Egg
+    else if ([player hasItem:ITEMS[ITEM_GOLDEN_EGG]])
+    {
+        NSString *title = [NSString stringWithFormat:@"UPGRADE (1 Golden Egg)"];
+        [upgradeButton setTitle:title forState:UIControlStateNormal];
+        [upgradeButton setEnabled:TRUE];
+    }
+    // All upgrades have been purchased and the player doesn't own the Golden Egg
+    else
+    {
+        [upgradeButton setTitle:@"FULLY UPGRADED" forState:UIControlStateDisabled];
+        [upgradeButton setEnabled:false];
     }
 }
 
@@ -145,10 +152,22 @@
     if ([player getGold] >= upgradePrice)
     {
         [player addGold:-upgradePrice];
+        
+        Item currentSword = ITEMS[SWORD_UPGRADES[self.game.numBlacksmithUpgrades]];
         self.game.numBlacksmithUpgrades++;
-        [player setSwordLevel:self.game.numBlacksmithUpgrades];
+        Item newSword = ITEMS[SWORD_UPGRADES[self.game.numBlacksmithUpgrades]];
+        
+        // Replace the old sword with the next upgrade
+        [player replaceItem:currentSword replaceWith:newSword];
+        
         upgradePrice = [self getUpgradePrice];
         [self updateSwordLabel];
+        
+        // If purchasing the upgrade for Magic Goose Sword, pay with the Golden Egg
+        if (SWORD_UPGRADES[self.game.numBlacksmithUpgrades] == ITEM_MAGIC_GOOSE_SWORD)
+        {
+            [player removeItem:ITEMS[ITEM_GOLDEN_EGG]];
+        }
     }
 }
 
@@ -160,7 +179,15 @@
  */
 - (int)getUpgradePrice
 {
-    return BLACKSMITH_BASE_PRICE * pow(BLACKSMITH_PRICE_MULTIPLIER, self.game.numBlacksmithUpgrades);
+    if (self.game.numBlacksmithUpgrades < MAX_BLACKSMITH_UPGRADES)
+    {
+        return BLACKSMITH_BASE_PRICE * pow(BLACKSMITH_PRICE_MULTIPLIER, self.game.numBlacksmithUpgrades);
+    }
+    else
+    {
+        // The Magic Goose Sword doesn't cost gold
+        return 0;
+    }
 }
 
 @end

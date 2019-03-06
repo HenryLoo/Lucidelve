@@ -14,6 +14,7 @@ const Item ITEMS[ITEM_NUM_ITEMS] = {
     [ITEM_POLISHED_SWORD] = (Item){.name = @"Polished Sword"},
     [ITEM_SHARP_SWORD] = (Item){.name = @"Sharp Sword"},
     [ITEM_TOO_SHARP_SWORD] = (Item){.name = @"Way-too-sharp Sword"},
+    [ITEM_MAGIC_GOOSE_SWORD] = (Item){.name = @"Magic Goose Sword"},
     [ITEM_BOMB] = (Item){.name = @"Bomb", .shopPrice = 1},
     [ITEM_HEART_COOKIE] = (Item){.name = @"Heart Cookie", .shopPrice = 1},
     [ITEM_SHIELD] = (Item){.name = @"Shield", .shopPrice = 1},
@@ -34,9 +35,10 @@ const int MAX_BLACKSMITH_UPGRADES = 3;
 const int BLACKSMITH_BASE_PRICE = 1;
 const float BLACKSMITH_PRICE_MULTIPLIER = 1.5;
 
-const int SWORD_UPGRADES[MAX_BLACKSMITH_UPGRADES+1] = {
+const int SWORD_UPGRADES[MAX_BLACKSMITH_UPGRADES+2] = {
     ITEM_RUSTY_SWORD,
     ITEM_POLISHED_SWORD,
     ITEM_SHARP_SWORD,
-    ITEM_TOO_SHARP_SWORD
+    ITEM_TOO_SHARP_SWORD,
+    ITEM_MAGIC_GOOSE_SWORD
 };

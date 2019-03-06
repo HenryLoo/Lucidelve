@@ -163,6 +163,8 @@
  * @brief Handle the upgrade button's action.
  * This should increase the rate of gold generation if the player
  * has enough gold to invest.
+ * If the player purchases the final upgrade, they are given a
+ * Golden Egg item.
  * @author Henry Loo
  *
  * @param sender The pressed button
@@ -178,6 +180,12 @@
         
         // Update UI elements
         [self updateGoldRateLabel];
+        
+        // Give the Golden Egg item if this is the final upgrade
+        if (self.game.numGooseUpgrades >= MAX_GOOSE_UPGRADES)
+        {
+            [player addItem:ITEMS[ITEM_GOLDEN_EGG]];
+        }
     }
 }
 

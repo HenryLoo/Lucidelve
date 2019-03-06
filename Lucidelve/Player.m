@@ -52,16 +52,7 @@
     // NSMutableArray can only hold NSObjects, so we need to
     // wrap the Item struct value
     NSValue *wrappedItem = [NSValue valueWithBytes:&item objCType:@encode(Item)];
-    
-    // Always place the Rusty Sword in the player's first inventory slot
-    if (item.name == ITEMS[ITEM_RUSTY_SWORD].name)
-    {
-        [items insertObject:wrappedItem atIndex:0];
-    }
-    else
-    {
-        [items addObject:wrappedItem];
-    }
+    [items addObject:wrappedItem];
 }
 
 - (Item)getItem:(NSUInteger)index
@@ -73,21 +64,47 @@
     return item;
 }
 
+
+- (NSUInteger)getIndexOfItem:(Item)item
+{
+    // NSMutableArray can only hold NSObjects, so we need to
+    // wrap the Item struct value
+    NSValue *wrappedItem = [NSValue valueWithBytes:&item objCType:@encode(Item)];
+    return [items indexOfObject:wrappedItem];
+}
+
+- (void)replaceItem:(Item)itemToReplace replaceWith:(Item)newItem
+{
+    // NSMutableArray can only hold NSObjects, so we need to
+    // wrap the Item struct value
+    NSValue *wrappedItem = [NSValue valueWithBytes:&newItem objCType:@encode(Item)];
+    
+    // Get the index of the item to replace
+    NSUInteger indexToReplace = [self getIndexOfItem:itemToReplace];
+    
+    // Replace the item with the new item
+    [items replaceObjectAtIndex:indexToReplace withObject:wrappedItem];
+}
+
+- (void)removeItem:(Item)item
+{
+    // NSMutableArray can only hold NSObjects, so we need to
+    // wrap the Item struct value
+    NSValue *wrappedItem = [NSValue valueWithBytes:&item objCType:@encode(Item)];
+    [items removeObject:wrappedItem];
+}
+
+- (bool)hasItem:(Item)item
+{
+    // NSMutableArray can only hold NSObjects, so we need to
+    // wrap the Item struct value
+    NSValue *wrappedItem = [NSValue valueWithBytes:&item objCType:@encode(Item)];
+    return [items containsObject:wrappedItem];
+}
+
 - (NSUInteger)getNumItems
 {
     return items.count;
-}
-
-- (void)setSwordLevel:(int)level
-{
-    Item sword = ITEMS[SWORD_UPGRADES[level]];
-    
-    // NSMutableArray can only hold NSObjects, so we need to
-    // wrap the Item struct value
-    NSValue *wrappedItem = [NSValue valueWithBytes:&sword objCType:@encode(Item)];
-    
-    // The sword is always in the player's first inventory slot
-    [items replaceObjectAtIndex:0 withObject:wrappedItem];
 }
 
 @end
