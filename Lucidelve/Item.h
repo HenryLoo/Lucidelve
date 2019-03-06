@@ -21,6 +21,7 @@ typedef enum
     ITEM_TOO_SHARP_SWORD,
     ITEM_MAGIC_GOOSE_SWORD,
     ITEM_GOLDEN_EGG,
+    ITEM_SHIELD,
     ITEM_NUM_ITEMS
 } ItemType;
 

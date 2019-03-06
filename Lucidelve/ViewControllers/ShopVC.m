@@ -20,14 +20,13 @@
     // Pointer to the player object
     Player *player;
     
-    // Pointer to the view's gold label
+    // Pointer to the view's UI elements
     UILabel *goldLabel;
-    
-    // Pointer to the view's sword button
     UIButton *swordButton;
-    
-    // Pointer to the view's healing potion button
     UIButton *potionButton;
+    UIButton *heartButton;
+    UIButton *bombButton;
+    UIButton *shieldButton;
     
     // TODO: replace placeholder mesh
     Mesh *mesh;
@@ -53,13 +52,20 @@
     goldLabel = ((ShopView*) self.view).goldLabel;
     swordButton = ((ShopView*) self.view).swordButton;
     potionButton = ((ShopView*) self.view).potionButton;
+    heartButton = ((ShopView*) self.view).heartButton;
+    bombButton = ((ShopView*) self.view).bombButton;
+    shieldButton = ((ShopView*) self.view).shieldButton;
     
-    // Attach selector to the sword button
+    // Initialize UI elements
     [swordButton addTarget:self action:@selector(onSwordButtonPress:)
           forControlEvents:UIControlEventTouchDown];
-    
-    // Attach selector to the healing potion button
     [potionButton addTarget:self action:@selector(onPotionButtonPress:)
+           forControlEvents:UIControlEventTouchDown];
+    [heartButton addTarget:self action:@selector(onHeartButtonPress:)
+           forControlEvents:UIControlEventTouchDown];
+    [bombButton addTarget:self action:@selector(onBombButtonPress:)
+           forControlEvents:UIControlEventTouchDown];
+    [shieldButton addTarget:self action:@selector(onShieldButtonPress:)
            forControlEvents:UIControlEventTouchDown];
     
     // TODO: replace placeholder art
@@ -83,6 +89,12 @@
     if (self.game.isSwordBought)
     {
         [swordButton setEnabled:NO];
+    }
+    
+    // If all the heart cookies have been purchased, disable the button
+    if (self.game.numLifeUpgrades >= MAX_LIFE_UPGRADES)
+    {
+        [heartButton setEnabled:NO];
     }
     
     [super update];
@@ -151,6 +163,54 @@
 - (void)onPotionButtonPress:(id)sender
 {
     [self buyItem:ITEM_HEALING_POTION];
+}
+
+/*!
+ * @brief Handle the heart cookie button's action.
+ * This should increase the player's max life by 1 if they
+ * have enough gold and there are still available upgrades.
+ * @author Henry Loo
+ *
+ * @param sender The pressed button
+ */
+- (void)onHeartButtonPress:(id)sender
+{
+    Item item = ITEMS[ITEM_HEART_COOKIE];
+    if ([player getGold] >= item.shopPrice)
+    {
+        [player addGold:(-item.shopPrice)];
+        self.game.numLifeUpgrades++;
+        
+        // Increment the player's max life and then heal them to full
+        [player addMaxLife];
+        [player reset:true];
+    }
+}
+
+/*!
+ * @brief Handle the bomb button's action.
+ * This should give the player a Bomb if they
+ * have enough gold.
+ * @author Henry Loo
+ *
+ * @param sender The pressed button
+ */
+- (void)onBombButtonPress:(id)sender
+{
+    [self buyItem:ITEM_BOMB];
+}
+
+/*!
+ * @brief Handle the shield button's action.
+ * This should give the player a Shield if they
+ * have enough gold.
+ * @author Henry Loo
+ *
+ * @param sender The pressed button
+ */
+- (void)onShieldButtonPress:(id)sender
+{
+    [self buyItem:ITEM_SHIELD];
 }
 
 @end

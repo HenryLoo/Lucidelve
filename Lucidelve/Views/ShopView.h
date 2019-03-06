@@ -22,4 +22,13 @@
 // Displays the button to buy a healing potion
 @property (nonatomic, strong) UIButton *potionButton;
 
+// Displays the button to buy a heart cookie
+@property (nonatomic, strong) UIButton *heartButton;
+
+// Displays the button to buy a bomb
+@property (nonatomic, strong) UIButton *bombButton;
+
+// Displays the button to buy a shield
+@property (nonatomic, strong) UIButton *shieldButton;
+
 @end

@@ -10,13 +10,18 @@
 
 const Item ITEMS[ITEM_NUM_ITEMS] = {
     [ITEM_RUSTY_SWORD] = (Item){.name = @"Rusty Sword", .shopPrice = 10},
-    [ITEM_HEALING_POTION] = (Item){.name = @"Healing Potion", .shopPrice = 0},
+    [ITEM_HEALING_POTION] = (Item){.name = @"Healing Potion", .shopPrice = 1},
     [ITEM_POLISHED_SWORD] = (Item){.name = @"Polished Sword"},
     [ITEM_SHARP_SWORD] = (Item){.name = @"Sharp Sword"},
     [ITEM_TOO_SHARP_SWORD] = (Item){.name = @"Way-too-sharp Sword"},
+    [ITEM_BOMB] = (Item){.name = @"Bomb", .shopPrice = 1},
+    [ITEM_HEART_COOKIE] = (Item){.name = @"Heart Cookie", .shopPrice = 1},
+    [ITEM_SHIELD] = (Item){.name = @"Shield", .shopPrice = 1},
+    [ITEM_GOLDEN_EGG] = (Item){.name = @"Golden Egg"},
 };
 
 const int DEFAULT_PLAYER_LIFE = 3;
+const int MAX_LIFE_UPGRADES = 5;
 const float GOLD_COOLDOWN = 5.f;
 const int GOLD_EARN_AMOUNT = 10;
 const float COMBAT_COOLDOWN = 0.3f;

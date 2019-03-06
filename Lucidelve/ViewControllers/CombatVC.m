@@ -74,6 +74,7 @@
     
     // Set the player pointer
     player = [self.game getPlayer];
+    [player reset:true];
     
     isNodeCleared = true;
     

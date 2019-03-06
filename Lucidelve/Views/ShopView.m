@@ -36,6 +36,9 @@
 - (void)setupFooterElements
 {
     _swordButton = [self setupItemButton:ITEM_RUSTY_SWORD];
+    _shieldButton = [self setupItemButton:ITEM_SHIELD];
+    _heartButton = [self setupItemButton:ITEM_HEART_COOKIE];
+    _bombButton = [self setupItemButton:ITEM_BOMB];
     _potionButton = [self setupItemButton:ITEM_HEALING_POTION];
 }
 
@@ -66,7 +69,7 @@
     NSString *title = [NSString stringWithFormat:@"%@ (%i G)",
                        item.name, item.shopPrice];
     [button setTitle:title forState:UIControlStateNormal];
-    [button setTitle:@"" forState:UIControlStateDisabled];
+    [button setTitle:@"SOLD OUT!" forState:UIControlStateDisabled];
     [button sizeToFit];
     [self.footerArea addSubview:button];
     
@@ -94,9 +97,27 @@
     [_swordButton.widthAnchor constraintEqualToConstant:_swordButton.frame.size.width].active = YES;
     [_swordButton.heightAnchor constraintEqualToConstant:_swordButton.frame.size.height].active = YES;
     
+    // Shield button constraints
+    [_shieldButton.rightAnchor constraintEqualToAnchor:self.footerArea.rightAnchor constant:-25].active = YES;
+    [_shieldButton.topAnchor constraintEqualToAnchor:_swordButton.topAnchor].active = YES;
+    [_shieldButton.widthAnchor constraintEqualToConstant:_shieldButton.frame.size.width].active = YES;
+    [_shieldButton.heightAnchor constraintEqualToConstant:_shieldButton.frame.size.height].active = YES;
+    
+    // Heart cookie button constraints
+    [_heartButton.centerXAnchor constraintEqualToAnchor:self.footerArea.centerXAnchor].active = YES;
+    [_heartButton.centerYAnchor constraintEqualToAnchor:self.footerArea.centerYAnchor].active = YES;
+    [_heartButton.widthAnchor constraintEqualToConstant:_heartButton.frame.size.width].active = YES;
+    [_heartButton.heightAnchor constraintEqualToConstant:_heartButton.frame.size.height].active = YES;
+    
+    // Bomb button constraints
+    [_bombButton.leftAnchor constraintEqualToAnchor:self.footerArea.leftAnchor constant:25].active = YES;
+    [_bombButton.bottomAnchor constraintEqualToAnchor:self.footerArea.bottomAnchor constant:-25].active = YES;
+    [_bombButton.widthAnchor constraintEqualToConstant:_bombButton.frame.size.width].active = YES;
+    [_bombButton.heightAnchor constraintEqualToConstant:_bombButton.frame.size.height].active = YES;
+    
     // Healing potion button constraints
-    [_potionButton.leftAnchor constraintEqualToAnchor:_swordButton.rightAnchor constant:25].active = YES;
-    [_potionButton.topAnchor constraintEqualToAnchor:_swordButton.topAnchor].active = YES;
+    [_potionButton.rightAnchor constraintEqualToAnchor:self.footerArea.rightAnchor constant:-25].active = YES;
+    [_potionButton.bottomAnchor constraintEqualToAnchor:_bombButton.bottomAnchor].active = YES;
     [_potionButton.widthAnchor constraintEqualToConstant:_potionButton.frame.size.width].active = YES;
     [_potionButton.heightAnchor constraintEqualToConstant:_potionButton.frame.size.height].active = YES;
 }

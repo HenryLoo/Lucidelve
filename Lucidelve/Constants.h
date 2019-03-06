@@ -15,6 +15,9 @@ extern const Item ITEMS[];
 // The player's default starting life value
 extern const int DEFAULT_PLAYER_LIFE;
 
+// The maximum number of heart cookies that a player can purchase
+extern const int MAX_LIFE_UPGRADES;
+
 // The cooldown on gold button press, in seconds
 extern const float GOLD_COOLDOWN;
 

@@ -65,6 +65,9 @@
 // The number of upgrades purchased for the Blacksmith.
 @property int numBlacksmithUpgrades;
 
+// The number of heart cookies purchased from the Shop.
+@property int numLifeUpgrades;
+
 /*!
  * @brief Return the player's data.
  * @author Henry Loo
