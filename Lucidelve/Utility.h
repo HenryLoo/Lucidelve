@@ -78,6 +78,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)getFilepath:(const char *)filename fileType:(const char *)fileType bundle:(NSBundle *)bundle;
 
 /*!
+ * @brief Saves the bool value to user preferences.
+ *
+ * @param value The value to set
+ * @param key The key for the key/value pair
+ */
+- (void)saveBool:(bool)value key:(NSString *)key;
+/*!
  * @brief Saves the float value to user preferences.
  *
  * @param value The value to set
@@ -99,6 +106,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)saveString:(NSString *)value key:(NSString *)key;
 
+/*!
+ * @brief Returns the value at the specified key
+ *
+ * @return The value at the specified key
+ */
+- (bool)getBool:(NSString *)key;
 /*!
  * @brief Returns the value at the specified key
  *

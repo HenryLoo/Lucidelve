@@ -8,6 +8,9 @@
 
 #import "AppDelegate.h"
 #import "HubVC.h"
+#import "Game.h"
+#import "Storage.h"
+#import "Constants.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +20,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Load save data
+    [[Storage getInstance] loadData];
+    
     // Start application with The Hub.
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     self.window.backgroundColor = UIColor.whiteColor;
@@ -30,6 +36,17 @@
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+    Game *game = [(BaseVC *)self.window.rootViewController game];
+    Player *player = [game getPlayer];
+    [[Storage getInstance] clearData];
+    [[Storage getInstance] setValueC:[NSNumber numberWithInt:[player getGold]] key:KEY_PLAYER_GOLD];
+    NSUInteger numItems = [player getNumItems];
+    for(NSUInteger i = 0; i < numItems; i++) {
+        Item item = [player getItem:i];
+        [[Storage getInstance] addInventoryItem:item];
+    }
+    [[Storage getInstance] setGameData:game];
+    [[Storage getInstance] saveData];
 }
 
 

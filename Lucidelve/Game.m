@@ -13,6 +13,7 @@
 #import "DungeonNode.h"
 #include <stdlib.h>
 #import "Utility.h"
+#import "Storage.h"
 #import "Constants.h"
 
 @interface Game ()
@@ -40,7 +41,8 @@
         [self initAssets];
         
         // Reload saved gold value
-        [player addGold:[[Utility getInstance] getInt:@"gold"]];
+        [[Storage getInstance] loadPlayer:player];
+        [[Storage getInstance] loadGameData:self];
         
         // Initialize the Golden Goose's gold generation rate
         [self updateGooseRate];

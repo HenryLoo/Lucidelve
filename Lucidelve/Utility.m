@@ -76,6 +76,13 @@
     return [bundle pathForResource:[NSString stringWithUTF8String:filename] ofType:nil inDirectory:[NSString stringWithFormat:@"Assets/%s/", fileType]];
 }
 
+- (void)saveBool:(bool)value key:(NSString *)key {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    [userDefaults setBool:value forKey:key];
+    [userDefaults synchronize];
+}
+
 - (void)saveFloat:(float)value key:(NSString *)key {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
@@ -95,6 +102,10 @@
     
     [userDefaults setObject:value forKey:key];
     [userDefaults synchronize];
+}
+
+- (bool)getBool:(NSString *)key {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:key];
 }
 
 - (float)getFloat:(NSString *)key {

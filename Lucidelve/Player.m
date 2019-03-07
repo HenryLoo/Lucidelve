@@ -49,8 +49,6 @@
     
     // Can't go into negative gold
     gold = MAX(0, gold);
-    
-    [[Utility getInstance] saveInt:gold key:@"gold"];
 }
 
 - (int)getGold
