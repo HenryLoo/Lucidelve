@@ -9,29 +9,32 @@
 #import "Storage.h"
 #import "Utility.h"
 
-const char *KEY_SAVE_FILE = "SAVE";
+NSString *KEY_SAVE_FILE = @"SAVE";
 
-const char *KEY_PLAYER_GOLD = "PLAYER_GOLD";
-const char *KEY_PLAYER_INVENTORY_RUSTY_SWORD_COUNT = "KEY_PLAYER_INVENTORY_RUSTY_SWORD_COUNT";
-const char *KEY_PLAYER_INVENTORY_HEALING_POTION_COUNT = "KEY_PLAYER_INVENTORY_HEALING_POTION_COUNT";
-const char *KEY_PLAYER_INVENTORY_BOMB_COUNT = "KEY_PLAYER_INVENTORY_BOMB_COUNT";
-const char *KEY_PLAYER_INVENTORY_HEART_COOKIE_COUNT = "KEY_PLAYER_INVENTORY_HEART_COOKIE_COUNT";
-const char *KEY_PLAYER_INVENTORY_POLISHED_SWORD_COUNT = "KEY_PLAYER_INVENTORY_POLISHED_SWORD_COUNT";
-const char *KEY_PLAYER_INVENTORY_SHARP_SWORD_COUNT = "KEY_PLAYER_INVENTORY_SHARP_SWORD_COUNT";
-const char *KEY_PLAYER_INVENTORY_TOO_SHARP_SWORD_COUNT = "KEY_PLAYER_INVENTORY_TOO_SHARP_SWORD_COUNT";
-const char *KEY_PLAYER_INVENTORY_MAGIC_GOOSE_SWORD_COUNT = "KEY_PLAYER_INVENTORY_MAGIC_GOOSE_SWORD_COUNT";
-const char *KEY_PLAYER_INVENTORY_GOLDEN_EGG_COUNT = "KEY_PLAYER_INVENTORY_GOLDEN_EGG_COUNT";
-const char *KEY_PLAYER_INVENTORY_SHIELD_COUNT = "KEY_PLAYER_INVENTORY_SHIELD_COUNT";
+NSString *KEY_PLAYER_GOLD = @"PLAYER_GOLD";
+NSString *KEY_PLAYER_INVENTORY_RUSTY_SWORD_COUNT = @"KEY_PLAYER_INVENTORY_RUSTY_SWORD_COUNT";
+NSString *KEY_PLAYER_INVENTORY_HEALING_POTION_COUNT = @"KEY_PLAYER_INVENTORY_HEALING_POTION_COUNT";
+NSString *KEY_PLAYER_INVENTORY_BOMB_COUNT = @"KEY_PLAYER_INVENTORY_BOMB_COUNT";
+NSString *KEY_PLAYER_INVENTORY_HEART_COOKIE_COUNT = @"KEY_PLAYER_INVENTORY_HEART_COOKIE_COUNT";
+NSString *KEY_PLAYER_INVENTORY_POLISHED_SWORD_COUNT = @"KEY_PLAYER_INVENTORY_POLISHED_SWORD_COUNT";
+NSString *KEY_PLAYER_INVENTORY_SHARP_SWORD_COUNT = @"KEY_PLAYER_INVENTORY_SHARP_SWORD_COUNT";
+NSString *KEY_PLAYER_INVENTORY_TOO_SHARP_SWORD_COUNT = @"KEY_PLAYER_INVENTORY_TOO_SHARP_SWORD_COUNT";
+NSString *KEY_PLAYER_INVENTORY_MAGIC_GOOSE_SWORD_COUNT = @"KEY_PLAYER_INVENTORY_MAGIC_GOOSE_SWORD_COUNT";
+NSString *KEY_PLAYER_INVENTORY_GOLDEN_EGG_COUNT = @"KEY_PLAYER_INVENTORY_GOLDEN_EGG_COUNT";
+NSString *KEY_PLAYER_INVENTORY_SHIELD_COUNT = @"KEY_PLAYER_INVENTORY_SHIELD_COUNT";
 
-const char *KEY_GAME_IS_SHOP_UNLOCKED = "KEY_GAME_IS_SHOP_UNLOCKED";
-const char *KEY_GAME_IS_SWORD_BOUGHT = "KEY_GAME_IS_SWORD_BOUGHT";
-const char *KEY_GAME_IS_INVENTORY_UNLOCKED = "KEY_GAME_IS_INVENTORY_UNLOCKED";
-const char *KEY_GAME_IS_DUNGEONS_UNLOCKED = "KEY_GAME_IS_DUNGEONS_UNLOCKED";
-const char *KEY_GAME_IS_GOOSE_UNLOCKED = "KEY_GAME_IS_GOOSE_UNLOCKED";
-const char *KEY_GAME_NUM_GOOSE_UPGRADES = "KEY_GAME_NUM_GOOSE_UPGRADES";
-const char *KEY_GAME_IS_BLACKSMITH_UNLOCKED = "KEY_GAME_IS_BLACKSMITH_UNLOCKED";
-const char *KEY_GAME_NUM_BLACKSMITH_UPGRADES = "KEY_GAME_NUM_BLACKSMITH_UPGRADES";
-const char *KEY_GAME_NUM_LIFE_UPGRADES = "KEY_GAME_NUM_LIFE_UPGRADES";
+NSString *KEY_PLAYER_EQUIPPED_ITEM_1 = @"KEY_PLAYER_EQUIPPED_ITEM_1";
+NSString *KEY_PLAYER_EQUIPPED_ITEM_2 = @"KEY_PLAYER_EQUIPPED_ITEM_2";
+
+NSString *KEY_GAME_IS_SHOP_UNLOCKED = @"KEY_GAME_IS_SHOP_UNLOCKED";
+NSString *KEY_GAME_IS_SWORD_BOUGHT = @"KEY_GAME_IS_SWORD_BOUGHT";
+NSString *KEY_GAME_IS_INVENTORY_UNLOCKED = @"KEY_GAME_IS_INVENTORY_UNLOCKED";
+NSString *KEY_GAME_IS_DUNGEONS_UNLOCKED = @"KEY_GAME_IS_DUNGEONS_UNLOCKED";
+NSString *KEY_GAME_IS_GOOSE_UNLOCKED = @"KEY_GAME_IS_GOOSE_UNLOCKED";
+NSString *KEY_GAME_NUM_GOOSE_UPGRADES = @"KEY_GAME_NUM_GOOSE_UPGRADES";
+NSString *KEY_GAME_IS_BLACKSMITH_UNLOCKED = @"KEY_GAME_IS_BLACKSMITH_UNLOCKED";
+NSString *KEY_GAME_NUM_BLACKSMITH_UPGRADES = @"KEY_GAME_NUM_BLACKSMITH_UPGRADES";
+NSString *KEY_GAME_NUM_LIFE_UPGRADES = @"KEY_GAME_NUM_LIFE_UPGRADES";
 
 @interface Storage() {
     NSMutableDictionary<NSString *, NSObject *> *data;
@@ -61,28 +64,30 @@ const char *KEY_GAME_NUM_LIFE_UPGRADES = "KEY_GAME_NUM_LIFE_UPGRADES";
     if (data == nil) {
         data = [NSMutableDictionary dictionary];
     }
-    data[[NSString stringWithUTF8String:KEY_PLAYER_GOLD]] = [NSNumber numberWithInt:0];
-    data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_RUSTY_SWORD_COUNT]] = [NSNumber numberWithInt:0];
-    data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_HEALING_POTION_COUNT]] = [NSNumber numberWithInt:0];
-    data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_BOMB_COUNT]] = [NSNumber numberWithInt:0];
-    data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_HEART_COOKIE_COUNT]] = [NSNumber numberWithInt:0];
-    data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_POLISHED_SWORD_COUNT]] = [NSNumber numberWithInt:0];
-    data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_SHARP_SWORD_COUNT]] = [NSNumber numberWithInt:0];
-    data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_TOO_SHARP_SWORD_COUNT]] = [NSNumber numberWithInt:0];
-    data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_MAGIC_GOOSE_SWORD_COUNT]] = [NSNumber numberWithInt:0];
-    data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_GOLDEN_EGG_COUNT]] = [NSNumber numberWithInt:0];
-    data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_SHIELD_COUNT]] = [NSNumber numberWithInt:0];
+    data[KEY_PLAYER_GOLD] = [NSNumber numberWithInt:0];
+    data[KEY_PLAYER_INVENTORY_RUSTY_SWORD_COUNT] = [NSNumber numberWithInt:0];
+    data[KEY_PLAYER_INVENTORY_HEALING_POTION_COUNT] = [NSNumber numberWithInt:0];
+    data[KEY_PLAYER_INVENTORY_BOMB_COUNT] = [NSNumber numberWithInt:0];
+    data[KEY_PLAYER_INVENTORY_HEART_COOKIE_COUNT] = [NSNumber numberWithInt:0];
+    data[KEY_PLAYER_INVENTORY_POLISHED_SWORD_COUNT] = [NSNumber numberWithInt:0];
+    data[KEY_PLAYER_INVENTORY_SHARP_SWORD_COUNT] = [NSNumber numberWithInt:0];
+    data[KEY_PLAYER_INVENTORY_TOO_SHARP_SWORD_COUNT] = [NSNumber numberWithInt:0];
+    data[KEY_PLAYER_INVENTORY_MAGIC_GOOSE_SWORD_COUNT] = [NSNumber numberWithInt:0];
+    data[KEY_PLAYER_INVENTORY_GOLDEN_EGG_COUNT] = [NSNumber numberWithInt:0];
+    data[KEY_PLAYER_INVENTORY_SHIELD_COUNT] = [NSNumber numberWithInt:0];
     
+    data[KEY_PLAYER_EQUIPPED_ITEM_1] = ITEMS[ITEM_NONE].name;
+    data[KEY_PLAYER_EQUIPPED_ITEM_2] = ITEMS[ITEM_NONE].name;
     
-    data[[NSString stringWithUTF8String:KEY_GAME_IS_SHOP_UNLOCKED]] = [NSNumber numberWithBool:false];
-    data[[NSString stringWithUTF8String:KEY_GAME_IS_SWORD_BOUGHT]] = [NSNumber numberWithBool:false];
-    data[[NSString stringWithUTF8String:KEY_GAME_IS_INVENTORY_UNLOCKED]] = [NSNumber numberWithBool:false];
-    data[[NSString stringWithUTF8String:KEY_GAME_IS_DUNGEONS_UNLOCKED]] = [NSNumber numberWithBool:false];
-    data[[NSString stringWithUTF8String:KEY_GAME_IS_GOOSE_UNLOCKED]] = [NSNumber numberWithBool:false];
-    data[[NSString stringWithUTF8String:KEY_GAME_NUM_GOOSE_UPGRADES]] = [NSNumber numberWithInt:0];
-    data[[NSString stringWithUTF8String:KEY_GAME_IS_BLACKSMITH_UNLOCKED]] = [NSNumber numberWithBool:false];
-    data[[NSString stringWithUTF8String:KEY_GAME_NUM_BLACKSMITH_UPGRADES]] = [NSNumber numberWithInt:0];
-    data[[NSString stringWithUTF8String:KEY_GAME_NUM_LIFE_UPGRADES]] = [NSNumber numberWithInt:0];
+    data[KEY_GAME_IS_SHOP_UNLOCKED] = [NSNumber numberWithBool:false];
+    data[KEY_GAME_IS_SWORD_BOUGHT] = [NSNumber numberWithBool:false];
+    data[KEY_GAME_IS_INVENTORY_UNLOCKED] = [NSNumber numberWithBool:false];
+    data[KEY_GAME_IS_DUNGEONS_UNLOCKED] = [NSNumber numberWithBool:false];
+    data[KEY_GAME_IS_GOOSE_UNLOCKED] = [NSNumber numberWithBool:false];
+    data[KEY_GAME_NUM_GOOSE_UPGRADES] = [NSNumber numberWithInt:0];
+    data[KEY_GAME_IS_BLACKSMITH_UNLOCKED] = [NSNumber numberWithBool:false];
+    data[KEY_GAME_NUM_BLACKSMITH_UPGRADES] = [NSNumber numberWithInt:0];
+    data[KEY_GAME_NUM_LIFE_UPGRADES] = [NSNumber numberWithInt:0];
 }
 
 - (void)saveData {
@@ -94,13 +99,13 @@ const char *KEY_GAME_NUM_LIFE_UPGRADES = "KEY_GAME_NUM_LIFE_UPGRADES";
     } else {
         NSString *json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         NSLog(@"Saving %@", json);
-        [[Utility getInstance] saveString:json key:[NSString stringWithUTF8String:KEY_SAVE_FILE]];
+        [[Utility getInstance] saveString:json key:KEY_SAVE_FILE];
     }
 }
 
 - (void)loadData {
     NSError *error;
-    NSString *json = [[Utility getInstance] getString:[NSString stringWithUTF8String:KEY_SAVE_FILE]];
+    NSString *json = [[Utility getInstance] getString:KEY_SAVE_FILE];
     if ([json length] > 0) {
         NSLog(@"Loaded %@", json);
         NSData *jsonData =[json dataUsingEncoding:NSUTF8StringEncoding];
@@ -109,17 +114,17 @@ const char *KEY_GAME_NUM_LIFE_UPGRADES = "KEY_GAME_NUM_LIFE_UPGRADES";
 }
 
 - (void)loadPlayer:(Player *)player {
-    int goldCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_GOLD]]).intValue;
-    int rustySwordCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_RUSTY_SWORD_COUNT]]).intValue;
-    int healingPotionCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_HEALING_POTION_COUNT]]).intValue;
-    int bombCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_BOMB_COUNT]]).intValue;
-    int heartCookieCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_HEART_COOKIE_COUNT]]).intValue;
-    int polishedSwordCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_POLISHED_SWORD_COUNT]]).intValue;
-    int sharpSwordCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_SHARP_SWORD_COUNT]]).intValue;
-    int tooSharpSwordCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_TOO_SHARP_SWORD_COUNT]]).intValue;
-    int magicGooseSwordCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_MAGIC_GOOSE_SWORD_COUNT]]).intValue;
-    int goldenEggCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_GOLDEN_EGG_COUNT]]).intValue;
-    int shieldCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_SHIELD_COUNT]]).intValue;
+    int goldCount = ((NSNumber *)data[KEY_PLAYER_GOLD]).intValue;
+    int rustySwordCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_RUSTY_SWORD_COUNT]).intValue;
+    int healingPotionCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_HEALING_POTION_COUNT]).intValue;
+    int bombCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_BOMB_COUNT]).intValue;
+    int heartCookieCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_HEART_COOKIE_COUNT]).intValue;
+    int polishedSwordCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_POLISHED_SWORD_COUNT]).intValue;
+    int sharpSwordCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_SHARP_SWORD_COUNT]).intValue;
+    int tooSharpSwordCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_TOO_SHARP_SWORD_COUNT]).intValue;
+    int magicGooseSwordCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_MAGIC_GOOSE_SWORD_COUNT]).intValue;
+    int goldenEggCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_GOLDEN_EGG_COUNT]).intValue;
+    int shieldCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_SHIELD_COUNT]).intValue;
     
     [player addGold:goldCount];
     int i = 0;
@@ -153,30 +158,53 @@ const char *KEY_GAME_NUM_LIFE_UPGRADES = "KEY_GAME_NUM_LIFE_UPGRADES";
     for (i = 0; i < shieldCount; i++) {
         [player addItem:ITEMS[ITEM_SHIELD]];
     }
+    
+    // NSString *equippedItem1 = ((NSString *) data[KEY_PLAYER_EQUIPPED_ITEM_1]);
+    // NSString *equippedItem2 = ((NSString *) data[KEY_PLAYER_EQUIPPED_ITEM_2]);
+    
+    Item item1 = [self getEquippableItem:((NSString *) data[KEY_PLAYER_EQUIPPED_ITEM_1])];
+    Item item2 = [self getEquippableItem:((NSString *) data[KEY_PLAYER_EQUIPPED_ITEM_2])];
+    
+    [player addItem:item1];
+    [player addItem:item2];
+    
+    [player equipItem:([player getNumItems] - 2) withItemSlot:0];
+    [player equipItem:([player getNumItems] - 1) withItemSlot:1];
+}
+
+- (void)setPlayer:(Player *)player {
+    [self setValue:[NSNumber numberWithInt:[player getGold]] key:KEY_PLAYER_GOLD];
+    NSUInteger numItems = [player getNumItems];
+    for(NSUInteger i = 0; i < numItems; i++) {
+        Item item = [player getItem:i];
+        [self addInventoryItem:item];
+    }
+    [self setValue:[player getEquippedItem:0].name key:KEY_PLAYER_EQUIPPED_ITEM_1];
+    [self setValue:[player getEquippedItem:1].name key:KEY_PLAYER_EQUIPPED_ITEM_2];
 }
 
 - (void)loadGameData:(Game *)game {
-    game.isShopUnlocked = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_GAME_IS_SHOP_UNLOCKED]]).boolValue;
-    game.isSwordBought = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_GAME_IS_SWORD_BOUGHT]]).boolValue;
-    game.isInventoryUnlocked = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_GAME_IS_INVENTORY_UNLOCKED]]).boolValue;
-    game.isDungeonsUnlocked = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_GAME_IS_DUNGEONS_UNLOCKED]]).boolValue;
-    game.isGooseUnlocked = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_GAME_IS_GOOSE_UNLOCKED]]).boolValue;
-    game.numGooseUpgrades = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_GAME_NUM_GOOSE_UPGRADES]]).intValue;
-    game.isBlacksmithUnlocked = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_GAME_IS_BLACKSMITH_UNLOCKED]]).boolValue;
-    game.numBlacksmithUpgrades = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_GAME_NUM_BLACKSMITH_UPGRADES]]).intValue;
-    game.numLifeUpgrades = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_GAME_NUM_LIFE_UPGRADES]]).intValue;
+    game.isShopUnlocked = ((NSNumber *)data[KEY_GAME_IS_SHOP_UNLOCKED]).boolValue;
+    game.isSwordBought = ((NSNumber *)data[KEY_GAME_IS_SWORD_BOUGHT]).boolValue;
+    game.isInventoryUnlocked = ((NSNumber *)data[KEY_GAME_IS_INVENTORY_UNLOCKED]).boolValue;
+    game.isDungeonsUnlocked = ((NSNumber *)data[KEY_GAME_IS_DUNGEONS_UNLOCKED]).boolValue;
+    game.isGooseUnlocked = ((NSNumber *)data[KEY_GAME_IS_GOOSE_UNLOCKED]).boolValue;
+    game.numGooseUpgrades = ((NSNumber *)data[KEY_GAME_NUM_GOOSE_UPGRADES]).intValue;
+    game.isBlacksmithUnlocked = ((NSNumber *)data[KEY_GAME_IS_BLACKSMITH_UNLOCKED]).boolValue;
+    game.numBlacksmithUpgrades = ((NSNumber *)data[KEY_GAME_NUM_BLACKSMITH_UPGRADES]).intValue;
+    game.numLifeUpgrades = ((NSNumber *)data[KEY_GAME_NUM_LIFE_UPGRADES]).intValue;
 }
 
 - (void)setGameData:(Game *)game {
-    data[[NSString stringWithUTF8String:KEY_GAME_IS_SHOP_UNLOCKED]] = [NSNumber numberWithBool:game.isShopUnlocked];
-    data[[NSString stringWithUTF8String:KEY_GAME_IS_SWORD_BOUGHT]] = [NSNumber numberWithBool:game.isSwordBought];
-    data[[NSString stringWithUTF8String:KEY_GAME_IS_INVENTORY_UNLOCKED]] = [NSNumber numberWithBool:game.isInventoryUnlocked];
-    data[[NSString stringWithUTF8String:KEY_GAME_IS_DUNGEONS_UNLOCKED]] = [NSNumber numberWithBool:game.isDungeonsUnlocked];
-    data[[NSString stringWithUTF8String:KEY_GAME_IS_GOOSE_UNLOCKED]] = [NSNumber numberWithBool:game.isGooseUnlocked];
-    data[[NSString stringWithUTF8String:KEY_GAME_NUM_GOOSE_UPGRADES]] = [NSNumber numberWithInt:game.numGooseUpgrades];
-    data[[NSString stringWithUTF8String:KEY_GAME_IS_BLACKSMITH_UNLOCKED]] = [NSNumber numberWithBool:game.isBlacksmithUnlocked];
-    data[[NSString stringWithUTF8String:KEY_GAME_NUM_BLACKSMITH_UPGRADES]] = [NSNumber numberWithInt:game.numBlacksmithUpgrades];
-    data[[NSString stringWithUTF8String:KEY_GAME_NUM_LIFE_UPGRADES]] = [NSNumber numberWithInt:game.numLifeUpgrades];
+    data[KEY_GAME_IS_SHOP_UNLOCKED] = [NSNumber numberWithBool:game.isShopUnlocked];
+    data[KEY_GAME_IS_SWORD_BOUGHT] = [NSNumber numberWithBool:game.isSwordBought];
+    data[KEY_GAME_IS_INVENTORY_UNLOCKED] = [NSNumber numberWithBool:game.isInventoryUnlocked];
+    data[KEY_GAME_IS_DUNGEONS_UNLOCKED] = [NSNumber numberWithBool:game.isDungeonsUnlocked];
+    data[KEY_GAME_IS_GOOSE_UNLOCKED] = [NSNumber numberWithBool:game.isGooseUnlocked];
+    data[KEY_GAME_NUM_GOOSE_UPGRADES] = [NSNumber numberWithInt:game.numGooseUpgrades];
+    data[KEY_GAME_IS_BLACKSMITH_UNLOCKED] = [NSNumber numberWithBool:game.isBlacksmithUnlocked];
+    data[KEY_GAME_NUM_BLACKSMITH_UPGRADES] = [NSNumber numberWithInt:game.numBlacksmithUpgrades];
+    data[KEY_GAME_NUM_LIFE_UPGRADES] = [NSNumber numberWithInt:game.numLifeUpgrades];
 }
 
 - (NSObject *)getObject:(NSString *)key {
@@ -204,93 +232,104 @@ const char *KEY_GAME_NUM_LIFE_UPGRADES = "KEY_GAME_NUM_LIFE_UPGRADES";
     [self setValue:value key:[NSString stringWithUTF8String:key]];
 }
 
+- (Item)getEquippableItem:(NSString *)itemName {
+    if ([itemName isEqualToString:ITEMS[ITEM_HEALING_POTION].name]) {
+        return ITEMS[ITEM_HEALING_POTION];
+    } else if ([itemName isEqualToString:ITEMS[ITEM_BOMB].name]) {
+        return ITEMS[ITEM_BOMB];
+    } else if ([itemName isEqualToString:ITEMS[ITEM_SHIELD].name]) {
+        return ITEMS[ITEM_SHIELD];
+    }
+    return ITEMS[ITEM_NONE];
+}
+
 - (void)addInventoryItem:(Item)item {
     int itemCount = 0;
     if ([item.name isEqualToString:ITEMS[ITEM_RUSTY_SWORD].name]) {
-        itemCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_RUSTY_SWORD_COUNT]]).intValue;
+        itemCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_RUSTY_SWORD_COUNT]).intValue;
         itemCount++;
-        data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_RUSTY_SWORD_COUNT]] = [NSNumber numberWithInt:itemCount];
+        data[KEY_PLAYER_INVENTORY_RUSTY_SWORD_COUNT] = [NSNumber numberWithInt:itemCount];
     } else if ([item.name isEqualToString:ITEMS[ITEM_HEALING_POTION].name]) {
-        itemCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_HEALING_POTION_COUNT]]).intValue;
+        itemCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_HEALING_POTION_COUNT]).intValue;
         itemCount++;
-        data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_HEALING_POTION_COUNT]] = [NSNumber numberWithInt:itemCount];
+        data[KEY_PLAYER_INVENTORY_HEALING_POTION_COUNT] = [NSNumber numberWithInt:itemCount];
     } else if ([item.name isEqualToString:ITEMS[ITEM_BOMB].name]) {
-        itemCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_BOMB_COUNT]]).intValue;
+        itemCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_BOMB_COUNT]).intValue;
         itemCount++;
-        data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_BOMB_COUNT]] = [NSNumber numberWithInt:itemCount];
+        data[KEY_PLAYER_INVENTORY_BOMB_COUNT] = [NSNumber numberWithInt:itemCount];
     } else if ([item.name isEqualToString:ITEMS[ITEM_HEART_COOKIE].name]) {
-        itemCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_HEART_COOKIE_COUNT]]).intValue;
+        itemCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_HEART_COOKIE_COUNT]).intValue;
         itemCount++;
-        data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_HEART_COOKIE_COUNT]] = [NSNumber numberWithInt:itemCount];
+        data[KEY_PLAYER_INVENTORY_HEART_COOKIE_COUNT] = [NSNumber numberWithInt:itemCount];
     } else if ([item.name isEqualToString:ITEMS[ITEM_POLISHED_SWORD].name]) {
-        itemCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_POLISHED_SWORD_COUNT]]).intValue;
+        itemCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_POLISHED_SWORD_COUNT]).intValue;
         itemCount++;
-        data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_POLISHED_SWORD_COUNT]] = [NSNumber numberWithInt:itemCount];
+        data[KEY_PLAYER_INVENTORY_POLISHED_SWORD_COUNT] = [NSNumber numberWithInt:itemCount];
     } else if ([item.name isEqualToString:ITEMS[ITEM_SHARP_SWORD].name]) {
-        itemCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_SHARP_SWORD_COUNT]]).intValue;
+        itemCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_SHARP_SWORD_COUNT]).intValue;
         itemCount++;
-        data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_SHARP_SWORD_COUNT]] = [NSNumber numberWithInt:itemCount];
+        data[KEY_PLAYER_INVENTORY_SHARP_SWORD_COUNT] = [NSNumber numberWithInt:itemCount];
     } else if ([item.name isEqualToString:ITEMS[ITEM_TOO_SHARP_SWORD].name]) {
-        itemCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_TOO_SHARP_SWORD_COUNT]]).intValue;
+        itemCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_TOO_SHARP_SWORD_COUNT]).intValue;
         itemCount++;
-        data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_TOO_SHARP_SWORD_COUNT]] = [NSNumber numberWithInt:itemCount];
+        data[KEY_PLAYER_INVENTORY_TOO_SHARP_SWORD_COUNT] = [NSNumber numberWithInt:itemCount];
     } else if ([item.name isEqualToString:ITEMS[ITEM_MAGIC_GOOSE_SWORD].name]) {
-        itemCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_MAGIC_GOOSE_SWORD_COUNT]]).intValue;
+        itemCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_MAGIC_GOOSE_SWORD_COUNT]).intValue;
         itemCount++;
-        data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_MAGIC_GOOSE_SWORD_COUNT]] = [NSNumber numberWithInt:itemCount];
+        data[KEY_PLAYER_INVENTORY_MAGIC_GOOSE_SWORD_COUNT] = [NSNumber numberWithInt:itemCount];
     } else if ([item.name isEqualToString:ITEMS[ITEM_GOLDEN_EGG].name]) {
-        itemCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_GOLDEN_EGG_COUNT]]).intValue;
+        itemCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_GOLDEN_EGG_COUNT]).intValue;
         itemCount++;
-        data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_GOLDEN_EGG_COUNT]] = [NSNumber numberWithInt:itemCount];
+        data[KEY_PLAYER_INVENTORY_GOLDEN_EGG_COUNT] = [NSNumber numberWithInt:itemCount];
     } else if ([item.name isEqualToString:ITEMS[ITEM_SHIELD].name]) {
-        itemCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_SHIELD_COUNT]]).intValue;
+        itemCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_SHIELD_COUNT]).intValue;
         itemCount++;
-        data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_SHIELD_COUNT]] = [NSNumber numberWithInt:itemCount];
+        data[KEY_PLAYER_INVENTORY_SHIELD_COUNT] = [NSNumber numberWithInt:itemCount];
     }
 }
 
 - (void)removeInventoryItem:(Item)item {
     int itemCount = 0;
     if ([item.name isEqualToString:ITEMS[ITEM_RUSTY_SWORD].name]) {
-        itemCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_RUSTY_SWORD_COUNT]]).intValue;
+        itemCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_RUSTY_SWORD_COUNT]).intValue;
         itemCount--;
-        data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_RUSTY_SWORD_COUNT]] = [NSNumber numberWithInt:itemCount];
+        data[KEY_PLAYER_INVENTORY_RUSTY_SWORD_COUNT] = [NSNumber numberWithInt:itemCount];
     } else if ([item.name isEqualToString:ITEMS[ITEM_HEALING_POTION].name]) {
-        itemCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_HEALING_POTION_COUNT]]).intValue;
+        itemCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_HEALING_POTION_COUNT]).intValue;
         itemCount--;
-        data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_HEALING_POTION_COUNT]] = [NSNumber numberWithInt:itemCount];
+        data[KEY_PLAYER_INVENTORY_HEALING_POTION_COUNT] = [NSNumber numberWithInt:itemCount];
     } else if ([item.name isEqualToString:ITEMS[ITEM_BOMB].name]) {
-        itemCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_BOMB_COUNT]]).intValue;
+        itemCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_BOMB_COUNT]).intValue;
         itemCount--;
-        data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_BOMB_COUNT]] = [NSNumber numberWithInt:itemCount];
+        data[KEY_PLAYER_INVENTORY_BOMB_COUNT] = [NSNumber numberWithInt:itemCount];
     } else if ([item.name isEqualToString:ITEMS[ITEM_HEART_COOKIE].name]) {
-        itemCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_HEART_COOKIE_COUNT]]).intValue;
+        itemCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_HEART_COOKIE_COUNT]).intValue;
         itemCount--;
-        data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_HEART_COOKIE_COUNT]] = [NSNumber numberWithInt:itemCount];
+        data[KEY_PLAYER_INVENTORY_HEART_COOKIE_COUNT] = [NSNumber numberWithInt:itemCount];
     } else if ([item.name isEqualToString:ITEMS[ITEM_POLISHED_SWORD].name]) {
-        itemCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_POLISHED_SWORD_COUNT]]).intValue;
+        itemCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_POLISHED_SWORD_COUNT]).intValue;
         itemCount--;
-        data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_POLISHED_SWORD_COUNT]] = [NSNumber numberWithInt:itemCount];
+        data[KEY_PLAYER_INVENTORY_POLISHED_SWORD_COUNT] = [NSNumber numberWithInt:itemCount];
     } else if ([item.name isEqualToString:ITEMS[ITEM_SHARP_SWORD].name]) {
-        itemCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_SHARP_SWORD_COUNT]]).intValue;
+        itemCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_SHARP_SWORD_COUNT]).intValue;
         itemCount--;
-        data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_SHARP_SWORD_COUNT]] = [NSNumber numberWithInt:itemCount];
+        data[KEY_PLAYER_INVENTORY_SHARP_SWORD_COUNT] = [NSNumber numberWithInt:itemCount];
     } else if ([item.name isEqualToString:ITEMS[ITEM_TOO_SHARP_SWORD].name]) {
-        itemCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_TOO_SHARP_SWORD_COUNT]]).intValue;
+        itemCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_TOO_SHARP_SWORD_COUNT]).intValue;
         itemCount--;
-        data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_TOO_SHARP_SWORD_COUNT]] = [NSNumber numberWithInt:itemCount];
+        data[KEY_PLAYER_INVENTORY_TOO_SHARP_SWORD_COUNT] = [NSNumber numberWithInt:itemCount];
     } else if ([item.name isEqualToString:ITEMS[ITEM_MAGIC_GOOSE_SWORD].name]) {
-        itemCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_MAGIC_GOOSE_SWORD_COUNT]]).intValue;
+        itemCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_MAGIC_GOOSE_SWORD_COUNT]).intValue;
         itemCount--;
-        data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_MAGIC_GOOSE_SWORD_COUNT]] = [NSNumber numberWithInt:itemCount];
+        data[KEY_PLAYER_INVENTORY_MAGIC_GOOSE_SWORD_COUNT] = [NSNumber numberWithInt:itemCount];
     } else if ([item.name isEqualToString:ITEMS[ITEM_GOLDEN_EGG].name]) {
-        itemCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_GOLDEN_EGG_COUNT]]).intValue;
+        itemCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_GOLDEN_EGG_COUNT]).intValue;
         itemCount--;
-        data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_GOLDEN_EGG_COUNT]] = [NSNumber numberWithInt:itemCount];
+        data[KEY_PLAYER_INVENTORY_GOLDEN_EGG_COUNT] = [NSNumber numberWithInt:itemCount];
     } else if ([item.name isEqualToString:ITEMS[ITEM_SHIELD].name]) {
-        itemCount = ((NSNumber *)data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_SHIELD_COUNT]]).intValue;
+        itemCount = ((NSNumber *)data[KEY_PLAYER_INVENTORY_SHIELD_COUNT]).intValue;
         itemCount--;
-        data[[NSString stringWithUTF8String:KEY_PLAYER_INVENTORY_SHIELD_COUNT]] = [NSNumber numberWithInt:itemCount];
+        data[KEY_PLAYER_INVENTORY_SHIELD_COUNT] = [NSNumber numberWithInt:itemCount];
     }
 }
 

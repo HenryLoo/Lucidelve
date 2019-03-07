@@ -39,12 +39,7 @@
     Game *game = [(BaseVC *)self.window.rootViewController game];
     Player *player = [game getPlayer];
     [[Storage getInstance] clearData];
-    [[Storage getInstance] setValueC:[NSNumber numberWithInt:[player getGold]] key:KEY_PLAYER_GOLD];
-    NSUInteger numItems = [player getNumItems];
-    for(NSUInteger i = 0; i < numItems; i++) {
-        Item item = [player getItem:i];
-        [[Storage getInstance] addInventoryItem:item];
-    }
+    [[Storage getInstance] setPlayer:player];
     [[Storage getInstance] setGameData:game];
     [[Storage getInstance] saveData];
 }
