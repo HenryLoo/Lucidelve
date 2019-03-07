@@ -98,7 +98,6 @@ NSString *KEY_GAME_NUM_LIFE_UPGRADES = @"KEY_GAME_NUM_LIFE_UPGRADES";
         [[Utility getInstance] log:"Unable to convert the dictionary to JSON"];
     } else {
         NSString *json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        NSLog(@"Saving %@", json);
         [[Utility getInstance] saveString:json key:KEY_SAVE_FILE];
     }
 }
@@ -107,7 +106,6 @@ NSString *KEY_GAME_NUM_LIFE_UPGRADES = @"KEY_GAME_NUM_LIFE_UPGRADES";
     NSError *error;
     NSString *json = [[Utility getInstance] getString:KEY_SAVE_FILE];
     if ([json length] > 0) {
-        NSLog(@"Loaded %@", json);
         NSData *jsonData =[json dataUsingEncoding:NSUTF8StringEncoding];
         data = [[NSJSONSerialization JSONObjectWithData:jsonData options:NSUTF8StringEncoding error:&error] mutableCopy];
     }
@@ -223,7 +221,7 @@ NSString *KEY_GAME_NUM_LIFE_UPGRADES = @"KEY_GAME_NUM_LIFE_UPGRADES";
 - (void)setValue:(NSObject *)value key:(NSString *)key {
     NSObject *oldValue = [data objectForKey:key];
     if (oldValue) {
-        [[Utility getInstance] log:[[NSString stringWithFormat:@"Replacing object at key \"%@\"", key] UTF8String]];
+        // [[Utility getInstance] log:[[NSString stringWithFormat:@"Replacing object at key \"%@\"", key] UTF8String]];
     }
     [data setObject:value forKey:key];
 }

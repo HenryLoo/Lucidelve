@@ -34,6 +34,7 @@
 		8AB49F772214A720004E6C5C /* DungeonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB49F762214A720004E6C5C /* DungeonsView.m */; };
 		8AB49F7A2214A7CF004E6C5C /* DungeonsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB49F792214A7CF004E6C5C /* DungeonsVC.m */; };
 		B7A3BBD12230486000DB0373 /* Storage.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A3BBD02230486000DB0373 /* Storage.m */; };
+		B7A3BBD42230AC1100DB0373 /* AudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A3BBD32230AC1100DB0373 /* AudioPlayer.m */; };
 		D62CEBB6220D035500E778F6 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D62CEBB5220D035500E778F6 /* OpenGLES.framework */; };
 		D62CEBB8220D035B00E778F6 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D62CEBB7220D035B00E778F6 /* GLKit.framework */; };
 		D632C646221C02B500A315BA /* GLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = D632C62C221C02B200A315BA /* GLProgram.m */; };
@@ -124,6 +125,8 @@
 		8AB49F792214A7CF004E6C5C /* DungeonsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DungeonsVC.m; sourceTree = "<group>"; };
 		B7A3BBCF2230486000DB0373 /* Storage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Storage.h; sourceTree = "<group>"; };
 		B7A3BBD02230486000DB0373 /* Storage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Storage.m; sourceTree = "<group>"; };
+		B7A3BBD22230AC1100DB0373 /* AudioPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioPlayer.h; sourceTree = "<group>"; };
+		B7A3BBD32230AC1100DB0373 /* AudioPlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioPlayer.m; sourceTree = "<group>"; };
 		D62CEBB5220D035500E778F6 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		D62CEBB7220D035B00E778F6 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		D62CEBB9220D037300E778F6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -279,6 +282,8 @@
 				5F8AF599221B72F7002A715E /* GameCharacter.m */,
 				B7A3BBCF2230486000DB0373 /* Storage.h */,
 				B7A3BBD02230486000DB0373 /* Storage.m */,
+				B7A3BBD22230AC1100DB0373 /* AudioPlayer.h */,
+				B7A3BBD32230AC1100DB0373 /* AudioPlayer.m */,
 			);
 			path = Lucidelve;
 			sourceTree = "<group>";
@@ -461,6 +466,7 @@
 				5FE33DDF221890E500FCE3D8 /* CombatView.m in Sources */,
 				D632C64B221C02B500A315BA /* Renderer.m in Sources */,
 				5FE09D6122179D0300F8B952 /* Enemy.m in Sources */,
+				B7A3BBD42230AC1100DB0373 /* AudioPlayer.m in Sources */,
 				D632C64A221C02B500A315BA /* Attribute.m in Sources */,
 				D632C64D221C02B500A315BA /* SpotLight.m in Sources */,
 				D632C651221C02B500A315BA /* DirectionalLight.m in Sources */,

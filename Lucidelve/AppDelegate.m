@@ -11,6 +11,7 @@
 #import "Game.h"
 #import "Storage.h"
 #import "Constants.h"
+#import "AudioPlayer.h"
 
 @interface AppDelegate ()
 
@@ -20,6 +21,10 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Load audio files
+    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"service-bell_daniel_simion.mp3"] key:KEY_SERVICE_BELL];
+    [[AudioPlayer getInstance] play:KEY_SERVICE_BELL];
+    
     // Load save data
     [[Storage getInstance] loadData];
     
