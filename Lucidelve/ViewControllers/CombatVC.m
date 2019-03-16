@@ -15,6 +15,7 @@
 #import "Dungeon.h"
 #import "DungeonNode.h"
 #import "HubVC.h"
+#import "Utility.h"
 
 @interface CombatVC ()
 {
@@ -52,11 +53,13 @@
     // Pointer to UI elements
     UILabel *remainingNodesLabel;
     UILabel *playerLifeLabel;
+    UILabel *playerStaminaLabel;
     
     // TODO: pointer to temporary label elements, remove this later
     UILabel *enemyNameLabel;
     UILabel *enemyStateLabel;
     UILabel *playerStateLabel;
+    UILabel *combatStatusLabel;
 }
 @end
 
@@ -79,7 +82,7 @@
     isNodeCleared = true;
     
     // Randomize the number of nodes, bounded by the the min and max values.
-    numNodes = _currentDungeon.minNumNodes + arc4random() % (_currentDungeon.maxNumNodes - _currentDungeon.minNumNodes + 1);
+    numNodes = [[Utility getInstance] random:_currentDungeon.minNumNodes withMax:_currentDungeon.maxNumNodes];
     remainingNodes = numNodes;
     
     // Initialize gestures
@@ -107,11 +110,13 @@
     // Set up UI element pointers
     remainingNodesLabel = ((CombatView*) self.view).remainingNodesLabel;
     playerLifeLabel = ((CombatView*) self.view).playerLifeLabel;
+    playerStaminaLabel = ((CombatView*) self.view).playerStaminaLabel;
     
     // TODO: set up pointers to temporary labels, remove this later
     enemyNameLabel = ((CombatView*) self.view).enemyNameLabel;
     enemyStateLabel = ((CombatView*) self.view).enemyStateLabel;
     playerStateLabel = ((CombatView*) self.view).playerStateLabel;
+    combatStatusLabel = ((CombatView*) self.view).combatStatusLabel;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -142,6 +147,7 @@
             [player reset:false];
         }
         
+        combatStatusLabel.text = @"";
         isNodeCleared = false;
         remainingNodes--;
         [self updateRemainingNodes];
@@ -155,6 +161,7 @@
         if (currentEnemy != nil)
         {
             [currentEnemy update:self.game.deltaTime];
+            [self processEnemyAttack];
             [self updateEnemyLabels];
         }
     }
@@ -198,12 +205,12 @@
         // Show the end message
         NSString *stateString = [NSString stringWithFormat:@"DUNGEON CLEARED!\n<Tap to continue - Total Earned: %i G>",
                                  totalRewardGold];
-        enemyStateLabel.text = stateString;
+        combatStatusLabel.text = stateString;
         
         isReturningToHub = true;
     }
     // Second tap when dungeon run is over
-    else if (isReturningToHub)
+    else if (isReturningToHub || [player getCurrentLife] == 0)
     {
         // Return to The Hub with all gold earned
         [player addGold:totalRewardGold];
@@ -248,10 +255,11 @@
 - (void)performRegularAttack
 {
     // Can only attack from Neutral state
-    if ([player getCombatState] == COMBAT_NEUTRAL)
+    if ([player getCombatState] == COMBAT_NEUTRAL && [player getCurrentStamina] > 0)
     {
         [player setCombatState:COMBAT_ATTACKING];
         [self dealSwordDamageToEnemy];
+        [player addStamina:-1];
     }
 }
 
@@ -262,10 +270,11 @@
 - (void)performHighAttack
 {
     // Can only attack from Neutral state
-    if ([player getCombatState] == COMBAT_NEUTRAL)
+    if ([player getCombatState] == COMBAT_NEUTRAL && [player getCurrentStamina] > 0)
     {
         [player setCombatState:COMBAT_ATTACKING2];
         [self dealSwordDamageToEnemy];
+        [player addStamina:-1];
     }
 }
 
@@ -275,9 +284,28 @@
  */
 - (void)dealSwordDamageToEnemy
 {
+    // If the attack is not interruptable or the enemy can block the attack,
+    // then don't deal any damage
+    bool isInterruptable = currentEnemy.currentAttack.isInterruptable;
+    if (([currentEnemy getCombatState] == COMBAT_ALERT && !isInterruptable) ||
+        ([currentEnemy getCombatState] == COMBAT_NEUTRAL && [currentEnemy tryBlockingAttack]))
+    {
+        return;
+    }
+    
     // Deal damage depending on the number of sword upgrades
     [currentEnemy addLife:-[self.game getSwordDamage]];
 }
+
+/*!
+ * @brief Inflict damage on the player depending on the enemy's attack.
+ * @author Henry Loo
+ */
+- (void)dealEnemyDamageToPlayer
+{
+    [player addLife:-currentEnemy.currentAttack.damage];
+}
+
 
 /*!
  * @brief Perform the player's blocking action.
@@ -318,13 +346,44 @@
     }
 }
 
+/*!
+ * @brief Check to see if the enemy is attacking and whether or
+ * not that attack hit the player.
+ * @author Henry Loo
+ */
+- (void)processEnemyAttack
+{
+    CombatState playerState = [player getCombatState];
+    
+    // If the enemy is attacking and the player is not blocking a blockable attack or
+    // dodging a dodgeable attack
+    if (currentEnemy.isAttacking &&
+        !((playerState == COMBAT_BLOCKING && currentEnemy.currentAttack.isBlockable) ||
+            ((playerState == COMBAT_DODGING_LEFT || playerState == COMBAT_DODGING_RIGHT) && currentEnemy.currentAttack.isDodgeable)))
+    {
+        [self dealEnemyDamageToPlayer];
+        
+        // If dead, next tap should return player to The Hub with no rewards
+        if ([player getCurrentLife] == 0)
+        {
+            isReturningToHub = true;
+            totalRewardGold = 0;
+        }
+    }
+}
+
 // TODO: replace these with visual assets
 - (void)updatePlayerLabels
 {
     int currentLife = [player getCurrentLife];
     int maxLife = [player getMaxLife];
-    playerLifeLabel.text = [NSString stringWithFormat:@"Life: [%i / %i]",
+    playerLifeLabel.text = [NSString stringWithFormat:@"LIFE: [%i / %i]",
                            currentLife, maxLife];
+    
+    int currentStamina = [player getCurrentStamina];
+    int maxStamina = [player getMaxStamina];
+    playerStaminaLabel.text = [NSString stringWithFormat:@"STAM: [%i / %i]",
+                            currentStamina, maxStamina];
     
     NSString *stateString;
     switch ([player getCombatState])
@@ -351,6 +410,7 @@
             
         case COMBAT_DEAD:
             stateString = @"DEAD";
+            combatStatusLabel.text = @"<Tap to return to The Hub>";
             break;
             
         case COMBAT_HURT:
@@ -402,7 +462,8 @@
             break;
             
         case COMBAT_DEAD:
-            stateString = [NSString stringWithFormat:@"DEAD\n<Tap to continue - Reward: %i G>",
+            stateString = @"DEAD";
+            combatStatusLabel.text = [NSString stringWithFormat:@"<Tap to continue - Reward: %i G>",
                            [currentNode getGoldReward]];
             break;
             

@@ -120,4 +120,9 @@
     return [[NSUserDefaults standardUserDefaults] stringForKey:key];
 }
 
+- (int)random:(int)min withMax:(int)max
+{
+    return min + arc4random() % (max - min + 1);
+}
+
 @end

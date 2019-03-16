@@ -15,6 +15,13 @@
     // The player's current gold value
     int gold;
     
+    // The player's stamina values, in the form: currentStamina / maxStamina
+    int currentStamina;
+    int maxStamina;
+    
+    // Timer for regenerating stamina
+    float staminaTimer;
+    
     // Holds all the player's items
     NSMutableArray *items;
     
@@ -30,6 +37,8 @@
     if (self = [super initWithData:DEFAULT_PLAYER_LIFE]) {
         gold = 0;
         items = [[NSMutableArray alloc] init];
+        maxStamina = DEFAULT_PLAYER_STAMINA;
+        currentStamina = maxStamina;
         
         // Initialize equipped items as empty
         equippedItems = [[NSMutableArray alloc] initWithCapacity:MAX_EQUIPPED_ITEMS];
@@ -43,6 +52,51 @@
     return self;
 }
 
+- (void)update:(float)deltaTime
+{
+    // Regenerate stamina if not full
+    if (staminaTimer > 0 && currentStamina < maxStamina)
+    {
+        // Decrement stamina timer and make sure it doesn't
+        // drop lower than 0
+        staminaTimer += deltaTime;
+        staminaTimer = MAX(0, staminaTimer);
+    }
+    else
+    {
+        [self addStamina:1];
+        staminaTimer = STAMINA_COOLDOWN;
+    }
+    
+    [super update:deltaTime];
+    
+    if (self.actionTimer == 0)
+    {
+        switch ([self getCombatState])
+        {
+            // Cooldown is over, so reset to Neutral
+            case COMBAT_BLOCKING:
+            case COMBAT_DODGING_LEFT:
+            case COMBAT_DODGING_RIGHT:
+            case COMBAT_ATTACKING:
+            case COMBAT_ATTACKING2:
+            case COMBAT_HURT:
+                [self setCombatState:COMBAT_NEUTRAL];
+                break;
+                
+            default:
+                break;
+        }
+    }
+}
+
+- (void)reset:(bool)isResettingLife
+{
+    [super reset:isResettingLife];
+    
+    currentStamina = maxStamina;
+}
+
 - (void)addGold:(int)amount
 {
     gold += amount;
@@ -54,6 +108,29 @@
 - (int)getGold
 {
     return gold;
+}
+
+- (void)addStamina:(int)amount
+{
+    currentStamina += amount;
+    
+    // Clamp the life value between 0 and max
+    currentStamina = MAX(0, MIN(currentStamina, maxStamina));
+}
+
+- (void)addMaxStamina
+{
+    ++maxStamina;
+}
+
+- (int)getCurrentStamina
+{
+    return currentStamina;
+}
+
+- (int)getMaxStamina
+{
+    return maxStamina;
 }
 
 - (void)addItem:(Item)item

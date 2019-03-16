@@ -146,7 +146,9 @@
     NSDictionary *enemyJSON = [[Utility getInstance] decodeJSON:enemyData];
     NSString *name = [enemyJSON valueForKey:@"name"];
     int life = [[enemyJSON valueForKey:@"life"] intValue];
-    int attackDelay = [[enemyJSON valueForKey:@"attackDelay"] intValue];
+    float minAttackDelay = [[enemyJSON valueForKey:@"minAttackDelay"] floatValue];
+    float maxAttackDelay = [[enemyJSON valueForKey:@"maxAttackDelay"] floatValue];
+    float blockChance = [[enemyJSON valueForKey:@"blockChance"] floatValue];
     
     // Add the enemy's attack patterns
     NSMutableArray *attackPatterns = [[NSMutableArray alloc] init];
@@ -156,14 +158,18 @@
         int damage = [[object valueForKey:@"damage"] intValue];
         bool isDodgeable = [[object valueForKey:@"isDodgeable"] boolValue];
         bool isBlockable = [[object valueForKey:@"isBlockable"] boolValue];
-        EnemyAttack attack = (EnemyAttack){.damage = damage, .isDodgeable = isDodgeable, .isBlockable = isBlockable};
+        bool isInterruptable = [[object valueForKey:@"isInterruptable"] boolValue];
+        float alertDelay = [[object valueForKey:@"alertDelay"] floatValue];
+        float attackDelay = [[object valueForKey:@"attackDelay"] floatValue];
+        EnemyAttack attack = (EnemyAttack){.damage = damage, .isDodgeable = isDodgeable, .isBlockable = isBlockable,
+            .isInterruptable = isInterruptable, .alertDelay = alertDelay, .attackDelay = attackDelay};
         NSValue *wrappedAttack = [NSValue valueWithBytes:&attack objCType:@encode(EnemyAttack)];
         [attackPatterns addObject:wrappedAttack];
     }
 
     // Instantiate the enemy and add it to the list of enemies
-    Enemy *enemy = [[Enemy alloc] initWithData:name withLife:life withAttackDelay:attackDelay
-                            withAttackPatterns:attackPatterns];
+    Enemy *enemy = [[Enemy alloc] initWithData:name withLife:life withMinDelay:minAttackDelay
+                                  withMaxDelay:maxAttackDelay withBlockChance:blockChance withAttackPatterns:attackPatterns];
     [enemies setValue:enemy forKey:enemyType];
 }
 

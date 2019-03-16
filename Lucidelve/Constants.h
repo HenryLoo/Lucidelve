@@ -15,6 +15,12 @@ extern const Item ITEMS[];
 // The player's default starting life value
 extern const int DEFAULT_PLAYER_LIFE;
 
+// The player's default starting stamina value
+extern const int DEFAULT_PLAYER_STAMINA;
+
+// The cooldown for regenerating stamina
+extern const float STAMINA_COOLDOWN;
+
 // The maximum number of heart cookies that a player can purchase
 extern const int MAX_LIFE_UPGRADES;
 

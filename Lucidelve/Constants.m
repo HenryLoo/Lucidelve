@@ -23,6 +23,8 @@ const Item ITEMS[ITEM_NUM_ITEMS] = {
 };
 
 const int DEFAULT_PLAYER_LIFE = 3;
+const int DEFAULT_PLAYER_STAMINA = 5;
+const float STAMINA_COOLDOWN = 5;
 const int MAX_LIFE_UPGRADES = 5;
 const float GOLD_COOLDOWN = 5.f;
 const int GOLD_EARN_AMOUNT = 10;

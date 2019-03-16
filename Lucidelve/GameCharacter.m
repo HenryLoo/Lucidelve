@@ -1,3 +1,4 @@
+
 //
 //  GameCharacter.m
 //  Lucidelve
@@ -17,10 +18,6 @@
     
     // The character's current combat state
     CombatState state;
-    
-    // The remaining delay in seconds between each character action,
-    // before the character's combat state reverts to Neutral.
-    float actionTimer;
 }
 
 @end
@@ -44,30 +41,17 @@
     }
     
     state = COMBAT_NEUTRAL;
-    actionTimer = 0;
+    _actionTimer = 0;
 }
 
 - (void)update:(float)deltaTime
 {
-    CombatState state = [self getCombatState];
-    if (state != COMBAT_NEUTRAL && state != COMBAT_DEAD)
+    if (_actionTimer > 0)
     {
-        // We just changed from Neutral, so start the cooldown
-        if (actionTimer == 0)
-        {
-            actionTimer = COMBAT_COOLDOWN;
-        }
-        
         // Decrement cooldown timer and make sure it doesn't
         // drop lower than 0
-        actionTimer += deltaTime;
-        actionTimer = MAX(0, actionTimer);
-        
-        // Cooldown is over, so reset to Neutral
-        if (actionTimer == 0)
-        {
-            [self setCombatState:COMBAT_NEUTRAL];
-        }
+        _actionTimer += deltaTime;
+        _actionTimer = MAX(0, _actionTimer);
     }
 }
 
@@ -76,9 +60,6 @@
     if (amount < 0)
     {
         [self setCombatState:COMBAT_HURT];
-        
-        // Restart the action cooldown
-        actionTimer = COMBAT_COOLDOWN;
     }
     
     currentLife += amount;
@@ -109,6 +90,12 @@
 
 - (void)setCombatState:(CombatState)newState
 {
+    // Start cooldown if changing from neutral or taking damage
+    if (state == COMBAT_NEUTRAL || newState == COMBAT_HURT)
+    {
+        _actionTimer = COMBAT_COOLDOWN;
+    }
+    
     state = newState;
 }
 

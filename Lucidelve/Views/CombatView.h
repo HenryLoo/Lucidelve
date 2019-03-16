@@ -16,8 +16,9 @@
 // Shows the number of remaining nodes in the dungeon run.
 @property (nonatomic, strong) UILabel *remainingNodesLabel;
 
-// Show the player's life
+// Show the player's stats
 @property (nonatomic, strong) UILabel *playerLifeLabel;
+@property (nonatomic, strong) UILabel *playerStaminaLabel;
 
 // Show the player's item 1 and item 2
 @property (nonatomic, strong) UIView *item1View;
@@ -29,5 +30,6 @@
 @property (nonatomic, strong) UILabel *enemyStateLabel;
 @property (nonatomic, strong) UILabel *playerNameLabel;
 @property (nonatomic, strong) UILabel *playerStateLabel;
+@property (nonatomic, strong) UILabel *combatStatusLabel;
 
 @end

@@ -30,6 +30,11 @@ typedef enum
     COMBAT_ALERT
 } CombatState;
 
+
+// The remaining delay in seconds between each character action,
+// before the character's combat state reverts to Neutral.
+@property float actionTimer;
+
 /*!
  * @brief Initialize a character with a life value.
  * @author Henry Loo
@@ -66,7 +71,7 @@ typedef enum
 - (void)addLife:(int)amount;
 
 /*!
- * @brief Increment the player's max life by one.
+ * @brief Increment the character's max life by one.
  * This will typically be used during health upgrades.
  * @author Henry Loo
  */

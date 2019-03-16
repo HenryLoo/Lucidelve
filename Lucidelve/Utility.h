@@ -131,6 +131,17 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSString *)getString:(NSString *)key;
 
+/*!
+ * @brief Return a random int between a lower and upper bound.
+ * @author Henry Loo
+ *
+ * @param min The lower bound.
+ * @param max The upper bound.
+ *
+ * @return The random number.
+ */
+- (int)random:(int)min withMax:(int)max;
+
 @end
 
 NS_ASSUME_NONNULL_END
