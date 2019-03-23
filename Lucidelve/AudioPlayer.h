@@ -6,7 +6,7 @@
 //  Copyright © 2019 COMP 8051. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @brief A generic Singleton class containing
  * generic functions.
  */
-@interface AudioPlayer : NSObject
+@interface AudioPlayer : NSObject<AVAudioPlayerDelegate>
 
 /*!
  * Returns a static instance of the AudioPlayer

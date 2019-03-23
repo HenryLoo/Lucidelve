@@ -7,10 +7,10 @@
 //
 
 #import "AudioPlayer.h"
-#import <AVFoundation/AVFoundation.h>
 #import "Utility.h"
 
 NSString *KEY_SERVICE_BELL = @"KEY_SERVICE_BELL";
+static AudioPlayer *INSTANCE = nil;
 
 @interface AudioPlayer() {
     NSMutableDictionary<NSString *, NSData *> *audioFiles;
@@ -22,7 +22,6 @@ NSString *KEY_SERVICE_BELL = @"KEY_SERVICE_BELL";
 @implementation AudioPlayer
 
 + (id)getInstance {
-    static AudioPlayer *INSTANCE = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         INSTANCE = [[self alloc] init];
@@ -49,8 +48,15 @@ NSString *KEY_SERVICE_BELL = @"KEY_SERVICE_BELL";
     if ([audioFiles objectForKey:key]) {
         NSError *error;
         AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithData:[audioFiles objectForKey:key] error:&error];
+        player.delegate = self;
         [soundSources addObject:player];
         [player play];
+    }
+}
+
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+    if (flag) {
+        [soundSources removeObject:player];
     }
 }
 
