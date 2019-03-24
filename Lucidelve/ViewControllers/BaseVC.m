@@ -10,7 +10,8 @@
 #import "Game.h"
 #import "HubVC.h"
 #import "BaseView.h"
-#import "Renderer.h"
+#import "../Renderer/Renderer.h"
+#import "../Renderer/Camera.h"
 
 @interface BaseVC ()
 {
@@ -33,7 +34,11 @@
     
     // Initialize renderer
     GLKView *view = (GLKView *)self.view;
-    _renderer = [[Renderer alloc] initWithView:view];
+    self.renderer = [[Renderer alloc] initWithView:view];
+    
+    self.camera = [[Camera alloc] initWithPosition:GLKVector3Make(0, 0, 3)];
+    
+    [self.renderer setCamera:_camera];
     
     // Set UI element pointers
     backButton = ((BaseView*) self.view).backButton;
@@ -62,8 +67,6 @@
     {
         [_game updateGooseGold];
     }
-    
-    [_renderer update:self.game.deltaTime];
 }
 
 - (void)onBackButtonPress:(id)sender

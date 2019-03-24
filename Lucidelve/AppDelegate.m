@@ -12,6 +12,7 @@
 #import "Storage.h"
 #import "Constants.h"
 #import "AudioPlayer.h"
+#import "Renderer/Assets.h"
 
 @interface AppDelegate ()
 
@@ -68,6 +69,8 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    
+    [[Assets getInstance] cleanUp];
 }
 
 

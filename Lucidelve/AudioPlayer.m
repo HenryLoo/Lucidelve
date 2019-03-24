@@ -13,7 +13,9 @@ NSString *KEY_SERVICE_BELL = @"KEY_SERVICE_BELL";
 static AudioPlayer *INSTANCE = nil;
 
 @interface AudioPlayer() {
+	// A Dictionary of preloaded audio files
     NSMutableDictionary<NSString *, NSData *> *audioFiles;
+	// An array of currently playing sound sources
     NSMutableArray<AVAudioPlayer *> *soundSources;
 }
 

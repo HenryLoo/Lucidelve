@@ -89,6 +89,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)addTexture:(Texture *)texture;
 
+- (id)copyWithZone:(NSZone *)zone;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -23,6 +23,16 @@
 
 @implementation Mesh
 
+- (id)init {
+    if (self == [super init]) {
+        self._position = GLKVector3Make(0.0f, 0.0f, 0.0f);
+        self._rotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
+        self._scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
+        self._textures = [[NSMutableArray<Texture *> alloc] init];
+    }
+    return self;
+}
+
 - (id)initWithVertexData:(GLfloat *)vertexData numVertices:(GLsizei)numVertices normals:(GLfloat *)normals uvs:(GLfloat *)uvs numUvs:(GLsizei)numUvs indices:(GLuint *)indices numIndices:(GLsizei)numIndices {
     if (self == [super init]) {
         self._numVertices = numVertices;
@@ -244,6 +254,27 @@
 
 - (void)addTexture:(Texture *)texture {
     [self._textures addObject:texture];
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    GLfloat vertices[self._numVertices];
+    GLfloat normals[self._numNormals];
+    GLuint indices[self._numIndices];
+    
+    for (int i = 0; i < self._numVertices; i++) {
+        vertices[i] = self._vertices[i];
+    }
+    
+    for (int i = 0; i < self._numNormals; i++) {
+        normals[i] = self._normals[i];
+    }
+    
+    for (int i = 0; i < self._numIndices; i++) {
+        indices[i] = self._indices[i];
+    }
+    
+	Mesh *copy = [[Mesh alloc] initWithVertexData:vertices numVertices:self._numVertices normals:normals uvs:self._uvs numUvs:self._numUvs indices:indices numIndices:self._numIndices];
+	return copy;
 }
 
 @end

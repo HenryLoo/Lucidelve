@@ -44,7 +44,7 @@
     
     glGetShaderiv(self._id, GL_COMPILE_STATUS, &success);
     
-    if (!success) {
+    if (success == GL_FALSE) {
         [self printInfoLog];
     }
 }

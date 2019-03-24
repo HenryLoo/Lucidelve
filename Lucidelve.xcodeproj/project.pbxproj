@@ -57,6 +57,7 @@
 		D6B56A95220AB49D0092744F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F77C15A2204482F002A8300 /* Assets.xcassets */; };
 		D6B56A97220AB5710092744F /* Assets in Resources */ = {isa = PBXBuildFile; fileRef = D6B56A96220AB5710092744F /* Assets */; };
 		D6D837F82246F32F00AF0521 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6D837F72246F32E00AF0521 /* AVFoundation.framework */; };
+		D6D837FB2246F70000AF0521 /* Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D837FA2246F70000AF0521 /* Assets.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -165,6 +166,8 @@
 		D6B56A81220AA9930092744F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6B56A96220AB5710092744F /* Assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Assets; sourceTree = "<group>"; };
 		D6D837F72246F32E00AF0521 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		D6D837F92246F70000AF0521 /* Assets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Assets.h; sourceTree = "<group>"; };
+		D6D837FA2246F70000AF0521 /* Assets.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Assets.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -320,6 +323,8 @@
 				D632C640221C02B400A315BA /* Texture.m */,
 				D632C62D221C02B200A315BA /* Uniform.h */,
 				D632C634221C02B300A315BA /* Uniform.m */,
+				D6D837F92246F70000AF0521 /* Assets.h */,
+				D6D837FA2246F70000AF0521 /* Assets.m */,
 			);
 			path = Renderer;
 			sourceTree = "<group>";
@@ -470,6 +475,7 @@
 				5FE33DDF221890E500FCE3D8 /* CombatView.m in Sources */,
 				D632C64B221C02B500A315BA /* Renderer.m in Sources */,
 				5FE09D6122179D0300F8B952 /* Enemy.m in Sources */,
+				D6D837FB2246F70000AF0521 /* Assets.m in Sources */,
 				B7A3BBD42230AC1100DB0373 /* AudioPlayer.m in Sources */,
 				D632C64A221C02B500A315BA /* Attribute.m in Sources */,
 				D632C64D221C02B500A315BA /* SpotLight.m in Sources */,

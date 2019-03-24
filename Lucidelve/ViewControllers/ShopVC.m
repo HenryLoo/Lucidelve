@@ -14,6 +14,7 @@
 #import "Item.h"
 #import "Renderer.h"
 #import "Primitives.h"
+#import "../Renderer/Assets.h"
 
 @interface ShopVC ()
 {
@@ -69,11 +70,11 @@
            forControlEvents:UIControlEventTouchDown];
     
     // TODO: replace placeholder art
-    Texture *texture = [[Texture alloc] initWithFilename:"placeholder_shop.png"];
+    /*
     mesh = [[Primitives getInstance] square];
     mesh._scale = GLKVector3Make(1.5f, 1.5f, 1);
-    [mesh addTexture:texture];
-    [self.renderer addSprite:mesh];
+    [mesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_PLACEHOLDER_SHOP]];
+     */
 }
 
 - (void)didReceiveMemoryWarning {
@@ -102,7 +103,11 @@
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-    [self.renderer render:self.game.deltaTime drawInRect:rect];
+    /*
+    [self.renderer setupRender:rect];
+    
+    [self.renderer renderMesh:mesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_PASSTHROUGH]];
+     */
 }
 
 /*!

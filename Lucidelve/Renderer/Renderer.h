@@ -9,6 +9,7 @@
 #import <GLKit/GLKit.h>
 #import "Camera.h"
 #import "Mesh.h"
+#import "GLProgram.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,15 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Renderer : NSObject
 
 // A reference to the GL context
-@property (strong, nonatomic) EAGLContext *_context;
+@property (strong, nonatomic) EAGLContext *context;
 // The camera we render with
-@property (strong, nonatomic) Camera *_camera;
-// An array of GL programs
-@property (strong, nonatomic) NSMutableDictionary<NSString *,  GLProgram *> *_programs;
-// An array of meshes to render
-@property (strong, nonatomic) NSMutableArray<Mesh *> *_meshes;
-// An array of sprites (passthrough)
-@property (strong, nonatomic) NSMutableArray<Mesh *> *_sprites;
+@property Camera *mainCamera;
 
 /*!
  * @brief Initializes the renderer and keeps track of the GL context
@@ -37,47 +32,10 @@ NS_ASSUME_NONNULL_BEGIN
  * @return An id to the created instance
  */
 - (id)initWithView:(GLKView *)view;
-/*!
- * @brief Updates the renderer
- * @author Jason Chung
- *
- * @param deltaTime The change in time
- */
-- (void)update:(float)deltaTime;
-/*!
- * @brief Updates the renderer
- * @author Jason Chung
- *
- * @param deltaTime The change in time
- * @param rect The rect bounds
- */
-- (void)render:(float)deltaTime drawInRect:(CGRect)rect;
-/*!
- * @brief Cleans up the renderer and its objects
- * @author Jason Chung
- */
-- (void)cleanUp;
-/*!
- * @brief Sets the mesh array
- * @author Jason Chung
- *
- * @param meshes A new list of meshes
- */
-- (void)setMeshes:(NSMutableArray<Mesh *> *)meshes;
-/*!
- * @brief Adds a mesh to the mesh array
- * @author Jason Chung
- *
- * @param mesh The new mesh to add
- */
-- (void)addMesh:(Mesh *)mesh;
-/*!
- * @brief Adds a mesh to the sprite array
- * @author Jason Chung
- *
- * @param mesh The new mesh to add
- */
-- (void)addSprite:(Mesh *)mesh;
+
+- (void)setCamera:(Camera *)camera;
+- (void)setupRender:(CGRect)rect;
+- (void)renderMesh:(Mesh *)mesh program:(GLProgram *)program;
 
 @end
 

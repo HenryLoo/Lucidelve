@@ -11,6 +11,7 @@
 
 @class Game;
 @class Renderer;
+@class Camera;
 
 /*!
  * @brief A base class implemented by all view controllers
@@ -23,6 +24,9 @@
 
 // Pointer to the glES renderer
 @property Renderer *renderer;
+
+// Pointer to the Camera that every VC will view from
+@property Camera *camera;
 
 /*!
  * @brief The update loop.

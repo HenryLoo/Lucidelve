@@ -14,6 +14,7 @@
 #import "CombatVC.h"
 #import "Renderer.h"
 #import "Primitives.h"
+#import "../Renderer/Assets.h"
 
 @interface DungeonsVC ()
 {
@@ -49,7 +50,6 @@
     mesh = [[Primitives getInstance] square];
     mesh._scale = GLKVector3Make(1.5f, 1.5f, 1);
     [mesh addTexture:texture];
-    [self.renderer addSprite:mesh];
 }
     
 - (void)didReceiveMemoryWarning {
@@ -64,7 +64,9 @@
     
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-    [self.renderer render:self.game.deltaTime drawInRect:rect];
+    [self.renderer setupRender:rect];
+    
+    [self.renderer renderMesh:mesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_PASSTHROUGH]];
 }
     
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

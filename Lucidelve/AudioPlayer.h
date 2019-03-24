@@ -26,7 +26,21 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (id)getInstance;
 
+/*!
+ * Finds an audio file from the given path and adds it to the array of
+ * loaded audio files that can be played.
+ * @author Jason Chung
+ *
+ * @param filename The absolute path to the file
+ * @param key The key to access the audio file after loading
+ */
 - (void)addAudioFile:(NSString *)filename key:(NSString *)key;
+/*!
+ * Plays a sound from the array of loaded audio files.
+ * @author Jason Chung
+ *
+ * @param key The key of the preloaded audio file
+ */
 - (void)play:(NSString *)key;
 
 extern NSString *KEY_SERVICE_BELL;

@@ -18,6 +18,7 @@
 #import "../Constants.h"
 #import "../Renderer/Mesh.h"
 #import "../Renderer/Primitives.h"
+#import "../Renderer/Assets.h"
 
 @interface HubVC ()
 {
@@ -47,6 +48,8 @@
     
     // TODO: replace placeholder mesh
     Mesh *mesh;
+    
+    Mesh *anvil, *money, *door, *bag, *goldenGoose;
 }
 
 @end
@@ -99,12 +102,28 @@
     [blacksmithButton addTarget:self action:@selector(onBlacksmithButtonPress:)
           forControlEvents:UIControlEventTouchDown];
     
+    /*
     // TODO: replace placeholder art
-    Texture *diffuse = [[Texture alloc] initWithFilename:"placeholder_hub.png"];
     mesh = [[Primitives getInstance] square];
     mesh._scale = GLKVector3Make(2.5f, 4.0f, 1);
-    [mesh addTexture:diffuse];
-    [self.renderer addSprite:mesh];
+    [mesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_PLACEHOLDER_HUB]];
+    
+    anvil = [[Assets getInstance] getMesh:KEY_MESH_ANVIL];
+    anvil._scale = GLKVector3Make(0.2f, 0.2f, 0.2f);
+    anvil._position = GLKVector3Make(0.4f, 0.8f, 1.0f);
+    money = [[Assets getInstance] getMesh:KEY_MESH_MONEY];
+    money._scale = GLKVector3Make(0.2f, 0.2f, 0.2f);
+    money._position = GLKVector3Make(-0.4f, 0.8f, 1.0f);
+    door = [[Assets getInstance] getMesh:KEY_MESH_DOOR];
+    door._scale = GLKVector3Make(0.2f, 0.2f, 0.2f);
+    door._position = GLKVector3Make(0, 0.5f, 1.0f);
+    bag = [[Assets getInstance] getMesh:KEY_MESH_BACKPACK];
+    bag._scale = GLKVector3Make(0.08f, 0.08f, 0.08f);
+    bag._position = GLKVector3Make(-0.4f, 0.2f, 1.0f);
+    goldenGoose = [[Assets getInstance] getMesh:KEY_MESH_GOLDEN_GOOSE];
+    goldenGoose._scale = GLKVector3Make(0.08f, 0.08f, 0.08f);
+    goldenGoose._position = GLKVector3Make(0.4f, 0.2f, 1.0f);
+     */
 }
 
 - (void)didReceiveMemoryWarning {
@@ -124,7 +143,16 @@
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-    [self.renderer render:self.game.deltaTime drawInRect:rect];
+    /*
+    [self.renderer setupRender:rect];
+    [self.renderer renderMesh:mesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_PASSTHROUGH]];
+    
+    [self.renderer renderMesh:anvil program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
+    [self.renderer renderMesh:money program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
+    [self.renderer renderMesh:door program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
+    [self.renderer renderMesh:bag program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
+    [self.renderer renderMesh:goldenGoose program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
+     */
 }
 
 /*!
