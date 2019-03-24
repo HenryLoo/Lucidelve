@@ -57,9 +57,10 @@
 
 - (void)changeScene:(BaseVC*)currentVC newVC:(BaseVC*)newVC
 {
+	[[[UIApplication sharedApplication] keyWindow].rootViewController dismissViewControllerAnimated:YES completion:nil];
     // Pass the Game's data before switching scenes
     newVC.game = self;
-    [currentVC presentViewController:newVC animated:NO completion:nil];
+	[[UIApplication sharedApplication] keyWindow].rootViewController = newVC;
 }
 
 - (Dungeon*)getDungeon:(NSUInteger)level
