@@ -50,6 +50,7 @@
     Mesh *mesh;
     
     Mesh *anvil, *money, *door, *bag, *goldenGoose;
+    bool jiggleAnvil, jiggleMoney, jiggleDoor, jiggleBag, jiggleGoose;
 }
 
 @end
@@ -102,7 +103,6 @@
     [blacksmithButton addTarget:self action:@selector(onBlacksmithButtonPress:)
           forControlEvents:UIControlEventTouchDown];
     
-    /*
     // TODO: replace placeholder art
     mesh = [[Primitives getInstance] square];
     mesh._scale = GLKVector3Make(2.5f, 4.0f, 1);
@@ -111,19 +111,23 @@
     anvil = [[Assets getInstance] getMesh:KEY_MESH_ANVIL];
     anvil._scale = GLKVector3Make(0.2f, 0.2f, 0.2f);
     anvil._position = GLKVector3Make(0.4f, 0.8f, 1.0f);
+    anvil._rotation = GLKVector3Make(M_PI / 6, -M_PI / 4, 0);
     money = [[Assets getInstance] getMesh:KEY_MESH_MONEY];
     money._scale = GLKVector3Make(0.2f, 0.2f, 0.2f);
     money._position = GLKVector3Make(-0.4f, 0.8f, 1.0f);
+    money._rotation = GLKVector3Make(M_PI / 6, -M_PI / 4, 0);
     door = [[Assets getInstance] getMesh:KEY_MESH_DOOR];
     door._scale = GLKVector3Make(0.2f, 0.2f, 0.2f);
     door._position = GLKVector3Make(0, 0.5f, 1.0f);
+    door._rotation = GLKVector3Make(M_PI / 6, -M_PI / 4, 0);
     bag = [[Assets getInstance] getMesh:KEY_MESH_BACKPACK];
-    bag._scale = GLKVector3Make(0.08f, 0.08f, 0.08f);
+    bag._scale = GLKVector3Make(0.1f, 0.1f, 0.1f);
     bag._position = GLKVector3Make(-0.4f, 0.2f, 1.0f);
+    bag._rotation = GLKVector3Make(M_PI / 6, -M_PI / 4, 0);
     goldenGoose = [[Assets getInstance] getMesh:KEY_MESH_GOLDEN_GOOSE];
     goldenGoose._scale = GLKVector3Make(0.08f, 0.08f, 0.08f);
     goldenGoose._position = GLKVector3Make(0.4f, 0.2f, 1.0f);
-     */
+    goldenGoose._rotation = GLKVector3Make(M_PI / 6, -M_PI / 4, 0);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -139,11 +143,16 @@
     [self updateGoldLabel];
     [self updateGoldCooldown];
     [self updateUnlockables];
+    
+    [self jiggleMesh:anvil forward:&jiggleAnvil];
+    [self jiggleMesh:money forward:&jiggleMoney];
+    [self jiggleMesh:door forward:&jiggleDoor];
+    [self jiggleMesh:bag forward:&jiggleBag];
+    [self jiggleMesh:goldenGoose forward:&jiggleGoose];
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-    /*
     [self.renderer setupRender:rect];
     [self.renderer renderMesh:mesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_PASSTHROUGH]];
     
@@ -152,7 +161,6 @@
     [self.renderer renderMesh:door program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
     [self.renderer renderMesh:bag program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
     [self.renderer renderMesh:goldenGoose program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
-     */
 }
 
 /*!

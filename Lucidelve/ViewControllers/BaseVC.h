@@ -12,6 +12,7 @@
 @class Game;
 @class Renderer;
 @class Camera;
+@class Mesh;
 
 /*!
  * @brief A base class implemented by all view controllers
@@ -43,5 +44,14 @@
  * @param sender The pressed button
  */
 - (void)onBackButtonPress:(id)sender;
+
+/*!
+ * @brief Jiggles a Mesh left and right
+ * @author Jason Chung
+ *
+ * @param mesh The Mesh to jiggle
+ * @param forward If the Mesh is moving forward or backwards
+ */
+- (void)jiggleMesh:(Mesh *)mesh forward:(bool *)forward;
 
 @end

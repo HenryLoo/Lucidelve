@@ -31,6 +31,7 @@
     
     // TODO: replace placeholder mesh
     Mesh *mesh;
+    Mesh *swordMesh, *potionMesh, *heartMesh, *bombMesh, *shieldMesh;
 }
 @end
 
@@ -70,11 +71,30 @@
            forControlEvents:UIControlEventTouchDown];
     
     // TODO: replace placeholder art
-    /*
     mesh = [[Primitives getInstance] square];
     mesh._scale = GLKVector3Make(1.5f, 1.5f, 1);
     [mesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_PLACEHOLDER_SHOP]];
-     */
+    
+    shieldMesh = [[Assets getInstance] getMesh:KEY_MESH_SHIELD];
+    shieldMesh._scale = GLKVector3Make(0.05f, 0.05f, 0.05f);
+    shieldMesh._position = GLKVector3Make(0.4f, -0.3f, 1.0f);
+    shieldMesh._rotation = GLKVector3Make(0, -M_PI / 4, 0);
+    swordMesh = [[Assets getInstance] getMesh:KEY_MESH_SWORD];
+    swordMesh._scale = GLKVector3Make(0.2f, 0.2f, 0.2f);
+    swordMesh._position = GLKVector3Make(-0.4f, -0.2f, 1.0f);
+    swordMesh._rotation = GLKVector3Make(M_PI / 6, -M_PI / 4, 0);
+    heartMesh = [[Assets getInstance] getMesh:KEY_MESH_HEART];
+    heartMesh._scale = GLKVector3Make(0.2f, 0.2f, 0.2f);
+    heartMesh._position = GLKVector3Make(0, -0.5f, 1.0f);
+    heartMesh._rotation = GLKVector3Make(0, -M_PI / 4, 0);
+    bombMesh = [[Assets getInstance] getMesh:KEY_MESH_BOMB];
+    bombMesh._scale = GLKVector3Make(0.1f, 0.1f, 0.1f);
+    bombMesh._position = GLKVector3Make(-0.4f, -0.9f, 1.0f);
+    bombMesh._rotation = GLKVector3Make(0, -M_PI / 4, 0);
+    potionMesh = [[Assets getInstance] getMesh:KEY_MESH_POTION];
+    potionMesh._scale = GLKVector3Make(0.08f, 0.08f, 0.08f);
+    potionMesh._position = GLKVector3Make(0.4f, -0.9f, 1.0f);
+    potionMesh._rotation = GLKVector3Make(0, -M_PI / 4, 0);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -103,11 +123,15 @@
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-    /*
     [self.renderer setupRender:rect];
     
     [self.renderer renderMesh:mesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_PASSTHROUGH]];
-     */
+    
+    [self.renderer renderMesh:shieldMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
+    [self.renderer renderMesh:swordMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
+    [self.renderer renderMesh:heartMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
+    [self.renderer renderMesh:bombMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
+    [self.renderer renderMesh:potionMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
 }
 
 /*!

@@ -189,10 +189,6 @@
     }
 }
 
-- (void)dealloc {
-    [self cleanUp];
-}
-
 - (void)setup {
     glGenVertexArraysOES(1, &_vao);
     glGenBuffers(3, _vbo);

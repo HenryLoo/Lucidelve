@@ -47,66 +47,11 @@
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_BLEND);
         
-        // [[Assets getInstance] loadResources];
-        
         float aspect = fabsf((float)(view.bounds.size.width / view.bounds.size.height));
         projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 1.f, 100.0f);
     }
     return self;
 }
-
-/*
-- (void)render:(float)deltaTime drawInRect:(CGRect)rect {
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT |  GL_DEPTH_BUFFER_BIT);
-    
-    [self.programs[@"basic"] bind];
-    
-    // material properties
-    [self.programs[@"basic"] set3fv:self.camera._position.v uniformName:"viewPos"];
-    
-    [dirLight draw:self.programs[@"basic"]];
-
-    [self.programs[@"basic"] set4fvm:[self.camera getViewMatrix].m uniformName:"view"];
-    [self.programs[@"basic"] set4fvm:_projectionMatrix.m uniformName:"projection"];
-    
-    // Render stuff
-    for (Mesh *mesh in self.meshes) {
-        GLKMatrix4 modelMatrix = GLKMatrix4Identity;
-        modelMatrix = GLKMatrix4Translate(modelMatrix, mesh._position.x,  mesh._position.y, mesh._position.z);
-        modelMatrix = GLKMatrix4Rotate(modelMatrix, mesh._rotation.x, 1.0f, 0.0f, 0.0f);
-        modelMatrix = GLKMatrix4Rotate(modelMatrix, mesh._rotation.y, 0.0f, 1.0f, 0.0f);
-        modelMatrix = GLKMatrix4Rotate(modelMatrix, mesh._rotation.z, 0.0f, 0.0f, 1.0f);
-        modelMatrix = GLKMatrix4Scale(modelMatrix, mesh._scale.x, mesh._scale.y, mesh._scale.z);
-        GLKMatrix3 normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(GLKMatrix4Multiply([self.camera getViewMatrix], modelMatrix)), NULL);
-        [self.programs[@"basic"] set3fvm:normalMatrix.m uniformName:"normalMatrix"];
-        [self.programs[@"basic"] set4fvm:modelMatrix.m uniformName:"model"];
-        [mesh draw:self.programs[@"basic"]];
-    }
-    
-    [self.programs[@"passthrough"] bind];
-    
-    // material properties
-    [self.programs[@"passthrough"] set3fv:self.camera._position.v uniformName:"viewPos"];
-    
-    [self.programs[@"passthrough"] set4fvm:[self.camera getViewMatrix].m uniformName:"view"];
-    [self.programs[@"passthrough"] set4fvm:_projectionMatrix.m uniformName:"projection"];
-    
-    // Render stuff
-    for (Mesh *mesh in self.sprites) {
-        GLKMatrix4 modelMatrix = GLKMatrix4Identity;
-        modelMatrix = GLKMatrix4Translate(modelMatrix, mesh._position.x,  mesh._position.y, mesh._position.z);
-        modelMatrix = GLKMatrix4Rotate(modelMatrix, mesh._rotation.x, 1.0f, 0.0f, 0.0f);
-        modelMatrix = GLKMatrix4Rotate(modelMatrix, mesh._rotation.y, 0.0f, 1.0f, 0.0f);
-        modelMatrix = GLKMatrix4Rotate(modelMatrix, mesh._rotation.z, 0.0f, 0.0f, 1.0f);
-        modelMatrix = GLKMatrix4Scale(modelMatrix, mesh._scale.x, mesh._scale.y, mesh._scale.z);
-        GLKMatrix3 normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(GLKMatrix4Multiply([self.camera getViewMatrix], modelMatrix)), NULL);
-        [self.programs[@"passthrough"] set3fvm:normalMatrix.m uniformName:"normalMatrix"];
-        [self.programs[@"passthrough"] set4fvm:modelMatrix.m uniformName:"model"];
-        [mesh draw:self.programs[@"passthrough"]];
-    }
-}
- */
 
 - (void)setCamera:(Camera *)camera {
     self.mainCamera = camera;

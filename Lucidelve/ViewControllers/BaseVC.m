@@ -12,6 +12,8 @@
 #import "BaseView.h"
 #import "../Renderer/Renderer.h"
 #import "../Renderer/Camera.h"
+#import "../Renderer/Assets.h"
+#import "../Renderer/Mesh.h"
 
 @interface BaseVC ()
 {
@@ -35,6 +37,8 @@
     // Initialize renderer
     GLKView *view = (GLKView *)self.view;
     self.renderer = [[Renderer alloc] initWithView:view];
+    
+    [[Assets getInstance] loadResources];
     
     self.camera = [[Camera alloc] initWithPosition:GLKVector3Make(0, 0, 3)];
     
@@ -66,6 +70,22 @@
     if (_game.isGooseUnlocked)
     {
         [_game updateGooseGold];
+    }
+}
+
+- (void)jiggleMesh:(Mesh *)mesh forward:(bool *)forward {
+    if (*forward) {
+        mesh._rotation = GLKVector3Make(mesh._rotation.x, mesh._rotation.y - 0.05f, mesh._rotation.z);
+    } else {
+        mesh._rotation = GLKVector3Make(mesh._rotation.x, mesh._rotation.y + 0.05f, mesh._rotation.z);
+    }
+    
+    if (mesh._rotation.y > M_PI / 4) {
+        mesh._rotation = GLKVector3Make(mesh._rotation.x, M_PI / 4 - 0.05f, mesh._rotation.z);
+        *forward = !*forward;
+    } else if (mesh._rotation.y < -M_PI / 4) {
+        mesh._rotation = GLKVector3Make(mesh._rotation.x, -M_PI / 4 + 0.05f, mesh._rotation.z);
+        *forward = !*forward;
     }
 }
 

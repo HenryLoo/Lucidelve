@@ -37,8 +37,6 @@ NSString *KEY_MESH_SWORD = @"sword";
     NSMutableDictionary<NSString *, GLProgram *> *programs;
     NSMutableDictionary<NSString *, Texture *> *textures;
     NSMutableDictionary<NSString *, Mesh *> *meshes;
-    
-    bool assetsLoaded;
 }
 @end
 
@@ -163,10 +161,6 @@ NSString *KEY_MESH_SWORD = @"sword";
 
 - (Mesh *)getMesh:(NSString *)key {
     return [[meshes objectForKey:key] copyWithZone:nil];
-}
-
-- (bool)isLoaded {
-    return assetsLoaded;
 }
 
 @end

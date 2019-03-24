@@ -88,13 +88,6 @@ extern NSString *KEY_MESH_CUBE;
  */
 - (Mesh *)getMesh:(NSString *)key;
 
-/*!
- * Returns true if all assets are loaded and false otherwise.
- *
- * @return True for loaded, false otherwise.
- */
-- (bool)isLoaded;
-
 @end
 
 NS_ASSUME_NONNULL_END
