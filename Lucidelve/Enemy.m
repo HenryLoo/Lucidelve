@@ -36,12 +36,13 @@
 
 @implementation Enemy
 
-- (id)initWithData:(NSString *)name withLife:(int)life
+- (id)initWithData:(NSString *)name withTexture:(NSString *)texture withLife:(int)life
    withMinDelay:(float)minAttackDelay withMaxDelay:(float)maxAttackDelay
    withBlockChance:(float)blockChance withAttackPatterns:(NSMutableArray*)attackPatterns
 {
     if (self = [super initWithData:life]) {
         self->name = name;
+        _texture = texture;
         self->minAttackDelay = minAttackDelay;
         self->maxAttackDelay = maxAttackDelay;
         self->blockChance = blockChance;
@@ -95,6 +96,28 @@
             default:
                 break;
         }
+    }
+    
+    switch ([self getCombatState])
+    {
+        case COMBAT_NEUTRAL:
+            self.spriteIndex = 0;
+            break;
+        case COMBAT_ALERT:
+            self.spriteIndex = 1;
+            break;
+        case COMBAT_ATTACKING:
+            self.spriteIndex = 2;
+            break;
+        case COMBAT_BLOCKING:
+            self.spriteIndex = 3;
+            break;
+        case COMBAT_HURT:
+        case COMBAT_DEAD:
+            self.spriteIndex = 4;
+            break;
+        default:
+            break;
     }
 }
 

@@ -36,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setCamera:(Camera *)camera;
 - (void)setupRender:(CGRect)rect;
 - (void)renderMesh:(Mesh *)mesh program:(GLProgram *)program;
+- (void)renderSprite:(Mesh *)mesh spriteIndex:(int)index;
 
 @end
 

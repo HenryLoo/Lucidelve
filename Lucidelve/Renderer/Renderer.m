@@ -46,6 +46,7 @@
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         
         float aspect = fabsf((float)(view.bounds.size.width / view.bounds.size.height));
         projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 1.f, 100.0f);
@@ -87,6 +88,26 @@
     [program set3fvm:normalMatrix.m uniformName:"normalMatrix"];
     [program set4fvm:modelMatrix.m uniformName:"model"];
     [mesh draw:program];
+}
+
+- (void)renderSprite:(Mesh *)mesh spriteIndex:(int)index
+{
+    if (mesh == nil) {
+        [[Utility getInstance] log:"Mesh was nil"];
+        return;
+    }
+    GLProgram *program = [[Assets getInstance] getProgram:KEY_PROGRAM_SPRITE];
+    [program bind];
+    
+    GLKVector2 texSize = GLKVector2Make(mesh._textures[0].width, mesh._textures[0].height);
+    [program set2fv:texSize.v uniformName:"texSize"];
+    
+    GLKVector2 clipSize = GLKVector2Make(32, 32);
+    [program set2fv:clipSize.v uniformName:"clipSize"];
+    
+    [program set1i:index uniformName:"spriteIndex"];
+    
+    [self renderMesh:mesh program:program];
 }
 
 @end

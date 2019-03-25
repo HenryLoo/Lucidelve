@@ -28,7 +28,6 @@
 // since sprite rendering isn't very usable yet.
 @property (nonatomic, strong) UILabel *enemyNameLabel;
 @property (nonatomic, strong) UILabel *enemyStateLabel;
-@property (nonatomic, strong) UILabel *playerNameLabel;
 @property (nonatomic, strong) UILabel *playerStateLabel;
 @property (nonatomic, strong) UILabel *combatStatusLabel;
 

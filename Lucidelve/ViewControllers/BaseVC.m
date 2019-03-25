@@ -27,13 +27,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // Instantiate the Game instance if it doesn't exist yet
-    if (!_game)
-    {
-        _game = [[Game alloc] init];
-    }
-    
     // Initialize renderer
     GLKView *view = (GLKView *)self.view;
     self.renderer = [[Renderer alloc] initWithView:view];
@@ -52,6 +45,12 @@
     {
         [backButton addTarget:self action:@selector(onBackButtonPress:)
              forControlEvents:UIControlEventTouchDown];
+    }
+    
+    // Instantiate the Game instance if it doesn't exist yet
+    if (!_game)
+    {
+        _game = [[Game alloc] init];
     }
 }
 

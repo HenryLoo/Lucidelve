@@ -42,6 +42,9 @@ typedef struct EnemyAttack
 // This should only be true on the first frame of the attack.
 @property bool isAttacking;
 
+// The enemy's spritesheet.
+@property NSString *texture;
+
 /*!
  * @brief Initialize an enemy with a life value, attack delay value in seconds,
  * and an array of attack patterns.
@@ -57,7 +60,7 @@ typedef struct EnemyAttack
  *
  * @return A pointer to this instance.
  */
-- (id)initWithData:(NSString *)name withLife:(int)life
+- (id)initWithData:(NSString *)name withTexture:(NSString *)texture withLife:(int)life
    withMinDelay:(float)minAttackDelay withMaxDelay:(float)maxAttackDelay
    withBlockChance:(float)blockChance withAttackPatterns:(NSMutableArray*)attackPatterns;
 

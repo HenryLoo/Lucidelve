@@ -10,6 +10,7 @@
 
 NSString *KEY_PROGRAM_BASIC = @"basic";
 NSString *KEY_PROGRAM_PASSTHROUGH = @"passthrough";
+NSString *KEY_PROGRAM_SPRITE = @"sprite";
 
 NSString *KEY_TEXTURE_CRATE = @"crate";
 NSString *KEY_TEXTURE_PLACEHOLDER_BLACKSMITH = @"placeholder_blacksmith";
@@ -29,6 +30,13 @@ NSString *KEY_TEXTURE_NEST = @"nest";
 NSString *KEY_TEXTURE_POTION = @"potion";
 NSString *KEY_TEXTURE_SHIELD = @"shield";
 NSString *KEY_TEXTURE_SWORD = @"sword";
+NSString *KEY_TEXTURE_PLAYER = @"player";
+NSString *KEY_TEXTURE_WOLF = @"wolf";
+NSString *KEY_TEXTURE_GOBLIN = @"goblin";
+NSString *KEY_TEXTURE_GOLEM = @"golem";
+NSString *KEY_TEXTURE_BAT = @"bat";
+NSString *KEY_TEXTURE_TURTLE = @"turtle";
+NSString *KEY_TEXTURE_FOX = @"fox";
 
 NSString *KEY_MESH_ANVIL = @"anvil";
 NSString *KEY_MESH_CUBE = @"cube";
@@ -115,6 +123,18 @@ NSString *KEY_MESH_SWORD = @"sword";
     [attributes addObject:texCoordIn];
     GLProgram *passthroughProgram = [[GLProgram alloc] initWithShaders:&shaders attributes:&attributes];
     [programs setObject:passthroughProgram forKey:KEY_PROGRAM_PASSTHROUGH];
+    
+    [shaders removeAllObjects];
+    [attributes removeAllObjects];
+    
+    vertexShader = [[Shader alloc] initWithFilename:"sprite.vsh" shaderType:GL_VERTEX_SHADER];
+    fragmentShader = [[Shader alloc] initWithFilename:"sprite.fsh" shaderType:GL_FRAGMENT_SHADER];
+    [shaders addObject:vertexShader];
+    [shaders addObject:fragmentShader];
+    [attributes addObject:position];
+    [attributes addObject:texCoordIn];
+    GLProgram *spriteProgram = [[GLProgram alloc] initWithShaders:&shaders attributes:&attributes];
+    [programs setObject:spriteProgram forKey:KEY_PROGRAM_SPRITE];
 }
 
 - (void)loadTextures {
@@ -154,6 +174,20 @@ NSString *KEY_MESH_SWORD = @"sword";
     [textures setObject:texture forKey:KEY_TEXTURE_SHIELD];
     texture = [[Texture alloc] initWithFilename:"sword.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_SWORD];
+    texture = [[Texture alloc] initWithFilename:"player.png"];
+    [textures setObject:texture forKey:KEY_TEXTURE_PLAYER];
+    texture = [[Texture alloc] initWithFilename:"wolf.png"];
+    [textures setObject:texture forKey:KEY_TEXTURE_WOLF];
+    texture = [[Texture alloc] initWithFilename:"goblin.png"];
+    [textures setObject:texture forKey:KEY_TEXTURE_GOBLIN];
+    texture = [[Texture alloc] initWithFilename:"golem.png"];
+    [textures setObject:texture forKey:KEY_TEXTURE_GOLEM];
+    texture = [[Texture alloc] initWithFilename:"bat.png"];
+    [textures setObject:texture forKey:KEY_TEXTURE_BAT];
+    texture = [[Texture alloc] initWithFilename:"turtle.png"];
+    [textures setObject:texture forKey:KEY_TEXTURE_TURTLE];
+    texture = [[Texture alloc] initWithFilename:"fox.png"];
+    [textures setObject:texture forKey:KEY_TEXTURE_FOX];
 }
 
 - (void)loadMeshes {

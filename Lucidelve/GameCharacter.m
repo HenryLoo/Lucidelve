@@ -9,9 +9,17 @@
 
 #import "GameCharacter.h"
 #import "Constants.h"
+#import "Mesh.h"
+#import "Primitives.h"
+#import "Assets.h"
+#import "Renderer.h"
+#import "GLProgram.h"
 
 @interface GameCharacter ()
 {
+    // The character's mesh
+    //Mesh *mesh;
+    
     // The character's life values, in the form: currentLife / maxLife
     int currentLife;
     int maxLife;

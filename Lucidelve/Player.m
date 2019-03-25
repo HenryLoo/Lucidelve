@@ -9,6 +9,7 @@
 #import "Player.h"
 #import "Constants.h"
 #import "Utility.h"
+#import "Assets.h"
 
 @interface Player ()
 {
@@ -87,6 +88,34 @@
             default:
                 break;
         }
+    }
+    
+    switch ([self getCombatState])
+    {
+        case COMBAT_NEUTRAL:
+            self.spriteIndex = 1;
+            break;
+        case COMBAT_ATTACKING:
+        case COMBAT_ATTACKING2:
+            self.spriteIndex = 2;
+            break;
+        case COMBAT_BLOCKING:
+            self.spriteIndex = 3;
+            break;
+        case COMBAT_DODGING_LEFT:
+            self.spriteIndex = 4;
+            break;
+        case COMBAT_DODGING_RIGHT:
+            self.spriteIndex = 5;
+            break;
+        case COMBAT_HURT:
+            self.spriteIndex = 6;
+            break;
+        case COMBAT_DEAD:
+            self.spriteIndex = 7;
+            break;
+        default:
+            break;
     }
 }
 

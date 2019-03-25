@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 /*  GL Program keys */
 extern NSString *KEY_PROGRAM_BASIC;
 extern NSString *KEY_PROGRAM_PASSTHROUGH;
+extern NSString *KEY_PROGRAM_SPRITE;
 
 /* Texture keys */
 extern NSString *KEY_TEXTURE_CRATE;
@@ -35,6 +36,13 @@ extern NSString *KEY_TEXTURE_NEST;
 extern NSString *KEY_TEXTURE_POTION;
 extern NSString *KEY_TEXTURE_SHIELD;
 extern NSString *KEY_TEXTURE_SWORD;
+extern NSString *KEY_TEXTURE_PLAYER;
+extern NSString *KEY_TEXTURE_WOLF;
+extern NSString *KEY_TEXTURE_GOBLIN;
+extern NSString *KEY_TEXTURE_GOLEM;
+extern NSString *KEY_TEXTURE_BAT;
+extern NSString *KEY_TEXTURE_TURTLE;
+extern NSString *KEY_TEXTURE_FOX;
 
 /* Mesh keys */
 extern NSString *KEY_MESH_ANVIL;

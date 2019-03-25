@@ -48,6 +48,7 @@
     
     // TODO: replace placeholder mesh
     Mesh *mesh;
+    Mesh *playerMesh;
     
     Mesh *anvil, *money, *door, *bag, *goldenGoose;
     bool jiggleAnvil, jiggleMoney, jiggleDoor, jiggleBag, jiggleGoose;
@@ -106,7 +107,13 @@
     // TODO: replace placeholder art
     mesh = [[Primitives getInstance] square];
     mesh._scale = GLKVector3Make(2.5f, 4.0f, 1);
+    mesh._position = GLKVector3Make(0, 0, -0.1);
     [mesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_PLACEHOLDER_HUB]];
+    
+    playerMesh = [[Primitives getInstance] square];
+    playerMesh._scale = GLKVector3Make(1, 1, 1);
+    playerMesh._position = GLKVector3Make(0, -0.5, 0);
+    [playerMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_PLAYER]];
     
     anvil = [[Assets getInstance] getMesh:KEY_MESH_ANVIL];
     anvil._scale = GLKVector3Make(0.2f, 0.2f, 0.2f);
@@ -160,6 +167,7 @@
 {
     [self.renderer setupRender:rect];
     [self.renderer renderMesh:mesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_PASSTHROUGH]];
+    [self.renderer renderSprite:playerMesh spriteIndex:0];
     
     [self.renderer renderMesh:anvil program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
     [self.renderer renderMesh:money program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];

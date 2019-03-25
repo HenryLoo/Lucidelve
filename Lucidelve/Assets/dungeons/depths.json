@@ -1,0 +1,11 @@
+{
+    "name": "Depths",
+    "minNodes": 6,
+    "maxNodes": 8,
+    "combatNodes": [
+        { "goldReward": 30, "enemy": "golem" },
+        { "goldReward": 45, "enemy": "turtle" },
+        { "goldReward": 60, "enemy": "fox" }
+    ],
+    "eventNodes": []
+}

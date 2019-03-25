@@ -85,15 +85,10 @@
  */
 - (void)setupPlayerLabels
 {
-    _playerNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _playerStateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    _playerNameLabel.textAlignment = _playerStateLabel.textAlignment = NSTextAlignmentCenter;
-    _playerNameLabel.text = @"Player";
-    [self.bodyArea addSubview:_playerNameLabel];
     [self.bodyArea addSubview:_playerStateLabel];
     
     // Enable autolayout
-    _playerNameLabel.translatesAutoresizingMaskIntoConstraints = false;
     _playerStateLabel.translatesAutoresizingMaskIntoConstraints = false;
 }
 
@@ -170,9 +165,6 @@
     // Player label constraints
     [_playerStateLabel.centerXAnchor constraintEqualToAnchor:self.bodyArea.centerXAnchor].active = YES;
     [_playerStateLabel.bottomAnchor constraintEqualToAnchor:self.bodyArea.bottomAnchor constant:-25].active = YES;
-    
-    [_playerNameLabel.centerXAnchor constraintEqualToAnchor:self.bodyArea.centerXAnchor].active = YES;
-    [_playerNameLabel.bottomAnchor constraintEqualToAnchor:_playerStateLabel.topAnchor].active = YES;
     
     // Combat label label constraints
     [_combatStatusLabel.centerXAnchor constraintEqualToAnchor:self.bodyArea.centerXAnchor].active = YES;

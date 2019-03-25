@@ -3,7 +3,8 @@
     "minNodes": 2,
     "maxNodes": 4,
     "combatNodes": [
-        { "goldReward": 10, "enemy": "tree" }
+        { "goldReward": 10, "enemy": "wolf" },
+        { "goldReward": 15, "enemy": "goblin" }
     ],
     "eventNodes": []
 }

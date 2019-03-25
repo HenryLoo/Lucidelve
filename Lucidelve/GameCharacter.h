@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <GLKit/GLKit.h>
 
 /*!
  * @brief Contains common values for game characters
@@ -30,6 +31,11 @@ typedef enum
     COMBAT_ALERT
 } CombatState;
 
+// The character's current position
+@property GLKVector3 position;
+
+// Index of the character's current sprite
+@property int spriteIndex;
 
 // The remaining delay in seconds between each character action,
 // before the character's combat state reverts to Neutral.

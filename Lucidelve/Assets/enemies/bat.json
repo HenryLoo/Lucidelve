@@ -1,5 +1,6 @@
 {
-    "name": "Tree",
+    "name": "Bat",
+    "texture": "bat",
     "life": 5,
     "minAttackDelay": 1.0,
     "maxAttackDelay": 3.0,

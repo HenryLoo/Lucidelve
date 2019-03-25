@@ -120,6 +120,10 @@
     glUniform4f([self getUniform:name], f1, f2, f3, f4);
 }
 
+- (void)set2fv:(GLfloat *)value uniformName:(const char *)name {
+    glUniform2fv([self getUniform:name], 1, value);
+}
+
 - (void)set3fv:(GLfloat *)value uniformName:(const char *)name {
     glUniform3fv([self getUniform:name], 1, value);
 }

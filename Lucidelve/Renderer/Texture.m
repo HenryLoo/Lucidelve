@@ -25,18 +25,18 @@
             return self;
         }
         
-        size_t width = CGImageGetWidth(imageRef);
-        size_t height = CGImageGetHeight(imageRef);
+        _width = CGImageGetWidth(imageRef);
+        _height = CGImageGetHeight(imageRef);
         
-        GLubyte *spriteData = (GLubyte *)calloc(width * height * 4, sizeof(GLubyte));
+        GLubyte *spriteData = (GLubyte *)calloc(_width * _height * 4, sizeof(GLubyte));
         
         CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
         NSUInteger bytesPerPixel = 4;
-        NSUInteger bytesPerRow = bytesPerPixel * width;
+        NSUInteger bytesPerRow = bytesPerPixel * _width;
         NSUInteger bitsPerComponent = 8;
         
-        CGContextRef spriteContext = CGBitmapContextCreate(spriteData, width, height, bitsPerComponent, bytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
-        CGContextDrawImage(spriteContext, CGRectMake(0, 0, width, height), imageRef);
+        CGContextRef spriteContext = CGBitmapContextCreate(spriteData, _width, _height, bitsPerComponent, bytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+        CGContextDrawImage(spriteContext, CGRectMake(0, 0, _width, _height), imageRef);
         CGContextRelease(spriteContext);
         
         GLuint texture;
@@ -47,10 +47,10 @@
         
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei)width, (GLsizei)height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei)_width, (GLsizei)_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
         
         free(spriteData);
         self._id = texture;

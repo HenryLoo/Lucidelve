@@ -16,6 +16,8 @@
 #import "DungeonNode.h"
 #import "HubVC.h"
 #import "Utility.h"
+#import "Primitives.h"
+#import "Assets.h"
 
 @interface CombatVC ()
 {
@@ -60,6 +62,9 @@
     UILabel *enemyStateLabel;
     UILabel *playerStateLabel;
     UILabel *combatStatusLabel;
+    
+    Mesh *playerMesh;
+    Mesh *enemyMesh;
 }
 @end
 
@@ -117,6 +122,11 @@
     enemyStateLabel = ((CombatView*) self.view).enemyStateLabel;
     playerStateLabel = ((CombatView*) self.view).playerStateLabel;
     combatStatusLabel = ((CombatView*) self.view).combatStatusLabel;
+    
+    playerMesh = [[Primitives getInstance] square];
+    playerMesh._scale = GLKVector3Make(1, 1, 1);
+    playerMesh._position = GLKVector3Make(0, -0.5, 0);
+    [playerMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_PLAYER]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -143,6 +153,11 @@
             // Initialize the enemy
             currentEnemy = [self.game getEnemy:enemyType];
             [currentEnemy reset:true];
+            
+            enemyMesh = [[Primitives getInstance] square];
+            enemyMesh._scale = GLKVector3Make(1, 1, 1);
+            enemyMesh._position = GLKVector3Make(0, 0.5, 0);
+            [enemyMesh addTexture:[[Assets getInstance] getTexture:currentEnemy.texture]];
             
             [player reset:false];
         }
@@ -172,6 +187,13 @@
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
     [self.renderer setupRender:rect];
+    
+    [self.renderer renderSprite:playerMesh spriteIndex:player.spriteIndex];
+    
+    if (currentEnemy != nil)
+    {
+        [self.renderer renderSprite:enemyMesh spriteIndex:currentEnemy.spriteIndex];
+    }
 }
 
 - (void)onTap:(UITapGestureRecognizer *)recognizer
@@ -372,7 +394,6 @@
     }
 }
 
-// TODO: replace these with visual assets
 - (void)updatePlayerLabels
 {
     int currentLife = [player getCurrentLife];
@@ -385,51 +406,55 @@
     playerStaminaLabel.text = [NSString stringWithFormat:@"STAM: [%i / %i]",
                             currentStamina, maxStamina];
     
-    NSString *stateString;
-    switch ([player getCombatState])
+    if ([player getCombatState] == COMBAT_DEAD)
     {
-        case COMBAT_NEUTRAL:
-            stateString = @"NEUTRAL";
-            break;
-            
-        case COMBAT_DODGING_LEFT:
-            stateString = @"DODGING LEFT";
-            break;
-            
-        case COMBAT_DODGING_RIGHT:
-            stateString = @"DODGING RIGHT";
-            break;
-            
-        case COMBAT_BLOCKING:
-            stateString = @"BLOCKING";
-            break;
-            
-        case COMBAT_ATTACKING:
-            stateString = @"REGULAR ATTACKING";
-            break;
-            
-        case COMBAT_DEAD:
-            stateString = @"DEAD";
-            combatStatusLabel.text = @"<Tap to return to The Hub>";
-            break;
-            
-        case COMBAT_HURT:
-            stateString = @"HURT";
-            break;
-            
-        case COMBAT_ATTACKING2:
-            stateString = @"HIGH ATTACKING";
-            break;
-            
-        case COMBAT_ALERT:
-            stateString = @"ALERT";
-            break;
+        combatStatusLabel.text = [NSString stringWithFormat:@"<Tap to return to The Hub>"];
     }
     
-    playerStateLabel.text = stateString;
+//    NSString *stateString;
+//    switch ([player getCombatState])
+//    {
+//        case COMBAT_NEUTRAL:
+//            stateString = @"NEUTRAL";
+//            break;
+//
+//        case COMBAT_DODGING_LEFT:
+//            stateString = @"DODGING LEFT";
+//            break;
+//
+//        case COMBAT_DODGING_RIGHT:
+//            stateString = @"DODGING RIGHT";
+//            break;
+//
+//        case COMBAT_BLOCKING:
+//            stateString = @"BLOCKING";
+//            break;
+//
+//        case COMBAT_ATTACKING:
+//            stateString = @"REGULAR ATTACKING";
+//            break;
+//
+//        case COMBAT_DEAD:
+//            stateString = @"DEAD";
+//            combatStatusLabel.text = @"<Tap to return to The Hub>";
+//            break;
+//
+//        case COMBAT_HURT:
+//            stateString = @"HURT";
+//            break;
+//
+//        case COMBAT_ATTACKING2:
+//            stateString = @"HIGH ATTACKING";
+//            break;
+//
+//        case COMBAT_ALERT:
+//            stateString = @"ALERT";
+//            break;
+//    }
+//
+//    playerStateLabel.text = stateString;
 }
 
-// TODO: replace these with visual assets
 - (void)updateEnemyLabels
 {
     NSString *name = [currentEnemy getName];
@@ -438,49 +463,55 @@
     enemyNameLabel.text = [NSString stringWithFormat:@"%@ [%i / %i]", name,
                            currentLife, maxLife];
     
-    NSString *stateString;
-    switch ([currentEnemy getCombatState])
+    if ([currentEnemy getCombatState] == COMBAT_DEAD)
     {
-        case COMBAT_NEUTRAL:
-            stateString = @"NEUTRAL";
-            break;
-            
-        case COMBAT_DODGING_LEFT:
-            stateString = @"DODGING LEFT";
-            break;
-            
-        case COMBAT_DODGING_RIGHT:
-            stateString = @"DODGING RIGHT";
-            break;
-            
-        case COMBAT_BLOCKING:
-            stateString = @"BLOCKING";
-            break;
-            
-        case COMBAT_ATTACKING:
-            stateString = @"REGULAR ATTACKING";
-            break;
-            
-        case COMBAT_DEAD:
-            stateString = @"DEAD";
-            combatStatusLabel.text = [NSString stringWithFormat:@"<Tap to continue - Reward: %i G>",
-                           [currentNode getGoldReward]];
-            break;
-            
-        case COMBAT_HURT:
-            stateString = @"HURT";
-            break;
-            
-        case COMBAT_ATTACKING2:
-            stateString = @"HIGH ATTACKING";
-            break;
-            
-        case COMBAT_ALERT:
-            stateString = @"ALERT";
-            break;
+        combatStatusLabel.text = [NSString stringWithFormat:@"<Tap to continue - Reward: %i G>",
+                                  [currentNode getGoldReward]];
     }
     
-    enemyStateLabel.text = stateString;
+//    NSString *stateString;
+//    switch ([currentEnemy getCombatState])
+//    {
+//        case COMBAT_NEUTRAL:
+//            stateString = @"NEUTRAL";
+//            break;
+//
+//        case COMBAT_DODGING_LEFT:
+//            stateString = @"DODGING LEFT";
+//            break;
+//
+//        case COMBAT_DODGING_RIGHT:
+//            stateString = @"DODGING RIGHT";
+//            break;
+//
+//        case COMBAT_BLOCKING:
+//            stateString = @"BLOCKING";
+//            break;
+//
+//        case COMBAT_ATTACKING:
+//            stateString = @"REGULAR ATTACKING";
+//            break;
+//
+//        case COMBAT_DEAD:
+//            stateString = @"DEAD";
+//            combatStatusLabel.text = [NSString stringWithFormat:@"<Tap to continue - Reward: %i G>",
+//                           [currentNode getGoldReward]];
+//            break;
+//
+//        case COMBAT_HURT:
+//            stateString = @"HURT";
+//            break;
+//
+//        case COMBAT_ATTACKING2:
+//            stateString = @"HIGH ATTACKING";
+//            break;
+//
+//        case COMBAT_ALERT:
+//            stateString = @"ALERT";
+//            break;
+//    }
+//
+//    enemyStateLabel.text = stateString;
 }
 
 /*!

@@ -1,0 +1,11 @@
+{
+    "name": "Caves",
+    "minNodes": 4,
+    "maxNodes": 6,
+    "combatNodes": [
+        { "goldReward": 15, "enemy": "goblin" },
+        { "goldReward": 30, "enemy": "golem" },
+        { "goldReward": 30, "enemy": "bat" }
+    ],
+    "eventNodes": []
+}

@@ -103,6 +103,14 @@ NS_ASSUME_NONNULL_BEGIN
  * @param vector The vector to set
  * @param name The name of the uniform to update
  */
+- (void)set2fv:(GLfloat *)vector uniformName:(const char *)name;
+/*!
+ * @brief Sets an array of floats to the uniform.
+ * @author Jason Chung
+ *
+ * @param vector The vector to set
+ * @param name The name of the uniform to update
+ */
 - (void)set3fv:(GLfloat *)vector uniformName:(const char *)name;
 /*!
  * @brief Sets an array of floats to the uniform.

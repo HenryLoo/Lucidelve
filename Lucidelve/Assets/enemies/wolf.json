@@ -1,0 +1,11 @@
+{
+    "name": "Wolf",
+    "texture": "wolf",
+    "life": 5,
+    "minAttackDelay": 1.0,
+    "maxAttackDelay": 3.0,
+    "blockChance": 0.5,
+    "attackPatterns": [
+        { "damage": 1, "isBlockable": true, "isDodgeable": true, "isInterruptable": true, "alertDelay": 0.5, "attackDelay": 0.7 }
+    ]
+}

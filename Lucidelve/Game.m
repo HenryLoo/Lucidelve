@@ -128,7 +128,7 @@
     
     // Load all dungeons
     NSArray *dungeonsArray = [assetsJSON objectForKey:@"dungeons"];
-    dungeons = [[NSMutableArray alloc] init];
+    dungeons = [[NSMutableArray alloc] initWithCapacity:dungeonsArray.count];
     for (id dungeonType in dungeonsArray)
     {
         [self initDungeon:dungeonType];
@@ -146,6 +146,7 @@
     NSData *enemyData = [[Utility getInstance] loadResource:enemyPath];
     NSDictionary *enemyJSON = [[Utility getInstance] decodeJSON:enemyData];
     NSString *name = [enemyJSON valueForKey:@"name"];
+    NSString *texture = [enemyJSON valueForKey:@"texture"];
     int life = [[enemyJSON valueForKey:@"life"] intValue];
     float minAttackDelay = [[enemyJSON valueForKey:@"minAttackDelay"] floatValue];
     float maxAttackDelay = [[enemyJSON valueForKey:@"maxAttackDelay"] floatValue];
@@ -169,7 +170,7 @@
     }
 
     // Instantiate the enemy and add it to the list of enemies
-    Enemy *enemy = [[Enemy alloc] initWithData:name withLife:life withMinDelay:minAttackDelay
+    Enemy *enemy = [[Enemy alloc] initWithData:name withTexture:texture withLife:life withMinDelay:minAttackDelay
                                   withMaxDelay:maxAttackDelay withBlockChance:blockChance withAttackPatterns:attackPatterns];
     [enemies setValue:enemy forKey:enemyType];
 }

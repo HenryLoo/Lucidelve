@@ -20,6 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 // The type of texture
 @property const char *_type;
 
+// Dimensions of the texture
+@property size_t width;
+@property size_t height;
+
 /*!
  * @brief Initializes the texture with a filename with the default texture_diffuse type
  * @author Jason Chung
