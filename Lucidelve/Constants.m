@@ -22,6 +22,8 @@ const Item ITEMS[ITEM_NUM_ITEMS] = {
     [ITEM_GOLDEN_EGG] = (Item){.name = @"Golden Egg"},
 };
 
+const float PLAYER_WALK_SPEED = 0.2;
+const int NUM_PLAYER_WALK_SPRITES = 4;
 const int DEFAULT_PLAYER_LIFE = 3;
 const int DEFAULT_PLAYER_STAMINA = 5;
 const float STAMINA_COOLDOWN = 5;

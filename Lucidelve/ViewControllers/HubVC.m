@@ -52,6 +52,12 @@
     
     Mesh *anvil, *money, *door, *bag, *goldenGoose;
     bool jiggleAnvil, jiggleMoney, jiggleDoor, jiggleBag, jiggleGoose;
+    
+    // The animation timer for the player's sprite
+    float playerSpriteTimer;
+    
+    // The current index of the player sprite
+    float playerSpriteIndex;
 }
 
 @end
@@ -140,6 +146,10 @@
     goldenGoose._position = GLKVector3Make(0.4f, 0.2f, 1.0f);
     goldenGoose._rotation = GLKVector3Make(M_PI / 6, -M_PI / 4, 0);
 	[goldenGoose addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_GOLDEN_GOOSE]];
+    
+    // Initialize player animation values
+    playerSpriteTimer = PLAYER_WALK_SPEED;
+    playerSpriteIndex = 0;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -150,6 +160,8 @@
 - (void)update
 {
     [super update];
+    
+    [self updatePlayerSprite];
     
     // Update UI elements
     [self updateGoldLabel];
@@ -167,13 +179,31 @@
 {
     [self.renderer setupRender:rect];
     [self.renderer renderMesh:mesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_PASSTHROUGH]];
-    [self.renderer renderSprite:playerMesh spriteIndex:0];
+    [self.renderer renderSprite:playerMesh spriteIndex:playerSpriteIndex];
     
     [self.renderer renderMesh:anvil program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
     [self.renderer renderMesh:money program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
     [self.renderer renderMesh:door program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
     [self.renderer renderMesh:bag program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
     [self.renderer renderMesh:goldenGoose program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
+}
+
+/*!
+ * @brief Update the player sprite animation.
+ * @author Henry Loo
+ */
+- (void)updatePlayerSprite
+{
+    if (playerSpriteTimer > 0)
+    {
+        playerSpriteTimer += self.game.deltaTime;
+        playerSpriteTimer = MAX(playerSpriteTimer, 0);
+    }
+    else
+    {
+        playerSpriteTimer = PLAYER_WALK_SPEED;
+        playerSpriteIndex = (playerSpriteIndex + 1 >= NUM_PLAYER_WALK_SPRITES) ? 0 : playerSpriteIndex + 1;
+    }
 }
 
 /*!

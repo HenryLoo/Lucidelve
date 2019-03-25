@@ -12,6 +12,12 @@
 // Hold all item values
 extern const Item ITEMS[];
 
+// The animation speed of the player's walk cycle
+extern const float PLAYER_WALK_SPEED;
+
+// The number of sprites in the player's walk cycle
+extern const int NUM_PLAYER_WALK_SPRITES;
+
 // The player's default starting life value
 extern const int DEFAULT_PLAYER_LIFE;
 
