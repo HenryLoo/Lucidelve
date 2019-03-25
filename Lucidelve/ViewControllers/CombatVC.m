@@ -65,6 +65,10 @@
     
     Mesh *playerMesh;
     Mesh *enemyMesh;
+    Mesh *floorMesh;
+    Mesh *leftWallMesh;
+    Mesh *rightWallMesh;
+    Mesh *backWallMesh;
 }
 @end
 
@@ -127,6 +131,30 @@
     playerMesh._scale = GLKVector3Make(1, 1, 1);
     playerMesh._position = GLKVector3Make(0, -0.5, 0);
     [playerMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_PLAYER]];
+    
+    floorMesh = [[Primitives getInstance] square];
+    floorMesh._scale = GLKVector3Make(3, 30, 1);
+    floorMesh._position = GLKVector3Make(0, -1, 0);
+    floorMesh._rotation = GLKVector3Make(-M_PI / 2.5, 0, 0);
+    [floorMesh addTexture:[[Assets getInstance] getTexture:_currentDungeon.floorTexture]];
+    
+    leftWallMesh = [[Primitives getInstance] square];
+    leftWallMesh._scale = GLKVector3Make(30, 18, 1);
+    leftWallMesh._position = GLKVector3Make(-2, 8, -5);
+    leftWallMesh._rotation = GLKVector3Make(0, M_PI / 2, 0);
+    [leftWallMesh addTexture:[[Assets getInstance] getTexture:_currentDungeon.wallTexture]];
+    
+    rightWallMesh = [[Primitives getInstance] square];
+    rightWallMesh._scale = GLKVector3Make(30, 18, 1);
+    rightWallMesh._position = GLKVector3Make(2, 8, -5);
+    rightWallMesh._rotation = GLKVector3Make(0, -M_PI / 2, 0);
+    [rightWallMesh addTexture:[[Assets getInstance] getTexture:_currentDungeon.wallTexture]];
+    
+    backWallMesh = [[Primitives getInstance] square];
+    backWallMesh._scale = GLKVector3Make(4, 16, 1);
+    backWallMesh._position = GLKVector3Make(0, 9, -20);
+    backWallMesh._rotation = GLKVector3Make(0, 0, 0);
+    [backWallMesh addTexture:[[Assets getInstance] getTexture:_currentDungeon.wallTexture]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -188,11 +216,15 @@
 {
     [self.renderer setupRender:rect];
     
-    [self.renderer renderSprite:playerMesh spriteIndex:player.spriteIndex];
+    [self.renderer renderWithFog:floorMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_DUNGEON] fogColour:_currentDungeon.fogColour];
+    [self.renderer renderWithFog:leftWallMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_DUNGEON] fogColour:_currentDungeon.fogColour];
+    [self.renderer renderWithFog:rightWallMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_DUNGEON] fogColour:_currentDungeon.fogColour];
+    [self.renderer renderWithFog:backWallMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_DUNGEON] fogColour:_currentDungeon.fogColour];
+    [self.renderer renderSprite:playerMesh spriteIndex:player.spriteIndex fogColour:_currentDungeon.fogColour];
     
     if (currentEnemy != nil)
     {
-        [self.renderer renderSprite:enemyMesh spriteIndex:currentEnemy.spriteIndex];
+        [self.renderer renderSprite:enemyMesh spriteIndex:currentEnemy.spriteIndex fogColour:_currentDungeon.fogColour];
     }
 }
 

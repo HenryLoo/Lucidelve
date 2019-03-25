@@ -187,6 +187,13 @@
     NSData *dungeonData = [[Utility getInstance] loadResource:dungeonPath];
     NSDictionary *dungeonJSON = [[Utility getInstance] decodeJSON:dungeonData];
     NSString *name = [dungeonJSON valueForKey:@"name"];
+    id fog = [dungeonJSON objectForKey:@"fogColour"];
+    GLKVector4 fogColour = GLKVector4Make([[fog valueForKey:@"r"] floatValue],
+                                          [[fog valueForKey:@"g"] floatValue],
+                                          [[fog valueForKey:@"b"] floatValue],
+                                          [[fog valueForKey:@"a"] floatValue]);
+    NSString *floorTexture = [dungeonJSON valueForKey:@"floorTexture"];
+    NSString *wallTexture = [dungeonJSON valueForKey:@"wallTexture"];
     int minNodes = [[dungeonJSON valueForKey:@"minNodes"] intValue];
     int maxNodes = [[dungeonJSON valueForKey:@"maxNodes"] intValue];
     
@@ -212,9 +219,9 @@
     }
     
     // Instantiate the dungeon and add it to the list of dungeons
-    Dungeon *dungeon = [[Dungeon alloc] init:name withCombatNodes:combatNodes
-                                 withEventNodes:eventNodes withMinNodes:minNodes
-                                   withMaxNodes:maxNodes];
+    Dungeon *dungeon = [[Dungeon alloc] init:name withFog:fogColour withFloor:floorTexture withWall:wallTexture
+                             withCombatNodes:combatNodes withEventNodes:eventNodes withMinNodes:minNodes
+                                withMaxNodes:maxNodes];
     
     [dungeons addObject:dungeon];
 }

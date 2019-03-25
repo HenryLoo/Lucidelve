@@ -90,11 +90,11 @@
     [mesh draw:program];
 }
 
-- (void)renderSprite:(Mesh *)mesh spriteIndex:(int)index
+- (GLProgram *)baseRenderSprite:(Mesh *)mesh spriteIndex:(int)index
 {
     if (mesh == nil) {
         [[Utility getInstance] log:"Mesh was nil"];
-        return;
+        return nil;
     }
     GLProgram *program = [[Assets getInstance] getProgram:KEY_PROGRAM_SPRITE];
     [program bind];
@@ -106,6 +106,29 @@
     [program set2fv:clipSize.v uniformName:"clipSize"];
     
     [program set1i:index uniformName:"spriteIndex"];
+    
+    return program;
+}
+
+- (void)renderSprite:(Mesh *)mesh spriteIndex:(int)index
+{
+    GLProgram *program = [self baseRenderSprite:mesh spriteIndex:index];
+    [program set1i:true uniformName:"isFogDisabled"];
+    
+    [self renderMesh:mesh program:program];
+}
+
+- (void)renderSprite:(Mesh *)mesh spriteIndex:(int)index fogColour:(GLKVector4)fogColour
+{
+    GLProgram *program = [self baseRenderSprite:mesh spriteIndex:index];
+    [self renderWithFog:mesh program:program fogColour:fogColour];
+}
+
+- (void)renderWithFog:(Mesh *)mesh program:(GLProgram *)program fogColour:(GLKVector4)fogColour
+{
+    [program bind];
+    
+    [program set4fv:fogColour.v uniformName:"fogColour"];
     
     [self renderMesh:mesh program:program];
 }

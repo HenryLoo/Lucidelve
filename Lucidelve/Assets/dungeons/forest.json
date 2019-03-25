@@ -1,5 +1,8 @@
 {
     "name": "Forest",
+    "fogColour": { "r": 0.5, "g": 0.6, "b": 0.8, "a": 1.0 },
+    "floorTexture": "forest_floor",
+    "wallTexture": "forest_wall",
     "minNodes": 2,
     "maxNodes": 4,
     "combatNodes": [

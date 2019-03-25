@@ -11,6 +11,7 @@
 NSString *KEY_PROGRAM_BASIC = @"basic";
 NSString *KEY_PROGRAM_PASSTHROUGH = @"passthrough";
 NSString *KEY_PROGRAM_SPRITE = @"sprite";
+NSString *KEY_PROGRAM_DUNGEON = @"dungeon";
 
 NSString *KEY_TEXTURE_CRATE = @"crate";
 NSString *KEY_TEXTURE_PLACEHOLDER_BLACKSMITH = @"placeholder_blacksmith";
@@ -37,6 +38,12 @@ NSString *KEY_TEXTURE_GOLEM = @"golem";
 NSString *KEY_TEXTURE_BAT = @"bat";
 NSString *KEY_TEXTURE_TURTLE = @"turtle";
 NSString *KEY_TEXTURE_FOX = @"fox";
+NSString *KEY_TEXTURE_FOREST_FLOOR = @"forest_floor";
+NSString *KEY_TEXTURE_FOREST_WALL = @"forest_wall";
+NSString *KEY_TEXTURE_CAVES_FLOOR = @"caves_floor";
+NSString *KEY_TEXTURE_CAVES_WALL = @"caves_wall";
+NSString *KEY_TEXTURE_DEPTHS_FLOOR = @"depths_floor";
+NSString *KEY_TEXTURE_DEPTHS_WALL = @"depths_wall";
 
 NSString *KEY_MESH_ANVIL = @"anvil";
 NSString *KEY_MESH_CUBE = @"cube";
@@ -128,13 +135,25 @@ NSString *KEY_MESH_SWORD = @"sword";
     [attributes removeAllObjects];
     
     vertexShader = [[Shader alloc] initWithFilename:"sprite.vsh" shaderType:GL_VERTEX_SHADER];
-    fragmentShader = [[Shader alloc] initWithFilename:"sprite.fsh" shaderType:GL_FRAGMENT_SHADER];
+    fragmentShader = [[Shader alloc] initWithFilename:"fog.fsh" shaderType:GL_FRAGMENT_SHADER];
     [shaders addObject:vertexShader];
     [shaders addObject:fragmentShader];
     [attributes addObject:position];
     [attributes addObject:texCoordIn];
     GLProgram *spriteProgram = [[GLProgram alloc] initWithShaders:&shaders attributes:&attributes];
     [programs setObject:spriteProgram forKey:KEY_PROGRAM_SPRITE];
+    
+    [shaders removeAllObjects];
+    [attributes removeAllObjects];
+    
+    vertexShader = [[Shader alloc] initWithFilename:"passthrough.vsh" shaderType:GL_VERTEX_SHADER];
+    fragmentShader = [[Shader alloc] initWithFilename:"fog.fsh" shaderType:GL_FRAGMENT_SHADER];
+    [shaders addObject:vertexShader];
+    [shaders addObject:fragmentShader];
+    [attributes addObject:position];
+    [attributes addObject:texCoordIn];
+    GLProgram *dungeonProgram = [[GLProgram alloc] initWithShaders:&shaders attributes:&attributes];
+    [programs setObject:dungeonProgram forKey:KEY_PROGRAM_DUNGEON];
 }
 
 - (void)loadTextures {
@@ -188,6 +207,18 @@ NSString *KEY_MESH_SWORD = @"sword";
     [textures setObject:texture forKey:KEY_TEXTURE_TURTLE];
     texture = [[Texture alloc] initWithFilename:"fox.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_FOX];
+    texture = [[Texture alloc] initWithFilename:"forest_floor.png"];
+    [textures setObject:texture forKey:KEY_TEXTURE_FOREST_FLOOR];
+    texture = [[Texture alloc] initWithFilename:"forest_wall.png"];
+    [textures setObject:texture forKey:KEY_TEXTURE_FOREST_WALL];
+    texture = [[Texture alloc] initWithFilename:"caves_floor.png"];
+    [textures setObject:texture forKey:KEY_TEXTURE_CAVES_FLOOR];
+    texture = [[Texture alloc] initWithFilename:"caves_wall.png"];
+    [textures setObject:texture forKey:KEY_TEXTURE_CAVES_WALL];
+    texture = [[Texture alloc] initWithFilename:"depths_floor.png"];
+    [textures setObject:texture forKey:KEY_TEXTURE_DEPTHS_FLOOR];
+    texture = [[Texture alloc] initWithFilename:"depths_wall.png"];
+    [textures setObject:texture forKey:KEY_TEXTURE_DEPTHS_WALL];
 }
 
 - (void)loadMeshes {

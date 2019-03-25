@@ -11,12 +11,15 @@
 
 @implementation Dungeon
 
-- (id)init:(NSString*)name withCombatNodes:(NSMutableArray*)combatNodes
-withEventNodes:(NSMutableArray*)eventNodes withMinNodes:(int)minNodes
-withMaxNodes:(int)maxNodes;
+- (id)init:(NSString*)name withFog:(GLKVector4)fog withFloor:(NSString*)floor withWall:(NSString*)wall
+withCombatNodes:(NSMutableArray*)combatNodes withEventNodes:(NSMutableArray*)eventNodes
+withMinNodes:(int)minNodes withMaxNodes:(int)maxNodes;
 {
     if (self = [super init]) {
         _name = name;
+        _fogColour = fog;
+        _floorTexture = floor;
+        _wallTexture = wall;
         _combatNodes = combatNodes;
         _eventNodes = eventNodes;
         _minNumNodes = minNodes;

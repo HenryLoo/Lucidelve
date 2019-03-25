@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <GLKit/GLKit.h>
 
 @class DungeonNode;
 
@@ -29,15 +30,27 @@
 @property int minNumNodes;
 @property int maxNumNodes;
 
+// Visual properties
+@property GLKVector4 fogColour;
+@property NSString *floorTexture;
+@property NSString *wallTexture;
+
 /*!
  * @brief Initialize a dungeon with a name.
  * @author Henry Loo
  *
  * @param name The dungeon's name.
+ * @param name The dungeon's fog colour.
+ * @param floor The dungeon's floor texture.
+ * @param wall The dungeon's wall texture.
+ * @param combatNodes The dungeon's combat nodes.
+ * @param eventNodes The dungeon's event nodes.
+ * @param minNodes The minimum number of nodes in the dungeon.
+ * @param maxNodes The maximum number of nodes in the dungeon.
  */
-- (id)init:(NSString*)name withCombatNodes:(NSMutableArray*)combatNodes
-withEventNodes:(NSMutableArray*)eventNodes withMinNodes:(int)minNodes
-withMaxNodes:(int)maxNodes;
+- (id)init:(NSString*)name withFog:(GLKVector4)fog withFloor:(NSString*)floor withWall:(NSString*)wall
+withCombatNodes:(NSMutableArray*)combatNodes withEventNodes:(NSMutableArray*)eventNodes
+withMinNodes:(int)minNodes withMaxNodes:(int)maxNodes;
 
 /*!
  * @brief Return a random node for this dungeon.

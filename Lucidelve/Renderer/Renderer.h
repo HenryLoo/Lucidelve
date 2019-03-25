@@ -37,6 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setupRender:(CGRect)rect;
 - (void)renderMesh:(Mesh *)mesh program:(GLProgram *)program;
 - (void)renderSprite:(Mesh *)mesh spriteIndex:(int)index;
+- (void)renderSprite:(Mesh *)mesh spriteIndex:(int)index fogColour:(GLKVector4)fogColour;
+- (void)renderWithFog:(Mesh *)mesh program:(GLProgram *)program fogColour:(GLKVector4)fogColour;
 
 @end
 
