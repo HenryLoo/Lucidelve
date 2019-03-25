@@ -127,6 +127,8 @@
     
     // Don't allow the enemy to attack right away
     self.actionTimer = maxAttackDelay;
+    
+    self.spriteIndex = 0;
 }
 
 - (NSString*)getName

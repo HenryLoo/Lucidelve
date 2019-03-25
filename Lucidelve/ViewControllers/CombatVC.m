@@ -130,7 +130,7 @@
     playerMesh = [[Primitives getInstance] square];
     playerMesh._scale = GLKVector3Make(1, 1, 1);
     playerMesh._position = GLKVector3Make(0, -0.5, 0);
-    [playerMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_PLAYER]];
+    [playerMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_PLAYER_COMBAT]];
     
     floorMesh = [[Primitives getInstance] square];
     floorMesh._scale = GLKVector3Make(3, 30, 1);

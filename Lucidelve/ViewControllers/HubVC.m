@@ -113,7 +113,7 @@
     playerMesh = [[Primitives getInstance] square];
     playerMesh._scale = GLKVector3Make(1, 1, 1);
     playerMesh._position = GLKVector3Make(0, -0.5, 0);
-    [playerMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_PLAYER]];
+    [playerMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_PLAYER_HUB]];
     
     anvil = [[Assets getInstance] getMesh:KEY_MESH_ANVIL];
     anvil._scale = GLKVector3Make(0.2f, 0.2f, 0.2f);

@@ -93,26 +93,26 @@
     switch ([self getCombatState])
     {
         case COMBAT_NEUTRAL:
-            self.spriteIndex = 1;
+            self.spriteIndex = 0;
             break;
         case COMBAT_ATTACKING:
         case COMBAT_ATTACKING2:
-            self.spriteIndex = 2;
+            self.spriteIndex = 1;
             break;
         case COMBAT_BLOCKING:
-            self.spriteIndex = 3;
+            self.spriteIndex = 2;
             break;
         case COMBAT_DODGING_LEFT:
-            self.spriteIndex = 4;
+            self.spriteIndex = 3;
             break;
         case COMBAT_DODGING_RIGHT:
-            self.spriteIndex = 5;
+            self.spriteIndex = 4;
             break;
         case COMBAT_HURT:
-            self.spriteIndex = 6;
+            self.spriteIndex = 5;
             break;
         case COMBAT_DEAD:
-            self.spriteIndex = 7;
+            self.spriteIndex = 6;
             break;
         default:
             break;
@@ -124,6 +124,7 @@
     [super reset:isResettingLife];
     
     currentStamina = maxStamina;
+    self.spriteIndex = 0;
 }
 
 - (void)addGold:(int)amount
