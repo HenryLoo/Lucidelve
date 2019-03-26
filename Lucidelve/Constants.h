@@ -18,6 +18,12 @@ extern const float PLAYER_WALK_SPEED;
 // The number of sprites in the player's walk cycle
 extern const int NUM_PLAYER_WALK_SPRITES;
 
+// Constant deceleration for character movement in Combat
+extern const float CHARACTER_DECEL;
+
+// The threshold velocity to round down to 0 in Combat
+extern const float CHARACTER_VEL_THRESHOLD;
+
 // The player's default starting life value
 extern const int DEFAULT_PLAYER_LIFE;
 

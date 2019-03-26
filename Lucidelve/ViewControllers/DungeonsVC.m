@@ -71,7 +71,7 @@
     
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.game getNumDungeons];
+    return self.game.numDungeonsCleared + 1;
 }
     
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -98,6 +98,7 @@
     // Set the current dungeon to the selected one
     Dungeon *dungeon = [self.game getDungeon:indexPath.row];
     vc.currentDungeon = dungeon;
+    vc.dungeonNumber = indexPath.row + 1;
     
     [self.game changeScene:self newVC:vc];
 }

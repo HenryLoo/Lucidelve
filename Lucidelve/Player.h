@@ -178,4 +178,12 @@
  */
 - (Item)getEquippedItem:(int)itemSlot;
 
+/*!
+ * @brief Change the character's current combat state to a new one.
+ * @author Henry Loo
+ *
+ * @param newState The new combat state to change to.
+ */
+- (void)setCombatState:(CombatState)newState;
+
 @end

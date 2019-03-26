@@ -89,34 +89,6 @@
                 break;
         }
     }
-    
-    switch ([self getCombatState])
-    {
-        case COMBAT_NEUTRAL:
-            self.spriteIndex = 0;
-            break;
-        case COMBAT_ATTACKING:
-        case COMBAT_ATTACKING2:
-            self.spriteIndex = 1;
-            break;
-        case COMBAT_BLOCKING:
-            self.spriteIndex = 2;
-            break;
-        case COMBAT_DODGING_LEFT:
-            self.spriteIndex = 3;
-            break;
-        case COMBAT_DODGING_RIGHT:
-            self.spriteIndex = 4;
-            break;
-        case COMBAT_HURT:
-            self.spriteIndex = 5;
-            break;
-        case COMBAT_DEAD:
-            self.spriteIndex = 6;
-            break;
-        default:
-            break;
-    }
 }
 
 - (void)reset:(bool)isResettingLife
@@ -125,6 +97,7 @@
     
     currentStamina = maxStamina;
     self.spriteIndex = 0;
+    self.position = GLKVector3Make(0, -0.5, 0);
 }
 
 - (void)addGold:(int)amount
@@ -264,6 +237,50 @@
     NSValue *wrappedItem = [equippedItems objectAtIndex:itemSlot];
     [wrappedItem getValue:&item];
     return item;
+}
+
+- (void)setCombatState:(CombatState)newState
+{
+    [super setCombatState:newState];
+    
+    switch (newState)
+    {
+        case COMBAT_NEUTRAL:
+            self.spriteIndex = 0;
+            self.velocity = GLKVector3Make(0, 0, 0);
+            self.position = GLKVector3Make(0, -0.5, 0);
+            break;
+        case COMBAT_ATTACKING:
+        case COMBAT_ATTACKING2:
+            self.spriteIndex = 1;
+            self.velocity = GLKVector3Make(0, -3, 0);
+            break;
+        case COMBAT_BLOCKING:
+            self.spriteIndex = 2;
+            self.velocity = GLKVector3Make(0, 0, 0);
+            self.position = GLKVector3Make(0, -0.5, 0);
+            break;
+        case COMBAT_DODGING_LEFT:
+            self.spriteIndex = 3;
+            self.velocity = GLKVector3Make(4, 0, 0);
+            break;
+        case COMBAT_DODGING_RIGHT:
+            self.spriteIndex = 4;
+            self.velocity = GLKVector3Make(-4, 0, 0);
+            break;
+        case COMBAT_HURT:
+            self.spriteIndex = 5;
+            self.velocity = GLKVector3Make(0, 1, 0);
+            self.position = GLKVector3Make(0, -0.5, 0);
+            break;
+        case COMBAT_DEAD:
+            self.spriteIndex = 6;
+            self.velocity = GLKVector3Make(0, 0, 0);
+            self.position = GLKVector3Make(0, -0.5, 0);
+            break;
+        default:
+            break;
+    }
 }
 
 @end

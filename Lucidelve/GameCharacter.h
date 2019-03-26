@@ -34,6 +34,9 @@ typedef enum
 // The character's current position
 @property GLKVector3 position;
 
+// The character's current velocity
+@property GLKVector3 velocity;
+
 // Index of the character's current sprite
 @property int spriteIndex;
 

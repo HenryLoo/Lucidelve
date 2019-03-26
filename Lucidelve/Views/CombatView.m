@@ -55,6 +55,7 @@
 {
     _remainingNodesLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _remainingNodesLabel.text = @"Rooms: ";
+    _remainingNodesLabel.textColor = UIColor.whiteColor;
     [_remainingNodesLabel sizeToFit];
     [self.headerArea addSubview:_remainingNodesLabel];
     
@@ -71,6 +72,7 @@
     _enemyNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _enemyStateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _enemyNameLabel.textAlignment = _enemyStateLabel.textAlignment = NSTextAlignmentCenter;
+    _enemyNameLabel.textColor = UIColor.whiteColor;
     [self.bodyArea addSubview:_enemyNameLabel];
     [self.bodyArea addSubview:_enemyStateLabel];
     
@@ -100,6 +102,8 @@
 {
     _combatStatusLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _combatStatusLabel.textAlignment = _playerStateLabel.textAlignment = NSTextAlignmentCenter;
+    _combatStatusLabel.textColor = UIColor.whiteColor;
+    _combatStatusLabel.numberOfLines = 2;
     [self.bodyArea addSubview:_combatStatusLabel];
     
     // Enable autolayout
@@ -151,7 +155,7 @@
 - (void)setupLayout
 {
     // Remaining nodes label constraints
-    [_remainingNodesLabel.leftAnchor constraintEqualToAnchor:self.headerArea.leftAnchor].active = YES;
+    [_remainingNodesLabel.leftAnchor constraintEqualToAnchor:self.headerArea.leftAnchor constant:8].active = YES;
     [_remainingNodesLabel.topAnchor constraintEqualToAnchor:self.headerArea.topAnchor constant:25].active = YES;
     [_remainingNodesLabel.widthAnchor constraintEqualToConstant:self.headerArea.frame.size.width].active = YES;
     

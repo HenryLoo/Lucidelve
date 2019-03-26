@@ -68,6 +68,9 @@
 // The number of heart cookies purchased from the Shop.
 @property int numLifeUpgrades;
 
+// The number of dungeons cleared so far.
+@property int numDungeonsCleared;
+
 /*!
  * @brief Return the player's data.
  * @author Henry Loo

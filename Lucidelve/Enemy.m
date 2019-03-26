@@ -97,28 +97,6 @@
                 break;
         }
     }
-    
-    switch ([self getCombatState])
-    {
-        case COMBAT_NEUTRAL:
-            self.spriteIndex = 0;
-            break;
-        case COMBAT_ALERT:
-            self.spriteIndex = 1;
-            break;
-        case COMBAT_ATTACKING:
-            self.spriteIndex = 2;
-            break;
-        case COMBAT_BLOCKING:
-            self.spriteIndex = 3;
-            break;
-        case COMBAT_HURT:
-        case COMBAT_DEAD:
-            self.spriteIndex = 4;
-            break;
-        default:
-            break;
-    }
 }
 
 - (void)reset:(bool)isResettingLife
@@ -129,6 +107,7 @@
     self.actionTimer = maxAttackDelay;
     
     self.spriteIndex = 0;
+    self.position = GLKVector3Make(0, 0.5, 0);
 }
 
 - (NSString*)getName
@@ -147,6 +126,45 @@
     }
     
     return false;
+}
+
+- (void)setCombatState:(CombatState)newState
+{
+    [super setCombatState:newState];
+    
+    switch (newState)
+    {
+        case COMBAT_NEUTRAL:
+            self.spriteIndex = 0;
+            self.velocity = GLKVector3Make(0, 0, 0);
+            self.position = GLKVector3Make(0, 0.5, 0);
+            break;
+        case COMBAT_ALERT:
+            self.spriteIndex = 1;
+            self.velocity = GLKVector3Make(0, 0, 0);
+            self.position = GLKVector3Make(0, 0.5, 0);
+            break;
+        case COMBAT_ATTACKING:
+            self.spriteIndex = 2;
+            self.velocity = GLKVector3Make(0, 2, -2);
+            break;
+        case COMBAT_BLOCKING:
+            self.spriteIndex = 3;
+            self.velocity = GLKVector3Make(0, 0, 0);
+            self.position = GLKVector3Make(0, 0.5, 0);
+            break;
+        case COMBAT_HURT:
+            self.spriteIndex = 4;
+            self.velocity = GLKVector3Make(0, -1, 0);
+            break;
+        case COMBAT_DEAD:
+            self.spriteIndex = 4;
+            self.velocity = GLKVector3Make(0, 0, 0);
+            self.position = GLKVector3Make(0, 0.5, 0);
+            break;
+        default:
+            break;
+    }
 }
 
 @end

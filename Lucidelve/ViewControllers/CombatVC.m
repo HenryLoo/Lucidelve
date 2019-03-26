@@ -69,6 +69,9 @@
     Mesh *leftWallMesh;
     Mesh *rightWallMesh;
     Mesh *backWallMesh;
+    
+    GLKVector3 playerNeutralPos;
+    GLKVector3 enemyNeutralPos;
 }
 @end
 
@@ -127,9 +130,13 @@
     playerStateLabel = ((CombatView*) self.view).playerStateLabel;
     combatStatusLabel = ((CombatView*) self.view).combatStatusLabel;
     
+    // Initialize character variables
+    playerNeutralPos = GLKVector3Make(0, -0.5, 0);
+    enemyNeutralPos = GLKVector3Make(0, 0.5, 0);
+    
     playerMesh = [[Primitives getInstance] square];
     playerMesh._scale = GLKVector3Make(1, 1, 1);
-    playerMesh._position = GLKVector3Make(0, -0.5, 0);
+    playerMesh._position = playerNeutralPos;
     [playerMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_PLAYER_COMBAT]];
     
     floorMesh = [[Primitives getInstance] square];
@@ -184,7 +191,7 @@
             
             enemyMesh = [[Primitives getInstance] square];
             enemyMesh._scale = GLKVector3Make(1, 1, 1);
-            enemyMesh._position = GLKVector3Make(0, 0.5, 0);
+            enemyMesh._position = enemyNeutralPos;
             [enemyMesh addTexture:[[Assets getInstance] getTexture:currentEnemy.texture]];
             
             [player reset:false];
@@ -210,6 +217,13 @@
     }
     
     [super update];
+    
+    playerMesh._position = player.position;
+    
+    if (currentEnemy)
+    {
+        enemyMesh._position = currentEnemy.position;
+    }
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
@@ -262,6 +276,12 @@
         combatStatusLabel.text = stateString;
         
         isReturningToHub = true;
+        
+        // Update to match the highest dungeon level cleared
+        if (self.game.numDungeonsCleared < _dungeonNumber)
+        {
+            self.game.numDungeonsCleared = _dungeonNumber;
+        }
     }
     // Second tap when dungeon run is over
     else if (isReturningToHub || [player getCurrentLife] == 0)
@@ -358,6 +378,7 @@
 - (void)dealEnemyDamageToPlayer
 {
     [player addLife:-currentEnemy.currentAttack.damage];
+    player.position = playerNeutralPos;
 }
 
 
@@ -440,7 +461,7 @@
     
     if ([player getCombatState] == COMBAT_DEAD)
     {
-        combatStatusLabel.text = [NSString stringWithFormat:@"<Tap to return to The Hub>"];
+        combatStatusLabel.text = [NSString stringWithFormat:@"You died!\n<Tap to return to The Hub>"];
     }
     
 //    NSString *stateString;

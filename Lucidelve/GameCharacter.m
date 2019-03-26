@@ -61,6 +61,22 @@
         _actionTimer += deltaTime;
         _actionTimer = MAX(0, _actionTimer);
     }
+    
+    _position = GLKVector3Add(_position, GLKVector3MultiplyScalar(_velocity, deltaTime));
+    
+    // Decelerate the character
+    if (_velocity.x > 0) _velocity.x += (CHARACTER_DECEL * deltaTime);
+    else if (_velocity.x < 0) _velocity.x -= (CHARACTER_DECEL * deltaTime);
+    
+    if (_velocity.y > 0) _velocity.y += (CHARACTER_DECEL * deltaTime);
+    else if (_velocity.y < 0) _velocity.y -= (CHARACTER_DECEL * deltaTime);
+    
+    if (_velocity.z > 0) _velocity.z += (CHARACTER_DECEL * deltaTime);
+    else if (_velocity.z < 0) _velocity.z -= (CHARACTER_DECEL * deltaTime);
+    
+    if (_velocity.x > -CHARACTER_VEL_THRESHOLD && _velocity.x < CHARACTER_VEL_THRESHOLD) _velocity.x = 0;
+    if (_velocity.y > -CHARACTER_VEL_THRESHOLD && _velocity.y < CHARACTER_VEL_THRESHOLD) _velocity.y = 0;
+    if (_velocity.z > -CHARACTER_VEL_THRESHOLD && _velocity.z < CHARACTER_VEL_THRESHOLD) _velocity.z = 0;
 }
 
 - (void)addLife:(int)amount

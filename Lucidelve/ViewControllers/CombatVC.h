@@ -15,7 +15,10 @@
  */
 @interface CombatVC : BaseVC
 
-    // The current dungeon being played.
-    @property Dungeon *currentDungeon;
+// The current dungeon being played.
+@property Dungeon *currentDungeon;
+
+// The level number for the current dungeon.
+@property int dungeonNumber;
 
 @end
