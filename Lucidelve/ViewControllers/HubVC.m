@@ -19,6 +19,7 @@
 #import "../Renderer/Mesh.h"
 #import "../Renderer/Primitives.h"
 #import "../Renderer/Assets.h"
+#import "AudioPlayer.h"
 
 @interface HubVC ()
 {
@@ -304,6 +305,7 @@
     // Put the button on cooldown
     self.game.goldCooldownTimer = GOLD_COOLDOWN;
     
+    [[AudioPlayer getInstance] play:KEY_SOUND_GOLD];
 }
 
 /*!

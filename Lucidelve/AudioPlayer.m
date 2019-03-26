@@ -9,7 +9,16 @@
 #import "AudioPlayer.h"
 #import "Utility.h"
 
-NSString *KEY_SERVICE_BELL = @"KEY_SERVICE_BELL";
+NSString *KEY_SOUND_BLOCK = @"block";
+NSString *KEY_SOUND_BOMB = @"bomb";
+NSString *KEY_SOUND_BUY = @"buy";
+NSString *KEY_SOUND_COMBAT_WIN = @"combat_win";
+NSString *KEY_SOUND_DEAD = @"dead";
+NSString *KEY_SOUND_DODGE = @"dodge";
+NSString *KEY_SOUND_ENEMY_HURT = @"enemy_hurt";
+NSString *KEY_SOUND_GOLD = @"gold";
+NSString *KEY_SOUND_HEALING_POTION = @"healing_potion";
+NSString *KEY_SOUND_PLAYER_HURT = @"player_hurt";
 static AudioPlayer *INSTANCE = nil;
 
 @interface AudioPlayer() {

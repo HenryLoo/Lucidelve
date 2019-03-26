@@ -43,7 +43,16 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)play:(NSString *)key;
 
-extern NSString *KEY_SERVICE_BELL;
+extern NSString *KEY_SOUND_BLOCK;
+extern NSString *KEY_SOUND_BOMB;
+extern NSString *KEY_SOUND_BUY;
+extern NSString *KEY_SOUND_COMBAT_WIN;
+extern NSString *KEY_SOUND_DEAD;
+extern NSString *KEY_SOUND_DODGE;
+extern NSString *KEY_SOUND_ENEMY_HURT;
+extern NSString *KEY_SOUND_GOLD;
+extern NSString *KEY_SOUND_HEALING_POTION;
+extern NSString *KEY_SOUND_PLAYER_HURT;
 
 @end
 

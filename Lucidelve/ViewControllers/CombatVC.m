@@ -18,6 +18,7 @@
 #import "Utility.h"
 #import "Primitives.h"
 #import "Assets.h"
+#import "AudioPlayer.h"
 
 @interface CombatVC ()
 {
@@ -136,30 +137,29 @@
     
     playerMesh = [[Primitives getInstance] square];
     playerMesh._scale = GLKVector3Make(1, 1, 1);
-    playerMesh._position = playerNeutralPos;
     [playerMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_PLAYER_COMBAT]];
     
     floorMesh = [[Primitives getInstance] square];
     floorMesh._scale = GLKVector3Make(3, 30, 1);
-    floorMesh._position = GLKVector3Make(0, -1, 0);
+    floorMesh._position = GLKVector3Make(0, -2, 2);
     floorMesh._rotation = GLKVector3Make(-M_PI / 2.5, 0, 0);
     [floorMesh addTexture:[[Assets getInstance] getTexture:_currentDungeon.floorTexture]];
     
     leftWallMesh = [[Primitives getInstance] square];
     leftWallMesh._scale = GLKVector3Make(30, 18, 1);
-    leftWallMesh._position = GLKVector3Make(-2, 8, -5);
+    leftWallMesh._position = GLKVector3Make(-2, 6, -5);
     leftWallMesh._rotation = GLKVector3Make(0, M_PI / 2, 0);
     [leftWallMesh addTexture:[[Assets getInstance] getTexture:_currentDungeon.wallTexture]];
     
     rightWallMesh = [[Primitives getInstance] square];
     rightWallMesh._scale = GLKVector3Make(30, 18, 1);
-    rightWallMesh._position = GLKVector3Make(2, 8, -5);
+    rightWallMesh._position = GLKVector3Make(2, 6, -5);
     rightWallMesh._rotation = GLKVector3Make(0, -M_PI / 2, 0);
     [rightWallMesh addTexture:[[Assets getInstance] getTexture:_currentDungeon.wallTexture]];
     
     backWallMesh = [[Primitives getInstance] square];
     backWallMesh._scale = GLKVector3Make(4, 16, 1);
-    backWallMesh._position = GLKVector3Make(0, 9, -20);
+    backWallMesh._position = GLKVector3Make(0, 7, -20);
     backWallMesh._rotation = GLKVector3Make(0, 0, 0);
     [backWallMesh addTexture:[[Assets getInstance] getTexture:_currentDungeon.wallTexture]];
 }
@@ -191,7 +191,6 @@
             
             enemyMesh = [[Primitives getInstance] square];
             enemyMesh._scale = GLKVector3Make(1, 1, 1);
-            enemyMesh._position = enemyNeutralPos;
             [enemyMesh addTexture:[[Assets getInstance] getTexture:currentEnemy.texture]];
             
             [player reset:false];
@@ -275,6 +274,7 @@
                                  totalRewardGold];
         combatStatusLabel.text = stateString;
         
+        [[AudioPlayer getInstance] play:KEY_SOUND_COMBAT_WIN];
         isReturningToHub = true;
         
         // Update to match the highest dungeon level cleared
@@ -378,7 +378,6 @@
 - (void)dealEnemyDamageToPlayer
 {
     [player addLife:-currentEnemy.currentAttack.damage];
-    player.position = playerNeutralPos;
 }
 
 
@@ -432,17 +431,24 @@
     
     // If the enemy is attacking and the player is not blocking a blockable attack or
     // dodging a dodgeable attack
-    if (currentEnemy.isAttacking &&
-        !((playerState == COMBAT_BLOCKING && currentEnemy.currentAttack.isBlockable) ||
-            ((playerState == COMBAT_DODGING_LEFT || playerState == COMBAT_DODGING_RIGHT) && currentEnemy.currentAttack.isDodgeable)))
+    bool isBlockable = (playerState == COMBAT_BLOCKING && currentEnemy.currentAttack.isBlockable);
+    bool isDodgable = ((playerState == COMBAT_DODGING_LEFT || playerState == COMBAT_DODGING_RIGHT) && currentEnemy.currentAttack.isDodgeable);
+    if (currentEnemy.isAttacking)
     {
-        [self dealEnemyDamageToPlayer];
-        
-        // If dead, next tap should return player to The Hub with no rewards
-        if ([player getCurrentLife] == 0)
+        if (!(isBlockable|| isDodgable))
         {
-            isReturningToHub = true;
-            totalRewardGold = 0;
+            [self dealEnemyDamageToPlayer];
+            
+            // If dead, next tap should return player to The Hub with no rewards
+            if ([player getCurrentLife] == 0)
+            {
+                isReturningToHub = true;
+                totalRewardGold = 0;
+            }
+        }
+        else if(isBlockable)
+        {
+            [[AudioPlayer getInstance] play:KEY_SOUND_BLOCK];
         }
     }
 }
@@ -463,49 +469,6 @@
     {
         combatStatusLabel.text = [NSString stringWithFormat:@"You died!\n<Tap to return to The Hub>"];
     }
-    
-//    NSString *stateString;
-//    switch ([player getCombatState])
-//    {
-//        case COMBAT_NEUTRAL:
-//            stateString = @"NEUTRAL";
-//            break;
-//
-//        case COMBAT_DODGING_LEFT:
-//            stateString = @"DODGING LEFT";
-//            break;
-//
-//        case COMBAT_DODGING_RIGHT:
-//            stateString = @"DODGING RIGHT";
-//            break;
-//
-//        case COMBAT_BLOCKING:
-//            stateString = @"BLOCKING";
-//            break;
-//
-//        case COMBAT_ATTACKING:
-//            stateString = @"REGULAR ATTACKING";
-//            break;
-//
-//        case COMBAT_DEAD:
-//            stateString = @"DEAD";
-//            combatStatusLabel.text = @"<Tap to return to The Hub>";
-//            break;
-//
-//        case COMBAT_HURT:
-//            stateString = @"HURT";
-//            break;
-//
-//        case COMBAT_ATTACKING2:
-//            stateString = @"HIGH ATTACKING";
-//            break;
-//
-//        case COMBAT_ALERT:
-//            stateString = @"ALERT";
-//            break;
-//    }
-//
-//    playerStateLabel.text = stateString;
 }
 
 - (void)updateEnemyLabels
@@ -521,50 +484,6 @@
         combatStatusLabel.text = [NSString stringWithFormat:@"<Tap to continue - Reward: %i G>",
                                   [currentNode getGoldReward]];
     }
-    
-//    NSString *stateString;
-//    switch ([currentEnemy getCombatState])
-//    {
-//        case COMBAT_NEUTRAL:
-//            stateString = @"NEUTRAL";
-//            break;
-//
-//        case COMBAT_DODGING_LEFT:
-//            stateString = @"DODGING LEFT";
-//            break;
-//
-//        case COMBAT_DODGING_RIGHT:
-//            stateString = @"DODGING RIGHT";
-//            break;
-//
-//        case COMBAT_BLOCKING:
-//            stateString = @"BLOCKING";
-//            break;
-//
-//        case COMBAT_ATTACKING:
-//            stateString = @"REGULAR ATTACKING";
-//            break;
-//
-//        case COMBAT_DEAD:
-//            stateString = @"DEAD";
-//            combatStatusLabel.text = [NSString stringWithFormat:@"<Tap to continue - Reward: %i G>",
-//                           [currentNode getGoldReward]];
-//            break;
-//
-//        case COMBAT_HURT:
-//            stateString = @"HURT";
-//            break;
-//
-//        case COMBAT_ATTACKING2:
-//            stateString = @"HIGH ATTACKING";
-//            break;
-//
-//        case COMBAT_ALERT:
-//            stateString = @"ALERT";
-//            break;
-//    }
-//
-//    enemyStateLabel.text = stateString;
 }
 
 /*!

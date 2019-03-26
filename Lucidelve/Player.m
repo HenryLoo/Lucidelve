@@ -10,6 +10,7 @@
 #import "Constants.h"
 #import "Utility.h"
 #import "Assets.h"
+#import "AudioPlayer.h"
 
 @interface Player ()
 {
@@ -26,7 +27,11 @@
     // Holds all the player's items
     NSMutableArray *items;
     
+    // The player's currently equipped items
     NSMutableArray *equippedItems;
+    
+    // The default position in Combat
+    GLKVector3 playerNeutralPos;
 }
 
 @end
@@ -49,6 +54,8 @@
             NSValue *wrappedItem = [NSValue valueWithBytes:&item objCType:@encode(Item)];
             [equippedItems addObject:wrappedItem];
         }
+        
+        playerNeutralPos = GLKVector3Make(0, -0.4, 0.5);
     }
     return self;
 }
@@ -97,7 +104,7 @@
     
     currentStamina = maxStamina;
     self.spriteIndex = 0;
-    self.position = GLKVector3Make(0, -0.5, 0);
+    self.position = playerNeutralPos;
 }
 
 - (void)addGold:(int)amount
@@ -241,6 +248,7 @@
 
 - (void)setCombatState:(CombatState)newState
 {
+    CombatState prevState = [self getCombatState];
     [super setCombatState:newState];
     
     switch (newState)
@@ -248,35 +256,38 @@
         case COMBAT_NEUTRAL:
             self.spriteIndex = 0;
             self.velocity = GLKVector3Make(0, 0, 0);
-            self.position = GLKVector3Make(0, -0.5, 0);
+            self.position = playerNeutralPos;
             break;
         case COMBAT_ATTACKING:
         case COMBAT_ATTACKING2:
             self.spriteIndex = 1;
-            self.velocity = GLKVector3Make(0, -3, 0);
+            self.velocity = GLKVector3Make(0, -2, 3);
             break;
         case COMBAT_BLOCKING:
             self.spriteIndex = 2;
             self.velocity = GLKVector3Make(0, 0, 0);
-            self.position = GLKVector3Make(0, -0.5, 0);
+            self.position = playerNeutralPos;
             break;
         case COMBAT_DODGING_LEFT:
             self.spriteIndex = 3;
             self.velocity = GLKVector3Make(4, 0, 0);
+            [[AudioPlayer getInstance] play:KEY_SOUND_DODGE];
             break;
         case COMBAT_DODGING_RIGHT:
             self.spriteIndex = 4;
             self.velocity = GLKVector3Make(-4, 0, 0);
+            [[AudioPlayer getInstance] play:KEY_SOUND_DODGE];
             break;
         case COMBAT_HURT:
             self.spriteIndex = 5;
             self.velocity = GLKVector3Make(0, 1, 0);
-            self.position = GLKVector3Make(0, -0.5, 0);
+            self.position = playerNeutralPos;
+            [[AudioPlayer getInstance] play:KEY_SOUND_PLAYER_HURT];
             break;
         case COMBAT_DEAD:
             self.spriteIndex = 6;
-            self.velocity = GLKVector3Make(0, 0, 0);
-            self.position = GLKVector3Make(0, -0.5, 0);
+            self.position = playerNeutralPos;
+            if (prevState != newState) [[AudioPlayer getInstance] play:KEY_SOUND_DEAD];
             break;
         default:
             break;

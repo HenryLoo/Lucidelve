@@ -15,6 +15,7 @@
 #import "Renderer.h"
 #import "Primitives.h"
 #import "../Renderer/Assets.h"
+#import "AudioPlayer.h"
 
 @interface ShopVC ()
 {
@@ -170,6 +171,8 @@
         {
             self.game.isSwordBought = true;
         }
+        
+        [[AudioPlayer getInstance] play:KEY_SOUND_BUY];
     }
 }
 
@@ -218,6 +221,8 @@
         // Increment the player's max life and then heal them to full
         [player addMaxLife];
         [player reset:true];
+        
+        [[AudioPlayer getInstance] play:KEY_SOUND_BUY];
     }
 }
 

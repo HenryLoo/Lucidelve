@@ -74,17 +74,13 @@
     if (_velocity.z > 0) _velocity.z += (CHARACTER_DECEL * deltaTime);
     else if (_velocity.z < 0) _velocity.z -= (CHARACTER_DECEL * deltaTime);
     
-    if (_velocity.x > -CHARACTER_VEL_THRESHOLD && _velocity.x < CHARACTER_VEL_THRESHOLD) _velocity.x = 0;
-    if (_velocity.y > -CHARACTER_VEL_THRESHOLD && _velocity.y < CHARACTER_VEL_THRESHOLD) _velocity.y = 0;
-    if (_velocity.z > -CHARACTER_VEL_THRESHOLD && _velocity.z < CHARACTER_VEL_THRESHOLD) _velocity.z = 0;
+    if (ABS(_velocity.x) < CHARACTER_VEL_THRESHOLD) _velocity.x = 0;
+    if (ABS(_velocity.y) < CHARACTER_VEL_THRESHOLD) _velocity.y = 0;
+    if (ABS(_velocity.z) < CHARACTER_VEL_THRESHOLD) _velocity.z = 0;
 }
 
 - (void)addLife:(int)amount
 {
-    if (amount < 0)
-    {
-        [self setCombatState:COMBAT_HURT];
-    }
     
     currentLife += amount;
     
@@ -94,6 +90,10 @@
     if (currentLife == 0)
     {
         [self setCombatState:COMBAT_DEAD];
+    }
+    else if (amount < 0)
+    {
+        [self setCombatState:COMBAT_HURT];
     }
 }
 
