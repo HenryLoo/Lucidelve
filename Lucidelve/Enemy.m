@@ -51,7 +51,7 @@
         self->maxAttackDelay = maxAttackDelay;
         self->blockChance = blockChance;
         self->attackPatterns = attackPatterns;
-        enemyNeutralPos = GLKVector3Make(0, 0.55, 0);
+        enemyNeutralPos = GLKVector3Make(0, 0.6, 0);
     }
     return self;
 }

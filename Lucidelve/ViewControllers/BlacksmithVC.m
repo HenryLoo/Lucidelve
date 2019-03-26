@@ -160,7 +160,8 @@
         Item newSword = ITEMS[SWORD_UPGRADES[self.game.numBlacksmithUpgrades]];
         
         // Replace the old sword with the next upgrade
-        [player replaceItem:currentSword replaceWith:newSword];
+        [player removeItem:currentSword];
+        [player addItem:newSword];
         
         upgradePrice = [self getUpgradePrice];
         [self updateSwordLabel];

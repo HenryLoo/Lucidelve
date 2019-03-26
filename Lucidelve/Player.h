@@ -97,17 +97,6 @@
 - (Item)getItem:(NSUInteger)index;
 
 /*!
- * @brief Get the index of the first instance of the item in the player's
- * inventory. If the item is not found, return NSNotFound.
- * @author Henry Loo
- *
- * @param item The item to check.
- *
- * @return The index of the first instance of the item.
- */
-- (NSUInteger)getIndexOfItem:(Item)item;
-
-/*!
  * @brief Remove the first instance of an item from the player's inventory.
  * @author Henry Loo
  *
@@ -122,15 +111,6 @@
  * @param index The index of the item to remove.
  */
 - (void)removeItemAtIndex:(NSUInteger)index;
-
-/*!
- * @brief Replace the first instance of an item with a new item.
- * @author Henry Loo
- *
- * @param itemToReplace The item to replace.
- * @param newItem The new item to replace with.
- */
-- (void)replaceItem:(Item)itemToReplace replaceWith:(Item)newItem;
 
 /*!
  * @brief Check if the player has a given item in their inventory.

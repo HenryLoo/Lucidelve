@@ -275,7 +275,7 @@
     }
     
     // Unlock the Golden Goose
-    if (self.game.isGooseUnlocked || [player getGold] >= 100)
+    if (self.game.isGooseUnlocked || [player getGold] >= 10)
     {
         [gooseButton setEnabled:YES];
         self.game.isGooseUnlocked = true;
@@ -283,7 +283,7 @@
     
     // Unlock the Blacksmith
     if (self.game.isBlacksmithUnlocked ||
-        (self.game.isSwordBought && [player getGold] >= 150))
+        (self.game.isSwordBought && [player getGold] >= 10))
     {
         [blacksmithButton setEnabled:YES];
         self.game.isBlacksmithUnlocked = true;

@@ -157,7 +157,6 @@
     // Remaining nodes label constraints
     [_remainingNodesLabel.leftAnchor constraintEqualToAnchor:self.headerArea.leftAnchor constant:8].active = YES;
     [_remainingNodesLabel.topAnchor constraintEqualToAnchor:self.headerArea.topAnchor constant:25].active = YES;
-    [_remainingNodesLabel.widthAnchor constraintEqualToConstant:self.headerArea.frame.size.width].active = YES;
     
     // Enemy label constraints
     [_enemyNameLabel.centerXAnchor constraintEqualToAnchor:self.bodyArea.centerXAnchor].active = YES;

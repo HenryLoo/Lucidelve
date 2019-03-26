@@ -109,44 +109,30 @@
     // Gold label constraints
     [_goldLabel.centerXAnchor constraintEqualToAnchor:self.footerArea.centerXAnchor].active = YES;
     [_goldLabel.centerYAnchor constraintEqualToAnchor:self.footerArea.centerYAnchor constant:-10].active = YES;
-    [_goldLabel.widthAnchor constraintEqualToConstant:self.frame.size.width].active = YES;
-    [_goldLabel.heightAnchor constraintEqualToConstant:_goldLabel.frame.size.height].active = YES;
     
     // Gold button constraints
     [_goldButton.centerXAnchor constraintEqualToAnchor:self.footerArea.centerXAnchor].active = YES;
     [_goldButton.topAnchor constraintEqualToAnchor:_goldLabel.bottomAnchor].active = YES;
-    [_goldButton.widthAnchor constraintEqualToConstant:_goldButton.frame.size.width].active = YES;
-    [_goldButton.heightAnchor constraintEqualToConstant:_goldButton.frame.size.height].active = YES;
 
     // Shop button constraints
     [_shopButton.leftAnchor constraintEqualToAnchor:self.headerArea.leftAnchor constant:25].active = YES;
     [_shopButton.topAnchor constraintEqualToAnchor:self.headerArea.topAnchor constant:25].active = YES;
-    [_shopButton.widthAnchor constraintEqualToConstant:_shopButton.frame.size.width].active = YES;
-    [_shopButton.heightAnchor constraintEqualToConstant:_shopButton.frame.size.height].active = YES;
     
     // Inventory button constraints
     [_inventoryButton.leftAnchor constraintEqualToAnchor:_shopButton.rightAnchor constant:25].active = YES;
     [_inventoryButton.topAnchor constraintEqualToAnchor:_shopButton.topAnchor].active = YES;
-    [_inventoryButton.widthAnchor constraintEqualToConstant:_inventoryButton.frame.size.width].active = YES;
-    [_inventoryButton.heightAnchor constraintEqualToConstant:_inventoryButton.frame.size.height].active = YES;
     
     // Dungeons button constraints
     [_dungeonsButton.leftAnchor constraintEqualToAnchor:_inventoryButton.rightAnchor constant:25].active = YES;
     [_dungeonsButton.topAnchor constraintEqualToAnchor:_shopButton.topAnchor].active = YES;
-    [_dungeonsButton.widthAnchor constraintEqualToConstant:_dungeonsButton.frame.size.width].active = YES;
-    [_dungeonsButton.heightAnchor constraintEqualToConstant:_dungeonsButton.frame.size.height].active = YES;
     
     // Golden Goose button constraints
     [_gooseButton.leftAnchor constraintEqualToAnchor:self.headerArea.leftAnchor constant:25].active = YES;
     [_gooseButton.topAnchor constraintEqualToAnchor:_shopButton.bottomAnchor constant:25].active = YES;
-    [_gooseButton.widthAnchor constraintEqualToConstant:_gooseButton.frame.size.width].active = YES;
-    [_gooseButton.heightAnchor constraintEqualToConstant:_gooseButton.frame.size.height].active = YES;
     
     // Blacksmith button constraints
     [_blacksmithButton.leftAnchor constraintEqualToAnchor:_gooseButton.rightAnchor constant:25].active = YES;
     [_blacksmithButton.topAnchor constraintEqualToAnchor:_gooseButton.topAnchor].active = YES;
-    [_blacksmithButton.widthAnchor constraintEqualToConstant:_blacksmithButton.frame.size.width].active = YES;
-    [_blacksmithButton.heightAnchor constraintEqualToConstant:_blacksmithButton.frame.size.height].active = YES;
 }
 
 @end

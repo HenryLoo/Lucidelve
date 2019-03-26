@@ -151,16 +151,12 @@
     if (_titleLabel) {
         [_titleLabel.centerXAnchor constraintEqualToAnchor:self.headerArea.centerXAnchor].active = YES;
         [_titleLabel.topAnchor constraintEqualToAnchor:self.headerArea.topAnchor constant:50].active = YES;
-        [_titleLabel.widthAnchor constraintEqualToConstant:_titleLabel.frame.size.width].active = YES;
-        [_titleLabel.heightAnchor constraintEqualToConstant:_titleLabel.frame.size.height].active = YES;
     }
     
     // Back button constraints
     if (_backButton) {
         [_backButton.leftAnchor constraintEqualToAnchor:self.headerArea.leftAnchor constant:25].active = YES;
         [_backButton.topAnchor constraintEqualToAnchor:self.headerArea.topAnchor constant:25].active = YES;
-        [_backButton.widthAnchor constraintEqualToConstant:_backButton.frame.size.width].active = YES;
-        [_backButton.heightAnchor constraintEqualToConstant:_backButton.frame.size.height].active = YES;
     }
 }
 

@@ -160,34 +160,20 @@
     return item;
 }
 
-
-- (NSUInteger)getIndexOfItem:(Item)item
-{
-    // NSMutableArray can only hold NSObjects, so we need to
-    // wrap the Item struct value
-    NSValue *wrappedItem = [NSValue valueWithBytes:&item objCType:@encode(Item)];
-    return [items indexOfObject:wrappedItem];
-}
-
-- (void)replaceItem:(Item)itemToReplace replaceWith:(Item)newItem
-{
-    // NSMutableArray can only hold NSObjects, so we need to
-    // wrap the Item struct value
-    NSValue *wrappedItem = [NSValue valueWithBytes:&newItem objCType:@encode(Item)];
-    
-    // Get the index of the item to replace
-    NSUInteger indexToReplace = [self getIndexOfItem:itemToReplace];
-    
-    // Replace the item with the new item
-    [items replaceObjectAtIndex:indexToReplace withObject:wrappedItem];
-}
-
 - (void)removeItem:(Item)item
 {
-    // NSMutableArray can only hold NSObjects, so we need to
-    // wrap the Item struct value
-    NSValue *wrappedItem = [NSValue valueWithBytes:&item objCType:@encode(Item)];
-    [items removeObject:wrappedItem];
+    for (int i = 0; i < items.count; ++i)
+    {
+        Item thisItem;
+        NSValue *wrappedItem = items[i];
+        [wrappedItem getValue:&thisItem];
+        
+        if (item.name == thisItem.name)
+        {
+            [self removeItemAtIndex:i];
+            return;
+        }
+    }
 }
 
 - (void)removeItemAtIndex:(NSUInteger)index
@@ -197,10 +183,15 @@
 
 - (bool)hasItem:(Item)item
 {
-    // NSMutableArray can only hold NSObjects, so we need to
-    // wrap the Item struct value
-    NSValue *wrappedItem = [NSValue valueWithBytes:&item objCType:@encode(Item)];
-    return [items containsObject:wrappedItem];
+    for (int i = 0; i < items.count; ++i)
+    {
+        Item thisItem;
+        NSValue *wrappedItem = items[i];
+        [wrappedItem getValue:&thisItem];
+        if (item.name == thisItem.name) return true;
+    }
+    
+    return false;
 }
 
 - (NSUInteger)getNumItems

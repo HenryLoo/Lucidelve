@@ -90,8 +90,6 @@
     // Gold label constraints
     [_goldLabel.leftAnchor constraintEqualToAnchor:self.headerArea.leftAnchor constant:25].active = YES;
     [_goldLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:25].active = YES;
-    [_goldLabel.widthAnchor constraintEqualToConstant:self.frame.size.width].active = YES;
-    [_goldLabel.heightAnchor constraintEqualToConstant:_goldLabel.frame.size.height].active = YES;
     
     // Upgrade button constraints
     [_upgradeButton.centerXAnchor constraintEqualToAnchor:self.footerArea.centerXAnchor].active = YES;
