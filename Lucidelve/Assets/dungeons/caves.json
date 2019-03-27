@@ -3,8 +3,8 @@
     "fogColour": { "r": 0.0, "g": 0.0, "b": 0.2, "a": 1.0 },
     "floorTexture": "caves_floor",
     "wallTexture": "caves_wall",
-    "minNodes": 4,
-    "maxNodes": 6,
+    "minNodes": 2,
+    "maxNodes": 4,
     "combatNodes": [
         { "goldReward": 15, "enemy": "goblin" },
         { "goldReward": 30, "enemy": "golem" },
