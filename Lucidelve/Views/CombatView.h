@@ -14,7 +14,7 @@
 @interface CombatView : BaseView
 
 // Shows the number of remaining nodes in the dungeon run.
-@property (nonatomic, strong) UILabel *remainingNodesLabel;
+@property (nonatomic, strong) UIPaddedLabel *remainingNodesLabel;
 
 // Show the player's stats
 @property (nonatomic, strong) UILabel *playerLifeLabel;
@@ -26,9 +26,7 @@
 
 // TODO: some label to display player and enemy visuals,
 // since sprite rendering isn't very usable yet.
-@property (nonatomic, strong) UILabel *enemyNameLabel;
-@property (nonatomic, strong) UILabel *enemyStateLabel;
-@property (nonatomic, strong) UILabel *playerStateLabel;
+@property (nonatomic, strong) UIPaddedLabel *enemyNameLabel;
 @property (nonatomic, strong) UILabel *combatStatusLabel;
 
 @end

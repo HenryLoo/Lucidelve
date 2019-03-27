@@ -60,8 +60,6 @@
     
     // TODO: pointer to temporary label elements, remove this later
     UILabel *enemyNameLabel;
-    UILabel *enemyStateLabel;
-    UILabel *playerStateLabel;
     UILabel *combatStatusLabel;
     
     Mesh *playerMesh;
@@ -127,8 +125,6 @@
     
     // TODO: set up pointers to temporary labels, remove this later
     enemyNameLabel = ((CombatView*) self.view).enemyNameLabel;
-    enemyStateLabel = ((CombatView*) self.view).enemyStateLabel;
-    playerStateLabel = ((CombatView*) self.view).playerStateLabel;
     combatStatusLabel = ((CombatView*) self.view).combatStatusLabel;
     
     // Initialize character variables
@@ -329,11 +325,19 @@
 - (void)performRegularAttack
 {
     // Can only attack from Neutral state
-    if ([player getCombatState] == COMBAT_NEUTRAL && [player getCurrentStamina] > 0)
+    if ([player getCombatState] == COMBAT_NEUTRAL)
     {
-        [player setCombatState:COMBAT_ATTACKING];
-        [self dealSwordDamageToEnemy];
-        [player addStamina:-1];
+        if ([player getCurrentStamina] > 0)
+        {
+            [player setCombatState:COMBAT_ATTACKING];
+            [self dealSwordDamageToEnemy];
+            [player addStamina:-1];
+        }
+        // Not enough stamina
+        else
+        {
+            [[AudioPlayer getInstance] play:KEY_SOUND_PLAYER_HURT];
+        }
     }
 }
 

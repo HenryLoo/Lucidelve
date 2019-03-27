@@ -35,13 +35,12 @@
 - (void)setupBodyElements
 {
     [self setupEnemyLabels];
-    [self setupPlayerLabels];
     [self setupCombatLabel];
 }
 
 - (void)setupFooterElements
 {
-    self.footerArea.backgroundColor = UIColor.grayColor;
+    self.footerArea.backgroundColor = [UIColor colorWithRed:0.24 green:0.25 blue:0.26 alpha:0.8];
     
     [self setupStatsLabels];
     [self setupItemViews];
@@ -53,10 +52,11 @@
  */
 - (void)setupRemainingNodesLabel
 {
-    _remainingNodesLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _remainingNodesLabel = [[UIPaddedLabel alloc] initWithFrame:CGRectZero];
     _remainingNodesLabel.text = @"Rooms: ";
     _remainingNodesLabel.textColor = UIColor.whiteColor;
-    [_remainingNodesLabel sizeToFit];
+    _remainingNodesLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    [_remainingNodesLabel setContentEdgeInsets:UIEdgeInsetsMake(8, 8, 8, 8)];
     [self.headerArea addSubview:_remainingNodesLabel];
     
     // Enable autolayout
@@ -69,29 +69,15 @@
  */
 - (void)setupEnemyLabels
 {
-    _enemyNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    _enemyStateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    _enemyNameLabel.textAlignment = _enemyStateLabel.textAlignment = NSTextAlignmentCenter;
+    _enemyNameLabel = [[UIPaddedLabel alloc] initWithFrame:CGRectZero];
+    _enemyNameLabel.textAlignment = NSTextAlignmentCenter;
     _enemyNameLabel.textColor = UIColor.whiteColor;
+    _enemyNameLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    [_enemyNameLabel setContentEdgeInsets:UIEdgeInsetsMake(8, 8, 8, 8)];
     [self.bodyArea addSubview:_enemyNameLabel];
-    [self.bodyArea addSubview:_enemyStateLabel];
     
     // Enable autolayout
     _enemyNameLabel.translatesAutoresizingMaskIntoConstraints = false;
-    _enemyStateLabel.translatesAutoresizingMaskIntoConstraints = false;
-}
-
-/*!
- * @brief Create the label elements for player.
- * @author Henry Loo
- */
-- (void)setupPlayerLabels
-{
-    _playerStateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    [self.bodyArea addSubview:_playerStateLabel];
-    
-    // Enable autolayout
-    _playerStateLabel.translatesAutoresizingMaskIntoConstraints = false;
 }
 
 /*!
@@ -101,7 +87,7 @@
 - (void)setupCombatLabel
 {
     _combatStatusLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    _combatStatusLabel.textAlignment = _playerStateLabel.textAlignment = NSTextAlignmentCenter;
+    _combatStatusLabel.textAlignment = NSTextAlignmentCenter;
     _combatStatusLabel.textColor = UIColor.whiteColor;
     _combatStatusLabel.numberOfLines = 2;
     [self.bodyArea addSubview:_combatStatusLabel];
@@ -117,11 +103,11 @@
 - (void)setupStatsLabels
 {
     _playerLifeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    [_playerLifeLabel sizeToFit];
+    _playerLifeLabel.textColor = UIColor.whiteColor;
     [self.footerArea addSubview:_playerLifeLabel];
     
     _playerStaminaLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    [_playerStaminaLabel sizeToFit];
+    _playerStaminaLabel.textColor = UIColor.whiteColor;
     [self.footerArea addSubview:_playerStaminaLabel];
     
     // Enable autolayout
@@ -162,22 +148,15 @@
     [_enemyNameLabel.centerXAnchor constraintEqualToAnchor:self.bodyArea.centerXAnchor].active = YES;
     [_enemyNameLabel.topAnchor constraintEqualToAnchor:self.bodyArea.topAnchor constant:25].active = YES;
     
-    [_enemyStateLabel.centerXAnchor constraintEqualToAnchor:self.bodyArea.centerXAnchor].active = YES;
-    [_enemyStateLabel.topAnchor constraintEqualToAnchor:_enemyNameLabel.bottomAnchor].active = YES;
-    
-    // Player label constraints
-    [_playerStateLabel.centerXAnchor constraintEqualToAnchor:self.bodyArea.centerXAnchor].active = YES;
-    [_playerStateLabel.bottomAnchor constraintEqualToAnchor:self.bodyArea.bottomAnchor constant:-25].active = YES;
-    
     // Combat label label constraints
     [_combatStatusLabel.centerXAnchor constraintEqualToAnchor:self.bodyArea.centerXAnchor].active = YES;
     [_combatStatusLabel.centerYAnchor constraintEqualToAnchor:self.bodyArea.centerYAnchor].active = YES;
     
     // Player stats labels constraints
-    [_playerLifeLabel.leftAnchor constraintEqualToAnchor:self.footerArea.leftAnchor constant:25].active = YES;
-    [_playerLifeLabel.centerYAnchor constraintEqualToAnchor:self.footerArea.centerYAnchor].active = YES;
-    [_playerStaminaLabel.leftAnchor constraintEqualToAnchor:self.footerArea.leftAnchor constant:25].active = YES;
-    [_playerStaminaLabel.topAnchor constraintEqualToAnchor:_playerLifeLabel.bottomAnchor].active = YES;
+    [_playerLifeLabel.leftAnchor constraintEqualToAnchor:self.footerArea.leftAnchor constant:16].active = YES;
+    [_playerLifeLabel.centerYAnchor constraintEqualToAnchor:self.footerArea.centerYAnchor constant:-16].active = YES;
+    [_playerStaminaLabel.leftAnchor constraintEqualToAnchor:self.footerArea.leftAnchor constant:16].active = YES;
+    [_playerStaminaLabel.centerYAnchor constraintEqualToAnchor:self.footerArea.centerYAnchor constant:16].active = YES;
     
     // Item 1 and item 2 constraints
     float itemViewSize = self.footerArea.frame.size.height * 2 / 3;
