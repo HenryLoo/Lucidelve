@@ -99,9 +99,8 @@
     // Initialize gestures
     UIView *body = ((BaseView*)self.view).bodyArea;
     
-    // TODO: disable tapping for now... we might change to only allow for one type of attack
-//    tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
-//    [body addGestureRecognizer:tapGesture];
+    tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
+    [body addGestureRecognizer:tapGesture];
     
     swipeUpGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
     swipeUpGesture.direction = UISwipeGestureRecognizerDirectionUp;
@@ -256,10 +255,10 @@
             }
         }
         // Otherwise, perform a regular attack
-        else
-        {
-            [self performRegularAttack];
-        }
+//        else
+//        {
+//            [self performRegularAttack];
+//        }
     }
     
     // Show the end message if dungeon run is over
