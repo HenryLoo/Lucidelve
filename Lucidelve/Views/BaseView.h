@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
+#import "UIPaddedLabel.h"
 
 /*!
  * @brief A base class implemented by all views
@@ -28,7 +29,7 @@
 @property (nonatomic, strong) UIButton *backButton;
 
 // The view's title
-@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UIPaddedLabel *titleLabel;
 
 /*!
  * @brief Create all the elements in the header.

@@ -14,6 +14,7 @@
 #import "Constants.h"
 #import "Primitives.h"
 #import "../Renderer/Assets.h"
+#import "AudioPlayer.h"
 
 @interface GooseVC ()
 {
@@ -28,8 +29,8 @@
     // The next upgrade's gold price.
     int upgradePrice;
     
-    // TODO: replace placeholder mesh
-    Mesh *mesh;
+    Mesh *bgMesh;
+    Mesh *goldenGoose;
 }
 @end
 
@@ -60,11 +61,15 @@
     upgradePrice = [self getUpgradePrice];
     [self updateGoldRateLabel];
     
-    // TODO: replace placeholder art
-    Texture *texture = [[Texture alloc] initWithFilename:"placeholder_goose.png"];
-    mesh = [[Primitives getInstance] square];
-    mesh._scale = GLKVector3Make(1.5f, 1.5f, 1);
-    [mesh addTexture:texture];
+    bgMesh = [[Primitives getInstance] square];
+    bgMesh._scale = GLKVector3Make(2.5f, 4.0f, 1);
+    [bgMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_GOOSE_BG]];
+    
+    goldenGoose = [[Assets getInstance] getMesh:KEY_MESH_GOLDEN_GOOSE];
+    goldenGoose._scale = GLKVector3Make(0.1f, 0.1f, 0.1f);
+    goldenGoose._position = GLKVector3Make(0, -0.2, 1.0f);
+    goldenGoose._rotation = GLKVector3Make(M_PI / 6, -M_PI / 4, 0);
+    [goldenGoose addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_GOLDEN_GOOSE]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -84,7 +89,8 @@
 {
     [self.renderer setupRender:rect];
     
-    [self.renderer renderMesh:mesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_PASSTHROUGH]];
+    [self.renderer renderMesh:bgMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_PASSTHROUGH]];
+    [self.renderer renderMesh:goldenGoose program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
 }
 
 /*!
@@ -188,6 +194,8 @@
         {
             [player addItem:ITEMS[ITEM_GOLDEN_EGG]];
         }
+        
+        [[AudioPlayer getInstance] play:KEY_SOUND_BUY];
     }
 }
 

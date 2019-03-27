@@ -14,7 +14,7 @@
 @interface ShopView : BaseView
 
 // Displays the player's current gold
-@property (nonatomic, strong) UILabel *goldLabel;
+@property (nonatomic, strong) UIPaddedLabel *goldLabel;
 
 // Displays the button to buy a sword
 @property (nonatomic, strong) UIButton *swordButton;

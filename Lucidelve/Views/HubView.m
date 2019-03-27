@@ -21,7 +21,7 @@
 {
     if (self = [super initWithFrame:frame]) {
         // Set up elements in the view
-        [super setupLayout:0.5f withBody:0.35f];
+        [super setupLayout:0.55f withBody:0.30f];
         [self setupLayout];
     }
     return self;
@@ -29,11 +29,11 @@
 
 - (void)setupHeaderElements
 {
-    _shopButton = [self setupMenuButton:@"SHOP"];
-    _inventoryButton = [self setupMenuButton:@"INVENTORY"];
-    _dungeonsButton = [self setupMenuButton:@"DUNGEONS"];
-    _gooseButton = [self setupMenuButton:@"GOLDEN GOOSE"];
-    _blacksmithButton = [self setupMenuButton:@"BLACKSMITH"];
+    _shopButton = [self setupMenuButton:@"Shop"];
+    _inventoryButton = [self setupMenuButton:@"Inventory"];
+    _dungeonsButton = [self setupMenuButton:@"Dungeons"];
+    _gooseButton = [self setupMenuButton:@"Golden Goose"];
+    _blacksmithButton = [self setupMenuButton:@"Blacksmith"];
 }
 
 - (void)setupBodyElements
@@ -54,9 +54,11 @@
 - (void)setupGoldButton
 {
     _goldButton = [[UIButton alloc] initWithFrame:CGRectZero];
-    _goldButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _goldButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _goldButton.backgroundColor = [UIColor colorWithRed:1.00 green:0.73 blue:0.04 alpha:0.6];
     [_goldButton setTitle:@"PICK UP GOLD" forState:UIControlStateNormal];
-    [_goldButton sizeToFit];
+    _goldButton.layer.borderColor = UIColor.blackColor.CGColor;
+    _goldButton.layer.borderWidth = 1;
     [self.footerArea addSubview:_goldButton];
     
     // Enable autolayout
@@ -87,7 +89,7 @@
 - (UIButton*)setupMenuButton:(NSString*)title
 {
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectZero];
-    button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setTitle:title forState:UIControlStateNormal];
     [button setTitle:@"" forState:UIControlStateDisabled];
     [button sizeToFit];
@@ -115,24 +117,26 @@
     [_goldButton.topAnchor constraintEqualToAnchor:_goldLabel.bottomAnchor].active = YES;
 
     // Shop button constraints
-    [_shopButton.leftAnchor constraintEqualToAnchor:self.headerArea.leftAnchor constant:25].active = YES;
-    [_shopButton.topAnchor constraintEqualToAnchor:self.headerArea.topAnchor constant:25].active = YES;
-    
-    // Inventory button constraints
-    [_inventoryButton.leftAnchor constraintEqualToAnchor:_shopButton.rightAnchor constant:25].active = YES;
-    [_inventoryButton.topAnchor constraintEqualToAnchor:_shopButton.topAnchor].active = YES;
-    
-    // Dungeons button constraints
-    [_dungeonsButton.leftAnchor constraintEqualToAnchor:_inventoryButton.rightAnchor constant:25].active = YES;
-    [_dungeonsButton.topAnchor constraintEqualToAnchor:_shopButton.topAnchor].active = YES;
-    
-    // Golden Goose button constraints
-    [_gooseButton.leftAnchor constraintEqualToAnchor:self.headerArea.leftAnchor constant:25].active = YES;
-    [_gooseButton.topAnchor constraintEqualToAnchor:_shopButton.bottomAnchor constant:25].active = YES;
+    float xOffset = self.headerArea.frame.size.width / 4;
+    float yOffset = self.headerArea.frame.size.height / 4;
+    [_shopButton.centerXAnchor constraintEqualToAnchor:self.headerArea.centerXAnchor constant:-xOffset].active = YES;
+    [_shopButton.centerYAnchor constraintEqualToAnchor:self.headerArea.centerYAnchor constant:-yOffset].active = YES;
     
     // Blacksmith button constraints
-    [_blacksmithButton.leftAnchor constraintEqualToAnchor:_gooseButton.rightAnchor constant:25].active = YES;
-    [_blacksmithButton.topAnchor constraintEqualToAnchor:_gooseButton.topAnchor].active = YES;
+    [_blacksmithButton.centerXAnchor constraintEqualToAnchor:self.headerArea.centerXAnchor constant:xOffset].active = YES;
+    [_blacksmithButton.centerYAnchor constraintEqualToAnchor:self.headerArea.centerYAnchor constant:-yOffset].active = YES;
+    
+    // Dungeons button constraints
+    [_dungeonsButton.centerXAnchor constraintEqualToAnchor:self.headerArea.centerXAnchor].active = YES;
+    [_dungeonsButton.centerYAnchor constraintEqualToAnchor:self.headerArea.centerYAnchor].active = YES;
+    
+    // Inventory button constraints
+    [_inventoryButton.centerXAnchor constraintEqualToAnchor:self.headerArea.centerXAnchor constant:-xOffset].active = YES;
+    [_inventoryButton.centerYAnchor constraintEqualToAnchor:self.headerArea.centerYAnchor constant:yOffset].active = YES;
+    
+    // Golden Goose button constraints
+    [_gooseButton.centerXAnchor constraintEqualToAnchor:self.headerArea.centerXAnchor constant:xOffset].active = YES;
+    [_gooseButton.centerYAnchor constraintEqualToAnchor:self.headerArea.centerYAnchor constant:yOffset].active = YES;
 }
 
 @end

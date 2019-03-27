@@ -48,9 +48,14 @@
  */
 - (void)setupGoldLabel
 {
-    _goldLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _goldLabel = [[UIPaddedLabel alloc] initWithFrame:CGRectZero];
     _goldLabel.text = @"Gold: ";
-    [_goldLabel sizeToFit];
+    _goldLabel.textColor = [UIColor whiteColor];
+    _goldLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0.2 alpha:0.8];
+    float halfWidth = self.frame.size.width / 2;
+    [_goldLabel setContentEdgeInsets:UIEdgeInsetsMake(12, halfWidth, 12, halfWidth)];
+    _goldLabel.layer.borderColor = UIColor.whiteColor.CGColor;
+    _goldLabel.layer.borderWidth = 1;
     [self.headerArea addSubview:_goldLabel];
     
     // Enable autolayout
@@ -64,7 +69,8 @@
 - (UIButton*)setupItemButton:(ItemType)itemType
 {
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectZero];
-    button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     Item item = ITEMS[itemType];
     NSString *title = [NSString stringWithFormat:@"%@ (%i G)",
                        item.name, item.shopPrice];
@@ -86,7 +92,7 @@
 - (void)setupLayout
 {    
     // Gold label constraints
-    [_goldLabel.leftAnchor constraintEqualToAnchor:self.headerArea.leftAnchor constant:25].active = YES;
+    [_goldLabel.centerXAnchor constraintEqualToAnchor:self.headerArea.centerXAnchor].active = YES;
     [_goldLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:25].active = YES;
     
     // Sword button constraints

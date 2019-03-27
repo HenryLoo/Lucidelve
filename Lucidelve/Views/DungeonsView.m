@@ -11,7 +11,7 @@
 
 @interface DungeonsView ()
 {
-    UILabel *descriptionLabel;
+    UIPaddedLabel *descriptionLabel;
 }
     
 @end
@@ -22,7 +22,7 @@
     {
         if (self = [super initWithFrame:frame]) {
             // Set up elements in the view
-            [super setupLayout:0.2f withBody:0.4f];
+            [super setupLayout:0.3f withBody:0.3f];
             [self setupLayout];
         }
         return self;
@@ -42,14 +42,19 @@
 
 - (void)setupFooterElements
 {
-    [self setupItemsTable];
+    [self setupDungeonsTable];
 }
     
 - (void)setupDescriptionLabel
 {
-    descriptionLabel = [[UILabel alloc] init];
+    descriptionLabel = [[UIPaddedLabel alloc] initWithFrame:CGRectZero];
     descriptionLabel.text = @"Select your adventure...";
-    [descriptionLabel sizeToFit];
+    descriptionLabel.textColor = [UIColor whiteColor];
+    descriptionLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0.2 alpha:0.8];
+    float halfWidth = self.frame.size.width / 2;
+    [descriptionLabel setContentEdgeInsets:UIEdgeInsetsMake(12, halfWidth, 12, halfWidth)];
+    descriptionLabel.layer.borderColor = UIColor.whiteColor.CGColor;
+    descriptionLabel.layer.borderWidth = 1;
     [self.headerArea addSubview:descriptionLabel];
     
     // Enable autolayout
@@ -57,10 +62,10 @@
 }
     
 /*!
- * @brief Create the element for displaying the player's items.
+ * @brief Create the element for displaying the dungeons.
  * @author Henry Loo
  */
-- (void)setupItemsTable
+- (void)setupDungeonsTable
 {
     _dungeons = [[UITableView alloc] initWithFrame:self.footerArea.frame style:UITableViewStylePlain];
     [self.footerArea addSubview:_dungeons];

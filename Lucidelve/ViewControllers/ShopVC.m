@@ -30,8 +30,7 @@
     UIButton *bombButton;
     UIButton *shieldButton;
     
-    // TODO: replace placeholder mesh
-    Mesh *mesh;
+    Mesh *bgMesh;
     Mesh *swordMesh, *potionMesh, *heartMesh, *bombMesh, *shieldMesh;
 }
 @end
@@ -71,10 +70,9 @@
     [shieldButton addTarget:self action:@selector(onShieldButtonPress:)
            forControlEvents:UIControlEventTouchDown];
     
-    // TODO: replace placeholder art
-    mesh = [[Primitives getInstance] square];
-    mesh._scale = GLKVector3Make(1.5f, 1.5f, 1);
-    [mesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_PLACEHOLDER_SHOP]];
+    bgMesh = [[Primitives getInstance] square];
+    bgMesh._scale = GLKVector3Make(2.5f, 4.0f, 1);
+    [bgMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_SHOP_BG]];
     
     shieldMesh = [[Assets getInstance] getMesh:KEY_MESH_SHIELD];
     shieldMesh._scale = GLKVector3Make(0.05f, 0.05f, 0.05f);
@@ -82,9 +80,9 @@
     shieldMesh._rotation = GLKVector3Make(0, -M_PI / 4, 0);
 	[shieldMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_SHIELD]];
     swordMesh = [[Assets getInstance] getMesh:KEY_MESH_SWORD];
-    swordMesh._scale = GLKVector3Make(0.2f, 0.2f, 0.2f);
-    swordMesh._position = GLKVector3Make(-0.4f, -0.2f, 1.0f);
-    swordMesh._rotation = GLKVector3Make(M_PI / 6, -M_PI / 4, 0);
+    swordMesh._scale = GLKVector3Make(0.15f, 0.15f, 0.15f);
+    swordMesh._position = GLKVector3Make(-0.4f, -0.2, 1.0f);
+    swordMesh._rotation = GLKVector3Make(M_PI / 4, M_PI, -M_PI / 6);
 	[swordMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_SWORD]];
     heartMesh = [[Assets getInstance] getMesh:KEY_MESH_HEART];
     heartMesh._scale = GLKVector3Make(0.2f, 0.2f, 0.2f);
@@ -131,13 +129,21 @@
 {
     [self.renderer setupRender:rect];
     
-    [self.renderer renderMesh:mesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_PASSTHROUGH]];
+    [self.renderer renderMesh:bgMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_PASSTHROUGH]];
     
     [self.renderer renderMesh:shieldMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
-    [self.renderer renderMesh:swordMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
-    [self.renderer renderMesh:heartMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
     [self.renderer renderMesh:bombMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
     [self.renderer renderMesh:potionMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
+    
+    if (!self.game.isSwordBought)
+    {
+        [self.renderer renderMesh:swordMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
+    }
+    
+    if (self.game.numLifeUpgrades < MAX_LIFE_UPGRADES)
+    {
+        [self.renderer renderMesh:heartMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
+    }
 }
 
 /*!

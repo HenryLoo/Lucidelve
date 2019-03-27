@@ -14,10 +14,10 @@
 @interface BlacksmithView : BaseView
 
 // Show the player's current amount of gold
-@property (nonatomic, strong) UILabel *goldLabel;
+@property (nonatomic, strong) UIPaddedLabel *goldLabel;
 
 // Show the name of the player's sword
-@property (nonatomic, strong) UILabel *swordLabel;
+@property (nonatomic, strong) UIPaddedLabel *swordLabel;
 
 // Show the upgrade button
 @property (nonatomic, strong) UIButton *upgradeButton;

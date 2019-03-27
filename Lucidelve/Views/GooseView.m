@@ -44,9 +44,14 @@
  */
 - (void)setupGoldLabel
 {
-    _goldLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _goldLabel = [[UIPaddedLabel alloc] initWithFrame:CGRectZero];
     _goldLabel.text = @"Gold: ";
-    [_goldLabel sizeToFit];
+    _goldLabel.textColor = [UIColor whiteColor];
+    _goldLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0.2 alpha:0.8];
+    float halfWidth = self.frame.size.width / 2;
+    [_goldLabel setContentEdgeInsets:UIEdgeInsetsMake(12, halfWidth, 12, halfWidth)];
+    _goldLabel.layer.borderColor = UIColor.whiteColor.CGColor;
+    _goldLabel.layer.borderWidth = 1;
     [self.headerArea addSubview:_goldLabel];
     
     // Enable autolayout
@@ -59,7 +64,11 @@
  */
 - (void)setupGoldRateLabel
 {
-    _goldRateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _goldRateLabel = [[UIPaddedLabel alloc] initWithFrame:CGRectZero];
+    _goldRateLabel.textColor = [UIColor whiteColor];
+    _goldRateLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0.2 alpha:0.8];
+    float halfWidth = self.frame.size.width / 2;
+    [_goldRateLabel setContentEdgeInsets:UIEdgeInsetsMake(12, halfWidth, 12, halfWidth)];
     _goldRateLabel.textAlignment = NSTextAlignmentCenter;
     [self.footerArea addSubview:_goldRateLabel];
     
@@ -74,7 +83,10 @@
 - (void)setupUpgradeButton
 {
     _upgradeButton = [[UIButton alloc] initWithFrame:CGRectZero];
-    _upgradeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _upgradeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _upgradeButton.backgroundColor = [UIColor colorWithRed:0.36 green:0.86 blue:0.31 alpha:0.8];
+    _upgradeButton.layer.borderColor = UIColor.whiteColor.CGColor;
+    _upgradeButton.layer.borderWidth = 1;
     [self.footerArea addSubview:_upgradeButton];
     
     // Enable autolayout
@@ -88,7 +100,7 @@
 - (void)setupLayout
 {
     // Gold label constraints
-    [_goldLabel.leftAnchor constraintEqualToAnchor:self.headerArea.leftAnchor constant:25].active = YES;
+    [_goldLabel.centerXAnchor constraintEqualToAnchor:self.headerArea.centerXAnchor].active = YES;
     [_goldLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:25].active = YES;
     
     // Upgrade button constraints
@@ -97,7 +109,7 @@
     
     // Gold rate label constraints
     [_goldRateLabel.centerXAnchor constraintEqualToAnchor:self.footerArea.centerXAnchor].active = YES;
-    [_goldRateLabel.bottomAnchor constraintEqualToAnchor:_upgradeButton.bottomAnchor constant:-25].active = YES;
+    [_goldRateLabel.bottomAnchor constraintEqualToAnchor:_upgradeButton.topAnchor constant:-25].active = YES;
 }
 
 @end
