@@ -348,11 +348,19 @@
 - (void)performHighAttack
 {
     // Can only attack from Neutral state
-    if ([player getCombatState] == COMBAT_NEUTRAL && [player getCurrentStamina] > 0)
+    if ([player getCombatState] == COMBAT_NEUTRAL)
     {
-        [player setCombatState:COMBAT_ATTACKING2];
-        [self dealSwordDamageToEnemy];
-        [player addStamina:-1];
+        if ([player getCurrentStamina] > 0)
+        {
+            [player setCombatState:COMBAT_ATTACKING2];
+            [self dealSwordDamageToEnemy];
+            [player addStamina:-1];
+        }
+        // Not enough stamina
+        else
+        {
+            [[AudioPlayer getInstance] play:KEY_SOUND_PLAYER_HURT];
+        }
     }
 }
 
