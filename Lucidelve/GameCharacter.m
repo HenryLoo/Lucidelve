@@ -17,9 +17,6 @@
 
 @interface GameCharacter ()
 {
-    // The character's mesh
-    //Mesh *mesh;
-    
     // The character's life values, in the form: currentLife / maxLife
     int currentLife;
     int maxLife;

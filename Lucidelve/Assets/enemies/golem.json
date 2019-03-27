@@ -6,6 +6,6 @@
     "maxAttackDelay": 6.0,
     "blockChance": 0.7,
     "attackPatterns": [
-        { "damage": 2, "isBlockable": false, "isDodgeable": true, "isInterruptable": false, "alertDelay": 0.8, "attackDelay": 1.2 }
+        { "damage": 2, "isBlockable": true, "isDodgeable": true, "isInterruptable": true, "alertDelay": 0.8, "attackDelay": 1.2 }
     ]
 }
