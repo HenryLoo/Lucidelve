@@ -272,7 +272,6 @@
         case COMBAT_HURT:
             self.spriteIndex = 5;
             self.velocity = GLKVector3Make(0, 1, 0);
-            self.position = playerNeutralPos;
             [[AudioPlayer getInstance] play:KEY_SOUND_PLAYER_HURT];
             break;
         case COMBAT_DEAD:

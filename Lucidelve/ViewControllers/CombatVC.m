@@ -99,8 +99,9 @@
     // Initialize gestures
     UIView *body = ((BaseView*)self.view).bodyArea;
     
-    tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
-    [body addGestureRecognizer:tapGesture];
+    // TODO: disable tapping for now... we might change to only allow for one type of attack
+//    tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
+//    [body addGestureRecognizer:tapGesture];
     
     swipeUpGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
     swipeUpGesture.direction = UISwipeGestureRecognizerDirectionUp;
