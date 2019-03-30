@@ -10,12 +10,20 @@
 
 @implementation Uniform
 
-- (id)initWithName:(const char *)name location:(unsigned int)location {
+- (id)initWithName:(NSString *)name uniformId:(GLuint)uniformId {
     if (self == [super init]) {
-        self._name = name;
-        self._location = location;
+        _name = name;
+        _uniformId = uniformId;
     }
     return self;
+}
+
+- (NSString *)name {
+	return _name;
+}
+
+- (GLuint)uniformId {
+	return _uniformId;
 }
 
 @end

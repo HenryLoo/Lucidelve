@@ -16,22 +16,22 @@
     GLsizei charsWritten = 0;
     GLchar *message;
     
-    glGetShaderiv(self._id, GL_INFO_LOG_LENGTH, &logLen);
+    glGetShaderiv(_shaderId, GL_INFO_LOG_LENGTH, &logLen);
     
     if (logLen > 0) {
         message = (GLchar *)malloc(logLen);
-        glGetShaderInfoLog(self._id, logLen, &charsWritten, message);
-        [[Utility getInstance] log:message];
+        glGetShaderInfoLog(_shaderId, logLen, &charsWritten, message);
+        [[Utility getInstance] log:[NSString stringWithUTF8String:message]];
         free(message);
     }
 }
 
-- (id)initWithFilename:(const char *)filename shaderType:(GLenum)shaderType {
+- (id)initWithFilename:(NSString *)filename shaderType:(GLenum)shaderType {
     if (self == [super init]) {
-        self._id = glCreateShader(shaderType);
-        NSString *filePath = [[Utility getInstance] getFilepath:filename fileType:"shaders"];
+        _shaderId = glCreateShader(shaderType);
+        NSString *filePath = [[Utility getInstance] getFilepath:filename fileType:@"shaders"];
         const char *shaderSource = [[NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil] UTF8String];
-        glShaderSource(self._id, 1, &shaderSource, NULL);
+        glShaderSource(_shaderId, 1, &shaderSource, NULL);
         [self compile];
     }
     return self;
@@ -40,13 +40,17 @@
 - (void)compile {
     GLsizei success;
     
-    glCompileShader(self._id);
+    glCompileShader(_shaderId);
     
-    glGetShaderiv(self._id, GL_COMPILE_STATUS, &success);
+    glGetShaderiv(_shaderId, GL_COMPILE_STATUS, &success);
     
     if (success == GL_FALSE) {
         [self printInfoLog];
     }
+}
+
+- (GLuint)shaderId {
+	return _shaderId;
 }
 
 @end

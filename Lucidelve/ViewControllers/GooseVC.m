@@ -61,14 +61,14 @@
     upgradePrice = [self getUpgradePrice];
     [self updateGoldRateLabel];
     
-    bgMesh = [[Primitives getInstance] square];
-    bgMesh._scale = GLKVector3Make(2.5f, 4.0f, 1);
+    bgMesh = [Primitives square];
+    [bgMesh setScale:GLKVector3Make(2.5f, 4.0f, 1)];
     [bgMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_GOOSE_BG]];
     
     goldenGoose = [[Assets getInstance] getMesh:KEY_MESH_GOLDEN_GOOSE];
-    goldenGoose._scale = GLKVector3Make(0.1f, 0.1f, 0.1f);
-    goldenGoose._position = GLKVector3Make(0, -0.2, 1.0f);
-    goldenGoose._rotation = GLKVector3Make(M_PI / 6, -M_PI / 4, 0);
+    [goldenGoose setScale:GLKVector3Make(0.1f, 0.1f, 0.1f)];
+    [goldenGoose setPosition:GLKVector3Make(0, -0.2, 1.0f)];
+    [goldenGoose setRotation:GLKVector3Make(M_PI / 6, -M_PI / 4, 0)];
     [goldenGoose addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_GOLDEN_GOOSE]];
 }
 

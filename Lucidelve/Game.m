@@ -141,8 +141,8 @@
  */
 - (void)initEnemy:(NSString*)enemyType
 {
-    const char *path = [[NSString stringWithFormat:@"%@.json", enemyType] UTF8String];
-    NSString *enemyPath = [[Utility getInstance] getFilepath:path fileType:"enemies"];
+    NSString *path = [NSString stringWithFormat:@"%@.json", enemyType];
+    NSString *enemyPath = [[Utility getInstance] getFilepath:path fileType:@"enemies"];
     NSData *enemyData = [[Utility getInstance] loadResource:enemyPath];
     NSDictionary *enemyJSON = [[Utility getInstance] decodeJSON:enemyData];
     NSString *name = [enemyJSON valueForKey:@"name"];
@@ -182,8 +182,8 @@
 - (void)initDungeon:(NSString*)dungeonType
 {
     // Get the dungeon's JSON file
-    const char *path = [[NSString stringWithFormat:@"%@.json", dungeonType] UTF8String];
-    NSString *dungeonPath = [[Utility getInstance] getFilepath:path fileType:"dungeons"];
+    NSString *path = [NSString stringWithFormat:@"%@.json", dungeonType];
+    NSString *dungeonPath = [[Utility getInstance] getFilepath:path fileType:@"dungeons"];
     NSData *dungeonData = [[Utility getInstance] loadResource:dungeonPath];
     NSDictionary *dungeonJSON = [[Utility getInstance] decodeJSON:dungeonData];
     NSString *name = [dungeonJSON valueForKey:@"name"];

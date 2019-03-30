@@ -30,16 +30,16 @@
 
 - (id)initWithView:(GLKView *)view {
     if (self == [super init]) {
-        self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+        _context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
         
-        if (!self.context) {
-            [[Utility getInstance] log:"Failed to create GLES context."];
+        if (!_context) {
+            [[Utility getInstance] log:@"Failed to create GLES context."];
         }
         
-        view.context = self.context;
+        view.context = _context;
         view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
         
-        [EAGLContext setCurrentContext:self.context];
+        [EAGLContext setCurrentContext:_context];
         
         dirLight = [[DirectionalLight alloc] init];
         
@@ -54,9 +54,21 @@
     return self;
 }
 
+- (EAGLContext *)context {
+	return _context;
+}
+
+- (Camera *)camera {
+	return _camera;
+}
+
+- (void)setContext:(EAGLContext *)context {
+	_context = context;
+}
+
 - (void)setCamera:(Camera *)camera {
-    self.mainCamera = camera;
-    viewMatrix = [self.mainCamera getViewMatrix];
+    _camera = camera;
+    viewMatrix = [_camera getViewMatrix];
 }
 
 - (void)setupRender:(CGRect)rect {
@@ -66,46 +78,46 @@
 
 - (void)renderMesh:(Mesh *)mesh program:(GLProgram *)program {
     if (mesh == nil) {
-        [[Utility getInstance] log:"Mesh was nil"];
+        [[Utility getInstance] log:@"Mesh was nil"];
         return;
     }
     [program bind];
     // material properties
-    [program set3fv:self.mainCamera._position.v uniformName:"viewPos"];
+    [program set3fv:_camera.position.v uniformName:@"viewPos"];
     
     [dirLight draw:program];
     
-    [program set4fvm:viewMatrix.m uniformName:"view"];
-    [program set4fvm:projectionMatrix.m uniformName:"projection"];
+    [program set4fvm:viewMatrix.m uniformName:@"view"];
+    [program set4fvm:projectionMatrix.m uniformName:@"projection"];
     
     GLKMatrix4 modelMatrix = GLKMatrix4Identity;
-    modelMatrix = GLKMatrix4Translate(modelMatrix, mesh._position.x,  mesh._position.y, mesh._position.z);
-    modelMatrix = GLKMatrix4Rotate(modelMatrix, mesh._rotation.x, 1.0f, 0.0f, 0.0f);
-    modelMatrix = GLKMatrix4Rotate(modelMatrix, mesh._rotation.y, 0.0f, 1.0f, 0.0f);
-    modelMatrix = GLKMatrix4Rotate(modelMatrix, mesh._rotation.z, 0.0f, 0.0f, 1.0f);
-    modelMatrix = GLKMatrix4Scale(modelMatrix, mesh._scale.x, mesh._scale.y, mesh._scale.z);
+    modelMatrix = GLKMatrix4TranslateWithVector3(modelMatrix, [mesh position]);
+    modelMatrix = GLKMatrix4Rotate(modelMatrix, [mesh rotation].x, 1.0f, 0.0f, 0.0f);
+    modelMatrix = GLKMatrix4Rotate(modelMatrix, [mesh rotation].y, 0.0f, 1.0f, 0.0f);
+    modelMatrix = GLKMatrix4Rotate(modelMatrix, [mesh rotation].z, 0.0f, 0.0f, 1.0f);
+    modelMatrix = GLKMatrix4ScaleWithVector3(modelMatrix, [mesh scale]);
     GLKMatrix3 normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(GLKMatrix4Multiply(viewMatrix, modelMatrix)), NULL);
-    [program set3fvm:normalMatrix.m uniformName:"normalMatrix"];
-    [program set4fvm:modelMatrix.m uniformName:"model"];
+    [program set3fvm:normalMatrix.m uniformName:@"normalMatrix"];
+    [program set4fvm:modelMatrix.m uniformName:@"model"];
     [mesh draw:program];
 }
 
 - (GLProgram *)baseRenderSprite:(Mesh *)mesh spriteIndex:(int)index
 {
     if (mesh == nil) {
-        [[Utility getInstance] log:"Mesh was nil"];
+        [[Utility getInstance] log:@"Mesh was nil"];
         return nil;
     }
     GLProgram *program = [[Assets getInstance] getProgram:KEY_PROGRAM_SPRITE];
     [program bind];
     
-    GLKVector2 texSize = GLKVector2Make(mesh._textures[0].width, mesh._textures[0].height);
-    [program set2fv:texSize.v uniformName:"texSize"];
+    GLKVector2 texSize = GLKVector2Make([mesh textureAtIndex:0].width, [mesh textureAtIndex:0].height);
+    [program set2fv:texSize.v uniformName:@"texSize"];
     
     GLKVector2 clipSize = GLKVector2Make(32, 32);
-    [program set2fv:clipSize.v uniformName:"clipSize"];
+    [program set2fv:clipSize.v uniformName:@"clipSize"];
     
-    [program set1i:index uniformName:"spriteIndex"];
+    [program set1i:index uniformName:@"spriteIndex"];
     
     return program;
 }
@@ -113,7 +125,7 @@
 - (void)renderSprite:(Mesh *)mesh spriteIndex:(int)index
 {
     GLProgram *program = [self baseRenderSprite:mesh spriteIndex:index];
-    [program set1i:true uniformName:"isFogDisabled"];
+    [program set1i:true uniformName:@"isFogDisabled"];
     
     [self renderMesh:mesh program:program];
 }
@@ -128,7 +140,7 @@
 {
     [program bind];
     
-    [program set4fv:fogColour.v uniformName:"fogColour"];
+    [program set4fv:fogColour.v uniformName:@"fogColour"];
     
     [self renderMesh:mesh program:program];
 }

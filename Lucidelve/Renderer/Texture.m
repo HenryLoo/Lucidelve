@@ -11,16 +11,16 @@
 
 @implementation Texture
 
-- (id)initWithFilename:(const char *)filename {
-    return [self initWithFilename:filename type:"texture_diffuse"];
+- (id)initWithFilename:(NSString *)filename {
+    return [self initWithFilename:filename type:@"texture_diffuse"];
 }
 
-- (id)initWithFilename:(const char *)filename type:(const char *)type {
+- (id)initWithFilename:(NSString *)filename type:(NSString *)type {
     if (self == [super init]) {
-        NSString *filePath = [[Utility getInstance] getFilepath:filename fileType:"textures"];
+        NSString *filePath = [[Utility getInstance] getFilepath:filename fileType:@"textures"];
         CGImageRef imageRef = [UIImage imageNamed:filePath].CGImage;
         if (!imageRef) {
-            [[Utility getInstance] log:"Failed to load the image."];
+            [[Utility getInstance] log:@"Failed to load the image."];
             self = nil;
             return self;
         }
@@ -39,10 +39,9 @@
         CGContextDrawImage(spriteContext, CGRectMake(0, 0, _width, _height), imageRef);
         CGContextRelease(spriteContext);
         
-        GLuint texture;
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-        glGenTextures(1, &texture);
-        glBindTexture(GL_TEXTURE_2D, texture);
+        glGenTextures(1, &_textureId);
+        glBindTexture(GL_TEXTURE_2D, _textureId);
         
         
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -53,21 +52,32 @@
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei)_width, (GLsizei)_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
         
         free(spriteData);
-        self._id = texture;
-        self._type = type;
+        _type = type;
     }
     return self;
 }
 
 - (void)cleanUp {
-    if (self._id) {
-        glDeleteTextures(1, &__id);
-        self._id = 0;
+    if (_textureId) {
+        glDeleteTextures(1, &_textureId);
+        _textureId = 0;
     }
 }
 
-- (void)dealloc {
-    [self cleanUp];
+- (GLuint)textureId {
+	return _textureId;
+}
+
+- (NSString *)type {
+	return _type;
+}
+
+- (size_t)width {
+	return _width;
+}
+
+- (size_t)height {
+	return _height;
 }
 
 @end

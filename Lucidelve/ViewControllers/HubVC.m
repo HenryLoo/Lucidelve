@@ -110,40 +110,43 @@
     [blacksmithButton addTarget:self action:@selector(onBlacksmithButtonPress:)
           forControlEvents:UIControlEventTouchDown];
     
-    bgMesh = [[Primitives getInstance] square];
-    bgMesh._scale = GLKVector3Make(2.5f, 4.0f, 1);
-    bgMesh._position = GLKVector3Make(0, 0, -0.1);
+    bgMesh = [Primitives square];
+    [bgMesh setScale:GLKVector3Make(2.5f, 4.0f, 1)];
+    [bgMesh setPosition:GLKVector3Make(0, 0, -0.1)];
     [bgMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_HUB_BG]];
     
-    playerMesh = [[Primitives getInstance] square];
-    playerMesh._scale = GLKVector3Make(1, 1, 1);
-    playerMesh._position = GLKVector3Make(0, -0.7, 0);
+    playerMesh = [Primitives square];
+    [playerMesh setScale:GLKVector3Make(1, 1, 1)];
+    [playerMesh setPosition:GLKVector3Make(0, -0.7, 0)];
     [playerMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_PLAYER_HUB]];
     
     anvil = [[Assets getInstance] getMesh:KEY_MESH_ANVIL];
-    anvil._scale = GLKVector3Make(0.2f, 0.2f, 0.2f);
-    anvil._position = GLKVector3Make(0.4f, 0.9f, 1.0f);
-    anvil._rotation = GLKVector3Make(M_PI / 6, -M_PI / 4, 0);
+    [anvil setScale:GLKVector3Make(0.2f, 0.2f, 0.2f)];
+    [anvil setPosition:GLKVector3Make(0.4f, 0.9f, 1.0f)];
+    [anvil setRotation:GLKVector3Make(M_PI / 6, -M_PI / 4, 0)];
+    anvil.scale = GLKVector3Make(0.2f, 0.2f, 0.2f);
+    anvil.position = GLKVector3Make(0.4f, 0.9f, 1.0f);
+    anvil.rotation = GLKVector3Make(M_PI / 6, -M_PI / 4, 0);
     [anvil addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_ANVIL]];
     money = [[Assets getInstance] getMesh:KEY_MESH_MONEY];
-    money._scale = GLKVector3Make(0.2f, 0.2f, 0.2f);
-    money._position = GLKVector3Make(-0.4f, 0.9f, 1.0f);
-    money._rotation = GLKVector3Make(M_PI / 6, -M_PI / 4, 0);
+    [money setScale:GLKVector3Make(0.2f, 0.2f, 0.2f)];
+    [money setPosition:GLKVector3Make(-0.4f, 0.9f, 1.0f)];
+    [money setRotation:GLKVector3Make(M_PI / 6, -M_PI / 4, 0)];
 	[money addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_MONEY]];
     door = [[Assets getInstance] getMesh:KEY_MESH_DOOR];
-    door._scale = GLKVector3Make(0.2f, 0.2f, 0.2f);
-    door._position = GLKVector3Make(0, 0.5f, 1.0f);
-    door._rotation = GLKVector3Make(M_PI / 6, -M_PI / 4, 0);
+    [door setScale:GLKVector3Make(0.2f, 0.2f, 0.2f)];
+    [door setPosition:GLKVector3Make(0, 0.5f, 1.0f)];
+    [door setRotation:GLKVector3Make(M_PI / 6, -M_PI / 4, 0)];
 	[door addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_DOOR]];
     bag = [[Assets getInstance] getMesh:KEY_MESH_BACKPACK];
-    bag._scale = GLKVector3Make(0.1f, 0.1f, 0.1f);
-    bag._position = GLKVector3Make(-0.4f, 0.1f, 1.0f);
-    bag._rotation = GLKVector3Make(M_PI / 6, -M_PI / 4, 0);
+    [bag setScale:GLKVector3Make(0.1f, 0.1f, 0.1f)];
+    [bag setPosition:GLKVector3Make(-0.4f, 0.1f, 1.0f)];
+    [bag setRotation:GLKVector3Make(M_PI / 6, -M_PI / 4, 0)];
     [bag addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_BACKPACK]];
     goldenGoose = [[Assets getInstance] getMesh:KEY_MESH_GOLDEN_GOOSE];
-    goldenGoose._scale = GLKVector3Make(0.08f, 0.08f, 0.08f);
-    goldenGoose._position = GLKVector3Make(0.4f, 0.1f, 1.0f);
-    goldenGoose._rotation = GLKVector3Make(M_PI / 6, -M_PI / 4, 0);
+    [goldenGoose setScale:GLKVector3Make(0.08f, 0.08f, 0.08f)];
+    [goldenGoose setPosition:GLKVector3Make(0.4f, 0.1f, 1.0f)];
+    [goldenGoose setRotation:GLKVector3Make(M_PI / 6, -M_PI / 4, 0)];
 	[goldenGoose addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_GOLDEN_GOOSE]];
     
     // Initialize player animation values

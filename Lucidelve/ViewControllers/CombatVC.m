@@ -131,32 +131,32 @@
     playerNeutralPos = GLKVector3Make(0, -0.5, 0);
     enemyNeutralPos = GLKVector3Make(0, 0.5, 0);
     
-    playerMesh = [[Primitives getInstance] square];
-    playerMesh._scale = GLKVector3Make(1, 1, 1);
+    playerMesh = [Primitives square];
+    [playerMesh setScale:GLKVector3Make(1, 1, 1)];
     [playerMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_PLAYER_COMBAT]];
     
-    floorMesh = [[Primitives getInstance] square];
-    floorMesh._scale = GLKVector3Make(3, 30, 1);
-    floorMesh._position = GLKVector3Make(0, -2, 2);
-    floorMesh._rotation = GLKVector3Make(-M_PI / 2.5, 0, 0);
+    floorMesh = [Primitives square];
+    [floorMesh setScale:GLKVector3Make(3, 30, 1)];
+    [floorMesh setPosition:GLKVector3Make(0, -2, 2)];
+    [floorMesh setRotation:GLKVector3Make(-M_PI / 2.5, 0, 0)];
     [floorMesh addTexture:[[Assets getInstance] getTexture:_currentDungeon.floorTexture]];
     
-    leftWallMesh = [[Primitives getInstance] square];
-    leftWallMesh._scale = GLKVector3Make(30, 18, 1);
-    leftWallMesh._position = GLKVector3Make(-2, 6, -5);
-    leftWallMesh._rotation = GLKVector3Make(0, M_PI / 2, 0);
+    leftWallMesh = [Primitives square];
+    [leftWallMesh setScale:GLKVector3Make(30, 18, 1)];
+    [leftWallMesh setPosition:GLKVector3Make(-2, 6, -5)];
+    [leftWallMesh setRotation:GLKVector3Make(0, M_PI / 2, 0)];
     [leftWallMesh addTexture:[[Assets getInstance] getTexture:_currentDungeon.wallTexture]];
     
-    rightWallMesh = [[Primitives getInstance] square];
-    rightWallMesh._scale = GLKVector3Make(30, 18, 1);
-    rightWallMesh._position = GLKVector3Make(2, 6, -5);
-    rightWallMesh._rotation = GLKVector3Make(0, -M_PI / 2, 0);
+    rightWallMesh = [Primitives square];
+    [rightWallMesh setScale:GLKVector3Make(30, 18, 1)];
+    [rightWallMesh setPosition:GLKVector3Make(2, 6, -5)];
+    [rightWallMesh setRotation:GLKVector3Make(0, -M_PI / 2, 0)];
     [rightWallMesh addTexture:[[Assets getInstance] getTexture:_currentDungeon.wallTexture]];
     
-    backWallMesh = [[Primitives getInstance] square];
-    backWallMesh._scale = GLKVector3Make(4, 16, 1);
-    backWallMesh._position = GLKVector3Make(0, 7, -20);
-    backWallMesh._rotation = GLKVector3Make(0, 0, 0);
+    backWallMesh = [Primitives square];
+    [backWallMesh setScale:GLKVector3Make(4, 16, 1)];
+    [backWallMesh setPosition:GLKVector3Make(0, 7, -20)];
+    [backWallMesh setRotation:GLKVector3Make(0, 0, 0)];
     [backWallMesh addTexture:[[Assets getInstance] getTexture:_currentDungeon.wallTexture]];
 }
 
@@ -185,8 +185,8 @@
             currentEnemy = [self.game getEnemy:enemyType];
             [currentEnemy reset:true];
             
-            enemyMesh = [[Primitives getInstance] square];
-            enemyMesh._scale = GLKVector3Make(1, 1, 1);
+            enemyMesh = [Primitives square];
+            [enemyMesh setScale:GLKVector3Make(1, 1, 1)];
             [enemyMesh addTexture:[[Assets getInstance] getTexture:currentEnemy.texture]];
             
             [player reset:false];
@@ -213,11 +213,11 @@
     
     [super update];
     
-    playerMesh._position = player.position;
+    [playerMesh setPosition:player.position];
     
     if (currentEnemy)
     {
-        enemyMesh._position = currentEnemy.position;
+        [enemyMesh setPosition:currentEnemy.position];
     }
 }
 

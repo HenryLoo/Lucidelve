@@ -13,10 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  * @brief A Shader to be compiled and linked for the GL program
  */
-@interface Shader : NSObject
-
-// A reference to the shader on the GPU
-@property unsigned int _id;
+@interface Shader : NSObject {
+    // A reference to the shader on the GPU
+    GLuint _shaderId;
+}
 
 /*!
  * @brief Initializes and compiles the shader.
@@ -27,7 +27,15 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @return An id to the created instance
  */
-- (id)initWithFilename:(const char *)filename shaderType:(GLenum)shaderType;
+- (id)initWithFilename:(NSString *)filename shaderType:(GLenum)shaderType;
+
+/*!
+ * Returns the id of the Shader.
+ * @author Jason Chung
+ *
+ * @return The id of the Shader.
+ */
+- (GLuint)shaderId;
 
 @end
 

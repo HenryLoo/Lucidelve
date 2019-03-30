@@ -7,6 +7,7 @@
 //
 
 #import "Assets.h"
+#import "../Utility.h"
 
 NSString *KEY_PROGRAM_BASIC = @"basic";
 NSString *KEY_PROGRAM_PASSTHROUGH = @"passthrough";
@@ -111,13 +112,13 @@ NSString *KEY_MESH_SWORD = @"sword";
     NSMutableArray<Shader *> *shaders = [[NSMutableArray<Shader *> alloc] init];
     NSMutableArray<Attribute *> *attributes = [[NSMutableArray<Attribute *> alloc] init];
     
-    Shader *vertexShader = [[Shader alloc] initWithFilename:"basic.vsh" shaderType:GL_VERTEX_SHADER];
-    Shader *fragmentShader = [[Shader alloc] initWithFilename:"basic.fsh" shaderType:GL_FRAGMENT_SHADER];
+    Shader *vertexShader = [[Shader alloc] initWithFilename:@"basic.vsh" shaderType:GL_VERTEX_SHADER];
+    Shader *fragmentShader = [[Shader alloc] initWithFilename:@"basic.fsh" shaderType:GL_FRAGMENT_SHADER];
     [shaders addObject:vertexShader];
     [shaders addObject:fragmentShader];
-    Attribute *position = [[Attribute alloc] initWithName:"aPos" index:GLKVertexAttribPosition];
-    Attribute *normal = [[Attribute alloc] initWithName:"aNormal" index:GLKVertexAttribNormal];
-    Attribute *texCoordIn = [[Attribute alloc] initWithName:"aTexCoords" index:GLKVertexAttribTexCoord0];
+    Attribute *position = [[Attribute alloc] initWithName:@"aPos" attributeId:GLKVertexAttribPosition];
+    Attribute *normal = [[Attribute alloc] initWithName:@"aNormal" attributeId:GLKVertexAttribNormal];
+    Attribute *texCoordIn = [[Attribute alloc] initWithName:@"aTexCoords" attributeId:GLKVertexAttribTexCoord0];
     [attributes addObject:position];
     [attributes addObject:normal];
     [attributes addObject:texCoordIn];
@@ -127,8 +128,8 @@ NSString *KEY_MESH_SWORD = @"sword";
     [shaders removeAllObjects];
     [attributes removeAllObjects];
     
-    vertexShader = [[Shader alloc] initWithFilename:"passthrough.vsh" shaderType:GL_VERTEX_SHADER];
-    fragmentShader = [[Shader alloc] initWithFilename:"passthrough.fsh" shaderType:GL_FRAGMENT_SHADER];
+    vertexShader = [[Shader alloc] initWithFilename:@"passthrough.vsh" shaderType:GL_VERTEX_SHADER];
+    fragmentShader = [[Shader alloc] initWithFilename:@"passthrough.fsh" shaderType:GL_FRAGMENT_SHADER];
     [shaders addObject:vertexShader];
     [shaders addObject:fragmentShader];
     [attributes addObject:position];
@@ -139,8 +140,8 @@ NSString *KEY_MESH_SWORD = @"sword";
     [shaders removeAllObjects];
     [attributes removeAllObjects];
     
-    vertexShader = [[Shader alloc] initWithFilename:"sprite.vsh" shaderType:GL_VERTEX_SHADER];
-    fragmentShader = [[Shader alloc] initWithFilename:"fog.fsh" shaderType:GL_FRAGMENT_SHADER];
+    vertexShader = [[Shader alloc] initWithFilename:@"sprite.vsh" shaderType:GL_VERTEX_SHADER];
+    fragmentShader = [[Shader alloc] initWithFilename:@"fog.fsh" shaderType:GL_FRAGMENT_SHADER];
     [shaders addObject:vertexShader];
     [shaders addObject:fragmentShader];
     [attributes addObject:position];
@@ -151,8 +152,8 @@ NSString *KEY_MESH_SWORD = @"sword";
     [shaders removeAllObjects];
     [attributes removeAllObjects];
     
-    vertexShader = [[Shader alloc] initWithFilename:"passthrough.vsh" shaderType:GL_VERTEX_SHADER];
-    fragmentShader = [[Shader alloc] initWithFilename:"fog.fsh" shaderType:GL_FRAGMENT_SHADER];
+    vertexShader = [[Shader alloc] initWithFilename:@"passthrough.vsh" shaderType:GL_VERTEX_SHADER];
+    fragmentShader = [[Shader alloc] initWithFilename:@"fog.fsh" shaderType:GL_FRAGMENT_SHADER];
     [shaders addObject:vertexShader];
     [shaders addObject:fragmentShader];
     [attributes addObject:position];
@@ -162,108 +163,108 @@ NSString *KEY_MESH_SWORD = @"sword";
 }
 
 - (void)loadTextures {
-    Texture *texture = [[Texture alloc] initWithFilename:"crate.jpg"];
+    Texture *texture = [[Texture alloc] initWithFilename:@"crate.jpg"];
     [textures setObject:texture forKey:KEY_TEXTURE_CRATE];
-    texture = [[Texture alloc] initWithFilename:"placeholder_blacksmith.png"];
+    texture = [[Texture alloc] initWithFilename:@"placeholder_blacksmith.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_PLACEHOLDER_BLACKSMITH];
-    texture = [[Texture alloc] initWithFilename:"placeholder_dungeons.png"];
+    texture = [[Texture alloc] initWithFilename:@"placeholder_dungeons.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_PLACEHOLDER_DUNGEONS];
-    texture = [[Texture alloc] initWithFilename:"placeholder_goose.png"];
+    texture = [[Texture alloc] initWithFilename:@"placeholder_goose.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_PLACEHOLDER_GOOSE];
-    texture = [[Texture alloc] initWithFilename:"placeholder_hub.png"];
+    texture = [[Texture alloc] initWithFilename:@"placeholder_hub.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_PLACEHOLDER_HUB];
-    texture = [[Texture alloc] initWithFilename:"placeholder_shop.png"];
+    texture = [[Texture alloc] initWithFilename:@"placeholder_shop.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_PLACEHOLDER_SHOP];
-    texture = [[Texture alloc] initWithFilename:"blacksmith_bg.png"];
+    texture = [[Texture alloc] initWithFilename:@"blacksmith_bg.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_BLACKSMITH_BG];
-    texture = [[Texture alloc] initWithFilename:"goose_bg.png"];
+    texture = [[Texture alloc] initWithFilename:@"goose_bg.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_GOOSE_BG];
-    texture = [[Texture alloc] initWithFilename:"hub_bg.png"];
+    texture = [[Texture alloc] initWithFilename:@"hub_bg.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_HUB_BG];
-    texture = [[Texture alloc] initWithFilename:"shop_bg.png"];
+    texture = [[Texture alloc] initWithFilename:@"shop_bg.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_SHOP_BG];
-    texture = [[Texture alloc] initWithFilename:"anvil.png"];
+    texture = [[Texture alloc] initWithFilename:@"anvil.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_ANVIL];
-    texture = [[Texture alloc] initWithFilename:"backpack.png"];
+    texture = [[Texture alloc] initWithFilename:@"backpack.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_BACKPACK];
-    texture = [[Texture alloc] initWithFilename:"bomb.png"];
+    texture = [[Texture alloc] initWithFilename:@"bomb.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_BOMB];
-    texture = [[Texture alloc] initWithFilename:"coin.png"];
+    texture = [[Texture alloc] initWithFilename:@"coin.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_COIN];
-    texture = [[Texture alloc] initWithFilename:"door.png"];
+    texture = [[Texture alloc] initWithFilename:@"door.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_DOOR];
-    texture = [[Texture alloc] initWithFilename:"golden_goose.png"];
+    texture = [[Texture alloc] initWithFilename:@"golden_goose.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_GOLDEN_GOOSE];
-    texture = [[Texture alloc] initWithFilename:"heart.png"];
+    texture = [[Texture alloc] initWithFilename:@"heart.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_HEART];
-    texture = [[Texture alloc] initWithFilename:"money.png"];
+    texture = [[Texture alloc] initWithFilename:@"money.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_MONEY];
-    texture = [[Texture alloc] initWithFilename:"nest.png"];
+    texture = [[Texture alloc] initWithFilename:@"nest.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_NEST];
-    texture = [[Texture alloc] initWithFilename:"potion.png"];
+    texture = [[Texture alloc] initWithFilename:@"potion.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_POTION];
-    texture = [[Texture alloc] initWithFilename:"shield.png"];
+    texture = [[Texture alloc] initWithFilename:@"shield.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_SHIELD];
-    texture = [[Texture alloc] initWithFilename:"sword.png"];
+    texture = [[Texture alloc] initWithFilename:@"sword.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_SWORD];
-    texture = [[Texture alloc] initWithFilename:"player_hub.png"];
+    texture = [[Texture alloc] initWithFilename:@"player_hub.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_PLAYER_HUB];
-    texture = [[Texture alloc] initWithFilename:"player_combat.png"];
+    texture = [[Texture alloc] initWithFilename:@"player_combat.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_PLAYER_COMBAT];
-    texture = [[Texture alloc] initWithFilename:"wolf.png"];
+    texture = [[Texture alloc] initWithFilename:@"wolf.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_WOLF];
-    texture = [[Texture alloc] initWithFilename:"goblin.png"];
+    texture = [[Texture alloc] initWithFilename:@"goblin.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_GOBLIN];
-    texture = [[Texture alloc] initWithFilename:"golem.png"];
+    texture = [[Texture alloc] initWithFilename:@"golem.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_GOLEM];
-    texture = [[Texture alloc] initWithFilename:"bat.png"];
+    texture = [[Texture alloc] initWithFilename:@"bat.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_BAT];
-    texture = [[Texture alloc] initWithFilename:"turtle.png"];
+    texture = [[Texture alloc] initWithFilename:@"turtle.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_TURTLE];
-    texture = [[Texture alloc] initWithFilename:"fox.png"];
+    texture = [[Texture alloc] initWithFilename:@"fox.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_FOX];
-    texture = [[Texture alloc] initWithFilename:"forest_floor.png"];
+    texture = [[Texture alloc] initWithFilename:@"forest_floor.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_FOREST_FLOOR];
-    texture = [[Texture alloc] initWithFilename:"forest_wall.png"];
+    texture = [[Texture alloc] initWithFilename:@"forest_wall.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_FOREST_WALL];
-    texture = [[Texture alloc] initWithFilename:"caves_floor.png"];
+    texture = [[Texture alloc] initWithFilename:@"caves_floor.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_CAVES_FLOOR];
-    texture = [[Texture alloc] initWithFilename:"caves_wall.png"];
+    texture = [[Texture alloc] initWithFilename:@"caves_wall.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_CAVES_WALL];
-    texture = [[Texture alloc] initWithFilename:"depths_floor.png"];
+    texture = [[Texture alloc] initWithFilename:@"depths_floor.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_DEPTHS_FLOOR];
-    texture = [[Texture alloc] initWithFilename:"depths_wall.png"];
+    texture = [[Texture alloc] initWithFilename:@"depths_wall.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_DEPTHS_WALL];
 }
 
 - (void)loadMeshes {
-    Mesh *mesh = [[Mesh alloc] initWithFilename:"anvil.obj"];
+    Mesh *mesh = [self loadMesh:@"anvil.obj"];
     [meshes setObject:mesh forKey:KEY_MESH_ANVIL];
-    mesh = [[Mesh alloc] initWithFilename:"cube.obj"];
+    mesh = [self loadMesh:@"cube.obj"];
     [meshes setObject:mesh forKey:KEY_MESH_CUBE];
-    mesh = [[Mesh alloc] initWithFilename:"backpack.obj"];
+    mesh = [self loadMesh:@"backpack.obj"];
     [meshes setObject:mesh forKey:KEY_MESH_BACKPACK];
-    mesh = [[Mesh alloc] initWithFilename:"bomb.obj"];
+    mesh = [self loadMesh:@"bomb.obj"];
     [meshes setObject:mesh forKey:KEY_MESH_BOMB];
-    mesh = [[Mesh alloc] initWithFilename:"coin.obj"];
+    mesh = [self loadMesh:@"coin.obj"];
     [meshes setObject:mesh forKey:KEY_MESH_COIN];
-    mesh = [[Mesh alloc] initWithFilename:"door.obj"];
+    mesh = [self loadMesh:@"door.obj"];
     [meshes setObject:mesh forKey:KEY_MESH_DOOR];
-    mesh = [[Mesh alloc] initWithFilename:"golden_goose.obj"];
+    mesh = [self loadMesh:@"golden_goose.obj"];
     [meshes setObject:mesh forKey:KEY_MESH_GOLDEN_GOOSE];
-    mesh = [[Mesh alloc] initWithFilename:"hammer.obj"];
+    mesh = [self loadMesh:@"hammer.obj"];
     [meshes setObject:mesh forKey:KEY_MESH_HAMMER];
-    mesh = [[Mesh alloc] initWithFilename:"heart.obj"];
+    mesh = [self loadMesh:@"heart.obj"];
     [meshes setObject:mesh forKey:KEY_MESH_HEART];
-    mesh = [[Mesh alloc] initWithFilename:"money.obj"];
+    mesh = [self loadMesh:@"money.obj"];
     [meshes setObject:mesh forKey:KEY_MESH_MONEY];
-    mesh = [[Mesh alloc] initWithFilename:"nest.obj"];
+    mesh = [self loadMesh:@"nest.obj"];
     [meshes setObject:mesh forKey:KEY_MESH_NEST];
-    mesh = [[Mesh alloc] initWithFilename:"potion.obj"];
+    mesh = [self loadMesh:@"potion.obj"];
     [meshes setObject:mesh forKey:KEY_MESH_POTION];
-    mesh = [[Mesh alloc] initWithFilename:"shield.obj"];
+    mesh = [self loadMesh:@"shield.obj"];
     [meshes setObject:mesh forKey:KEY_MESH_SHIELD];
-    mesh = [[Mesh alloc] initWithFilename:"sword.obj"];
+    mesh = [self loadMesh:@"sword.obj"];
     [meshes setObject:mesh forKey:KEY_MESH_SWORD];
 }
 
@@ -276,7 +277,228 @@ NSString *KEY_MESH_SWORD = @"sword";
 }
 
 - (Mesh *)getMesh:(NSString *)key {
-    return [[meshes objectForKey:key] copyWithZone:nil];
+    return [[meshes objectForKey:key] copy];
+}
+
+- (Mesh *)loadMesh:(NSString *)filename {
+    [[Utility getInstance] log:[NSString stringWithFormat:@"Loading file: %@", filename]];
+    Mesh *mesh = [[Mesh alloc] init];
+    
+    NSString *filePath = [[Utility getInstance] getFilepath:filename fileType:@"models"];
+    NSString *contents = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:NULL];
+    
+    // The final buffers to pass to the Mesh
+    NSMutableData *vertices = [NSMutableData data];
+    NSMutableData *uvs = [NSMutableData data];
+    NSMutableData *normals = [NSMutableData data];
+    NSMutableData *indices = [NSMutableData data];
+    
+    // The indexed points, normals, and uvs
+    NSMutableArray<NSValue *> *indexed_vertices = [NSMutableArray array];
+    NSMutableArray<NSValue *> *indexed_uvs = [NSMutableArray array];
+    NSMutableArray<NSValue *> *indexed_normals = [NSMutableArray array];
+    
+    // The arrays of vertices with point, normals, and uvs matching to a single point
+	NSMutableArray<NSValue *> *out_vertices = [NSMutableArray array];
+	NSMutableArray<NSValue *> *out_uvs = [NSMutableArray array];
+	NSMutableArray<NSValue *> *out_normals = [NSMutableArray array];
+	
+    // The array of indices in the OBJ file
+	NSMutableArray<NSNumber *> *vertexIndices = [NSMutableArray array];
+	NSMutableArray<NSNumber *> *uvIndices = [NSMutableArray array];
+	NSMutableArray<NSNumber *> *normalIndices = [NSMutableArray array];
+	
+    // The points, uvs, and normals in the OBJ file
+	NSMutableArray<NSValue *> *temp_vertices = [NSMutableArray array];
+	NSMutableArray<NSValue *> *temp_uvs = [NSMutableArray array];
+	NSMutableArray<NSValue *> *temp_normals = [NSMutableArray array];
+    
+	NSScanner *fileScanner = [NSScanner scannerWithString:contents];
+	int lineNumber = 0;
+	
+	NSString *line;
+	while ([fileScanner scanUpToString:@"\n" intoString:&line]) {
+		lineNumber++;
+		
+		// remove comments
+		line = [[line componentsSeparatedByString:@"#"] objectAtIndex:0];
+		
+		NSScanner *lineScanner = [NSScanner scannerWithString:line];
+		
+		NSString *directive;
+		
+        if (![lineScanner scanUpToCharactersFromSet:[NSCharacterSet whitespaceCharacterSet] intoString:&directive]) {
+            continue;
+        }
+		
+		if ([directive isEqualToString:@"v"]) {
+			GLKVector3 pt;
+			BOOL xyzOK = ([lineScanner scanFloat:&pt.x] &&
+						  [lineScanner scanFloat:&pt.y] &&
+						  [lineScanner scanFloat:&pt.z]);
+						  
+			// Ignore the 'w' component
+			[lineScanner scanFloat:NULL];
+			
+			if (!xyzOK || ![lineScanner isAtEnd]) {
+				[[Utility getInstance] log:@"The 'v' directive should be followed by 3 numbers."];
+				continue;
+			}
+			
+			[temp_vertices addObject:[NSValue value:&pt withObjCType:@encode(GLKVector3)]];
+		} else if ([directive isEqualToString:@"vt"]) {
+			// Turn any potential texture coordinate into a 2-dimensional one
+			GLKVector2 tc;
+			if ([lineScanner scanFloat:&tc.x]) {
+				if ([lineScanner scanFloat:&tc.y]) {
+					if ([lineScanner scanFloat:NULL]) {
+						[[Utility getInstance] log:@"This OBJ file has a texture coordinate in 3-dimensions."];
+						[temp_uvs addObject:[NSValue value:&tc withObjCType:@encode(GLKVector2)]];
+					} else if ([lineScanner isAtEnd]) {
+						[temp_uvs addObject:[NSValue value:&tc withObjCType:@encode(GLKVector2)]];
+					} else {
+						[[Utility getInstance] log:@"The 'vt' directive expects 2 numbers."];
+					}
+				} else if ([lineScanner isAtEnd]) {
+					tc.y = 0;
+					[temp_uvs addObject:[NSValue value:&tc withObjCType:@encode(GLKVector2)]];
+				} else {
+					[[Utility getInstance] log:@"The 'vt' directive expects 2 numbers."];
+				}
+			} else {
+				[[Utility getInstance] log:@"The 'vt' directive expects 2 numbers."];
+			}
+		} else if ([directive isEqualToString:@"vn"]) {
+			GLKVector3 n;
+			if (![lineScanner scanFloat:&n.x] ||
+				![lineScanner scanFloat:&n.y] ||
+				![lineScanner scanFloat:&n.z] ||
+				![lineScanner isAtEnd]) {
+				[[Utility getInstance] log:@"The 'vn' directive expects 3 numbers."];
+				continue;
+			}
+			[temp_normals addObject:[NSValue value:&n withObjCType:@encode(GLKVector3)]];
+		} else if ([directive isEqualToString:@"f"]) {
+			NSString *vertexStr;
+			while ([lineScanner scanUpToCharactersFromSet:[NSCharacterSet whitespaceCharacterSet] intoString:&vertexStr]) {
+				NSScanner *vertexScanner = [NSScanner scannerWithString:vertexStr];
+				GLint pointIndex, uvIndex, normalIndex;
+				if ([vertexScanner scanInt:&pointIndex]) {
+					if ([vertexScanner scanString:@"/" intoString:NULL]) {
+						if ([vertexScanner scanInt:&uvIndex]) {
+							if ([vertexScanner scanString:@"/" intoString:NULL]) {
+								if (![vertexScanner scanInt:&normalIndex]) {
+									// Unable to find the normal index
+									[[Utility getInstance] log:@"Parse error in vertex."];
+									continue;
+								}
+							} else {
+								// Unable to find the normal index
+								[[Utility getInstance] log:@"Parse error in vertex."];
+								continue;
+							}
+						} else {
+							// Unable to find the texture index
+							[[Utility getInstance] log:@"Parse error in vertex."];
+							continue;
+						}
+					} else {
+						// There's only a point in this face, no other data
+						[[Utility getInstance] log:@"Parse error in vertex."];
+						continue;
+					}
+				} else {
+					// We were unable to find a point
+					[[Utility getInstance] log:@"Parse error in vertex."];
+					continue;
+				}
+				
+				if (![vertexScanner isAtEnd]) {
+					[[Utility getInstance] log:@"Parse error in vertex."];
+					continue;
+				}
+				
+				[vertexIndices addObject:[NSNumber numberWithUnsignedInt:pointIndex]];
+				[uvIndices addObject:[NSNumber numberWithUnsignedInt:uvIndex]];
+				[normalIndices addObject:[NSNumber numberWithUnsignedInt:normalIndex]];
+			}
+		}
+	}
+	
+    for (GLuint i = 0; i < [vertexIndices count]; i++) {
+        GLuint vertexIndex = [[vertexIndices objectAtIndex:i] unsignedIntValue];
+        GLuint uvIndex = [[uvIndices objectAtIndex:i] unsignedIntValue];
+        GLuint normalIndex = [[normalIndices objectAtIndex:i] unsignedIntValue];
+        
+        GLKVector3 vertex, normal;
+        GLKVector2 uv;
+        [[temp_vertices objectAtIndex:(vertexIndex - 1)] getValue:&vertex];
+        [[temp_uvs objectAtIndex:(uvIndex - 1)] getValue:&uv];
+        [[temp_normals objectAtIndex:(normalIndex - 1)] getValue:&normal];
+        
+        [out_vertices addObject:[NSValue value:&vertex withObjCType:@encode(GLKVector3)]];
+        [out_uvs addObject:[NSValue value:&uv withObjCType:@encode(GLKVector2)]];
+        [out_normals addObject:[NSValue value:&normal withObjCType:@encode(GLKVector3)]];
+    }
+    
+    NSMutableDictionary<NSValue *, NSNumber *> *VertexToOutIndex = [NSMutableDictionary dictionary];
+    
+    for (GLuint i = 0; i < out_vertices.count; i++) {
+        Vertex packed;
+        [out_vertices[i] getValue:&packed.position];
+        [out_uvs[i] getValue:&packed.uv];
+        [out_normals[i] getValue:&packed.normal];
+        
+        GLuint index = -1;
+        NSMutableArray *allKeys = [[VertexToOutIndex allKeys] mutableCopy];
+        for (NSValue *vertexValue in allKeys) {
+            Vertex vertex;
+            [vertexValue getValue:&vertex];
+            if (
+                GLKVector3AllEqualToVector3(packed.position, vertex.position) &&
+                GLKVector2AllEqualToVector2(packed.uv, vertex.uv) &&
+                GLKVector3AllEqualToVector3(packed.normal, vertex.normal)
+                ) {
+                index = [[VertexToOutIndex objectForKey:vertexValue] unsignedIntValue];
+                break;
+            }
+        }
+        if (index > -1) {
+            // Vertex is already found
+            [indices appendBytes:&index length:sizeof(GLuint)];
+        } else {
+            GLuint verticesCount = (GLuint)indexed_vertices.count;
+            [indexed_vertices addObject:[NSValue value:&packed.position withObjCType:@encode(GLKVector3)]];
+            [indexed_uvs addObject:[NSValue value:&packed.uv withObjCType:@encode(GLKVector2)]];
+            [indexed_normals addObject:[NSValue value:&packed.normal withObjCType:@encode(GLKVector3)]];
+            [indices appendBytes:&verticesCount length:sizeof(GLuint)];
+        }
+    }
+    
+    for (GLuint i = 0; i < indexed_vertices.count; i++) {
+        GLKVector3 value;
+        [indexed_vertices[i] getValue:&value];
+        [vertices appendBytes:&value length:sizeof(GLKVector3)];
+    }
+    
+    for (GLuint i = 0; i < indexed_uvs.count; i++) {
+        GLKVector2 value;
+        [indexed_uvs[i] getValue:&value];
+        [uvs appendBytes:&value length:sizeof(GLKVector2)];
+    }
+    
+    for (GLuint i = 0; i < indexed_normals.count; i++) {
+        GLKVector3 value;
+        [indexed_normals[i] getValue:&value];
+        [normals appendBytes:&value length:sizeof(GLKVector3)];
+    }
+    
+    [mesh setVertices:vertices];
+    [mesh setTextureCoordinates:uvs];
+    [mesh setNormals:normals];
+    [mesh setIndices:indices];
+    
+    return mesh;
 }
 
 @end

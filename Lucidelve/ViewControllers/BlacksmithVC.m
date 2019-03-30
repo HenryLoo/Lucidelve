@@ -61,14 +61,14 @@
     upgradePrice = [self getUpgradePrice];
     [self updateSwordLabel];
     
-    bgMesh = [[Primitives getInstance] square];
-    bgMesh._scale = GLKVector3Make(2.5f, 4.0f, 1);
+    bgMesh = [Primitives square];
+    [bgMesh setScale:GLKVector3Make(2.5f, 4.0f, 1)];
     [bgMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_BLACKSMITH_BG]];
     
     anvil = [[Assets getInstance] getMesh:KEY_MESH_ANVIL];
-    anvil._scale = GLKVector3Make(0.3f, 0.3f, 0.3f);
-    anvil._position = GLKVector3Make(0, -0.2f, 1.0f);
-    anvil._rotation = GLKVector3Make(M_PI / 6, -M_PI / 4, 0);
+    [anvil setScale:GLKVector3Make(0.3f, 0.3f, 0.3f)];
+    [anvil setPosition:GLKVector3Make(0, -0.2, 1.0f)];
+    [anvil setRotation:GLKVector3Make(M_PI / 6, -M_PI / 4, 0)];
     [anvil addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_ANVIL]];
 }
 

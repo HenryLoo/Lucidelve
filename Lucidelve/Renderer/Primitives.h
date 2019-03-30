@@ -18,34 +18,26 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Primitives : NSObject
 
 /*!
- * @brief Returns the singleton instance of the Primitives class.
- * @author Jason Chung
- *
- * @return An id to the created instance
- */
-+ (id)getInstance;
-
-/*!
  * @brief Returns a triangle
  * @author Jason Chung
  *
  * @return A triangle mesh
  */
-- (Mesh *)triangle;
++ (Mesh *)triangle;
 /*!
  * @brief Returns a square
  * @author Jason Chung
  *
  * @return A square mesh
  */
-- (Mesh *)square;
++ (Mesh *)square;
 /*!
  * @brief Returns a cube
  * @author Jason Chung
  *
  * @return A cube mesh
  */
-- (Mesh *)cube;
+// + (Mesh *)cube;
 /*!
  * @brief Returns a sphere
  * @author Jason Chung
@@ -55,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @return A sphere mesh
  */
-- (Mesh *)sphere:(GLint)numSlices radius:(GLfloat)radius;
+// + (Mesh *)sphere:(GLint)numSlices radius:(GLfloat)radius;
 
 @end
 

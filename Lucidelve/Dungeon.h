@@ -40,7 +40,7 @@
  * @author Henry Loo
  *
  * @param name The dungeon's name.
- * @param name The dungeon's fog colour.
+ * @param fog The dungeon's fog colour.
  * @param floor The dungeon's floor texture.
  * @param wall The dungeon's wall texture.
  * @param combatNodes The dungeon's combat nodes.

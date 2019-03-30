@@ -37,12 +37,12 @@
 
 - (id)initWithPosition:(GLfloat)posX posY:(GLfloat)posY posZ:(GLfloat)posZ upX:(GLfloat)upX upY:(GLfloat)upY upZ:(GLfloat)upZ yaw:(GLfloat)yaw pitch:(GLfloat)pitch {
     if (self == [super init]) {
-        self._position = GLKVector3Make(posX, posY, posZ);
-        self._up = GLKVector3Make(upX, upY, upZ);
-        self._worldUp = self._up;
-        self._yaw = yaw;
-        self._pitch = pitch;
-        self._zoom = ZOOM;
+        _position = GLKVector3Make(posX, posY, posZ);
+        _up = GLKVector3Make(upX, upY, upZ);
+        _worldUp = _up;
+        _yaw = yaw;
+        _pitch = pitch;
+        _zoom = ZOOM;
         
         [self update];
     }
@@ -52,18 +52,71 @@
 - (void)update {
     // Calculate the new Front vector
     GLKVector3 front;
-    front.x = cosf(GLKMathDegreesToRadians(self._yaw)) * cosf(GLKMathDegreesToRadians(self._pitch));
-    front.y = sinf(GLKMathDegreesToRadians(self._pitch));
-    front.z = sinf(GLKMathDegreesToRadians(self._yaw)) * cosf(GLKMathDegreesToRadians(self._pitch));
-    self._front = GLKVector3Normalize(front);
+    front.x = cosf(GLKMathDegreesToRadians(_yaw)) * cosf(GLKMathDegreesToRadians(_pitch));
+    front.y = sinf(GLKMathDegreesToRadians(_pitch));
+    front.z = sinf(GLKMathDegreesToRadians(_yaw)) * cosf(GLKMathDegreesToRadians(_pitch));
+    _front = GLKVector3Normalize(front);
     // Also re-calculate the Right and Up vector
     // normalize their vectors, because their length gets closer to 0 the more you look up or down which results in slower movement
-    self._right = GLKVector3Normalize(GLKVector3CrossProduct(self._front, self._worldUp));
-    self._up = GLKVector3Normalize(GLKVector3CrossProduct(self._right, self._front));
+    _right = GLKVector3Normalize(GLKVector3CrossProduct(_front, _worldUp));
+    _up = GLKVector3Normalize(GLKVector3CrossProduct(_right, _front));
 }
 
 - (GLKMatrix4)getViewMatrix {
-    return GLKMatrix4MakeLookAt(self._position.x, self._position.y, self._position.z, self._position.x + self._front.x, self._position.y + self._front.y, self._position.z + self._front.z, self._up.x, self._up.y, self._up.z);
+    return GLKMatrix4MakeLookAt(_position.x, _position.y, _position.z, _position.x + _front.x, _position.y + _front.y, _position.z + _front.z, _up.x, _up.y, _up.z);
+}
+
+
+- (GLKVector3)position {
+	return _position;
+}
+
+- (GLKVector3)front {
+	return _front;
+}
+
+- (GLKVector3)up {
+	return _up;
+}
+
+- (GLKVector3)right {
+	return _right;
+}
+
+- (GLKVector3)worldUp {
+	return _worldUp;
+}
+
+- (GLfloat)yaw {
+	return _yaw;
+}
+
+- (GLfloat)pitch {
+	return _pitch;
+}
+
+- (GLfloat)zoom {
+	return _zoom;
+}
+
+- (void)setPosition:(GLKVector3)position {
+	_position = position;
+}
+
+- (void)setUp:(GLKVector3)up {
+	_up = up;
+}
+
+- (void)setYaw:(GLfloat)yaw {
+	_yaw = yaw;
+}
+
+- (void)setPitch:(GLfloat)pitch {
+	_pitch = pitch;
+}
+
+- (void)setZoom:(GLfloat)zoom {
+	_zoom = zoom;
 }
 
 @end

@@ -50,7 +50,7 @@ static AudioPlayer *INSTANCE = nil;
 }
 
 - (void)addAudioFile:(NSString *)filename key:(NSString *)key {
-    NSString *filePath = [[Utility getInstance] getFilepath:filename.UTF8String fileType:"sfx"];
+    NSString *filePath = [[Utility getInstance] getFilepath:filename fileType:@"sfx"];
     NSData *audioFile = [[Utility getInstance] loadResource:filePath];
     [audioFiles setValue:audioFile forKey:key];
 }

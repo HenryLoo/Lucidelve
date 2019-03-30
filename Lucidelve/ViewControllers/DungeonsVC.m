@@ -46,9 +46,9 @@
     [dungeons registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CellId"];
     
     // TODO: replace placeholder art
-    Texture *texture = [[Texture alloc] initWithFilename:"placeholder_dungeons.png"];
-    mesh = [[Primitives getInstance] square];
-    mesh._scale = GLKVector3Make(1.5f, 1.5f, 1);
+    Texture *texture = [[Texture alloc] initWithFilename:@"placeholder_dungeons.png"];
+    mesh = [Primitives square];
+    [mesh setScale:GLKVector3Make(1.5f, 1.5f, 1)];
     [mesh addTexture:texture];
 }
     

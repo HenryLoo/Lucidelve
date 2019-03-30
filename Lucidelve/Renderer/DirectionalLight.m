@@ -12,19 +12,28 @@
 
 -  (id)init {
     if (self == [super init]) {
-        self._direction = GLKVector3Make(-0.2f, -1.0f, -0.3f);
-        self._ambient = GLKVector3Make(0.05f, 0.05f, 0.05f);
-        self._diffuse = GLKVector3Make(0.5f, 0.5f, 0.5f);
-        self._specular = GLKVector3Make(0.5f, 0.5f, 0.5f);
+        _direction = GLKVector3Make(-0.2f, -1.0f, -0.3f);
+        _ambient = GLKVector3Make(0.05f, 0.05f, 0.05f);
+        _diffuse = GLKVector3Make(0.5f, 0.5f, 0.5f);
+        _specular = GLKVector3Make(0.5f, 0.5f, 0.5f);
     }
     return self;
 }
 
 - (void)draw:(GLProgram *)program {
-    [program set3fv:self._direction.v uniformName:"dirLight.direction"];
-    [program set3fv:self._ambient.v uniformName:"dirLight.ambient"];
-    [program set3fv:self._diffuse.v uniformName:"dirLight.diffuse"];
-    [program set3fv:self._specular.v uniformName:"dirLight.specular"];
+    [program set3fv:_direction.v uniformName:@"dirLight.direction"];
+    [program set3fv:_ambient.v uniformName:@"dirLight.ambient"];
+    [program set3fv:_diffuse.v uniformName:@"dirLight.diffuse"];
+    [program set3fv:_specular.v uniformName:@"dirLight.specular"];
+}
+
+
+- (GLKVector3)direction {
+	return _direction;
+}
+
+- (void)setDirection:(GLKVector3)direction {
+	_direction = direction;
 }
 
 @end

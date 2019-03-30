@@ -13,10 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  * @brief A directional light which can be added to the GL Program for rendering
  */
-@interface DirectionalLight : Light
-
-// The direction of the light
-@property GLKVector3 _direction;
+@interface DirectionalLight : Light {
+    // The direction of the light
+    GLKVector3 _direction;
+}
 
 /*!
  * @brief Initializes the instance
@@ -32,6 +32,21 @@ NS_ASSUME_NONNULL_BEGIN
  * @param program The corresponding GL program
  */
 - (void)draw:(GLProgram *)program;
+
+/*!
+ * Returns the direction of the DirectionalLight.
+ * @author Jason Chung
+ *
+ * @return The direction of the DirectionalLight.
+ */
+- (GLKVector3)direction;
+/*!
+ * Sets the direction of the DirectionalLight.
+ * @author Jason Chung
+ *
+ * @param direction The direction of the DirectionalLight.
+ */
+- (void)setDirection:(GLKVector3)direction;
 
 @end
 

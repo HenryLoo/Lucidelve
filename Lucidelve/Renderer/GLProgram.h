@@ -15,10 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  * @brief A compiled GL program
  */
-@interface GLProgram : NSObject
-
-// The reference to the program on the GPU
-@property GLuint programId;
+@interface GLProgram : NSObject {
+    // The reference to the program
+    GLuint _programId;
+}
 
 /*!
  * @brief Initializes the program with shaders and links them.
@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @return An id to the created instance
  */
-- (id)initWithShaders:(NSMutableArray<Shader *> **)shaders attributes:(NSMutableArray<Attribute *> **)attributes;
+- (id)initWithShaders:(NSMutableArray<Shader *> *_Nonnull*_Nonnull)shaders attributes:(NSMutableArray<Attribute *> *_Nonnull*_Nonnull)attributes;
 /*!
  * @brief Binds the program to be used
  * @author Jason Chung
@@ -41,6 +41,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)unbind;
 /*!
+ * Returns the id of the GLProgram.
+ * @author Jason Chung
+ *
+ * @return The id of the GLProgram.
+ */
+- (GLuint)programId;
+ 
+/*!
  * @brief Returns the location of the known uniforms for the program, and adds it to the
  * list of known uniforms if it is not found.
  * @author Jason Chung
@@ -49,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @return Returns the location of the uniform on the program
  */
-- (GLuint)getUniform:(const char *)name;
+- (GLuint)getUniform:(NSString *)name;
 /*!
  * @brief Sets an integer to the uniform.
  * @author Jason Chung
@@ -57,7 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param value The value to set
  * @param name The name of the uniform to update
  */
-- (void)set1i:(int)value uniformName:(const char *)name;
+- (void)set1i:(int)value uniformName:(NSString *)name;
 /*!
  * @brief Sets a float to the uniform.
  * @author Jason Chung
@@ -65,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param value The value to set
  * @param name The name of the uniform to update
  */
-- (void)set1f:(float)value uniformName:(const char *)name;
+- (void)set1f:(float)value uniformName:(NSString *)name;
 /*!
  * @brief Sets two floats to the uniform.
  * @author Jason Chung
@@ -74,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param f2 The second value to set
  * @param name The name of the uniform to update
  */
-- (void)set2f:(float)f1 f2:(float)f2 uniformName:(const char *)name;
+- (void)set2f:(float)f1 f2:(float)f2 uniformName:(NSString *)name;
 /*!
  * @brief Sets three floats to the uniform.
  * @author Jason Chung
@@ -84,7 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param f3 The third value to set
  * @param name The name of the uniform to update
  */
-- (void)set3f:(float)f1 f2:(float)f2 f3:(float)f3 uniformName:(const char *)name;
+- (void)set3f:(float)f1 f2:(float)f2 f3:(float)f3 uniformName:(NSString *)name;
 /*!
  * @brief Sets four floats to the uniform.
  * @author Jason Chung
@@ -95,7 +103,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param f4 The fourth value to set
  * @param name The name of the uniform to update
  */
-- (void)set4f:(float)f1 f2:(float)f2 f3:(float)f3 f4:(float)f4 uniformName:(const char *)name;
+- (void)set4f:(float)f1 f2:(float)f2 f3:(float)f3 f4:(float)f4 uniformName:(NSString *)name;
 /*!
  * @brief Sets an array of floats to the uniform.
  * @author Jason Chung
@@ -103,7 +111,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param vector The vector to set
  * @param name The name of the uniform to update
  */
-- (void)set2fv:(GLfloat *)vector uniformName:(const char *)name;
+- (void)set2fv:(GLfloat *)vector uniformName:(NSString *)name;
 /*!
  * @brief Sets an array of floats to the uniform.
  * @author Jason Chung
@@ -111,7 +119,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param vector The vector to set
  * @param name The name of the uniform to update
  */
-- (void)set3fv:(GLfloat *)vector uniformName:(const char *)name;
+- (void)set3fv:(GLfloat *)vector uniformName:(NSString *)name;
 /*!
  * @brief Sets an array of floats to the uniform.
  * @author Jason Chung
@@ -119,7 +127,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param vector The vector to set
  * @param name The name of the uniform to update
  */
-- (void)set4fv:(GLfloat *)vector uniformName:(const char *)name;
+- (void)set4fv:(GLfloat *)vector uniformName:(NSString *)name;
 /*!
  * @brief Sets a 3x3 matrix to the uniform
  * @author Jason Chung
@@ -127,7 +135,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param matrix The matrix to set
  * @param name The name of the uniform to update
  */
-- (void)set3fvm:(GLfloat *)matrix uniformName:(const char *)name;
+- (void)set3fvm:(GLfloat *)matrix uniformName:(NSString *)name;
 /*!
  * @brief Sets a 4x4 matrix to the uniform.
  * @author Jason Chung
@@ -135,7 +143,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param matrix The matrix to set
  * @param name The name of the uniform to update
  */
-- (void)set4fvm:(GLfloat *)matrix uniformName:(const char *)name;
+- (void)set4fvm:(GLfloat *)matrix uniformName:(NSString *)name;
 
 @end
 

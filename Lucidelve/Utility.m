@@ -64,16 +64,16 @@
     return results;
 }
 
-- (void)log:(const char *)str {
-    NSLog(@"%s", str);
+- (void)log:(NSString *)str {
+    NSLog(@"%@", str);
 }
 
-- (NSString *)getFilepath:(const char *)filename fileType:(const char *)fileType {
+- (NSString *)getFilepath:(NSString *)filename fileType:(NSString *)fileType {
     return [self getFilepath:filename fileType:fileType bundle:[NSBundle mainBundle]];
 }
 
-- (NSString *)getFilepath:(const char *)filename fileType:(const char *)fileType bundle:(NSBundle *)bundle {
-    return [bundle pathForResource:[NSString stringWithUTF8String:filename] ofType:nil inDirectory:[NSString stringWithFormat:@"Assets/%s/", fileType]];
+- (NSString *)getFilepath:(NSString *)filename fileType:(NSString *)fileType bundle:(NSBundle *)bundle {
+    return [bundle pathForResource:filename ofType:nil inDirectory:[NSString stringWithFormat:@"Assets/%@/", fileType]];
 }
 
 - (void)saveBool:(bool)value key:(NSString *)key {
@@ -113,7 +113,7 @@
 }
 
 - (int)getInt:(NSString *)key {
-    return [[NSUserDefaults standardUserDefaults] integerForKey:key];
+    return (int)[[NSUserDefaults standardUserDefaults] integerForKey:key];
 }
 
 - (NSString *)getString:(NSString *)key {

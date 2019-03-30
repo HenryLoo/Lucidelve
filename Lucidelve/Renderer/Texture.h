@@ -13,16 +13,16 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  * @brief A texture instance
  */
-@interface Texture : NSObject
-
-// The reference to the texture on the GPU
-@property (nonatomic) GLuint _id;
-// The type of texture
-@property const char *_type;
-
-// Dimensions of the texture
-@property size_t width;
-@property size_t height;
+@interface Texture : NSObject {
+    // The reference to the texture on the GPU
+    GLuint _textureId;
+    // The type of texture
+    NSString *_type;
+    
+    // Dimensions of the texture
+    size_t _width;
+    size_t _height;
+}
 
 /*!
  * @brief Initializes the texture with a filename with the default texture_diffuse type
@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @return An id to the created instance
  */
-- (id)initWithFilename:(const char *)filename;
+- (id)initWithFilename:(NSString *)filename;
 /*!
  * @brief Initializes the texture with a filename
  * @author Jason Chung
@@ -42,12 +42,41 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @return An id to the created instance
  */
-- (id)initWithFilename:(const char *)filename type:(const char *)type;
+- (id)initWithFilename:(NSString *)filename type:(NSString *)type;
 /*!
  * @brief Cleans up the texture
  * @author Jason Chung
  */
 - (void)cleanUp;
+
+/*!
+ * Returns the id of the Texture.
+ * @author Jason Chung
+ *
+ * @return The id of the Texture.
+ */
+- (GLuint)textureId;
+/*!
+ * Returns the type of the Texture.
+ * @author Jason Chung
+ *
+ * @return The type of the Texture.
+ */
+- (NSString *)type;
+/*!
+ * Returns the width of the Texture.
+ * @author Jason Chung
+ *
+ * @return The width of the Texture.
+ */
+- (size_t)width;
+/*!
+ * Returns the height of the Texture.
+ * @author Jason Chung
+ *
+ * @return The height of the Texture.
+ */
+- (size_t)height;
 
 @end
 

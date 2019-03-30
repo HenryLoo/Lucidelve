@@ -95,7 +95,7 @@ NSString *KEY_GAME_NUM_LIFE_UPGRADES = @"KEY_GAME_NUM_LIFE_UPGRADES";
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:data options:NSJSONWritingPrettyPrinted error:&error];
     if (!jsonData) {
-        [[Utility getInstance] log:"Unable to convert the dictionary to JSON"];
+        [[Utility getInstance] log:@"Unable to convert the dictionary to JSON"];
     } else {
         NSString *json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         [[Utility getInstance] saveString:json key:KEY_SAVE_FILE];
@@ -210,7 +210,7 @@ NSString *KEY_GAME_NUM_LIFE_UPGRADES = @"KEY_GAME_NUM_LIFE_UPGRADES";
     if (value) {
         return value;
     }
-    [[Utility getInstance] log:[[NSString stringWithFormat:@"No object exists for key \"%@\"", key] UTF8String]];
+    [[Utility getInstance] log:[NSString stringWithFormat:@"No object exists for key \"%@\"", key]];
     return nil;
 }
 

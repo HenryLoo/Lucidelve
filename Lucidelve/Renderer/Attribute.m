@@ -10,12 +10,20 @@
 
 @implementation Attribute
 
-- (id)initWithName:(const char *)name index:(unsigned int)index {
+- (id)initWithName:(NSString *)name attributeId:(GLuint)attributeId {
     if (self == [super init]) {
-        self._name = name;
-        self._index = index;
+        _name = name;
+        _attributeId = attributeId;
     }
     return self;
+}
+
+- (NSString *)name {
+	return _name;
+}
+
+- (GLuint)attributeId {
+	return _attributeId;
 }
 
 @end

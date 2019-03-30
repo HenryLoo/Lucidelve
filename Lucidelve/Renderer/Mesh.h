@@ -12,53 +12,35 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef struct {
+    GLKVector3 position;
+    GLKVector2 uv;
+    GLKVector3 normal;
+} Vertex;
+
 /*!
  * @brief A renderable Mesh object
  */
-@interface Mesh : NSObject
+@interface Mesh : NSObject {
+    // The vertices positions of the Mesh
+    NSMutableData *_vertices;
+    // The texture coordinates of the Mesh
+    NSMutableData *_textureCoords;
+    // The normals of the Mesh
+    NSMutableData *_normals;
+    // The indices of the Vertices
+    NSMutableData *_indices;
+    // The textures this Mesh is using
+    NSMutableArray<Texture *> *_textures;
+    
+    // The position of the Mesh
+    GLKVector3 _position;
+    // The rotation of the Mesh
+    GLKVector3 _rotation;
+    // The scale of the Mesh
+    GLKVector3 _scale;
+}
 
-// The mesh's array of vertices
-@property (nonatomic) GLfloat *_vertices;
-// The mesh's array of normals
-@property (nonatomic) GLfloat *_normals;
-// The mesh's array of texels
-@property (nonatomic) GLfloat *_uvs;
-// The mesh's array of indices
-@property (nonatomic) GLuint *_indices;
-// An array of textures
-@property (nonatomic, strong) NSMutableArray<Texture *> *_textures;
-
-// The number of vertices
-@property (nonatomic) GLsizei _numVertices;
-// The number of normals
-@property (nonatomic) GLsizei _numNormals;
-// The number of texels
-@property (nonatomic) GLsizei _numUvs;
-// The number of indices
-@property (nonatomic) GLsizei _numIndices;
-
-// The position of the Mesh
-@property (nonatomic) GLKVector3 _position;
-// The rotation of the Mesh
-@property (nonatomic) GLKVector3 _rotation;
-// The scale of the Mesh
-@property (nonatomic) GLKVector3 _scale;
-
-/*!
- * @brief Copies mesh data into the instance of the Mesh
- * @author Jason Chung
- *
- * @param vertexData An array of vertices
- * @param numVertices The length of the vertex array
- * @param normals An array of normals
- * @param uvs An array of texels
- * @param numUvs The length of the texel array
- * @param indices An array of indices
- * @param numIndices The length of the indices array
- *
- * @return An id of the created instance
- */
-- (id)initWithVertexData:(GLfloat *)vertexData numVertices:(GLsizei)numVertices normals:(GLfloat *)normals uvs:(GLfloat *)uvs numUvs:(GLsizei)numUvs indices:(GLuint *)indices numIndices:(GLsizei)numIndices;
 /*!
  * @brief Wavefront OBJ model loader, loads an OBJ model into the instance of the Mesh
  * @author Jason Chung
@@ -67,7 +49,23 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @return An id of the created instance
  */
-- (id)initWithFilename:(const char *)filename;
+// - (id)initWithFilename:(NSString *)filename;
+
+/*!
+ * @brief Initializes a Mesh instance and copies another Meshes values.
+ * @author Jason Chung
+ *
+ * @param mesh The mesh to copy.
+ *
+ * @return The new Mesh.
+ */
+- (id)initWithMesh:(Mesh *)mesh;
+
+/*!
+ * Sets up the OpenGL buffers for this Mesh.
+ * @author Jason Chung
+ */
+- (void)setup;
 
 /*!
  * @brief Cleans up the Mesh
@@ -81,6 +79,12 @@ NS_ASSUME_NONNULL_BEGIN
  * @param program A pointer to the program to set uniforms
  */
 - (void)draw:(GLProgram *)program;
+
+- (void)setVertices:(NSMutableData *)vertices;
+- (void)setTextureCoordinates:(NSMutableData *)textureCoords;
+- (void)setNormals:(NSMutableData *)normals;
+- (void)setIndices:(NSMutableData *)indices;
+
 /*!
  * @brief Adds a texture to the array of textures
  * @author Jason Chung
@@ -89,7 +93,137 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)addTexture:(Texture *)texture;
 
-- (id)copyWithZone:(NSZone *)zone;
+/*!
+ * Returns the vertex positions of the Mesh.
+ * @author Jason Chung
+ *
+ * @return The vertex positions of the Mesh.
+ */
+- (NSMutableData *)vertices;
+/*!
+ * Returns the vertex texture coordinates of the Mesh.
+ * @author Jason Chung
+ *
+ * @return The vertex texture coordinates of the Mesh.
+ */
+- (NSMutableData *)textureCoords;
+/*!
+ * Returns the vertex normals of the Mesh.
+ * @author Jason Chung
+ *
+ * @return The vertex normals of the Mesh.
+ */
+- (NSMutableData *)normals;
+/*!
+ * Returns the indices of the Mesh.
+ * @author Jason Chung
+ *
+ * @return The indices of the Mesh.
+ */
+- (NSMutableData *)indices;
+/*!
+ * Returns the textures of the Mesh.
+ * @author Jason Chung
+ *
+ * @return The textures of the Mesh.
+ */
+- (NSMutableArray<Texture *> *)textures;
+/*!
+ * Returns the texture of the Mesh at the index.
+ * @author Jason Chung
+ *
+ * @param index The index in the textures array
+ *
+ * @return The texture of the Mesh at the index.
+ */
+- (Texture *)textureAtIndex:(GLint)index;
+
+/*!
+ * Returns the position of the Mesh.
+ * @author Jason Chung
+ *
+ * @return The position of the Mesh.
+ */
+- (GLKVector3)position;
+/*!
+ * Returns the rotation of the Mesh.
+ * @author Jason Chung
+ *
+ * @return The rotation of the Mesh.
+ */
+- (GLKVector3)rotation;
+/*!
+ * Returns the scale of the Mesh.
+ * @author Jason Chung
+ *
+ * @return The scale of the Mesh.
+ */
+- (GLKVector3)scale;
+
+/*!
+ * Sets the position of the Mesh.
+ * @author Jason Chung
+ *
+ * @param position The new position of the Mesh.
+ */
+- (void)setPosition:(GLKVector3)position;
+/*!
+ * Sets the rotation of the Mesh.
+ * @author Jason Chung
+ *
+ * @param rotation The new rotation of the Mesh.
+ */
+- (void)setRotation:(GLKVector3)rotation;
+/*!
+ * Sets the scale of the Mesh.
+ * @author Jason Chung
+ *
+ * @param scale The new scale of the Mesh.
+ */
+- (void)setScale:(GLKVector3)scale;
+
+/*!
+ * Returns the number of textures of the Mesh.
+ * @author Jason Chung
+ *
+ * @return The number of textures of the Mesh.
+ */
+- (GLint)numTextures;
+/*!
+ * Returns the number of vertices of the Mesh.
+ * @author Jason Chung
+ *
+ * @return The number of vertices of the Mesh.
+ */
+- (GLint)numVertices;
+/*!
+ * Returns the number of the Mesh's texture coordinates.
+ * @author Jason Chung
+ *
+ * @return The number of texture coordinates of the Mesh.
+ */
+- (GLint)numTextureCoords;
+/*!
+ * Returns the number of normals of the Mesh.
+ * @author Jason Chung
+ *
+ * @return The number of normals of the Mesh.
+ */
+- (GLint)numNormals;
+/*!
+ * Returns the number of indices of the Mesh.
+ * @author Jason Chung
+ *
+ * @return The number of indices of the Mesh.
+ */
+- (GLint)numIndices;
+
+/*!
+ * Returns a copied instance of this Mesh.
+ *
+ * @return A new instance copied from this Mesh.
+ */
+- (id)copy;
 
 @end
 

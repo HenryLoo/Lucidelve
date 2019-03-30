@@ -53,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @param str The string to output
  */
-- (void)log:(const char *)str;
+- (void)log:(NSString *)str;
 
 /*!
  * @brief Gets an absolute path to a file.
@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @return A string containing the absolute filepath or nil
  */
-- (NSString *)getFilepath:(const char *)filename fileType:(const char *)fileType;
+- (NSString *)getFilepath:(NSString *)filename fileType:(NSString *)fileType;
 /*!
  * @brief Gets an absolute path to a file.
  * @author Jason Chung
@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @return A string containing the absolute filepath or nil
  */
-- (NSString *)getFilepath:(const char *)filename fileType:(const char *)fileType bundle:(NSBundle *)bundle;
+- (NSString *)getFilepath:(NSString *)filename fileType:(NSString *)fileType bundle:(NSBundle *)bundle;
 
 /*!
  * @brief Saves the bool value to user preferences.

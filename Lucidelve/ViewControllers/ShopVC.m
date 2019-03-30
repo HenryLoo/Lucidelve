@@ -70,34 +70,34 @@
     [shieldButton addTarget:self action:@selector(onShieldButtonPress:)
            forControlEvents:UIControlEventTouchDown];
     
-    bgMesh = [[Primitives getInstance] square];
-    bgMesh._scale = GLKVector3Make(2.5f, 4.0f, 1);
+    bgMesh = [Primitives square];
+    [bgMesh setScale:GLKVector3Make(2.5f, 4.0f, 1)];
     [bgMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_SHOP_BG]];
     
     shieldMesh = [[Assets getInstance] getMesh:KEY_MESH_SHIELD];
-    shieldMesh._scale = GLKVector3Make(0.05f, 0.05f, 0.05f);
-    shieldMesh._position = GLKVector3Make(0.4f, -0.3f, 1.0f);
-    shieldMesh._rotation = GLKVector3Make(0, -M_PI / 4, 0);
+    [shieldMesh setScale:GLKVector3Make(0.05f, 0.05f, 0.05f)];
+    [shieldMesh setPosition:GLKVector3Make(0.4f, -0.3f, 1.0f)];
+    [shieldMesh setRotation:GLKVector3Make(0, -M_PI / 4, 0)];
 	[shieldMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_SHIELD]];
     swordMesh = [[Assets getInstance] getMesh:KEY_MESH_SWORD];
-    swordMesh._scale = GLKVector3Make(0.15f, 0.15f, 0.15f);
-    swordMesh._position = GLKVector3Make(-0.4f, -0.2, 1.0f);
-    swordMesh._rotation = GLKVector3Make(M_PI / 4, M_PI, -M_PI / 6);
+    [swordMesh setScale:GLKVector3Make(0.15f, 0.15f, 0.15f)];
+    [swordMesh setPosition:GLKVector3Make(-0.4f, -0.2, 1.0f)];
+    [swordMesh setRotation:GLKVector3Make(M_PI / 4, M_PI, -M_PI / 6)];
 	[swordMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_SWORD]];
     heartMesh = [[Assets getInstance] getMesh:KEY_MESH_HEART];
-    heartMesh._scale = GLKVector3Make(0.2f, 0.2f, 0.2f);
-    heartMesh._position = GLKVector3Make(0, -0.5f, 1.0f);
-    heartMesh._rotation = GLKVector3Make(0, -M_PI / 4, 0);
+    [heartMesh setScale:GLKVector3Make(0.2f, 0.2f, 0.2f)];
+    [heartMesh setPosition:GLKVector3Make(0, -0.5f, 1.0f)];
+    [heartMesh setRotation:GLKVector3Make(0, -M_PI / 4, 0)];
 	[heartMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_HEART]];
     bombMesh = [[Assets getInstance] getMesh:KEY_MESH_BOMB];
-    bombMesh._scale = GLKVector3Make(0.1f, 0.1f, 0.1f);
-    bombMesh._position = GLKVector3Make(-0.4f, -0.9f, 1.0f);
-    bombMesh._rotation = GLKVector3Make(0, -M_PI / 4, 0);
+    [bombMesh setScale:GLKVector3Make(0.1f, 0.1f, 0.1f)];
+    [bombMesh setPosition:GLKVector3Make(-0.4f, -0.9f, 1.0f)];
+    [bombMesh setRotation:GLKVector3Make(0, -M_PI / 4, 0)];
 	[bombMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_BOMB]];
     potionMesh = [[Assets getInstance] getMesh:KEY_MESH_POTION];
-    potionMesh._scale = GLKVector3Make(0.08f, 0.08f, 0.08f);
-    potionMesh._position = GLKVector3Make(0.4f, -0.9f, 1.0f);
-    potionMesh._rotation = GLKVector3Make(0, -M_PI / 4, 0);
+    [potionMesh setScale:GLKVector3Make(0.08f, 0.08f, 0.08f)];
+    [potionMesh setPosition:GLKVector3Make(0.4f, -0.9f, 1.0f)];
+    [potionMesh setRotation:GLKVector3Make(0, -M_PI / 4, 0)];
 	[potionMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_POTION]];
 }
 
