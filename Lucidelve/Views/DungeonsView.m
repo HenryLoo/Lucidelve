@@ -30,8 +30,8 @@
     
 - (void)setupHeaderElements
 {
-    [super addBackButton];
     [super addTitle:@"DUNGEONS"];
+    [super addBackButton];
     [self setupDescriptionLabel];
 }
     
@@ -68,6 +68,8 @@
 - (void)setupDungeonsTable
 {
     _dungeons = [[UITableView alloc] initWithFrame:self.footerArea.frame style:UITableViewStylePlain];
+    _dungeons.layer.borderColor = UIColor.blackColor.CGColor;
+    _dungeons.layer.borderWidth = 2;
     [self.footerArea addSubview:_dungeons];
     
     // Enable autolayout

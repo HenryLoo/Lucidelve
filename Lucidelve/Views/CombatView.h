@@ -21,8 +21,8 @@
 @property (nonatomic, strong) UILabel *playerStaminaLabel;
 
 // Show the player's item 1 and item 2
-@property (nonatomic, strong) UIView *item1View;
-@property (nonatomic, strong) UIView *item2View;
+@property (nonatomic, strong) UIButton *item1Button;
+@property (nonatomic, strong) UIButton *item2Button;
 
 // TODO: some label to display player and enemy visuals,
 // since sprite rendering isn't very usable yet.

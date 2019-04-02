@@ -23,8 +23,8 @@
 
 - (void)setupHeaderElements
 {
-    [super addBackButton];
     [super addTitle:@"SHOP"];
+    [super addBackButton];
     [self setupGoldLabel];
 }
 

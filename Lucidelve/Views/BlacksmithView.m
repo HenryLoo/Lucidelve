@@ -22,8 +22,8 @@
 
 - (void)setupHeaderElements
 {
-    [super addBackButton];
     [super addTitle:@"BLACKSMITH"];
+    [super addBackButton];
     [self setupGoldLabel];
 }
 

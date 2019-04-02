@@ -13,6 +13,8 @@
 #import "Renderer.h"
 #import "Constants.h"
 #import "AudioPlayer.h"
+#import "../Renderer/Primitives.h"
+#import "../Renderer/Assets.h"
 
 @interface InventoryVC ()
 {
@@ -30,6 +32,8 @@
     
     // The index of the selected item
     int selectedItem;
+    
+    Mesh *bgMesh;
 }
 @end
 
@@ -68,6 +72,11 @@
     
     // Start with no item selected
     selectedItem = NO_SELECTED_ITEM;
+    
+    bgMesh = [Primitives square];
+    [bgMesh setScale:GLKVector3Make(2.5f, 4.0f, 1)];
+    [bgMesh setPosition:GLKVector3Make(0, 0, -0.1)];
+    [bgMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_HUB_BG]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,6 +94,7 @@
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
     [self.renderer setupRender:rect];
+    [self.renderer renderMesh:bgMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_PASSTHROUGH]];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

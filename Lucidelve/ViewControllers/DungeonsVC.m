@@ -14,16 +14,18 @@
 #import "CombatVC.h"
 #import "Renderer.h"
 #import "Primitives.h"
-#import "../Renderer/Assets.h"
 #import "AudioPlayer.h"
+#import "../Renderer/Primitives.h"
+#import "../Renderer/Assets.h"
 
 @interface DungeonsVC ()
 {
     // Pointer to the view's dungeons tableview
     UITableView *dungeons;
     
-    // TODO: replace placeholder mesh
-    Mesh *mesh;
+    Mesh *bgMesh;
+    Mesh *door;
+    bool jiggleDoor;
 }
 @end
 
@@ -46,11 +48,16 @@
     dungeons.dataSource = self;
     [dungeons registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CellId"];
     
-    // TODO: replace placeholder art
-    Texture *texture = [[Texture alloc] initWithFilename:@"placeholder_dungeons.png"];
-    mesh = [Primitives square];
-    [mesh setScale:GLKVector3Make(1.5f, 1.5f, 1)];
-    [mesh addTexture:texture];
+    bgMesh = [Primitives square];
+    [bgMesh setScale:GLKVector3Make(2.5f, 4.0f, 1)];
+    [bgMesh setPosition:GLKVector3Make(0, 0, -0.1)];
+    [bgMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_HUB_BG]];
+    
+    door = [[Assets getInstance] getMesh:KEY_MESH_DOOR];
+    [door setScale:GLKVector3Make(0.3, 0.3, 0.3)];
+    [door setPosition:GLKVector3Make(0, 0, 1.0f)];
+    //[door setRotation:GLKVector3Make(M_PI / 6, -M_PI / 4, 0)];
+    [door addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_DOOR]];
 }
     
 - (void)didReceiveMemoryWarning {
@@ -61,13 +68,15 @@
 - (void)update
 {
     [super update];
+    
+    [self jiggleMesh:door forward:&jiggleDoor];
 }
     
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
     [self.renderer setupRender:rect];
-    
-    [self.renderer renderMesh:mesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_PASSTHROUGH]];
+    [self.renderer renderMesh:bgMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_PASSTHROUGH]];
+    [self.renderer renderMesh:door program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
 }
     
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

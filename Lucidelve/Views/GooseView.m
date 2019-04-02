@@ -22,8 +22,8 @@
 
 - (void)setupHeaderElements
 {
-    [super addBackButton];
     [super addTitle:@"GOLDEN GOOSE"];
+    [super addBackButton];
     [self setupGoldLabel];
 }
 

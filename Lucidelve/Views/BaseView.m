@@ -91,9 +91,6 @@
     _backButton = [[UIButton alloc] initWithFrame:CGRectZero];
     _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_backButton setTitle:@"< Back" forState:UIControlStateNormal];
-    _backButton.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0.2 alpha:0.8];
-    _backButton.layer.borderColor = UIColor.whiteColor.CGColor;
-    _backButton.layer.borderWidth = 1;
     [self.headerArea addSubview:_backButton];
     
     // Enable autolayout
@@ -111,7 +108,7 @@
     _titleLabel.text = title;
     _titleLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     float halfWidth = self.frame.size.width / 2;
-    [_titleLabel setContentEdgeInsets:UIEdgeInsetsMake(20, halfWidth, 20, halfWidth)];
+    [_titleLabel setContentEdgeInsets:UIEdgeInsetsMake(25, halfWidth, 25, halfWidth)];
     [self.headerArea addSubview:_titleLabel];
     
     // Enable autolayout
@@ -151,18 +148,18 @@
     [_footerArea.widthAnchor constraintEqualToConstant:_footerArea.frame.size.width].active = YES;
     [_footerArea.heightAnchor constraintEqualToConstant:_footerArea.frame.size.height].active = YES;
     
-    // Back button constraints
-    if (_backButton)
-    {
-        [_backButton.leftAnchor constraintEqualToAnchor:_headerArea.leftAnchor constant:8].active = YES;
-        [_backButton.topAnchor constraintEqualToAnchor:_headerArea.topAnchor constant:25].active = YES;
-    }
-    
     // Title constraints
     if (_titleLabel)
     {
         [_titleLabel.centerXAnchor constraintEqualToAnchor:_headerArea.centerXAnchor].active = YES;
-        [_titleLabel.topAnchor constraintEqualToAnchor:_headerArea.topAnchor constant:60].active = YES;
+        [_titleLabel.topAnchor constraintEqualToAnchor:_headerArea.topAnchor constant:50].active = YES;
+    }
+    
+    // Back button constraints
+    if (_backButton)
+    {
+        [_backButton.leftAnchor constraintEqualToAnchor:_headerArea.leftAnchor constant:8].active = YES;
+        [_backButton.centerYAnchor constraintEqualToAnchor:_titleLabel.centerYAnchor].active = YES;
     }
 }
 

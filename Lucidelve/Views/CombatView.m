@@ -121,17 +121,21 @@
  */
 - (void)setupItemViews
 {
-    _item1View = [[UILabel alloc] initWithFrame:CGRectZero];
-    _item1View.backgroundColor = UIColor.darkGrayColor;
-    [self.footerArea addSubview:_item1View];
+    _item1Button = [[UIButton alloc] init];
+    _item1Button.backgroundColor = UIColor.darkGrayColor;
+    _item1Button.layer.borderColor = UIColor.blackColor.CGColor;
+    _item1Button.layer.borderWidth = 2;
+    [self.footerArea addSubview:_item1Button];
     
-    _item2View = [[UILabel alloc] initWithFrame:CGRectZero];
-    _item2View.backgroundColor = UIColor.darkGrayColor;
-    [self.footerArea addSubview:_item2View];
+    _item2Button = [[UIButton alloc] init];
+    _item2Button.backgroundColor = UIColor.darkGrayColor;
+    _item2Button.layer.borderColor = UIColor.blackColor.CGColor;
+    _item2Button.layer.borderWidth = 2;
+    [self.footerArea addSubview:_item2Button];
     
     // Enable autolayout
-    _item1View.translatesAutoresizingMaskIntoConstraints = false;
-    _item2View.translatesAutoresizingMaskIntoConstraints = false;
+    _item1Button.translatesAutoresizingMaskIntoConstraints = false;
+    _item2Button.translatesAutoresizingMaskIntoConstraints = false;
 }
 
 /*!
@@ -161,15 +165,15 @@
     // Item 1 and item 2 constraints
     float itemViewSize = self.footerArea.frame.size.height * 2 / 3;
     float itemViewOffset = (self.footerArea.frame.size.height - itemViewSize) / 2;
-    [_item2View.rightAnchor constraintEqualToAnchor:self.footerArea.rightAnchor constant:-itemViewOffset].active = YES;
-    [_item2View.topAnchor constraintEqualToAnchor:self.footerArea.topAnchor constant:itemViewOffset].active = YES;
-    [_item2View.widthAnchor constraintEqualToConstant:itemViewSize].active = YES;
-    [_item2View.heightAnchor constraintEqualToConstant:itemViewSize].active = YES;
+    [_item2Button.rightAnchor constraintEqualToAnchor:self.footerArea.rightAnchor constant:-itemViewOffset].active = YES;
+    [_item2Button.topAnchor constraintEqualToAnchor:self.footerArea.topAnchor constant:itemViewOffset].active = YES;
+    [_item2Button.widthAnchor constraintEqualToConstant:itemViewSize].active = YES;
+    [_item2Button.heightAnchor constraintEqualToConstant:itemViewSize].active = YES;
     
-    [_item1View.rightAnchor constraintEqualToAnchor:_item2View.leftAnchor constant:-itemViewOffset].active = YES;
-    [_item1View.topAnchor constraintEqualToAnchor:_item2View.topAnchor].active = YES;
-    [_item1View.widthAnchor constraintEqualToConstant:itemViewSize].active = YES;
-    [_item1View.heightAnchor constraintEqualToConstant:itemViewSize].active = YES;
+    [_item1Button.rightAnchor constraintEqualToAnchor:_item2Button.leftAnchor constant:-itemViewOffset].active = YES;
+    [_item1Button.topAnchor constraintEqualToAnchor:_item2Button.topAnchor].active = YES;
+    [_item1Button.widthAnchor constraintEqualToConstant:itemViewSize].active = YES;
+    [_item1Button.heightAnchor constraintEqualToConstant:itemViewSize].active = YES;
 }
 
 @end

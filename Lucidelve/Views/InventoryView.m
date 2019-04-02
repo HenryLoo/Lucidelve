@@ -23,8 +23,8 @@
 
 - (void)setupHeaderElements
 {
-    [super addBackButton];
     [super addTitle:@"INVENTORY"];
+    [super addBackButton];
 }
 
 - (void)setupBodyElements
@@ -68,10 +68,14 @@
 {
     _item1Button = [[UIButton alloc] init];
     _item1Button.backgroundColor = UIColor.darkGrayColor;
+    _item1Button.layer.borderColor = UIColor.blackColor.CGColor;
+    _item1Button.layer.borderWidth = 2;
     [self.bodyArea addSubview:_item1Button];
     
     _item2Button = [[UIButton alloc] init];
     _item2Button.backgroundColor = UIColor.darkGrayColor;
+    _item2Button.layer.borderColor = UIColor.blackColor.CGColor;
+    _item2Button.layer.borderWidth = 2;
     [self.bodyArea addSubview:_item2Button];
     
     // Enable autolayout
@@ -86,6 +90,8 @@
 - (void)setupItemsTable
 {
     _items = [[UITableView alloc] initWithFrame:self.footerArea.frame style:UITableViewStylePlain];
+    _items.layer.borderColor = UIColor.blackColor.CGColor;
+    _items.layer.borderWidth = 2;
     [self.footerArea addSubview:_items];
     
     // Enable autolayout
@@ -109,12 +115,12 @@
     // Item 1 and item 2 constraints
     float itemViewSize = self.bodyArea.frame.size.height * 2 / 3;
     [_item1Button.centerXAnchor constraintEqualToAnchor:_item1Label.centerXAnchor].active = YES;
-    [_item1Button.topAnchor constraintEqualToAnchor:_item1Label.bottomAnchor].active = YES;
+    [_item1Button.topAnchor constraintEqualToAnchor:_item1Label.bottomAnchor constant:8].active = YES;
     [_item1Button.widthAnchor constraintEqualToConstant:itemViewSize].active = YES;
     [_item1Button.heightAnchor constraintEqualToConstant:itemViewSize].active = YES;
     
     [_item2Button.centerXAnchor constraintEqualToAnchor:_item2Label.centerXAnchor].active = YES;
-    [_item2Button.topAnchor constraintEqualToAnchor:_item2Label.bottomAnchor].active = YES;
+    [_item2Button.topAnchor constraintEqualToAnchor:_item2Label.bottomAnchor constant:8].active = YES;
     [_item2Button.widthAnchor constraintEqualToConstant:itemViewSize].active = YES;
     [_item2Button.heightAnchor constraintEqualToConstant:itemViewSize].active = YES;
     
