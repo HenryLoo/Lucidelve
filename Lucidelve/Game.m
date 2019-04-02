@@ -40,9 +40,10 @@
         _goldCooldownTimer = 0;
         [self initAssets];
         
-        // Reload saved gold value
+        // Reload saved values
         [[Storage getInstance] loadPlayer:player];
         [[Storage getInstance] loadGameData:self];
+        [player addMaxLife:self.numLifeUpgrades];
         
         // Initialize the Golden Goose's gold generation rate
         [self updateGooseRate];

@@ -82,9 +82,11 @@ typedef enum
 /*!
  * @brief Increment the character's max life by one.
  * This will typically be used during health upgrades.
- * @author Henry Loo
+ * @author Henry Loo*
+ *
+ * @param amount The value to increment the character's current max life by.
  */
-- (void)addMaxLife;
+- (void)addMaxLife:(int)amount;
 
 /*!
  * @brief Return the character's current life.

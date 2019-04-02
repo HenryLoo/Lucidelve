@@ -59,8 +59,10 @@
  * @brief Increment the player's max stamina by one.
  * This will typically be used during stamina upgrades.
  * @author Henry Loo
+ *
+ * @param amount The value to increment the character's current max stamina by.
  */
-- (void)addMaxStamina;
+- (void)addMaxStamina:(int)amount;
 
 /*!
  * @brief Return the player's current stamina.

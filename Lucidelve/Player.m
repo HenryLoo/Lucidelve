@@ -128,9 +128,9 @@
     currentStamina = MAX(0, MIN(currentStamina, maxStamina));
 }
 
-- (void)addMaxStamina
+- (void)addMaxStamina:(int)amount
 {
-    ++maxStamina;
+    maxStamina += amount;
 }
 
 - (int)getCurrentStamina

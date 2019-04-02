@@ -94,9 +94,9 @@
     }
 }
 
-- (void)addMaxLife
+- (void)addMaxLife:(int)amount
 {
-    ++maxLife;
+    maxLife += amount;
 }
 
 - (int)getCurrentLife

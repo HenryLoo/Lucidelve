@@ -225,7 +225,7 @@
         self.game.numLifeUpgrades++;
         
         // Increment the player's max life and then heal them to full
-        [player addMaxLife];
+        [player addMaxLife:1];
         [player reset:true];
         
         [[AudioPlayer getInstance] play:KEY_SOUND_BUY];
