@@ -14,6 +14,7 @@
 #import "../Renderer/Camera.h"
 #import "../Renderer/Assets.h"
 #import "../Renderer/Mesh.h"
+#import "AudioPlayer.h"
 
 @interface BaseVC ()
 {
@@ -90,6 +91,8 @@
 
 - (void)onBackButtonPress:(id)sender
 {
+    [[AudioPlayer getInstance] play:KEY_SOUND_SELECT];
+    
     HubVC *vc = [[HubVC alloc] init];
     [_game changeScene:self newVC:vc];
 }

@@ -15,6 +15,7 @@
 #import "Renderer.h"
 #import "Primitives.h"
 #import "../Renderer/Assets.h"
+#import "AudioPlayer.h"
 
 @interface DungeonsVC ()
 {
@@ -92,6 +93,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [[AudioPlayer getInstance] play:KEY_SOUND_DUNGEON_ENTER];
+    
     // Move to the Combat scene
     CombatVC *vc = [[CombatVC alloc] init];
     

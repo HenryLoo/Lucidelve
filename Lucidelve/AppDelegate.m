@@ -33,6 +33,12 @@
     [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"gold.wav"] key:KEY_SOUND_GOLD];
     [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"healing_potion.wav"] key:KEY_SOUND_HEALING_POTION];
     [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"player_hurt.wav"] key:KEY_SOUND_PLAYER_HURT];
+    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"blacksmith_upgrade.wav"] key:KEY_SOUND_BLACKSMITH_UPGRADE];
+    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"goose_upgrade.wav"] key:KEY_SOUND_GOOSE_UPGRADE];
+    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"select.wav"] key:KEY_SOUND_SELECT];
+    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"item_equip.wav"] key:KEY_SOUND_ITEM_EQUIP];
+    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"item_unequip.wav"] key:KEY_SOUND_ITEM_UNEQUIP];
+    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"dungeon_enter.wav"] key:KEY_SOUND_DUNGEON_ENTER];
     
     // Load save data
     [[Storage getInstance] loadData];

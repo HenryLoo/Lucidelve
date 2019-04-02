@@ -12,6 +12,7 @@
 #import "InventoryView.h"
 #import "Renderer.h"
 #import "Constants.h"
+#import "AudioPlayer.h"
 
 @interface InventoryVC ()
 {
@@ -113,6 +114,7 @@
     
     if (![self isItemSelected])
     {
+        [[AudioPlayer getInstance] play:KEY_SOUND_SELECT];
         [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:NO];
     }
 }
@@ -149,12 +151,14 @@
         if (item.isEquippable)
         {
             // Equip the item
+            [[AudioPlayer getInstance] play:KEY_SOUND_ITEM_EQUIP];
             [player equipItem:selectedItem withItemSlot:itemSlot];
         }
     }
     // Otherwise, unequip the equipped item
     else
     {
+        [[AudioPlayer getInstance] play:KEY_SOUND_ITEM_UNEQUIP];
         [player unequipItem:itemSlot];
     }
     

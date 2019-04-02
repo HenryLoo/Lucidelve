@@ -104,11 +104,11 @@
     
     // Attach selector to the Golden Goose button
     [gooseButton addTarget:self action:@selector(onGooseButtonPress:)
-             forControlEvents:UIControlEventTouchDown];
+          forControlEvents:UIControlEventTouchDown];
     
     // Attach selector to the Blacksmith button
     [blacksmithButton addTarget:self action:@selector(onBlacksmithButtonPress:)
-          forControlEvents:UIControlEventTouchDown];
+               forControlEvents:UIControlEventTouchDown];
     
     bgMesh = [Primitives square];
     [bgMesh setScale:GLKVector3Make(2.5f, 4.0f, 1)];
@@ -132,12 +132,12 @@
     [money setScale:GLKVector3Make(0.2f, 0.2f, 0.2f)];
     [money setPosition:GLKVector3Make(-0.4f, 0.9f, 1.0f)];
     [money setRotation:GLKVector3Make(M_PI / 6, -M_PI / 4, 0)];
-	[money addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_MONEY]];
+    [money addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_MONEY]];
     door = [[Assets getInstance] getMesh:KEY_MESH_DOOR];
     [door setScale:GLKVector3Make(0.2f, 0.2f, 0.2f)];
     [door setPosition:GLKVector3Make(0, 0.5f, 1.0f)];
     [door setRotation:GLKVector3Make(M_PI / 6, -M_PI / 4, 0)];
-	[door addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_DOOR]];
+    [door addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_DOOR]];
     bag = [[Assets getInstance] getMesh:KEY_MESH_BACKPACK];
     [bag setScale:GLKVector3Make(0.1f, 0.1f, 0.1f)];
     [bag setPosition:GLKVector3Make(-0.4f, 0.1f, 1.0f)];
@@ -147,7 +147,7 @@
     [goldenGoose setScale:GLKVector3Make(0.08f, 0.08f, 0.08f)];
     [goldenGoose setPosition:GLKVector3Make(0.4f, 0.1f, 1.0f)];
     [goldenGoose setRotation:GLKVector3Make(M_PI / 6, -M_PI / 4, 0)];
-	[goldenGoose addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_GOLDEN_GOOSE]];
+    [goldenGoose addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_GOLDEN_GOOSE]];
     
     // Initialize player animation values
     playerSpriteTimer = PLAYER_WALK_SPEED;
@@ -346,6 +346,8 @@
  */
 - (void)onShopButtonPress:(id)sender
 {
+    [[AudioPlayer getInstance] play:KEY_SOUND_SELECT];
+    
     ShopVC *vc = [[ShopVC alloc] init];
     [self.game changeScene:self newVC:vc];
 }
@@ -359,6 +361,8 @@
  */
 - (void)onInventoryButtonPress:(id)sender
 {
+    [[AudioPlayer getInstance] play:KEY_SOUND_SELECT];
+    
     InventoryVC *vc = [[InventoryVC alloc] init];
     [self.game changeScene:self newVC:vc];
 }
@@ -372,6 +376,8 @@
  */
 - (void)onDungeonsButtonPress:(id)sender
 {
+    [[AudioPlayer getInstance] play:KEY_SOUND_SELECT];
+    
     DungeonsVC *vc = [[DungeonsVC alloc] init];
     [self.game changeScene:self newVC:vc];
 }
@@ -385,6 +391,8 @@
  */
 - (void)onGooseButtonPress:(id)sender
 {
+    [[AudioPlayer getInstance] play:KEY_SOUND_SELECT];
+    
     GooseVC *vc = [[GooseVC alloc] init];
     [self.game changeScene:self newVC:vc];
 }
@@ -398,6 +406,8 @@
  */
 - (void)onBlacksmithButtonPress:(id)sender
 {
+    [[AudioPlayer getInstance] play:KEY_SOUND_SELECT];
+    
     BlacksmithVC *vc = [[BlacksmithVC alloc] init];
     [self.game changeScene:self newVC:vc];
 }

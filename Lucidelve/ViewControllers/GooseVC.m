@@ -94,9 +94,9 @@
 }
 
 /*!
-* @brief Update the gold label's values.
-* @author Henry Loo
-*/
+ * @brief Update the gold label's values.
+ * @author Henry Loo
+ */
 - (void)updateGoldLabel
 {
     int gold = [player getGold];
@@ -195,7 +195,7 @@
             [player addItem:ITEMS[ITEM_GOLDEN_EGG]];
         }
         
-        [[AudioPlayer getInstance] play:KEY_SOUND_BUY];
+        [[AudioPlayer getInstance] play:KEY_SOUND_GOOSE_UPGRADE];
     }
 }
 

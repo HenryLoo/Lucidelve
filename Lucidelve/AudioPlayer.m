@@ -19,6 +19,13 @@ NSString *KEY_SOUND_ENEMY_HURT = @"enemy_hurt";
 NSString *KEY_SOUND_GOLD = @"gold";
 NSString *KEY_SOUND_HEALING_POTION = @"healing_potion";
 NSString *KEY_SOUND_PLAYER_HURT = @"player_hurt";
+NSString *KEY_SOUND_BLACKSMITH_UPGRADE = @"blacksmith_upgrade";
+NSString *KEY_SOUND_GOOSE_UPGRADE = @"goose_upgrade";
+NSString *KEY_SOUND_SELECT = @"select";
+NSString *KEY_SOUND_ITEM_EQUIP = @"item_equip";
+NSString *KEY_SOUND_ITEM_UNEQUIP = @"item_unequip";
+NSString *KEY_SOUND_DUNGEON_ENTER = @"dungeon_enter";
+
 static AudioPlayer *INSTANCE = nil;
 
 @interface AudioPlayer() {

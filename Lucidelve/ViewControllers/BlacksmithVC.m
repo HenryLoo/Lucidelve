@@ -178,7 +178,7 @@
             [player removeItem:ITEMS[ITEM_GOLDEN_EGG]];
         }
         
-        [[AudioPlayer getInstance] play:KEY_SOUND_BUY];
+        [[AudioPlayer getInstance] play:KEY_SOUND_BLACKSMITH_UPGRADE];
     }
 }
 
