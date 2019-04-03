@@ -351,6 +351,8 @@ NSString *KEY_MESH_SWORD = @"sword";
 			GLKVector2 tc;
 			if ([lineScanner scanFloat:&tc.x]) {
 				if ([lineScanner scanFloat:&tc.y]) {
+                    // OpenGL flips the UV coordinate, so we reverse it
+                    tc.y = 1 - tc.y;
 					if ([lineScanner scanFloat:NULL]) {
 						[[Utility getInstance] log:@"This OBJ file has a texture coordinate in 3-dimensions."];
 						[temp_uvs addObject:[NSValue value:&tc withObjCType:@encode(GLKVector2)]];
@@ -442,36 +444,26 @@ NSString *KEY_MESH_SWORD = @"sword";
     }
     
     NSMutableDictionary<NSValue *, NSNumber *> *VertexToOutIndex = [NSMutableDictionary dictionary];
-    
     for (GLuint i = 0; i < out_vertices.count; i++) {
-        Vertex packed;
-        [out_vertices[i] getValue:&packed.position];
-        [out_uvs[i] getValue:&packed.uv];
-        [out_normals[i] getValue:&packed.normal];
+        Vertex vertex;
+        [out_vertices[i] getValue:&vertex.position];
+        [out_uvs[i] getValue:&vertex.uv];
+        [out_normals[i] getValue:&vertex.normal];
         
-        GLuint index = -1;
-        NSMutableArray *allKeys = [[VertexToOutIndex allKeys] mutableCopy];
-        for (NSValue *vertexValue in allKeys) {
-            Vertex vertex;
-            [vertexValue getValue:&vertex];
-            if (
-                GLKVector3AllEqualToVector3(packed.position, vertex.position) &&
-                GLKVector2AllEqualToVector2(packed.uv, vertex.uv) &&
-                GLKVector3AllEqualToVector3(packed.normal, vertex.normal)
-                ) {
-                index = [[VertexToOutIndex objectForKey:vertexValue] unsignedIntValue];
-                break;
-            }
+        bool found = false;
+        NSNumber *indexNumber = [VertexToOutIndex objectForKey:[NSValue value:&vertex withObjCType:@encode(Vertex)]];
+        if (indexNumber != nil) {
+            found = true;
         }
-        if (index > -1) {
-            // Vertex is already found
+        if (found) {
+            GLuint index = [indexNumber unsignedIntValue];
             [indices appendBytes:&index length:sizeof(GLuint)];
         } else {
-            GLuint verticesCount = (GLuint)indexed_vertices.count;
-            [indexed_vertices addObject:[NSValue value:&packed.position withObjCType:@encode(GLKVector3)]];
-            [indexed_uvs addObject:[NSValue value:&packed.uv withObjCType:@encode(GLKVector2)]];
-            [indexed_normals addObject:[NSValue value:&packed.normal withObjCType:@encode(GLKVector3)]];
-            [indices appendBytes:&verticesCount length:sizeof(GLuint)];
+            [indexed_vertices addObject:[NSValue value:&vertex.position withObjCType:@encode(GLKVector3)]];
+            [indexed_uvs addObject:[NSValue value:&vertex.uv withObjCType:@encode(GLKVector2)]];
+            [indexed_normals addObject:[NSValue value:&vertex.normal withObjCType:@encode(GLKVector3)]];
+            GLuint index = (GLuint)indexed_vertices.count - 1;
+            [indices appendBytes:&index length:sizeof(GLuint)];
         }
     }
     
