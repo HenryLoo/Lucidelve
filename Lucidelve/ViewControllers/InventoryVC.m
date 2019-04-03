@@ -34,6 +34,7 @@
     int selectedItem;
     
     Mesh *bgMesh;
+    Mesh *itemMesh[2];
 }
 @end
 
@@ -89,12 +90,25 @@
     [super update];
     [self updateSelectedItem];
     [self updateItemLabels];
+    [self updateEquippedMesh:0];
+    [self updateEquippedMesh:1];
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
     [self.renderer setupRender:rect];
     [self.renderer renderMesh:bgMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_PASSTHROUGH]];
+    
+    // Render the equipped items
+    if (itemMesh[0])
+    {
+        [self.renderer renderMesh:itemMesh[0] program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
+    }
+    
+    if (itemMesh[1])
+    {
+        [self.renderer renderMesh:itemMesh[1] program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -124,8 +138,12 @@
     
     if (![self isItemSelected])
     {
-        [[AudioPlayer getInstance] play:KEY_SOUND_SELECT];
         [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:NO];
+    }
+    else
+    {
+        // Selected an item
+        [[AudioPlayer getInstance] play:KEY_SOUND_SELECT];
     }
 }
 
@@ -192,12 +210,23 @@
 
 /*!
  * @brief Update the colour of item 1 and item 2 slots based on whether an
- * item has been selected.
+ * item has been selected. The item must also be equippable for the
+ * selected colour to show.
  * @author Henry Loo
  */
 - (void)updateSelectedItem
 {
-    UIColor *colour = [self isItemSelected] ? UIColor.blueColor : UIColor.darkGrayColor;
+    bool isSelected = [self isItemSelected];
+    bool isEquippable = false;
+    if (isSelected)
+    {
+        Item item = [player getItem:selectedItem];
+        isEquippable = item.isEquippable;
+    }
+    
+    UIColor *selectedColour = [UIColor colorWithRed:0 green:0 blue:1.0 alpha:0.2];
+    UIColor *deselectedColour = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:0.2];
+    UIColor *colour = (isSelected && isEquippable) ? selectedColour : deselectedColour;
     item1Button.backgroundColor = item2Button.backgroundColor = colour;
 }
 
@@ -209,6 +238,31 @@
 {
     item1Label.text = [player getEquippedItem:0].name;
     item2Label.text = [player getEquippedItem:1].name;
+}
+
+- (void)updateEquippedMesh:(int)slot
+{
+    Item item = [player getEquippedItem:slot];
+    int direction = (slot == 0) ? -1 : 1;
+    
+    if (item.name == ITEMS[ITEM_HEALING_POTION].name)
+    {
+        itemMesh[slot] = [[Assets getInstance] getMesh:KEY_MESH_POTION];
+        [itemMesh[slot] setScale:GLKVector3Make(0.08f, 0.08f, 0.08f)];
+        [itemMesh[slot] setPosition:GLKVector3Make(direction * 0.35, 0.25, 1.0f)];
+        [itemMesh[slot] addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_POTION]];
+    }
+    else if(item.name == ITEMS[ITEM_BOMB].name)
+    {
+        itemMesh[slot] = [[Assets getInstance] getMesh:KEY_MESH_BOMB];
+        [itemMesh[slot] setScale:GLKVector3Make(0.1f, 0.1f, 0.1f)];
+        [itemMesh[slot] setPosition:GLKVector3Make(direction * 0.35, 0.25, 1.0f)];
+        [itemMesh[slot] addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_BOMB]];
+    }
+    else
+    {
+        itemMesh[slot] = nil;
+    }
 }
 
 @end

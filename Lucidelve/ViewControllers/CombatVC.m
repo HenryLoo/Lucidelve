@@ -68,6 +68,7 @@
     Mesh *leftWallMesh;
     Mesh *rightWallMesh;
     Mesh *backWallMesh;
+    Mesh *itemMesh[2];
     
     // Position of each character at neutral position
     GLKVector3 playerNeutralPos;
@@ -216,6 +217,9 @@
         }
     }
     
+    [self updateEquippedMesh:0];
+    [self updateEquippedMesh:1];
+    
     [super update];
     
     [playerMesh setPosition:player.position];
@@ -240,6 +244,17 @@
     {
         [self.renderer renderSprite:enemyMesh spriteIndex:currentEnemy.spriteIndex fogColour:_currentDungeon.fogColour textureColour:enemyColour textureColourAmount:enemyColourAmount];
     }
+    
+    // Render the equipped items
+    if (itemMesh[0])
+    {
+        [self.renderer renderMesh:itemMesh[0] program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
+    }
+    
+    if (itemMesh[1])
+    {
+        [self.renderer renderMesh:itemMesh[1] program:[[Assets getInstance] getProgram:KEY_PROGRAM_BASIC]];
+    }
 }
 
 - (void)onTap:(UITapGestureRecognizer *)recognizer
@@ -250,6 +265,8 @@
         // onto the total amount of reward gold.
         if ([currentEnemy getCombatState] == COMBAT_DEAD)
         {
+            [[AudioPlayer getInstance] play:KEY_SOUND_SELECT];
+            
             isNodeCleared = true;
             totalRewardGold += [currentNode getGoldReward];
             
@@ -287,6 +304,8 @@
     // Second tap when dungeon run is over
     else if (isReturningToHub || [player getCurrentLife] == 0)
     {
+        [[AudioPlayer getInstance] play:KEY_SOUND_SELECT];
+        
         // Return to The Hub with all gold earned
         [player addGold:totalRewardGold];
         HubVC *vc = [[HubVC alloc] init];
@@ -537,6 +556,31 @@
     combatStatusLabel.text = text;
     float alpha = (text.length == 0) ? 0 : 0.5;
     combatStatusLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:alpha];
+}
+
+- (void)updateEquippedMesh:(int)slot
+{
+    Item item = [player getEquippedItem:slot];
+    int direction = (slot == 0) ? -1 : 1;
+    
+    if (item.name == ITEMS[ITEM_HEALING_POTION].name)
+    {
+        itemMesh[slot] = [[Assets getInstance] getMesh:KEY_MESH_POTION];
+        [itemMesh[slot] setScale:GLKVector3Make(0.08f, 0.08f, 0.08f)];
+        [itemMesh[slot] setPosition:GLKVector3Make(0.3 + direction * 0.2, -1.1, 1.0f)];
+        [itemMesh[slot] addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_POTION]];
+    }
+    else if(item.name == ITEMS[ITEM_BOMB].name)
+    {
+        itemMesh[slot] = [[Assets getInstance] getMesh:KEY_MESH_BOMB];
+        [itemMesh[slot] setScale:GLKVector3Make(0.1f, 0.1f, 0.1f)];
+        [itemMesh[slot] setPosition:GLKVector3Make(0.3 + direction * 0.2, -1.1, 1.0f)];
+        [itemMesh[slot] addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_BOMB]];
+    }
+    else
+    {
+        itemMesh[slot] = nil;
+    }
 }
 
 @end

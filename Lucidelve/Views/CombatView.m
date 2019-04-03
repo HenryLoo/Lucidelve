@@ -40,8 +40,6 @@
 
 - (void)setupFooterElements
 {
-    self.footerArea.backgroundColor = [UIColor colorWithRed:0.24 green:0.25 blue:0.26 alpha:0.8];
-    
     [self setupStatsLabels];
     [self setupItemViews];
 }
@@ -96,19 +94,23 @@
     // Enable autolayout
     _combatStatusLabel.translatesAutoresizingMaskIntoConstraints = false;
 }
-
+    
 /*!
  * @brief Create the label element to show the player's stats.
  * @author Henry Loo
  */
 - (void)setupStatsLabels
 {
-    _playerLifeLabel = [[UILabel alloc] init];
+    _playerLifeLabel = [[UIPaddedLabel alloc] init];
     _playerLifeLabel.textColor = UIColor.whiteColor;
+    _playerLifeLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    [_playerLifeLabel setContentEdgeInsets:UIEdgeInsetsMake(8, 8, 8, 8)];
     [self.footerArea addSubview:_playerLifeLabel];
     
-    _playerStaminaLabel = [[UILabel alloc] init];
+    _playerStaminaLabel = [[UIPaddedLabel alloc] init];
     _playerStaminaLabel.textColor = UIColor.whiteColor;
+    _playerStaminaLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    [_playerStaminaLabel setContentEdgeInsets:UIEdgeInsetsMake(8, 8, 8, 8)];
     [self.footerArea addSubview:_playerStaminaLabel];
     
     // Enable autolayout
@@ -123,13 +125,14 @@
 - (void)setupItemViews
 {
     _item1Button = [[UIButton alloc] init];
-    _item1Button.backgroundColor = UIColor.darkGrayColor;
+    UIColor *bgColour = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:0.2];
+    _item1Button.backgroundColor = bgColour;
     _item1Button.layer.borderColor = UIColor.blackColor.CGColor;
     _item1Button.layer.borderWidth = 2;
     [self.footerArea addSubview:_item1Button];
     
     _item2Button = [[UIButton alloc] init];
-    _item2Button.backgroundColor = UIColor.darkGrayColor;
+    _item2Button.backgroundColor = bgColour;
     _item2Button.layer.borderColor = UIColor.blackColor.CGColor;
     _item2Button.layer.borderWidth = 2;
     [self.footerArea addSubview:_item2Button];
@@ -158,21 +161,22 @@
     [_combatStatusLabel.centerYAnchor constraintEqualToAnchor:self.bodyArea.centerYAnchor].active = YES;
     
     // Player stats labels constraints
-    [_playerLifeLabel.leftAnchor constraintEqualToAnchor:self.footerArea.leftAnchor constant:16].active = YES;
-    [_playerLifeLabel.centerYAnchor constraintEqualToAnchor:self.footerArea.centerYAnchor constant:-16].active = YES;
-    [_playerStaminaLabel.leftAnchor constraintEqualToAnchor:self.footerArea.leftAnchor constant:16].active = YES;
-    [_playerStaminaLabel.centerYAnchor constraintEqualToAnchor:self.footerArea.centerYAnchor constant:16].active = YES;
+    float itemViewSize = self.footerArea.frame.size.height * 2 / 3;
+    float itemViewOffset = (self.footerArea.frame.size.height - itemViewSize) / 3;
+    [_playerStaminaLabel.leftAnchor constraintEqualToAnchor:self.footerArea.leftAnchor constant:itemViewOffset].active = YES;
+    [_playerStaminaLabel.bottomAnchor constraintEqualToAnchor:self.footerArea.bottomAnchor constant:-itemViewOffset].active = YES;
+    [_playerLifeLabel.leftAnchor constraintEqualToAnchor:self.footerArea.leftAnchor constant:itemViewOffset].active = YES;
+    [_playerLifeLabel.bottomAnchor constraintEqualToAnchor:_playerStaminaLabel.topAnchor constant:-itemViewOffset].active = YES;
     
     // Item 1 and item 2 constraints
-    float itemViewSize = self.footerArea.frame.size.height * 2 / 3;
-    float itemViewOffset = (self.footerArea.frame.size.height - itemViewSize) / 2;
+    
     [_item2Button.rightAnchor constraintEqualToAnchor:self.footerArea.rightAnchor constant:-itemViewOffset].active = YES;
-    [_item2Button.topAnchor constraintEqualToAnchor:self.footerArea.topAnchor constant:itemViewOffset].active = YES;
+    [_item2Button.bottomAnchor constraintEqualToAnchor:self.footerArea.bottomAnchor constant:-itemViewOffset].active = YES;
     [_item2Button.widthAnchor constraintEqualToConstant:itemViewSize].active = YES;
     [_item2Button.heightAnchor constraintEqualToConstant:itemViewSize].active = YES;
     
     [_item1Button.rightAnchor constraintEqualToAnchor:_item2Button.leftAnchor constant:-itemViewOffset].active = YES;
-    [_item1Button.topAnchor constraintEqualToAnchor:_item2Button.topAnchor].active = YES;
+    [_item1Button.bottomAnchor constraintEqualToAnchor:_item2Button.bottomAnchor].active = YES;
     [_item1Button.widthAnchor constraintEqualToConstant:itemViewSize].active = YES;
     [_item1Button.heightAnchor constraintEqualToConstant:itemViewSize].active = YES;
 }
