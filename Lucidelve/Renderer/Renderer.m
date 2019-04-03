@@ -131,8 +131,13 @@
 }
 
 - (void)renderSprite:(Mesh *)mesh spriteIndex:(int)index fogColour:(GLKVector4)fogColour
+       textureColour:(GLKVector4)textureColour textureColourAmount:(float)textureColourAmount
 {
     GLProgram *program = [self baseRenderSprite:mesh spriteIndex:index];
+    
+    [program set4fv:textureColour.v uniformName:@"textureColour"];
+    [program set1f:textureColourAmount uniformName:@"textureColourAmount"];
+    
     [self renderWithFog:mesh program:program fogColour:fogColour];
 }
 

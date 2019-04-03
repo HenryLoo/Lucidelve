@@ -12,6 +12,8 @@ varying vec2 TexCoords;
 uniform Material material;
 uniform bool isFogDisabled;
 uniform vec4 fogColour;
+uniform vec4 textureColour;
+uniform float textureColourAmount;
 
 void main() {
     gl_FragColor = texture2D(material.diffuse, TexCoords);
@@ -28,5 +30,10 @@ void main() {
         // Restore the alpha value
         gl_FragColor.a = alpha;
     }
+    
+    // Mix texture colour
+    float alpha = gl_FragColor.a;
+    gl_FragColor = mix(gl_FragColor, textureColour, textureColourAmount);
+    gl_FragColor.a = alpha;
 }
 

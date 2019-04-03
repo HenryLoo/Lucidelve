@@ -69,7 +69,7 @@
  */
 - (void)setupEnemyLabels
 {
-    _enemyNameLabel = [[UIPaddedLabel alloc] initWithFrame:CGRectZero];
+    _enemyNameLabel = [[UIPaddedLabel alloc] init];
     _enemyNameLabel.textAlignment = NSTextAlignmentCenter;
     _enemyNameLabel.textColor = UIColor.whiteColor;
     _enemyNameLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
@@ -86,10 +86,11 @@
  */
 - (void)setupCombatLabel
 {
-    _combatStatusLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _combatStatusLabel = [[UIPaddedLabel alloc] init];
     _combatStatusLabel.textAlignment = NSTextAlignmentCenter;
     _combatStatusLabel.textColor = UIColor.whiteColor;
     _combatStatusLabel.numberOfLines = 2;
+    [_combatStatusLabel setContentEdgeInsets:UIEdgeInsetsMake(8, 8, 8, 8)];
     [self.bodyArea addSubview:_combatStatusLabel];
     
     // Enable autolayout
@@ -102,11 +103,11 @@
  */
 - (void)setupStatsLabels
 {
-    _playerLifeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _playerLifeLabel = [[UILabel alloc] init];
     _playerLifeLabel.textColor = UIColor.whiteColor;
     [self.footerArea addSubview:_playerLifeLabel];
     
-    _playerStaminaLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _playerStaminaLabel = [[UILabel alloc] init];
     _playerStaminaLabel.textColor = UIColor.whiteColor;
     [self.footerArea addSubview:_playerStaminaLabel];
     

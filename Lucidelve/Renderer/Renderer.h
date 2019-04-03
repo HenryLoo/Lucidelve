@@ -95,8 +95,11 @@ NS_ASSUME_NONNULL_BEGIN
  * @param mesh The mesh to render.
  * @param index The sprite index.
  * @param fogColour The colour of the fog.
+ * @param textureColour The colour of the texture.
+ * @param textureColourAmount The fraction of texture colour to mix.
  */
-- (void)renderSprite:(Mesh *)mesh spriteIndex:(int)index fogColour:(GLKVector4)fogColour;
+- (void)renderSprite:(Mesh *)mesh spriteIndex:(int)index fogColour:(GLKVector4)fogColour
+       textureColour:(GLKVector4)textureColour textureColourAmount:(float)textureColourAmount;
 /*!
  * Renders a Mesh with the given GLProgram, with fog.
  * @author Jason Chung
@@ -106,8 +109,6 @@ NS_ASSUME_NONNULL_BEGIN
  * @param fogColour The colour of the fog.
  */
 - (void)renderWithFog:(Mesh *)mesh program:(GLProgram *)program fogColour:(GLKVector4)fogColour;
-
-
 
 @end
 

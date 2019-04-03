@@ -27,6 +27,6 @@
 // TODO: some label to display player and enemy visuals,
 // since sprite rendering isn't very usable yet.
 @property (nonatomic, strong) UIPaddedLabel *enemyNameLabel;
-@property (nonatomic, strong) UILabel *combatStatusLabel;
+@property (nonatomic, strong) UIPaddedLabel *combatStatusLabel;
 
 @end

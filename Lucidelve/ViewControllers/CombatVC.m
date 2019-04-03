@@ -69,8 +69,13 @@
     Mesh *rightWallMesh;
     Mesh *backWallMesh;
     
+    // Position of each character at neutral position
     GLKVector3 playerNeutralPos;
     GLKVector3 enemyNeutralPos;
+    
+    // Enemy attack colour values
+    GLKVector4 enemyColour;
+    float enemyColourAmount;
 }
 @end
 
@@ -192,7 +197,7 @@
             [player reset:false];
         }
         
-        combatStatusLabel.text = @"";
+        [self updateCombatStatusLabel:@""];
         isNodeCleared = false;
         remainingNodes--;
         [self updateRemainingNodes];
@@ -229,11 +234,11 @@
     [self.renderer renderWithFog:leftWallMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_DUNGEON] fogColour:_currentDungeon.fogColour];
     [self.renderer renderWithFog:rightWallMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_DUNGEON] fogColour:_currentDungeon.fogColour];
     [self.renderer renderWithFog:backWallMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_DUNGEON] fogColour:_currentDungeon.fogColour];
-    [self.renderer renderSprite:playerMesh spriteIndex:player.spriteIndex fogColour:_currentDungeon.fogColour];
+    [self.renderer renderSprite:playerMesh spriteIndex:player.spriteIndex fogColour:_currentDungeon.fogColour textureColour:GLKVector4Make(1, 1, 1, 1) textureColourAmount:0];
     
     if (currentEnemy != nil)
     {
-        [self.renderer renderSprite:enemyMesh spriteIndex:currentEnemy.spriteIndex fogColour:_currentDungeon.fogColour];
+        [self.renderer renderSprite:enemyMesh spriteIndex:currentEnemy.spriteIndex fogColour:_currentDungeon.fogColour textureColour:enemyColour textureColourAmount:enemyColourAmount];
     }
 }
 
@@ -268,7 +273,7 @@
         // Show the end message
         NSString *stateString = [NSString stringWithFormat:@"DUNGEON CLEARED!\n<Tap to continue - Total Earned: %i G>",
                                  totalRewardGold];
-        combatStatusLabel.text = stateString;
+        [self updateCombatStatusLabel:stateString];
         
         [[AudioPlayer getInstance] play:KEY_SOUND_COMBAT_WIN];
         isReturningToHub = true;
@@ -463,6 +468,17 @@
             [[AudioPlayer getInstance] play:KEY_SOUND_BLOCK];
         }
     }
+    
+    if ([currentEnemy getCombatState] == COMBAT_ALERT)
+    {
+        // Enemy sprite should flash red when preparing to attack
+        enemyColour = GLKVector4Make(1, 0, 0, 1);
+        enemyColourAmount = currentEnemy.actionTimer / currentEnemy.currentAttack.alertDelay / 3;
+    }
+    else
+    {
+        enemyColourAmount = 0;
+    }
 }
 
 - (void)updatePlayerLabels
@@ -479,7 +495,8 @@
     
     if ([player getCombatState] == COMBAT_DEAD)
     {
-        combatStatusLabel.text = [NSString stringWithFormat:@"You died!\n<Tap to return to The Hub>"];
+        NSString *text = [NSString stringWithFormat:@"You died!\n<Tap to return to The Hub>"];
+        [self updateCombatStatusLabel:text];
     }
 }
 
@@ -493,8 +510,9 @@
     
     if ([currentEnemy getCombatState] == COMBAT_DEAD)
     {
-        combatStatusLabel.text = [NSString stringWithFormat:@"<Tap to continue - Reward: %i G>",
+        NSString *text = [NSString stringWithFormat:@"<Tap to continue - Reward: %i G>",
                                   [currentNode getGoldReward]];
+        [self updateCombatStatusLabel:text];
     }
 }
 
@@ -506,6 +524,19 @@
 {
     remainingNodesLabel.text = [NSString stringWithFormat:@"Room: %i/%i",
                                 numNodes - remainingNodes, numNodes];
+}
+
+/*!
+ * @brief Update the combat status label with some text.
+ * @author Henry Loo
+ *
+ * @param text The text to display in the label.
+ */
+- (void)updateCombatStatusLabel:(NSString *)text
+{
+    combatStatusLabel.text = text;
+    float alpha = (text.length == 0) ? 0 : 0.5;
+    combatStatusLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:alpha];
 }
 
 @end
