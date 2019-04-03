@@ -35,6 +35,9 @@
         _position = GLKVector3Make(0.0f, 0.0f, 0.0f);
         _rotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
         _scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
+        
+        _specular = GLKVector3Make(1.0, 1.0, 1.0);
+        _shininess = 1.0f;
     }
     return self;
 }
@@ -55,6 +58,9 @@
         _position = [mesh position];
         _rotation = [mesh rotation];
         _scale = [mesh scale];
+        
+        _specular = [mesh specular];
+        _shininess = [mesh shininess];
         
         [self setup];
     }
@@ -140,6 +146,9 @@
         glBindTexture(GL_TEXTURE_2D, [_textures[i] textureId]);
     }
     
+    [program set3fv:_specular.v uniformName:@"material.specular"];
+    [program set1f:_shininess uniformName:@"material.shininess"];
+    
     glBindVertexArrayOES(_vao);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
     glDrawElements(GL_TRIANGLES, [self numIndices], GL_UNSIGNED_INT, 0);
@@ -202,6 +211,14 @@
 
 - (GLKVector3)scale {
 	return _scale;
+}
+
+- (GLKVector3)specular {
+    return _specular;
+}
+
+- (GLfloat)shininess {
+    return _shininess;
 }
 
 - (void)setPosition:(GLKVector3)position {

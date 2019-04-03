@@ -39,6 +39,9 @@ typedef struct {
     GLKVector3 _rotation;
     // The scale of the Mesh
     GLKVector3 _scale;
+    
+    GLKVector3 _specular;
+    GLfloat _shininess;
 }
 
 /*!
@@ -159,6 +162,9 @@ typedef struct {
  * @return The scale of the Mesh.
  */
 - (GLKVector3)scale;
+
+- (GLKVector3)specular;
+- (GLfloat)shininess;
 
 /*!
  * Sets the position of the Mesh.

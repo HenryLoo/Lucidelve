@@ -13,7 +13,7 @@
 -  (id)init {
     if (self == [super init]) {
         _direction = GLKVector3Make(-0.2f, -1.0f, -0.3f);
-        _ambient = GLKVector3Make(0.05f, 0.05f, 0.05f);
+        _ambient = GLKVector3Make(0.4f, 0.4f, 0.4f);
         _diffuse = GLKVector3Make(0.5f, 0.5f, 0.5f);
         _specular = GLKVector3Make(0.5f, 0.5f, 0.5f);
     }
