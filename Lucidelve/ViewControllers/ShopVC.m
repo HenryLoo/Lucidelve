@@ -75,7 +75,7 @@
     [bgMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_SHOP_BG]];
     
     shieldMesh = [[Assets getInstance] getMesh:KEY_MESH_SHIELD];
-    [shieldMesh setScale:GLKVector3Make(0.05f, 0.05f, 0.05f)];
+    [shieldMesh setScale:GLKVector3Make(0.10f, 0.10f, 0.10f)];
     [shieldMesh setPosition:GLKVector3Make(0.4f, -0.3f, 1.0f)];
     [shieldMesh setRotation:GLKVector3Make(0, -M_PI / 4, 0)];
 	[shieldMesh addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_SHIELD]];
