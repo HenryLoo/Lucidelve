@@ -227,4 +227,21 @@
     [dungeons addObject:dungeon];
 }
 
+- (int)getScore {
+    int score = 0;
+    
+    if (_isShopUnlocked) score++;
+    if (_isSwordBought) score++;
+    if (_isInventoryUnlocked) score++;
+    if (_isDungeonsUnlocked) score++;
+    if (_isGooseUnlocked) score++;
+    score += _numGooseUpgrades;
+    if (_isBlacksmithUnlocked) score++;
+    score += _numBlacksmithUpgrades;
+    score += _numLifeUpgrades;
+    score += _numDungeonsCleared;
+    
+    return score;
+}
+
 @end

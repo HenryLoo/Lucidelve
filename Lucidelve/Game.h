@@ -133,4 +133,14 @@
  */
 - (int)getSwordDamage;
 
+/*!
+ * Returns the current score based on the number of
+ * discoverables unlocked.
+ * @brief Get the score.
+ * @author Jason Chung
+ *
+ * @return The current score.
+ */
+- (int)getScore;
+
 @end
