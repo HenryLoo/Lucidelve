@@ -67,13 +67,11 @@
 - (void)setupItemButtons
 {
     _item1Button = [[UIButton alloc] init];
-    _item1Button.backgroundColor = UIColor.darkGrayColor;
     _item1Button.layer.borderColor = UIColor.blackColor.CGColor;
     _item1Button.layer.borderWidth = 2;
     [self.bodyArea addSubview:_item1Button];
     
     _item2Button = [[UIButton alloc] init];
-    _item2Button.backgroundColor = UIColor.darkGrayColor;
     _item2Button.layer.borderColor = UIColor.blackColor.CGColor;
     _item2Button.layer.borderWidth = 2;
     [self.bodyArea addSubview:_item2Button];

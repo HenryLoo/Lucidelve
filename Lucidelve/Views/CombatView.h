@@ -17,8 +17,8 @@
 @property (nonatomic, strong) UIPaddedLabel *remainingNodesLabel;
 
 // Show the player's stats
-@property (nonatomic, strong) UILabel *playerLifeLabel;
-@property (nonatomic, strong) UILabel *playerStaminaLabel;
+@property (nonatomic, strong) UIPaddedLabel *playerLifeLabel;
+@property (nonatomic, strong) UIPaddedLabel *playerStaminaLabel;
 
 // Show the player's item 1 and item 2
 @property (nonatomic, strong) UIButton *item1Button;
