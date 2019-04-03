@@ -68,6 +68,10 @@ static AudioPlayer *INSTANCE = nil;
     [audioFiles setValue:audioFile forKey:key];
 }
 
+- (void)play:(NSString *)key {
+    [self play:key loop:false];
+}
+
 - (void)play:(NSString *)key loop:(bool)loop {
     if ([audioFiles objectForKey:key]) {
         NSError *error;

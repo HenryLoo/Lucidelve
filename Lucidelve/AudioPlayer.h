@@ -46,6 +46,13 @@ NS_ASSUME_NONNULL_BEGIN
  * @author Jason Chung
  *
  * @param key The key of the preloaded audio file
+ */
+- (void)play:(NSString *)key;
+/*!
+ * Plays a sound from the array of loaded audio files.
+ * @author Jason Chung
+ *
+ * @param key The key of the preloaded audio file
  * @param loop True to loop the audio file and false otherwise
  */
 - (void)play:(NSString *)key loop:(bool)loop;
