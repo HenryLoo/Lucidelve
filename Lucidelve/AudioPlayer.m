@@ -56,17 +56,25 @@ static AudioPlayer *INSTANCE = nil;
     return self;
 }
 
+- (void)stopAllSounds {
+    if (soundSources != nil) {
+        [soundSources removeAllObjects];
+    }
+}
+
 - (void)addAudioFile:(NSString *)filename key:(NSString *)key {
     NSString *filePath = [[Utility getInstance] getFilepath:filename fileType:@"sfx"];
     NSData *audioFile = [[Utility getInstance] loadResource:filePath];
     [audioFiles setValue:audioFile forKey:key];
 }
 
-- (void)play:(NSString *)key {
+- (void)play:(NSString *)key loop:(bool)loop {
     if ([audioFiles objectForKey:key]) {
         NSError *error;
         AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithData:[audioFiles objectForKey:key] error:&error];
         player.delegate = self;
+        if (loop)
+            player.numberOfLoops = -1;
         [soundSources addObject:player];
         [player play];
     }

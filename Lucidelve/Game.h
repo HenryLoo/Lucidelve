@@ -71,6 +71,9 @@
 // The number of dungeons cleared so far.
 @property int numDungeonsCleared;
 
+// All the highscores.
+@property NSMutableArray<NSNumber *> *highscores;
+
 /*!
  * @brief Return the player's data.
  * @author Henry Loo

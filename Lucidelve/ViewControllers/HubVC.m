@@ -13,6 +13,7 @@
 #import "DungeonsVC.h"
 #import "GooseVC.h"
 #import "BlacksmithVC.h"
+#import "HighscoreVC.h"
 #import "../Game.h"
 #import "../Player.h"
 #import "../Constants.h"
@@ -46,6 +47,9 @@
     
     // Pointer to the view's Blacksmith button
     UIButton *blacksmithButton;
+    
+    // Pointer to the view's Highscore button
+    UIButton *highscoreButton;
     
     Mesh *bgMesh;
     Mesh *playerMesh;
@@ -85,6 +89,7 @@
     dungeonsButton = ((HubView*) self.view).dungeonsButton;
     gooseButton = ((HubView*) self.view).gooseButton;
     blacksmithButton = ((HubView*) self.view).blacksmithButton;
+    highscoreButton= ((HubView*) self.view).highscoreButton;
     
     // Attach selector to the gold button
     [goldButton addTarget:self action:@selector(onGoldButtonPress:)
@@ -109,6 +114,10 @@
     // Attach selector to the Blacksmith button
     [blacksmithButton addTarget:self action:@selector(onBlacksmithButtonPress:)
                forControlEvents:UIControlEventTouchDown];
+    
+    // Attach selector to the Highscore button
+    [highscoreButton addTarget:self action:@selector(onHighscoreButtonPress:)
+              forControlEvents:UIControlEventTouchDown];
     
     bgMesh = [Primitives square];
     [bgMesh setScale:GLKVector3Make(2.5f, 4.0f, 1)];
@@ -312,6 +321,9 @@
         self.game.isBlacksmithUnlocked = true;
         [self updateButtonBackgroundColor:blacksmithButton];
     }
+    
+    [highscoreButton setEnabled:YES];
+    [self updateButtonBackgroundColor:highscoreButton];
 }
 
 - (void)updateButtonBackgroundColor:(UIButton *)button
@@ -409,6 +421,21 @@
     [[AudioPlayer getInstance] play:KEY_SOUND_SELECT];
     
     BlacksmithVC *vc = [[BlacksmithVC alloc] init];
+    [self.game changeScene:self newVC:vc];
+}
+
+/*!
+ * @brief Handle the Highscore button's action.
+ * This should redirect the player to the Highscore view.
+ * @author Jason Chung
+ *
+ * @param sender The pressed button
+ */
+- (void)onHighscoreButtonPress:(id)sender
+{
+    [[AudioPlayer getInstance] play:KEY_SOUND_SELECT];
+    
+    HighscoreVC *vc = [[HighscoreVC alloc] init];
     [self.game changeScene:self newVC:vc];
 }
 

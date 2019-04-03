@@ -134,6 +134,8 @@
     {
         [self initDungeon:dungeonType];
     }
+    
+    _highscores = [NSMutableArray array];
 }
 
 /*!

@@ -27,6 +27,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (id)getInstance;
 
 /*!
+ * Stops all playing sound sources.
+ * @author Jason Chung
+ */
+- (void)stopAllSounds;
+
+/*!
  * Finds an audio file from the given path and adds it to the array of
  * loaded audio files that can be played.
  * @author Jason Chung
@@ -40,8 +46,9 @@ NS_ASSUME_NONNULL_BEGIN
  * @author Jason Chung
  *
  * @param key The key of the preloaded audio file
+ * @param loop True to loop the audio file and false otherwise
  */
-- (void)play:(NSString *)key;
+- (void)play:(NSString *)key loop:(bool)loop;
 
 extern NSString *KEY_SOUND_BLOCK;
 extern NSString *KEY_SOUND_BOMB;
