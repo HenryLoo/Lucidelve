@@ -18,6 +18,9 @@
 /*!
  * @brief Update the character's values.
  * This should be called each frame in the update loop.
+ * @author Henry Loo
+ *
+ * @param deltaTime The amount of time passed for the current loop.
  */
 - (void)update:(float)deltaTime;
 

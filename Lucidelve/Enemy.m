@@ -31,9 +31,6 @@
     // The enemy's attack patterns. The different attacks are
     // uniquely identified by their index in the array.
     NSMutableArray *attackPatterns;
-    
-    // The default position in Combat
-    GLKVector3 enemyNeutralPos;
 }
 
 @end
@@ -51,7 +48,6 @@
         self->maxAttackDelay = maxAttackDelay;
         self->blockChance = blockChance;
         self->attackPatterns = attackPatterns;
-        enemyNeutralPos = GLKVector3Make(0, 0.6, 0);
     }
     return self;
 }
@@ -112,7 +108,7 @@
     self.actionTimer = maxAttackDelay;
     
     self.spriteIndex = 0;
-    self.position = enemyNeutralPos;
+    self.position = self.neutralPos;
 }
 
 - (NSString*)getName
@@ -143,31 +139,33 @@
         case COMBAT_NEUTRAL:
             self.spriteIndex = 0;
             self.velocity = GLKVector3Make(0, 0, 0);
-            self.position = enemyNeutralPos;
+            self.position = self.neutralPos;
             break;
         case COMBAT_ALERT:
             self.spriteIndex = 1;
             self.velocity = GLKVector3Make(0, 0, 0);
-            self.position = enemyNeutralPos;
+            self.position = self.neutralPos;
             break;
         case COMBAT_ATTACKING:
             self.spriteIndex = 2;
-            self.velocity = GLKVector3Make(0, 1.5, -4);
+            self.velocity = GLKVector3Make(0, sinf(M_PI / 2 - FLOOR_ANGLE) * -6,
+                                           -cosf(M_PI / 2 - FLOOR_ANGLE) * -6);
             break;
         case COMBAT_BLOCKING:
             self.spriteIndex = 3;
             self.velocity = GLKVector3Make(0, 0, 0);
-            self.position = enemyNeutralPos;
+            self.position = self.neutralPos;
             break;
         case COMBAT_HURT:
             self.spriteIndex = 4;
-            self.velocity = GLKVector3Make(0, -1, 0);
+            self.velocity = GLKVector3Make(0, sinf(M_PI / 2 - FLOOR_ANGLE) * 4,
+                                           -cosf(M_PI / 2 - FLOOR_ANGLE) * 4);
             [[AudioPlayer getInstance] play:KEY_SOUND_ENEMY_HURT];
             break;
         case COMBAT_DEAD:
             self.spriteIndex = 4;
             self.velocity = GLKVector3Make(0, 0, 0);
-            self.position = enemyNeutralPos;
+            self.position = self.neutralPos;
             [[AudioPlayer getInstance] play:KEY_SOUND_ENEMY_HURT];
             break;
         default:

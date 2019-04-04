@@ -240,28 +240,34 @@
     item2Label.text = [player getEquippedItem:1].name;
 }
 
-- (void)updateEquippedMesh:(int)slot
+/*!
+ * @brief Update the models for the equipped items.
+ * @author Henry Loo
+ *
+ * @param itemSlot The equipped item slot.
+ */
+- (void)updateEquippedMesh:(int)itemSlot
 {
-    Item item = [player getEquippedItem:slot];
-    int direction = (slot == 0) ? -1 : 1;
+    Item item = [player getEquippedItem:itemSlot];
+    int direction = (itemSlot == 0) ? -1 : 1;
     
     if (item.name == ITEMS[ITEM_HEALING_POTION].name)
     {
-        itemMesh[slot] = [[Assets getInstance] getMesh:KEY_MESH_POTION];
-        [itemMesh[slot] setScale:GLKVector3Make(0.08f, 0.08f, 0.08f)];
-        [itemMesh[slot] setPosition:GLKVector3Make(direction * 0.35, 0.25, 1.0f)];
-        [itemMesh[slot] addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_POTION]];
+        itemMesh[itemSlot] = [[Assets getInstance] getMesh:KEY_MESH_POTION];
+        [itemMesh[itemSlot] setScale:GLKVector3Make(0.08f, 0.08f, 0.08f)];
+        [itemMesh[itemSlot] setPosition:GLKVector3Make(direction * 0.35, 0.25, 1.0f)];
+        [itemMesh[itemSlot] addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_POTION]];
     }
     else if(item.name == ITEMS[ITEM_BOMB].name)
     {
-        itemMesh[slot] = [[Assets getInstance] getMesh:KEY_MESH_BOMB];
-        [itemMesh[slot] setScale:GLKVector3Make(0.1f, 0.1f, 0.1f)];
-        [itemMesh[slot] setPosition:GLKVector3Make(direction * 0.35, 0.25, 1.0f)];
-        [itemMesh[slot] addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_BOMB]];
+        itemMesh[itemSlot] = [[Assets getInstance] getMesh:KEY_MESH_BOMB];
+        [itemMesh[itemSlot] setScale:GLKVector3Make(0.1f, 0.1f, 0.1f)];
+        [itemMesh[itemSlot] setPosition:GLKVector3Make(direction * 0.35, 0.25, 1.0f)];
+        [itemMesh[itemSlot] addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_BOMB]];
     }
     else
     {
-        itemMesh[slot] = nil;
+        itemMesh[itemSlot] = nil;
     }
 }
 

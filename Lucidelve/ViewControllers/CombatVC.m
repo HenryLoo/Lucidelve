@@ -19,6 +19,8 @@
 #import "Primitives.h"
 #import "Assets.h"
 #import "AudioPlayer.h"
+#import "GameObject.h"
+#import "Constants.h"
 
 @interface CombatVC ()
 {
@@ -57,10 +59,10 @@
     UILabel *remainingNodesLabel;
     UILabel *playerLifeLabel;
     UILabel *playerStaminaLabel;
-    
-    // TODO: pointer to temporary label elements, remove this later
     UILabel *enemyNameLabel;
     UILabel *combatStatusLabel;
+    UIButton *item1Button;
+    UIButton *item2Button;
     
     Mesh *playerMesh;
     Mesh *enemyMesh;
@@ -69,6 +71,8 @@
     Mesh *rightWallMesh;
     Mesh *backWallMesh;
     Mesh *itemMesh[2];
+    
+    GameObject *items[2];
     
     // Position of each character at neutral position
     GLKVector3 playerNeutralPos;
@@ -128,14 +132,17 @@
     remainingNodesLabel = ((CombatView*) self.view).remainingNodesLabel;
     playerLifeLabel = ((CombatView*) self.view).playerLifeLabel;
     playerStaminaLabel = ((CombatView*) self.view).playerStaminaLabel;
+    item1Button = ((CombatView*) self.view).item1Button;
+    item2Button = ((CombatView*) self.view).item2Button;
     
-    // TODO: set up pointers to temporary labels, remove this later
+    // Initialize UI elements
+    [item1Button addTarget:self action:@selector(onItem1ButtonPress:)
+          forControlEvents:UIControlEventTouchDown];
+    [item2Button addTarget:self action:@selector(onItem2ButtonPress:)
+          forControlEvents:UIControlEventTouchDown];
+    
     enemyNameLabel = ((CombatView*) self.view).enemyNameLabel;
     combatStatusLabel = ((CombatView*) self.view).combatStatusLabel;
-    
-    // Initialize character variables
-    playerNeutralPos = GLKVector3Make(0, -0.5, 0);
-    enemyNeutralPos = GLKVector3Make(0, 0.5, 0);
     
     playerMesh = [Primitives square];
     [playerMesh setScale:GLKVector3Make(1, 1, 1)];
@@ -144,7 +151,7 @@
     floorMesh = [Primitives square];
     [floorMesh setScale:GLKVector3Make(3, 30, 1)];
     [floorMesh setPosition:GLKVector3Make(0, -2, 2)];
-    [floorMesh setRotation:GLKVector3Make(-M_PI / 2.5, 0, 0)];
+    [floorMesh setRotation:GLKVector3Make(-FLOOR_ANGLE, 0, 0)];
     [floorMesh addTexture:[[Assets getInstance] getTexture:_currentDungeon.floorTexture]];
     
     leftWallMesh = [Primitives square];
@@ -164,6 +171,14 @@
     [backWallMesh setPosition:GLKVector3Make(0, 7, -20)];
     [backWallMesh setRotation:GLKVector3Make(0, 0, 0)];
     [backWallMesh addTexture:[[Assets getInstance] getTexture:_currentDungeon.wallTexture]];
+    
+    // Initialize character variables
+    playerNeutralPos = [self getPositionOnFloor:2.5 scaleY:playerMesh.scale.y];
+    player.neutralPos = playerNeutralPos;
+    
+    // Initialize throwables
+    [self initializeItem:0];
+    [self initializeItem:1];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -189,11 +204,14 @@
         {
             // Initialize the enemy
             currentEnemy = [self.game getEnemy:enemyType];
-            [currentEnemy reset:true];
             
             enemyMesh = [Primitives square];
-            [enemyMesh setScale:GLKVector3Make(1, 1, 1)];
+            [enemyMesh setScale:GLKVector3Make(1.5, 1.5, 1.5)];
             [enemyMesh addTexture:[[Assets getInstance] getTexture:currentEnemy.texture]];
+            
+            enemyNeutralPos = [self getPositionOnFloor:4 scaleY:enemyMesh.scale.y];
+            currentEnemy.neutralPos = enemyNeutralPos;
+            [currentEnemy reset:true];
             
             [player reset:false];
         }
@@ -217,6 +235,8 @@
         }
     }
     
+    [items[0] update:self.game.deltaTime];
+    [items[1] update:self.game.deltaTime];
     [self updateEquippedMesh:0];
     [self updateEquippedMesh:1];
     
@@ -238,12 +258,13 @@
     [self.renderer renderWithFog:leftWallMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_DUNGEON] fogColour:_currentDungeon.fogColour];
     [self.renderer renderWithFog:rightWallMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_DUNGEON] fogColour:_currentDungeon.fogColour];
     [self.renderer renderWithFog:backWallMesh program:[[Assets getInstance] getProgram:KEY_PROGRAM_DUNGEON] fogColour:_currentDungeon.fogColour];
-    [self.renderer renderSprite:playerMesh spriteIndex:player.spriteIndex fogColour:_currentDungeon.fogColour textureColour:GLKVector4Make(1, 1, 1, 1) textureColourAmount:0];
     
     if (currentEnemy != nil)
     {
         [self.renderer renderSprite:enemyMesh spriteIndex:currentEnemy.spriteIndex fogColour:_currentDungeon.fogColour textureColour:enemyColour textureColourAmount:enemyColourAmount];
     }
+    
+    [self.renderer renderSprite:playerMesh spriteIndex:player.spriteIndex fogColour:_currentDungeon.fogColour textureColour:GLKVector4Make(1, 1, 1, 1) textureColourAmount:0];
     
     // Render the equipped items
     if (itemMesh[0])
@@ -558,29 +579,125 @@
     combatStatusLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:alpha];
 }
 
-- (void)updateEquippedMesh:(int)slot
+/*!
+ * @brief Update the models for the equipped items.
+ * @author Henry Loo
+ *
+ * @param itemSlot The equipped item slot.
+ */
+- (void)updateEquippedMesh:(int)itemSlot
 {
-    Item item = [player getEquippedItem:slot];
-    int direction = (slot == 0) ? -1 : 1;
+    Item item = [player getEquippedItem:itemSlot];
     
     if (item.name == ITEMS[ITEM_HEALING_POTION].name)
     {
-        itemMesh[slot] = [[Assets getInstance] getMesh:KEY_MESH_POTION];
-        [itemMesh[slot] setScale:GLKVector3Make(0.08f, 0.08f, 0.08f)];
-        [itemMesh[slot] setPosition:GLKVector3Make(0.3 + direction * 0.2, -1.1, 1.0f)];
-        [itemMesh[slot] addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_POTION]];
+        itemMesh[itemSlot] = [[Assets getInstance] getMesh:KEY_MESH_POTION];
+        [itemMesh[itemSlot] setScale:items[itemSlot].scale];
+        [itemMesh[itemSlot] setPosition:items[itemSlot].position];
+        [itemMesh[itemSlot] setRotation:items[itemSlot].rotation];
+        [itemMesh[itemSlot] addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_POTION]];
     }
     else if(item.name == ITEMS[ITEM_BOMB].name)
     {
-        itemMesh[slot] = [[Assets getInstance] getMesh:KEY_MESH_BOMB];
-        [itemMesh[slot] setScale:GLKVector3Make(0.1f, 0.1f, 0.1f)];
-        [itemMesh[slot] setPosition:GLKVector3Make(0.3 + direction * 0.2, -1.1, 1.0f)];
-        [itemMesh[slot] addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_BOMB]];
+        itemMesh[itemSlot] = [[Assets getInstance] getMesh:KEY_MESH_BOMB];
+        [itemMesh[itemSlot] setScale:items[itemSlot].scale];
+        [itemMesh[itemSlot] setPosition:items[itemSlot].position];
+        [itemMesh[itemSlot] setRotation:items[itemSlot].rotation];
+        [itemMesh[itemSlot] addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_BOMB]];
     }
     else
     {
-        itemMesh[slot] = nil;
+        itemMesh[itemSlot] = nil;
     }
+}
+
+/*!
+ * @brief Handle the item 1 button's action.
+ * @author Henry Loo
+ *
+ * @param sender The pressed button
+ */
+- (void)onItem1ButtonPress:(id)sender
+{
+    [self onItemButtonPress:0];
+}
+
+/*!
+ * @brief Handle the item 2 button's action.
+ * @author Henry Loo
+ *
+ * @param sender The pressed button
+ */
+- (void)onItem2ButtonPress:(id)sender
+{
+    [self onItemButtonPress:1];
+}
+
+- (void)onItemButtonPress:(int)itemSlot
+{
+    if (itemMesh[itemSlot])
+    {
+        Item item = [player getEquippedItem:itemSlot];
+        GLKVector3 subPos = GLKVector3MultiplyScalar(items[itemSlot].position, -1);
+        GLKVector3 dist = GLKVector3Add(enemyNeutralPos, subPos);
+        
+        if (item.name == ITEMS[ITEM_HEALING_POTION].name)
+        {
+            dist = GLKVector3Add(playerNeutralPos, subPos);
+        }
+        
+        // Constant horizontal velocities
+        float velX = dist.x / THROW_TIME;
+        float velZ = dist.z / THROW_TIME;
+        
+        // Solve for kinematics equations to get initial velocity
+        // d = v_i * t + 0.5 * a * t^2
+        float velY = dist.y / THROW_TIME - 0.5 * GRAVITY * THROW_TIME;
+        
+        // Apply velocity and gravity
+        items[itemSlot].velocity = GLKVector3Make(velX, velY, velZ);
+        items[itemSlot].acceleration = GLKVector3Make(0, GRAVITY, 0);
+        items[itemSlot].angularVelocity = GLKVector3Make(0, 0, M_PI / 2);
+    }
+}
+
+/*!
+ * @brief Initialize values for the GameObject corresponding to
+ * an equipped item.
+ * @author Henry Loo
+ *
+ * @param itemSlot The equipped item slot.
+ */
+- (void)initializeItem:(int)itemSlot
+{
+    int direction = (itemSlot == 0) ? -1 : 1;
+    
+    items[itemSlot] = [[GameObject alloc] init];
+    items[itemSlot].position = GLKVector3Make(0.3 + direction * 0.2, -1.1, 1);
+    
+    Item item = [player getEquippedItem:itemSlot];
+    
+    if (item.name == ITEMS[ITEM_HEALING_POTION].name)
+    {
+        items[itemSlot].scale = GLKVector3Make(0.08f, 0.08f, 0.08f);
+    }
+    else if(item.name == ITEMS[ITEM_BOMB].name)
+    {
+        items[itemSlot].scale = GLKVector3Make(0.1f, 0.1f, 0.1f);
+    }
+}
+
+/*!
+ * @brief Return a position on the dungeon floor for an object.
+ * @author Henry Loo
+ *
+ * @param offset The offset of the position along the floor.
+ * @param scaleY The height of the object at the position.
+ */
+- (GLKVector3)getPositionOnFloor:(float)offset scaleY:(float)scaleY
+{
+    return GLKVector3Make(0, sinf(M_PI / 2 - FLOOR_ANGLE) * offset + scaleY / 2 + floorMesh.position.y,
+                   -cosf(M_PI / 2 - FLOOR_ANGLE) * offset + floorMesh.position.z);
 }
 
 @end

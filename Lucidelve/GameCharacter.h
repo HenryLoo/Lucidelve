@@ -44,6 +44,9 @@ typedef enum
 // before the character's combat state reverts to Neutral.
 @property float actionTimer;
 
+// The default position in Combat
+@property (nonatomic) GLKVector3 neutralPos;
+
 /*!
  * @brief Initialize a character with a life value.
  * @author Henry Loo

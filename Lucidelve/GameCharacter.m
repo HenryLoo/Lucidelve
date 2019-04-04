@@ -59,17 +59,18 @@
         _actionTimer = MAX(0, _actionTimer);
     }
     
-    _position = GLKVector3Add(_position, GLKVector3MultiplyScalar(_velocity, deltaTime));
+    float delta = ABS(deltaTime);
+    _position = GLKVector3Add(_position, GLKVector3MultiplyScalar(_velocity, delta));
     
     // Decelerate the character
-    if (_velocity.x > 0) _velocity.x += (CHARACTER_DECEL * deltaTime);
-    else if (_velocity.x < 0) _velocity.x -= (CHARACTER_DECEL * deltaTime);
+    if (_velocity.x > 0) _velocity.x += (CHARACTER_DECEL * delta);
+    else if (_velocity.x < 0) _velocity.x -= (CHARACTER_DECEL * delta);
     
-    if (_velocity.y > 0) _velocity.y += (CHARACTER_DECEL * deltaTime);
-    else if (_velocity.y < 0) _velocity.y -= (CHARACTER_DECEL * deltaTime);
+    if (_velocity.y > 0) _velocity.y += (CHARACTER_DECEL * delta);
+    else if (_velocity.y < 0) _velocity.y -= (CHARACTER_DECEL * delta);
     
-    if (_velocity.z > 0) _velocity.z += (CHARACTER_DECEL * deltaTime);
-    else if (_velocity.z < 0) _velocity.z -= (CHARACTER_DECEL * deltaTime);
+    if (_velocity.z > 0) _velocity.z += (CHARACTER_DECEL * delta);
+    else if (_velocity.z < 0) _velocity.z -= (CHARACTER_DECEL * delta);
     
     if (ABS(_velocity.x) < CHARACTER_VEL_THRESHOLD) _velocity.x = 0;
     if (ABS(_velocity.y) < CHARACTER_VEL_THRESHOLD) _velocity.y = 0;

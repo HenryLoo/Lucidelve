@@ -29,6 +29,7 @@
 		5FE09D6122179D0300F8B952 /* Enemy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE09D6022179D0200F8B952 /* Enemy.m */; };
 		5FE33DDF221890E500FCE3D8 /* CombatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE33DDE221890E500FCE3D8 /* CombatView.m */; };
 		5FE33DE12218910000FCE3D8 /* CombatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE33DE02218910000FCE3D8 /* CombatVC.m */; };
+		5FE7A9D1225576E000AA3015 /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE7A9D0225576E000AA3015 /* GameObject.m */; };
 		5FFA34C52220C63100994AEF /* GooseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FFA34C42220C63100994AEF /* GooseVC.m */; };
 		5FFA34C82220C93A00994AEF /* GooseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FFA34C72220C93A00994AEF /* GooseView.m */; };
 		8A746BCC224AFC5100649D91 /* UIPaddedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A746BCB224AFC5100649D91 /* UIPaddedLabel.m */; };
@@ -120,6 +121,8 @@
 		5FE33DDE221890E500FCE3D8 /* CombatView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CombatView.m; sourceTree = "<group>"; };
 		5FE33DE02218910000FCE3D8 /* CombatVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CombatVC.m; sourceTree = "<group>"; };
 		5FE33DE22218916400FCE3D8 /* CombatView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CombatView.h; sourceTree = "<group>"; };
+		5FE7A9CF225576BB00AA3015 /* GameObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
+		5FE7A9D0225576E000AA3015 /* GameObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameObject.m; sourceTree = "<group>"; };
 		5FFA34C32220C58200994AEF /* GooseVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GooseVC.h; sourceTree = "<group>"; };
 		5FFA34C42220C63100994AEF /* GooseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GooseVC.m; sourceTree = "<group>"; };
 		5FFA34C62220C8AD00994AEF /* GooseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GooseView.h; sourceTree = "<group>"; };
@@ -306,6 +309,8 @@
 				B7A3BBD32230AC1100DB0373 /* AudioPlayer.m */,
 				8A746BCA224AFC1B00649D91 /* UIPaddedLabel.h */,
 				8A746BCB224AFC5100649D91 /* UIPaddedLabel.m */,
+				5FE7A9CF225576BB00AA3015 /* GameObject.h */,
+				5FE7A9D0225576E000AA3015 /* GameObject.m */,
 			);
 			path = Lucidelve;
 			sourceTree = "<group>";
@@ -476,6 +481,7 @@
 				8A746BCC224AFC5100649D91 /* UIPaddedLabel.m in Sources */,
 				5F632F72221511F5009DBB0F /* Dungeon.m in Sources */,
 				5F60B95822232F7600583CCD /* BlacksmithVC.m in Sources */,
+				5FE7A9D1225576E000AA3015 /* GameObject.m in Sources */,
 				D632C64C221C02B500A315BA /* Mesh.m in Sources */,
 				5F67B673220BFBFA00227D14 /* ShopVC.m in Sources */,
 				5F67B676220BFCF900227D14 /* ShopView.m in Sources */,
@@ -665,7 +671,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W9HSJ7BJF2;
+				DEVELOPMENT_TEAM = FPV7K2X4HC;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = Lucidelve/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -677,7 +683,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/assimp",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = comp.8051.Lucidelve2;
+				PRODUCT_BUNDLE_IDENTIFIER = comp.8051.Lucidelve;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -690,7 +696,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W9HSJ7BJF2;
+				DEVELOPMENT_TEAM = FPV7K2X4HC;
 				ENABLE_TESTABILITY = NO;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = Lucidelve/Info.plist;
@@ -703,7 +709,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/assimp",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = comp.8051.Lucidelve2;
+				PRODUCT_BUNDLE_IDENTIFIER = comp.8051.Lucidelve;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -18,6 +18,15 @@ extern const float PLAYER_WALK_SPEED;
 // The number of sprites in the player's walk cycle
 extern const int NUM_PLAYER_WALK_SPRITES;
 
+// Constant gravity for decelerating throwable items
+extern const float GRAVITY;
+
+// The amount time it takes (in seconds) to throw an item at the target
+extern const float THROW_TIME;
+
+// The angle that the dungeon floor is tilted at
+extern const float FLOOR_ANGLE;
+
 // Constant deceleration for character movement in Combat
 extern const float CHARACTER_DECEL;
 
