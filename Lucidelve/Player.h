@@ -154,6 +154,14 @@
 - (void)unequipItem:(int)itemSlot;
 
 /*!
+ * @brief Delete the item at the given Inventory item slot.
+ * @author Henry Loo
+ *
+ * @param itemSlot The item slot to delete the item from.
+ */
+- (void)removeEquippedItem:(int)itemSlot;
+
+/*!
  * @brief Get the equipped item from the given Inventory item slot.
  * @author Henry Loo
  *

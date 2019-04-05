@@ -17,6 +17,7 @@
 @property (nonatomic) GLKVector3 acceleration;
 @property (nonatomic) GLKVector3 angularVelocity;
 @property (nonatomic) GLKVector3 scale;
+@property (nonatomic) bool isThrown;
 
 /*!
  * @brief Update the throwable's values.

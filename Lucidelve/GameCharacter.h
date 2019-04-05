@@ -123,4 +123,12 @@ typedef enum
  */
 - (CombatState)getCombatState;
 
+/*!
+ * @brief Return the character's combat state in the previous frame.
+ * @author Henry Loo
+ *
+ * @return The character's combat state in the previous frame.
+ */
+- (CombatState)getPrevCombatState;
+
 @end

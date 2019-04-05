@@ -171,6 +171,9 @@
 
 - (void)onItemButtonPress:(int)itemSlot
 {
+    // Bounds checking
+    if (itemSlot < 0 || itemSlot >= MAX_EQUIPPED_ITEMS) return;
+    
     // If an item has been selected
     if ([self isItemSelected])
     {
@@ -248,6 +251,9 @@
  */
 - (void)updateEquippedMesh:(int)itemSlot
 {
+    // Bounds checking
+    if (itemSlot < 0 || itemSlot >= MAX_EQUIPPED_ITEMS) return;
+    
     Item item = [player getEquippedItem:itemSlot];
     int direction = (itemSlot == 0) ? -1 : 1;
     

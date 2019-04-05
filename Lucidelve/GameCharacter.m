@@ -23,6 +23,9 @@
     
     // The character's current combat state
     CombatState state;
+    
+    // The character's state in the previous frame
+    CombatState prevState;
 }
 
 @end
@@ -51,6 +54,8 @@
 
 - (void)update:(float)deltaTime
 {
+    prevState = state;
+    
     if (_actionTimer > 0)
     {
         // Decrement cooldown timer and make sure it doesn't
@@ -112,8 +117,8 @@
 
 - (void)setCombatState:(CombatState)newState
 {
-    // Start cooldown if changing from neutral or taking damage
-    if (state == COMBAT_NEUTRAL || newState == COMBAT_HURT)
+    // Start cooldown if changing from neutral
+    if (state == COMBAT_NEUTRAL)
     {
         _actionTimer = COMBAT_COOLDOWN;
     }
@@ -124,6 +129,11 @@
 - (CombatState)getCombatState
 {
     return state;
+}
+
+- (CombatState)getPrevCombatState
+{
+    return prevState;
 }
 
 @end

@@ -196,31 +196,39 @@
 
 - (void)equipItem:(NSUInteger)index withItemSlot:(int)itemSlot
 {
-    if (itemSlot >= 0 && itemSlot < MAX_EQUIPPED_ITEMS)
-    {
-        // Unequip any already-equipped item
-        [self unequipItem:itemSlot];
-        
-        // Move the item from the inventory to the equipped item slot
-        equippedItems[itemSlot] = items[index];
-        [self removeItemAtIndex:index];
-    }
+    // Bounds checking
+    if (itemSlot < 0 || itemSlot >= MAX_EQUIPPED_ITEMS) return;
+    
+    // Unequip any already-equipped item
+    [self unequipItem:itemSlot];
+    
+    // Move the item from the inventory to the equipped item slot
+    equippedItems[itemSlot] = items[index];
+    [self removeItemAtIndex:index];
 }
 
 - (void)unequipItem:(int)itemSlot
 {
-    if (itemSlot >= 0 && itemSlot < MAX_EQUIPPED_ITEMS)
-    {
-        // If nothing equipped, then there is nothing to unequip
-        Item equipped = [self getEquippedItem:itemSlot];
-        if (equipped.name == ITEMS[ITEM_NONE].name) return;
-        
-        // Move the item from the equipped item slot to the inventory
-        [items addObject:equippedItems[itemSlot]];
-        Item item = ITEMS[ITEM_NONE];
-        NSValue *wrappedItem = [NSValue valueWithBytes:&item objCType:@encode(Item)];
-        equippedItems[itemSlot] = wrappedItem;
-    }
+    // Bounds checking
+    if (itemSlot < 0 || itemSlot >= MAX_EQUIPPED_ITEMS) return;
+    
+    // If nothing equipped, then there is nothing to unequip
+    Item equipped = [self getEquippedItem:itemSlot];
+    if (equipped.name == ITEMS[ITEM_NONE].name) return;
+    
+    // Move the item from the equipped item slot to the inventory
+    [items addObject:equippedItems[itemSlot]];
+    [self removeEquippedItem:itemSlot];
+}
+
+- (void)removeEquippedItem:(int)itemSlot
+{
+    // Bounds checking
+    if (itemSlot < 0 || itemSlot >= MAX_EQUIPPED_ITEMS) return;
+    
+    Item item = ITEMS[ITEM_NONE];
+    NSValue *wrappedItem = [NSValue valueWithBytes:&item objCType:@encode(Item)];
+    equippedItems[itemSlot] = wrappedItem;
 }
 
 - (Item)getEquippedItem:(int)itemSlot
@@ -267,8 +275,8 @@
             break;
         case COMBAT_HURT:
             self.spriteIndex = 5;
-            self.velocity = GLKVector3Make(0, sinf(M_PI / 2 - FLOOR_ANGLE) * -2.5,
-                                           -cosf(M_PI / 2 - FLOOR_ANGLE) * -2.5);
+            self.velocity = GLKVector3Make(0, sinf(M_PI / 2 - FLOOR_ANGLE) * -3,
+                                           -cosf(M_PI / 2 - FLOOR_ANGLE) * -3);
             [[AudioPlayer getInstance] play:KEY_SOUND_PLAYER_HURT];
             break;
         case COMBAT_DEAD:

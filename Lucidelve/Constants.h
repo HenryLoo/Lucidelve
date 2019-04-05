@@ -27,6 +27,12 @@ extern const float THROW_TIME;
 // The angle that the dungeon floor is tilted at
 extern const float FLOOR_ANGLE;
 
+// The amount of health to heal from a healing potion
+extern const int POTION_HEAL_AMOUNT;
+
+// The amount of damage that a bomb deals
+extern const int BOMB_DAMAGE;
+
 // Constant deceleration for character movement in Combat
 extern const float CHARACTER_DECEL;
 

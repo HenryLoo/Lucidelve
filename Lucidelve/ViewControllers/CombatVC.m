@@ -72,15 +72,23 @@
     Mesh *backWallMesh;
     Mesh *itemMesh[2];
     
-    GameObject *items[2];
+    NSString *itemNames[2];
+    GameObject *itemObjects[2];
+    GameCharacter *itemTargets[2];
     
     // Position of each character at neutral position
     GLKVector3 playerNeutralPos;
     GLKVector3 enemyNeutralPos;
     
-    // Enemy attack colour values
+    // Player colour values
+    GLKVector4 playerColour;
+    float playerColourCurrentTime;
+    float playerColourTime;
+    
+    // Enemy colour values
     GLKVector4 enemyColour;
-    float enemyColourAmount;
+    float enemyColourCurrentTime;
+    float enemyColourTime;
 }
 @end
 
@@ -229,18 +237,20 @@
         
         if (currentEnemy != nil)
         {
+            [self processItem:0];
+            [self processItem:1];
+            
             [currentEnemy update:self.game.deltaTime];
             [self processEnemyAttack];
             [self updateEnemyLabels];
         }
     }
     
-    [items[0] update:self.game.deltaTime];
-    [items[1] update:self.game.deltaTime];
+    [super update];
+    
+    // Update meshes
     [self updateEquippedMesh:0];
     [self updateEquippedMesh:1];
-    
-    [super update];
     
     [playerMesh setPosition:player.position];
     
@@ -248,6 +258,10 @@
     {
         [enemyMesh setPosition:currentEnemy.position];
     }
+    
+    // Update colour mixes
+    [self updatePlayerColour];
+    [self updateEnemyColour];
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
@@ -261,10 +275,13 @@
     
     if (currentEnemy != nil)
     {
-        [self.renderer renderSprite:enemyMesh spriteIndex:currentEnemy.spriteIndex fogColour:_currentDungeon.fogColour textureColour:enemyColour textureColourAmount:enemyColourAmount];
+        float amount = (enemyColourTime > 0) ? enemyColourCurrentTime / enemyColourTime : 0;
+        [self.renderer renderSprite:enemyMesh spriteIndex:currentEnemy.spriteIndex fogColour:_currentDungeon.fogColour textureColour:enemyColour textureColourAmount:amount];
     }
     
-    [self.renderer renderSprite:playerMesh spriteIndex:player.spriteIndex fogColour:_currentDungeon.fogColour textureColour:GLKVector4Make(1, 1, 1, 1) textureColourAmount:0];
+    float amount = (playerColourTime > 0) ? playerColourCurrentTime / playerColourTime : 0;
+    [self.renderer renderSprite:playerMesh spriteIndex:player.spriteIndex fogColour:_currentDungeon.fogColour textureColour:playerColour
+            textureColourAmount:amount];
     
     // Render the equipped items
     if (itemMesh[0])
@@ -336,30 +353,30 @@
 
 - (void)onSwipe:(UISwipeGestureRecognizer *)recognizer
 {
-    if (currentEnemy != nil)
+    // Must be in combat with an enemy
+    if (!currentEnemy || [currentEnemy getCurrentLife] == 0) return;
+    
+    switch(recognizer.direction)
     {
-        switch(recognizer.direction)
-        {
-            case UISwipeGestureRecognizerDirectionUp:
-                // High attack
-                [self performHighAttack];
-                break;
-                
-            case UISwipeGestureRecognizerDirectionDown:
-                // Block
-                [self performBlock];
-                break;
+        case UISwipeGestureRecognizerDirectionUp:
+            // High attack
+            [self performHighAttack];
+            break;
             
-            case UISwipeGestureRecognizerDirectionLeft:
-                // Dodge left
-                [self performDodgeLeft];
-                break;
-                
-            case UISwipeGestureRecognizerDirectionRight:
-                // Dodge right
-                [self performDodgeRight];
-                break;
-        }
+        case UISwipeGestureRecognizerDirectionDown:
+            // Block
+            [self performBlock];
+            break;
+        
+        case UISwipeGestureRecognizerDirectionLeft:
+            // Dodge left
+            [self performDodgeLeft];
+            break;
+            
+        case UISwipeGestureRecognizerDirectionRight:
+            // Dodge right
+            [self performDodgeRight];
+            break;
     }
 }
 
@@ -426,6 +443,7 @@
     
     // Deal damage depending on the number of sword upgrades
     [currentEnemy addLife:-[self.game getSwordDamage]];
+    currentEnemy.actionTimer = COMBAT_COOLDOWN;
 }
 
 /*!
@@ -435,6 +453,7 @@
 - (void)dealEnemyDamageToPlayer
 {
     [player addLife:-currentEnemy.currentAttack.damage];
+    player.actionTimer = currentEnemy.currentAttack.attackDelay;
 }
 
 
@@ -509,15 +528,12 @@
         }
     }
     
-    if ([currentEnemy getCombatState] == COMBAT_ALERT)
+    // Just changed to alert state
+    if ([currentEnemy getCombatState] == COMBAT_ALERT &&
+        [currentEnemy getPrevCombatState] != COMBAT_ALERT)
     {
         // Enemy sprite should flash red when preparing to attack
-        enemyColour = GLKVector4Make(1, 0, 0, 1);
-        enemyColourAmount = currentEnemy.actionTimer / currentEnemy.currentAttack.alertDelay / 3;
-    }
-    else
-    {
-        enemyColourAmount = 0;
+        [self setEnemyColour:GLKVector4Make(1, 0, 0, 0.8) time:currentEnemy.currentAttack.alertDelay / 3];
     }
 }
 
@@ -587,23 +603,26 @@
  */
 - (void)updateEquippedMesh:(int)itemSlot
 {
-    Item item = [player getEquippedItem:itemSlot];
+    // Bounds checking
+    if (itemSlot < 0 || itemSlot >= MAX_EQUIPPED_ITEMS) return;
     
-    if (item.name == ITEMS[ITEM_HEALING_POTION].name)
+    if (!itemMesh[itemSlot]) return;
+    
+    // Don't compare with player's equipped items array, because
+    // we want to update even after the item has been consumed
+    NSString *itemName = itemNames[itemSlot];
+    
+    if (itemName == ITEMS[ITEM_HEALING_POTION].name)
     {
-        itemMesh[itemSlot] = [[Assets getInstance] getMesh:KEY_MESH_POTION];
-        [itemMesh[itemSlot] setScale:items[itemSlot].scale];
-        [itemMesh[itemSlot] setPosition:items[itemSlot].position];
-        [itemMesh[itemSlot] setRotation:items[itemSlot].rotation];
-        [itemMesh[itemSlot] addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_POTION]];
+        [itemMesh[itemSlot] setScale:itemObjects[itemSlot].scale];
+        [itemMesh[itemSlot] setPosition:itemObjects[itemSlot].position];
+        [itemMesh[itemSlot] setRotation:itemObjects[itemSlot].rotation];
     }
-    else if(item.name == ITEMS[ITEM_BOMB].name)
+    else if(itemName == ITEMS[ITEM_BOMB].name)
     {
-        itemMesh[itemSlot] = [[Assets getInstance] getMesh:KEY_MESH_BOMB];
-        [itemMesh[itemSlot] setScale:items[itemSlot].scale];
-        [itemMesh[itemSlot] setPosition:items[itemSlot].position];
-        [itemMesh[itemSlot] setRotation:items[itemSlot].rotation];
-        [itemMesh[itemSlot] addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_BOMB]];
+        [itemMesh[itemSlot] setScale:itemObjects[itemSlot].scale];
+        [itemMesh[itemSlot] setPosition:itemObjects[itemSlot].position];
+        [itemMesh[itemSlot] setRotation:itemObjects[itemSlot].rotation];
     }
     else
     {
@@ -635,15 +654,27 @@
 
 - (void)onItemButtonPress:(int)itemSlot
 {
-    if (itemMesh[itemSlot])
+    // Must be in combat with an enemy
+    if (!currentEnemy || [currentEnemy getCurrentLife] == 0) return;
+    
+    // Bounds checking
+    if (itemSlot < 0 || itemSlot >= MAX_EQUIPPED_ITEMS) return;
+    
+    Item item = [player getEquippedItem:itemSlot];
+    if (item.name != ITEMS[ITEM_NONE].name && currentEnemy)
     {
-        Item item = [player getEquippedItem:itemSlot];
-        GLKVector3 subPos = GLKVector3MultiplyScalar(items[itemSlot].position, -1);
-        GLKVector3 dist = GLKVector3Add(enemyNeutralPos, subPos);
+        GLKVector3 subPos = GLKVector3MultiplyScalar(itemObjects[itemSlot].position, -1);
+        GLKVector3 dist;
         
         if (item.name == ITEMS[ITEM_HEALING_POTION].name)
         {
             dist = GLKVector3Add(playerNeutralPos, subPos);
+            itemTargets[itemSlot] = player;
+        }
+        else
+        {
+            dist = GLKVector3Add(enemyNeutralPos, subPos);
+            itemTargets[itemSlot] = currentEnemy;
         }
         
         // Constant horizontal velocities
@@ -655,9 +686,12 @@
         float velY = dist.y / THROW_TIME - 0.5 * GRAVITY * THROW_TIME;
         
         // Apply velocity and gravity
-        items[itemSlot].velocity = GLKVector3Make(velX, velY, velZ);
-        items[itemSlot].acceleration = GLKVector3Make(0, GRAVITY, 0);
-        items[itemSlot].angularVelocity = GLKVector3Make(0, 0, M_PI / 2);
+        itemObjects[itemSlot].velocity = GLKVector3Make(velX, velY, velZ);
+        itemObjects[itemSlot].acceleration = GLKVector3Make(0, GRAVITY, 0);
+        itemObjects[itemSlot].angularVelocity = GLKVector3Make(0, 0, M_PI / 2);
+        
+        itemObjects[itemSlot].isThrown = true;
+        [player removeEquippedItem:itemSlot];
     }
 }
 
@@ -670,20 +704,28 @@
  */
 - (void)initializeItem:(int)itemSlot
 {
+    // Bounds checking
+    if (itemSlot < 0 || itemSlot >= MAX_EQUIPPED_ITEMS) return;
+        
     int direction = (itemSlot == 0) ? -1 : 1;
     
-    items[itemSlot] = [[GameObject alloc] init];
-    items[itemSlot].position = GLKVector3Make(0.3 + direction * 0.2, -1.1, 1);
+    itemObjects[itemSlot] = [[GameObject alloc] init];
+    itemObjects[itemSlot].position = GLKVector3Make(0.3 + direction * 0.2, -1.1, 1);
     
     Item item = [player getEquippedItem:itemSlot];
+    itemNames[itemSlot] = item.name;
     
     if (item.name == ITEMS[ITEM_HEALING_POTION].name)
     {
-        items[itemSlot].scale = GLKVector3Make(0.08f, 0.08f, 0.08f);
+        itemObjects[itemSlot].scale = GLKVector3Make(0.08f, 0.08f, 0.08f);
+        itemMesh[itemSlot] = [[Assets getInstance] getMesh:KEY_MESH_POTION];
+        [itemMesh[itemSlot] addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_POTION]];
     }
     else if(item.name == ITEMS[ITEM_BOMB].name)
     {
-        items[itemSlot].scale = GLKVector3Make(0.1f, 0.1f, 0.1f);
+        itemObjects[itemSlot].scale = GLKVector3Make(0.1f, 0.1f, 0.1f);
+        itemMesh[itemSlot] = [[Assets getInstance] getMesh:KEY_MESH_BOMB];
+        [itemMesh[itemSlot] addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_BOMB]];
     }
 }
 
@@ -698,6 +740,84 @@
 {
     return GLKVector3Make(0, sinf(M_PI / 2 - FLOOR_ANGLE) * offset + scaleY / 2 + floorMesh.position.y,
                    -cosf(M_PI / 2 - FLOOR_ANGLE) * offset + floorMesh.position.z);
+}
+
+/*!
+ * @brief Process an equipped item's behaviour.
+ * @author Henry Loo
+ *
+ * @param itemSlot The equipped item slot.
+ */
+- (void)processItem:(int)itemSlot
+{
+    if (itemObjects[itemSlot]) [itemObjects[itemSlot] update:self.game.deltaTime];
+    
+    // Check for collisions if the item is thrown
+    if (itemObjects[itemSlot].isThrown && [itemObjects[itemSlot] isColliding:itemTargets[itemSlot]])
+    {
+        NSString *soundKey;
+        if (itemNames[itemSlot] == ITEMS[ITEM_HEALING_POTION].name)
+        {
+            soundKey = KEY_SOUND_HEALING_POTION;
+            [player addLife:POTION_HEAL_AMOUNT];
+            [self setPlayerColour:GLKVector4Make(0, 1, 0.25, 1) time:0.5];
+        }
+        else
+        {
+            soundKey = KEY_SOUND_BOMB;
+            [currentEnemy addLife:-BOMB_DAMAGE];
+            currentEnemy.actionTimer = COMBAT_COOLDOWN;
+            [self setEnemyColour:GLKVector4Make(1, 0.5, 0, 1) time:0.5];
+        }
+        
+        [[AudioPlayer getInstance] play:soundKey];
+        
+        // Clear the item's associated elements
+        itemObjects[itemSlot] = nil;
+        itemMesh[itemSlot] = nil;
+    }
+}
+
+- (void)setPlayerColour:(GLKVector4)colour time:(float)time
+{
+    playerColour = colour;
+    playerColourTime = time;
+    playerColourCurrentTime = time;
+}
+
+- (void)updatePlayerColour
+{
+    if (playerColourTime > 0)
+    {
+        playerColourCurrentTime += self.game.deltaTime;
+    }
+    
+    if (playerColourCurrentTime <= 0)
+    {
+        playerColourCurrentTime = 0;
+        playerColourTime = 0;
+    }
+}
+
+- (void)setEnemyColour:(GLKVector4)colour time:(float)time
+{
+    enemyColour = colour;
+    enemyColourTime = time;
+    enemyColourCurrentTime = time;
+}
+
+- (void)updateEnemyColour
+{
+    if (enemyColourTime > 0)
+    {
+        enemyColourCurrentTime += self.game.deltaTime;
+    }
+    
+    if (enemyColourCurrentTime <= 0)
+    {
+        enemyColourCurrentTime = 0;
+        enemyColourTime = 0;
+    }
 }
 
 @end
