@@ -82,7 +82,7 @@
     if (ABS(_velocity.z) < CHARACTER_VEL_THRESHOLD) _velocity.z = 0;
 }
 
-- (void)addLife:(int)amount
+- (void)addLife:(int)amount isHurt:(bool)isHurt
 {
     
     currentLife += amount;
@@ -92,11 +92,11 @@
     
     if (currentLife == 0)
     {
-        [self setCombatState:COMBAT_DEAD];
+        [self setCombatState:COMBAT_DEAD duration:0];
     }
-    else if (amount < 0)
+    else if (isHurt)
     {
-        [self setCombatState:COMBAT_HURT];
+        [self setCombatState:COMBAT_HURT duration:0];
     }
 }
 
@@ -115,15 +115,10 @@
     return maxLife;
 }
 
-- (void)setCombatState:(CombatState)newState
+- (void)setCombatState:(CombatState)newState duration:(float)duration
 {
-    // Start cooldown if changing from neutral
-    if (state == COMBAT_NEUTRAL)
-    {
-        _actionTimer = COMBAT_COOLDOWN;
-    }
-    
     state = newState;
+    _actionTimer = duration;
 }
 
 - (CombatState)getCombatState

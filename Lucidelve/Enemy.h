@@ -89,20 +89,12 @@ typedef struct EnemyAttack
 - (NSString*)getName;
 
 /*!
- * @brief Try to block an attack, based on this enemy's block chance.
- * If successfully blocked, then return true. Otherwise return false.
- * @author Henry Loo
- *
- * @return The success of the block.
- */
-- (bool)tryBlockingAttack;
-
-/*!
  * @brief Change the character's current combat state to a new one.
  * @author Henry Loo
  *
  * @param newState The new combat state to change to.
+ * @param duration The duration to set the action timer to.
  */
-- (void)setCombatState:(CombatState)newState;
+- (void)setCombatState:(CombatState)newState duration:(float)duration;
 
 @end

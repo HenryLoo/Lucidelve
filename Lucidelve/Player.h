@@ -176,7 +176,8 @@
  * @author Henry Loo
  *
  * @param newState The new combat state to change to.
+ * @param duration The duration to set the action timer to.
  */
-- (void)setCombatState:(CombatState)newState;
+- (void)setCombatState:(CombatState)newState duration:(float)duration;
 
 @end

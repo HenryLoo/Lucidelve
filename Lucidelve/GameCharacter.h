@@ -79,8 +79,10 @@ typedef enum
  * @param amount The value to increment the character's current life by.
  * A positive value corresponds to a "heal", while a negative value
  * corresponds to taking "damage".
+ * @param isHurt Flag for if the character should be placed in the
+ * Hurt combat state.
  */
-- (void)addLife:(int)amount;
+- (void)addLife:(int)amount isHurt:(bool)isHurt;
 
 /*!
  * @brief Increment the character's max life by one.
@@ -112,8 +114,9 @@ typedef enum
  * @author Henry Loo
  *
  * @param newState The new combat state to change to.
+ * @param duration The duration to set the action timer to.
  */
-- (void)setCombatState:(CombatState)newState;
+- (void)setCombatState:(CombatState)newState duration:(float)duration;
 
 /*!
  * @brief Return the character's combat state.

@@ -1,7 +1,7 @@
 {
     "name": "Golem",
     "texture": "golem",
-    "life": 25,
+    "life": 250,
     "minAttackDelay": 4.0,
     "maxAttackDelay": 6.0,
     "blockChance": 0.7,

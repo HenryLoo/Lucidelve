@@ -48,6 +48,21 @@ extern const int DEFAULT_PLAYER_STAMINA;
 // The cooldown for regenerating stamina
 extern const float STAMINA_COOLDOWN;
 
+// The cooldown between combat actions
+extern const float COMBAT_COOLDOWN;
+
+// The duration of the player's block action
+extern const float BLOCK_DURATION;
+
+// The duration of the player's dodge action
+extern const float DODGE_DURATION;
+
+// The cooldown between defensive actions
+extern const float DEFENCE_COOLDOWN;
+
+// The duration for enemies being stunned
+extern const float ENEMY_STUN_DURATION;
+
 // The maximum number of heart cookies that a player can purchase
 extern const int MAX_LIFE_UPGRADES;
 
@@ -62,9 +77,6 @@ extern const int NO_SELECTED_ITEM;
 
 // The maximum number of equipped items
 extern const int MAX_EQUIPPED_ITEMS;
-
-// The cooldown between combat actions
-extern const float COMBAT_COOLDOWN;
 
 // The maximum number of upgrades for the Golden Goose
 extern const int MAX_GOOSE_UPGRADES;

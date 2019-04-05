@@ -314,11 +314,11 @@
                 currentEnemy = nil;
             }
         }
-        // Otherwise, perform a regular attack
-//        else
-//        {
-//            [self performRegularAttack];
-//        }
+        // Otherwise, perform a block
+        else
+        {
+            [self performBlock];
+        }
     }
     
     // Show the end message if dungeon run is over
@@ -359,15 +359,14 @@
     switch(recognizer.direction)
     {
         case UISwipeGestureRecognizerDirectionUp:
-            // High attack
-            [self performHighAttack];
+            // Attack
+            [self performAttack];
             break;
             
         case UISwipeGestureRecognizerDirectionDown:
-            // Block
-            [self performBlock];
+            // Nothing
             break;
-        
+            
         case UISwipeGestureRecognizerDirectionLeft:
             // Dodge left
             [self performDodgeLeft];
@@ -381,42 +380,18 @@
 }
 
 /*!
- * @brief Perform the player's regular attack.
+ * @brief Perform the player's attack.
  * @author Henry Loo
  */
-- (void)performRegularAttack
+- (void)performAttack
 {
     // Can only attack from Neutral state
     if ([player getCombatState] == COMBAT_NEUTRAL)
     {
         if ([player getCurrentStamina] > 0)
         {
-            [player setCombatState:COMBAT_ATTACKING];
+            [player setCombatState:COMBAT_ATTACKING duration:COMBAT_COOLDOWN];
             [self dealSwordDamageToEnemy];
-            [player addStamina:-1];
-        }
-        // Not enough stamina
-        else
-        {
-            [[AudioPlayer getInstance] play:KEY_SOUND_PLAYER_HURT];
-        }
-    }
-}
-
-/*!
- * @brief Perform the player's high attack.
- * @author Henry Loo
- */
-- (void)performHighAttack
-{
-    // Can only attack from Neutral state
-    if ([player getCombatState] == COMBAT_NEUTRAL)
-    {
-        if ([player getCurrentStamina] > 0)
-        {
-            [player setCombatState:COMBAT_ATTACKING2];
-            [self dealSwordDamageToEnemy];
-            [player addStamina:-1];
         }
         // Not enough stamina
         else
@@ -435,15 +410,64 @@
     // If the attack is not interruptable or the enemy can block the attack,
     // then don't deal any damage
     bool isInterruptable = currentEnemy.currentAttack.isInterruptable;
-    if (([currentEnemy getCombatState] == COMBAT_ALERT && !isInterruptable) ||
-        ([currentEnemy getCombatState] == COMBAT_NEUTRAL && [currentEnemy tryBlockingAttack]))
+    
+    // If the enemy blocked the attack, the player loses stamina
+    CombatState state = [currentEnemy getCombatState];
+    if (state == COMBAT_BLOCKING)
+    {
+        [player addStamina:-1];
+        [[AudioPlayer getInstance] play:KEY_SOUND_ENEMY_BLOCK];
+        [self setEnemyColour:GLKVector4Make(1, 1, 1, 1) time:0.2];
+    }
+    
+    if ((state == COMBAT_ALERT && !isInterruptable) ||
+        state == COMBAT_BLOCKING)
     {
         return;
     }
     
     // Deal damage depending on the number of sword upgrades
-    [currentEnemy addLife:-[self.game getSwordDamage]];
-    currentEnemy.actionTimer = COMBAT_COOLDOWN;
+    int damage = -[self.game getSwordDamage];
+    
+    // If the enemy was stunned, deal double damage
+    bool isHurt = (state == COMBAT_HURT);
+    NSString *soundKey;
+    if (isHurt) damage *= 2;
+    
+    // If the enemy was attacking, stun it
+    bool wasAttacking = (state == COMBAT_ATTACKING);
+    [currentEnemy addLife:damage isHurt:wasAttacking];
+    if (wasAttacking) currentEnemy.actionTimer = ENEMY_STUN_DURATION;
+    
+    // Play a different sound depending on if the enemy was stunned/dead
+    if ([currentEnemy getCombatState] == COMBAT_DEAD)
+    {
+        soundKey = KEY_SOUND_ENEMY_DEAD;
+    }
+    else if (isHurt)
+    {
+        soundKey = KEY_SOUND_ENEMY_STUN_HURT;
+    }
+    else
+    {
+        soundKey = KEY_SOUND_ENEMY_HURT;
+    }
+    [[AudioPlayer getInstance] play:soundKey];
+    
+    // Set a different colour depending on if the enemy was stunned
+    GLKVector4 colour;
+    if (isHurt)
+    {
+        colour = GLKVector4Make(0, 0, 0, 1);
+    }
+    else
+    {
+        colour = GLKVector4Make(0, 0, 0, 0.5);
+    }
+    [self setEnemyColour:colour time:0.2];
+    
+    // Reset enemy position
+    currentEnemy.position = enemyNeutralPos;
 }
 
 /*!
@@ -452,7 +476,7 @@
  */
 - (void)dealEnemyDamageToPlayer
 {
-    [player addLife:-currentEnemy.currentAttack.damage];
+    [player addLife:-currentEnemy.currentAttack.damage isHurt:true];
     player.actionTimer = currentEnemy.currentAttack.attackDelay;
 }
 
@@ -464,9 +488,10 @@
 - (void)performBlock
 {
     // Can only block from Neutral state
-    if ([player getCombatState] == COMBAT_NEUTRAL)
+    if ([player getCombatState] == COMBAT_NEUTRAL && player.actionTimer == 0)
     {
-        [player setCombatState:COMBAT_BLOCKING];
+        [[AudioPlayer getInstance] play:KEY_SOUND_BLOCK];
+        [player setCombatState:COMBAT_BLOCKING duration:BLOCK_DURATION];
     }
 }
 
@@ -476,11 +501,7 @@
  */
 - (void)performDodgeLeft
 {
-    // Can only dodge from Neutral state
-    if ([player getCombatState] == COMBAT_NEUTRAL)
-    {
-        [player setCombatState:COMBAT_DODGING_LEFT];
-    }
+    [self performDodge:true];
 }
 
 /*!
@@ -489,10 +510,18 @@
  */
 - (void)performDodgeRight
 {
+    [self performDodge:false];
+}
+
+- (void)performDodge:(bool)isLeft
+{
+    CombatState state = isLeft ? COMBAT_DODGING_LEFT : COMBAT_DODGING_RIGHT;
+    
     // Can only dodge from Neutral state
-    if ([player getCombatState] == COMBAT_NEUTRAL)
+    if ([player getCombatState] == COMBAT_NEUTRAL && player.actionTimer == 0)
     {
-        [player setCombatState:COMBAT_DODGING_RIGHT];
+        [player setCombatState:state duration:DODGE_DURATION];
+        [self setPlayerColour:GLKVector4Make(1, 1, 1, 0.6) time:0.3];
     }
 }
 
@@ -513,6 +542,9 @@
     {
         if (!(isBlockable|| isDodgable))
         {
+            // Reset player position
+            player.position = playerNeutralPos;
+            
             [self dealEnemyDamageToPlayer];
             
             // If dead, next tap should return player to The Hub with no rewards
@@ -524,7 +556,11 @@
         }
         else if(isBlockable)
         {
-            [[AudioPlayer getInstance] play:KEY_SOUND_BLOCK];
+            [[AudioPlayer getInstance] play:KEY_SOUND_PLAYER_BLOCK];
+            [self setPlayerColour:GLKVector4Make(1, 1, 1, 1) time:0.3];
+            
+            // Instantly reset player to neutral if block was successful
+            [player setCombatState:COMBAT_NEUTRAL duration:0];
         }
     }
     
@@ -533,7 +569,7 @@
         [currentEnemy getPrevCombatState] != COMBAT_ALERT)
     {
         // Enemy sprite should flash red when preparing to attack
-        [self setEnemyColour:GLKVector4Make(1, 0, 0, 0.8) time:currentEnemy.currentAttack.alertDelay / 3];
+        [self setEnemyColour:GLKVector4Make(1, 0, 0, 0.8) time:currentEnemy.currentAttack.alertDelay / 2];
     }
 }
 
@@ -542,12 +578,12 @@
     int currentLife = [player getCurrentLife];
     int maxLife = [player getMaxLife];
     playerLifeLabel.text = [NSString stringWithFormat:@"LIFE: [%i / %i]",
-                           currentLife, maxLife];
+                            currentLife, maxLife];
     
     int currentStamina = [player getCurrentStamina];
     int maxStamina = [player getMaxStamina];
     playerStaminaLabel.text = [NSString stringWithFormat:@"STAM: [%i / %i]",
-                            currentStamina, maxStamina];
+                               currentStamina, maxStamina];
     
     if ([player getCombatState] == COMBAT_DEAD)
     {
@@ -567,7 +603,7 @@
     if ([currentEnemy getCombatState] == COMBAT_DEAD)
     {
         NSString *text = [NSString stringWithFormat:@"<Tap to continue - Reward: %i G>",
-                                  [currentNode getGoldReward]];
+                          [currentNode getGoldReward]];
         [self updateCombatStatusLabel:text];
     }
 }
@@ -706,7 +742,7 @@
 {
     // Bounds checking
     if (itemSlot < 0 || itemSlot >= MAX_EQUIPPED_ITEMS) return;
-        
+    
     int direction = (itemSlot == 0) ? -1 : 1;
     
     itemObjects[itemSlot] = [[GameObject alloc] init];
@@ -739,7 +775,7 @@
 - (GLKVector3)getPositionOnFloor:(float)offset scaleY:(float)scaleY
 {
     return GLKVector3Make(0, sinf(M_PI / 2 - FLOOR_ANGLE) * offset + scaleY / 2 + floorMesh.position.y,
-                   -cosf(M_PI / 2 - FLOOR_ANGLE) * offset + floorMesh.position.z);
+                          -cosf(M_PI / 2 - FLOOR_ANGLE) * offset + floorMesh.position.z);
 }
 
 /*!
@@ -759,13 +795,13 @@
         if (itemNames[itemSlot] == ITEMS[ITEM_HEALING_POTION].name)
         {
             soundKey = KEY_SOUND_HEALING_POTION;
-            [player addLife:POTION_HEAL_AMOUNT];
+            [player addLife:POTION_HEAL_AMOUNT isHurt:false];
             [self setPlayerColour:GLKVector4Make(0, 1, 0.25, 1) time:0.5];
         }
         else
         {
             soundKey = KEY_SOUND_BOMB;
-            [currentEnemy addLife:-BOMB_DAMAGE];
+            [currentEnemy addLife:-BOMB_DAMAGE isHurt:true];
             currentEnemy.actionTimer = COMBAT_COOLDOWN;
             [self setEnemyColour:GLKVector4Make(1, 0.5, 0, 1) time:0.5];
         }

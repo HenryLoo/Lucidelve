@@ -64,8 +64,21 @@
         switch([self getCombatState])
         {
             case COMBAT_NEUTRAL:
+            {
+                int rollBlockChance = [[Utility getInstance] random:1 withMax:100];
+                
+                // Switch to blocking
+                if (rollBlockChance <= blockChance*100)
+                {
+                    const float precision = 10.f;
+                    float duration = (float)[[Utility getInstance] random:minAttackDelay*precision
+                                                                  withMax:maxAttackDelay*precision] / precision;
+                    [self setCombatState:COMBAT_BLOCKING duration:duration];
+                    
+                    [[AudioPlayer getInstance] play:KEY_SOUND_BLOCK];
+                }
                 // If this enemy has attack patterns
-                if (attackPatterns.count > 0)
+                else if (attackPatterns.count > 0)
                 {
                     // Pick a random attack pattern to perform
                     int index = [[Utility getInstance] random:1 withMax:attackPatterns.count] - 1;
@@ -73,26 +86,27 @@
                     NSValue *attackVal = [attackPatterns objectAtIndex:index];
                     [attackVal getValue:&attack];
                     _currentAttack = attack;
-                    [self setCombatState:COMBAT_ALERT];
-                    self.actionTimer = _currentAttack.alertDelay;
+                    [self setCombatState:COMBAT_ALERT duration:_currentAttack.alertDelay];
                 }
                 break;
+            }
                 
             case COMBAT_ALERT:
                 // Switch to attacking state
-                [self setCombatState:COMBAT_ATTACKING];
-                self.actionTimer = _currentAttack.attackDelay;
+                [self setCombatState:COMBAT_ATTACKING duration:_currentAttack.attackDelay];
                 _isAttacking = true;
                 break;
                 
             case COMBAT_ATTACKING:
             case COMBAT_HURT:
             case COMBAT_BLOCKING:
-                [self setCombatState:COMBAT_NEUTRAL];
+            {
                 const float precision = 10.f;
-                self.actionTimer = (float)[[Utility getInstance] random:minAttackDelay*precision
-                                                                withMax:maxAttackDelay*precision] / precision;
+                float duration = (float)[[Utility getInstance] random:minAttackDelay*precision
+                                                              withMax:maxAttackDelay*precision] / precision;
+                [self setCombatState:COMBAT_NEUTRAL duration:duration];
                 break;
+            }
                 
             default:
                 break;
@@ -116,23 +130,9 @@
     return name;
 }
 
-- (bool)tryBlockingAttack
+- (void)setCombatState:(CombatState)newState duration:(float)duration
 {
-    int rollBlockChance = [[Utility getInstance] random:1 withMax:100];
-    if (rollBlockChance <= blockChance*100)
-    {
-        [self setCombatState:COMBAT_BLOCKING];
-        self.actionTimer = COMBAT_COOLDOWN;
-        [[AudioPlayer getInstance] play:KEY_SOUND_BLOCK];
-        return true;
-    }
-    
-    return false;
-}
-
-- (void)setCombatState:(CombatState)newState
-{
-    [super setCombatState:newState];
+    [super setCombatState:newState duration:duration];
     
     switch (newState)
     {

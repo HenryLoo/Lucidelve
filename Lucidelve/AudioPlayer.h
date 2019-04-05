@@ -61,18 +61,22 @@ extern NSString *KEY_SOUND_BLOCK;
 extern NSString *KEY_SOUND_BOMB;
 extern NSString *KEY_SOUND_BUY;
 extern NSString *KEY_SOUND_COMBAT_WIN;
-extern NSString *KEY_SOUND_DEAD;
+extern NSString *KEY_SOUND_PLAYER_BLOCK;
+extern NSString *KEY_SOUND_PLAYER_HURT;
+extern NSString *KEY_SOUND_PLAYER_DEAD;
 extern NSString *KEY_SOUND_DODGE;
-extern NSString *KEY_SOUND_ENEMY_HURT;
 extern NSString *KEY_SOUND_GOLD;
 extern NSString *KEY_SOUND_HEALING_POTION;
-extern NSString *KEY_SOUND_PLAYER_HURT;
 extern NSString *KEY_SOUND_BLACKSMITH_UPGRADE;
 extern NSString *KEY_SOUND_GOOSE_UPGRADE;
 extern NSString *KEY_SOUND_SELECT;
 extern NSString *KEY_SOUND_ITEM_EQUIP;
 extern NSString *KEY_SOUND_ITEM_UNEQUIP;
 extern NSString *KEY_SOUND_DUNGEON_ENTER;
+extern NSString *KEY_SOUND_ENEMY_BLOCK;
+extern NSString *KEY_SOUND_ENEMY_HURT;
+extern NSString *KEY_SOUND_ENEMY_STUN_HURT;
+extern NSString *KEY_SOUND_ENEMY_DEAD;
 
 @end
 

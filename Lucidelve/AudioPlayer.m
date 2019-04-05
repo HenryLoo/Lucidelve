@@ -13,18 +13,22 @@ NSString *KEY_SOUND_BLOCK = @"block";
 NSString *KEY_SOUND_BOMB = @"bomb";
 NSString *KEY_SOUND_BUY = @"buy";
 NSString *KEY_SOUND_COMBAT_WIN = @"combat_win";
-NSString *KEY_SOUND_DEAD = @"dead";
+NSString *KEY_SOUND_PLAYER_BLOCK = @"player_block";
+NSString *KEY_SOUND_PLAYER_HURT = @"player_hurt";
+NSString *KEY_SOUND_PLAYER_DEAD = @"player_dead";
 NSString *KEY_SOUND_DODGE = @"dodge";
-NSString *KEY_SOUND_ENEMY_HURT = @"enemy_hurt";
 NSString *KEY_SOUND_GOLD = @"gold";
 NSString *KEY_SOUND_HEALING_POTION = @"healing_potion";
-NSString *KEY_SOUND_PLAYER_HURT = @"player_hurt";
 NSString *KEY_SOUND_BLACKSMITH_UPGRADE = @"blacksmith_upgrade";
 NSString *KEY_SOUND_GOOSE_UPGRADE = @"goose_upgrade";
 NSString *KEY_SOUND_SELECT = @"select";
 NSString *KEY_SOUND_ITEM_EQUIP = @"item_equip";
 NSString *KEY_SOUND_ITEM_UNEQUIP = @"item_unequip";
 NSString *KEY_SOUND_DUNGEON_ENTER = @"dungeon_enter";
+NSString *KEY_SOUND_ENEMY_BLOCK = @"enemy_block";
+NSString *KEY_SOUND_ENEMY_HURT = @"enemy_hurt";
+NSString *KEY_SOUND_ENEMY_STUN_HURT = @"enemy_stun_hurt";
+NSString *KEY_SOUND_ENEMY_DEAD = @"enemy_dead";
 
 static AudioPlayer *INSTANCE = nil;
 

@@ -81,10 +81,14 @@
             case COMBAT_BLOCKING:
             case COMBAT_DODGING_LEFT:
             case COMBAT_DODGING_RIGHT:
+                // Add cooldown to avoid spamming
+                [self setCombatState:COMBAT_NEUTRAL duration:DEFENCE_COOLDOWN];
+                break;
+                
             case COMBAT_ATTACKING:
             case COMBAT_ATTACKING2:
             case COMBAT_HURT:
-                [self setCombatState:COMBAT_NEUTRAL];
+                [self setCombatState:COMBAT_NEUTRAL duration:0];
                 break;
                 
             default:
@@ -240,10 +244,10 @@
     return item;
 }
 
-- (void)setCombatState:(CombatState)newState
+- (void)setCombatState:(CombatState)newState duration:(float)duration
 {
     CombatState prevState = [self getCombatState];
-    [super setCombatState:newState];
+    [super setCombatState:newState duration:duration];
     
     switch (newState)
     {
@@ -282,7 +286,7 @@
         case COMBAT_DEAD:
             self.spriteIndex = 6;
             self.position = self.neutralPos;
-            if (prevState != newState) [[AudioPlayer getInstance] play:KEY_SOUND_DEAD];
+            if (prevState != newState) [[AudioPlayer getInstance] play:KEY_SOUND_PLAYER_DEAD];
             break;
         default:
             break;
