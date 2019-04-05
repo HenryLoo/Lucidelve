@@ -34,6 +34,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (id)initWithView:(GLKView *)view;
 
 /*!
+ * @brief Initializes the renderer based on the current view, without
+ * creating a new GL context.
+ * @author Henry Loo
+ *
+ * @param view The GLKView holding the context
+ */
+- (void)initViewValues:(GLKView *)view;
+
+/*!
  * Returns the OpenGL context.
  * @author Jason Chung
  *

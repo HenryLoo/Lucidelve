@@ -94,6 +94,12 @@ extern NSString *KEY_MESH_CUBE;
 - (void)loadResources;
 
 /*!
+ * Loads all shaders
+ * @author Jason Chung
+ */
+- (void)loadShaders;
+
+/*!
  * Returns a GLProgram if it exists at the specified key.
  * @author Jason Chung
  *

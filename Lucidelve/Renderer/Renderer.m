@@ -36,22 +36,27 @@
             [[Utility getInstance] log:@"Failed to create GLES context."];
         }
         
-        view.context = _context;
-        view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
-        
         [EAGLContext setCurrentContext:_context];
         
         dirLight = [[DirectionalLight alloc] init];
         
-        glEnable(GL_DEPTH_TEST);
-        glEnable(GL_TEXTURE_2D);
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        
-        float aspect = fabsf((float)(view.bounds.size.width / view.bounds.size.height));
-        projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 1.f, 100.0f);
+        [self initViewValues:view];
     }
     return self;
+}
+
+- (void)initViewValues:(GLKView *)view
+{
+    view.context = _context;
+    view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
+    
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
+    float aspect = fabsf((float)(view.bounds.size.width / view.bounds.size.height));
+    projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 1.f, 100.0f);
 }
 
 - (EAGLContext *)context {

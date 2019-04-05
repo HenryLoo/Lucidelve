@@ -109,6 +109,8 @@ NSString *KEY_MESH_SWORD = @"sword";
 }
 
 - (void)loadShaders {
+    [programs removeAllObjects];
+    
     NSMutableArray<Shader *> *shaders = [[NSMutableArray<Shader *> alloc] init];
     NSMutableArray<Attribute *> *attributes = [[NSMutableArray<Attribute *> alloc] init];
     

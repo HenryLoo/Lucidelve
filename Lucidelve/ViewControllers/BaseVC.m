@@ -28,11 +28,24 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Initialize renderer
-    GLKView *view = (GLKView *)self.view;
-    self.renderer = [[Renderer alloc] initWithView:view];
     
-    [[Assets getInstance] loadResources];
+    // Instantiate renderer if it doesn't exist yet
+    GLKView *view = (GLKView *)self.view;
+    if (!_renderer)
+    {
+        _renderer = [[Renderer alloc] initWithView:view];
+        
+        // Only load all the resources once
+        [[Assets getInstance] loadResources];
+    }
+    else
+    {
+        // Just set this view's context if the renderer already exists
+        [_renderer initViewValues:view];
+        
+        // Need to reload shaders
+        [[Assets getInstance] loadShaders];
+    }
     
     self.camera = [[Camera alloc] initWithPosition:GLKVector3Make(0, 0, 3)];
     

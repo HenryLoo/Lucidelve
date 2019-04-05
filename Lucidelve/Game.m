@@ -61,6 +61,7 @@
 	[[[UIApplication sharedApplication] keyWindow].rootViewController dismissViewControllerAnimated:YES completion:nil];
     // Pass the Game's data before switching scenes
     newVC.game = self;
+    newVC.renderer = currentVC.renderer;
 	[[UIApplication sharedApplication] keyWindow].rootViewController = newVC;
 }
 
