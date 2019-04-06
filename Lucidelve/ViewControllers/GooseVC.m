@@ -24,6 +24,7 @@
     // Pointer to UI elements
     UILabel *goldLabel;
     UILabel *goldRateLabel;
+    UILabel *infoLabel;
     UIButton *upgradeButton;
     
     // The next upgrade's gold price.
@@ -31,6 +32,8 @@
     
     Mesh *bgMesh;
     Mesh *goldenGoose;
+    
+    float gooseRotation;
 }
 @end
 
@@ -52,6 +55,7 @@
     // Set UI element pointers
     goldLabel = ((GooseView*) self.view).goldLabel;
     goldRateLabel = ((GooseView*) self.view).goldRateLabel;
+    infoLabel = ((GooseView*) self.view).infoLabel;
     upgradeButton = ((GooseView*) self.view).upgradeButton;
     
     // Attach selector to the upgrade button
@@ -67,8 +71,7 @@
     
     goldenGoose = [[Assets getInstance] getMesh:KEY_MESH_GOLDEN_GOOSE];
     [goldenGoose setScale:GLKVector3Make(0.1f, 0.1f, 0.1f)];
-    [goldenGoose setPosition:GLKVector3Make(0, -0.2, 1.0f)];
-    [goldenGoose setRotation:GLKVector3Make(M_PI / 6, -M_PI / 4, 0)];
+    [goldenGoose setPosition:GLKVector3Make(0, -0.15, 1.0f)];
     [goldenGoose addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_GOLDEN_GOOSE]];
 }
 
@@ -82,7 +85,15 @@
     [super update];
     
     [self updateGoldLabel];
+    [self updateInfoLabel];
     [self updateUpgradeButton];
+    
+    [goldenGoose setRotation:GLKVector3Make(M_PI / 6, gooseRotation, 0)];
+    gooseRotation += (self.game.deltaTime * M_PI / 6);
+    if (gooseRotation < 0)
+    {
+        gooseRotation = 2 * M_PI - gooseRotation;
+    }
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
@@ -102,6 +113,22 @@
     int gold = [player getGold];
     NSString *labelText = [NSString stringWithFormat:@"Gold: %i G", gold];
     goldLabel.text = labelText;
+}
+
+/*!
+  * @brief Update the info label's values.
+  * @author Henry Loo
+  */
+- (void)updateInfoLabel
+{
+    if (self.game.numGooseUpgrades >= MAX_GOOSE_UPGRADES)
+    {
+        infoLabel.text = @"\"Thanks for the food!\nHere, take this Golden Egg!\"";
+    }
+    else
+    {
+        infoLabel.text = @"\"Hey!\nFeed me and I can make you \nsome shinies!\"";
+    }
 }
 
 /*!

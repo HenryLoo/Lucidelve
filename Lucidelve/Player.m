@@ -265,7 +265,6 @@
         case COMBAT_BLOCKING:
             self.spriteIndex = 2;
             self.velocity = GLKVector3Make(0, 0, 0);
-            self.position = self.neutralPos;
             break;
         case COMBAT_DODGING_LEFT:
             self.spriteIndex = 3;

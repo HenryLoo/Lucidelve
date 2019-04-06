@@ -23,6 +23,7 @@
     
     // Pointer to UI elements
     UILabel *goldLabel;
+    UILabel *infoLabel;
     UILabel *swordLabel;
     UIButton *upgradeButton;
     
@@ -31,6 +32,8 @@
     
     Mesh *bgMesh;
     Mesh *anvil;
+    
+    float anvilRotation;
 }
 @end
 
@@ -51,6 +54,7 @@
     
     // Set UI element pointers
     goldLabel = ((BlacksmithView*) self.view).goldLabel;
+    infoLabel = ((BlacksmithView*) self.view).infoLabel;
     swordLabel = ((BlacksmithView*) self.view).swordLabel;
     upgradeButton = ((BlacksmithView*) self.view).upgradeButton;
     
@@ -67,8 +71,7 @@
     
     anvil = [[Assets getInstance] getMesh:KEY_MESH_ANVIL];
     [anvil setScale:GLKVector3Make(0.3f, 0.3f, 0.3f)];
-    [anvil setPosition:GLKVector3Make(0, -0.2, 1.0f)];
-    [anvil setRotation:GLKVector3Make(M_PI / 6, -M_PI / 4, 0)];
+    [anvil setPosition:GLKVector3Make(0, -0.1, 1.0f)];
     [anvil addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_ANVIL]];
 }
 
@@ -82,7 +85,15 @@
     [super update];
     
     [self updateGoldLabel];
+    [self updateInfoLabel];
     [self updateUpgradeButton];
+    
+    [anvil setRotation:GLKVector3Make(M_PI / 6, anvilRotation, 0)];
+    anvilRotation += (self.game.deltaTime * M_PI / 6);
+    if (anvilRotation < 0)
+    {
+        anvilRotation = 2 * M_PI - anvilRotation;
+    }
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
@@ -102,6 +113,29 @@
     int gold = [player getGold];
     NSString *labelText = [NSString stringWithFormat:@"Gold: %i G", gold];
     goldLabel.text = labelText;
+}
+
+/*!
+ * @brief Update the info label's values.
+ * @author Henry Loo
+ */
+- (void)updateInfoLabel
+{
+    // If there are still upgrades available
+    if (self.game.numBlacksmithUpgrades < MAX_BLACKSMITH_UPGRADES)
+    {
+        infoLabel.text = @"\"Got some gold?\nLet me sharpen that sword for you!\"";
+    }
+    // All upgrades have been purchased and the player owns the Golden Egg
+    else if ([player hasItem:ITEMS[ITEM_GOLDEN_EGG]])
+    {
+        infoLabel.text =  @"\"Hold on! Is that a Golden Egg?\nI can melt that down to enchant \nyour sword!\"";
+    }
+    // All upgrades have been purchased and the player doesn't own the Golden Egg
+    else
+    {
+        infoLabel.text = @"\"That's all I can do for you.\nThat sword is already as sharp as \nI can make it!\"";
+    }
 }
 
 /*!

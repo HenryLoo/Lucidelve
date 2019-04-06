@@ -16,6 +16,9 @@
 // Show the player's current amount of gold
 @property (nonatomic, strong) UIPaddedLabel *goldLabel;
 
+// Show info message
+@property (nonatomic, strong) UIPaddedLabel *infoLabel;
+
 // Show the current rate of gold generation
 @property (nonatomic, strong) UIPaddedLabel *goldRateLabel;
 

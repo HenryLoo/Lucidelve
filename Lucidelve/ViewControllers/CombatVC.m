@@ -317,10 +317,10 @@
                 currentEnemy = nil;
             }
         }
-        // Otherwise, perform a block
+        // Otherwise, perform an attack
         else
         {
-            [self performBlock];
+            [self performAttack];
         }
     }
     
@@ -362,12 +362,12 @@
     switch(recognizer.direction)
     {
         case UISwipeGestureRecognizerDirectionUp:
-            // Attack
-            [self performAttack];
+            // Nothing
             break;
             
         case UISwipeGestureRecognizerDirectionDown:
-            // Nothing
+            // Block
+            [self performBlock];
             break;
             
         case UISwipeGestureRecognizerDirectionLeft:
@@ -440,7 +440,13 @@
     // If the enemy was attacking, stun it
     bool wasAttacking = (state == COMBAT_ATTACKING);
     [currentEnemy addLife:damage isHurt:wasAttacking];
-    if (wasAttacking) currentEnemy.actionTimer = ENEMY_STUN_DURATION;
+    if (wasAttacking)
+    {
+        currentEnemy.actionTimer = ENEMY_STUN_DURATION;
+        
+        // Reset enemy position
+        currentEnemy.position = enemyNeutralPos;
+    }
     
     // Play a different sound depending on if the enemy was stunned/dead
     if ([currentEnemy getCombatState] == COMBAT_DEAD)
@@ -468,9 +474,6 @@
         colour = GLKVector4Make(0, 0, 0, 0.5);
     }
     [self setEnemyColour:colour time:0.2];
-    
-    // Reset enemy position
-    currentEnemy.position = enemyNeutralPos;
 }
 
 /*!
@@ -490,9 +493,15 @@
  */
 - (void)performBlock
 {
-    // Can only block from Neutral state
-    if ([player getCombatState] == COMBAT_NEUTRAL && player.actionTimer == 0)
+    // Can only block from Neutral or Attacking state
+    CombatState state = [player getCombatState];
+    bool isNeutral = (state == COMBAT_NEUTRAL && player.actionTimer == 0);
+    bool isAttacking = (state == COMBAT_ATTACKING);
+    if (isNeutral || isAttacking)
     {
+        // Reset player position
+        player.position = playerNeutralPos;
+        
         [[AudioPlayer getInstance] play:KEY_SOUND_BLOCK];
         [player setCombatState:COMBAT_BLOCKING duration:BLOCK_DURATION];
     }
@@ -518,12 +527,18 @@
 
 - (void)performDodge:(bool)isLeft
 {
-    CombatState state = isLeft ? COMBAT_DODGING_LEFT : COMBAT_DODGING_RIGHT;
+    CombatState dodgeState = isLeft ? COMBAT_DODGING_LEFT : COMBAT_DODGING_RIGHT;
     
-    // Can only dodge from Neutral state
-    if ([player getCombatState] == COMBAT_NEUTRAL && player.actionTimer == 0)
+    // Can only dodge from Neutral or Attacking state
+    CombatState state = [player getCombatState];
+    bool isNeutral = (state == COMBAT_NEUTRAL && player.actionTimer == 0);
+    bool isAttacking = (state == COMBAT_ATTACKING);
+    if (isNeutral || isAttacking)
     {
-        [player setCombatState:state duration:DODGE_DURATION];
+        // Reset player position
+        player.position = playerNeutralPos;
+        
+        [player setCombatState:dodgeState duration:DODGE_DURATION];
         [self setPlayerColour:GLKVector4Make(1, 1, 1, 0.6) time:0.3];
     }
 }
@@ -540,7 +555,8 @@
     // If the enemy is attacking and the player is not blocking a blockable attack or
     // dodging a dodgeable attack
     bool isBlockable = (playerState == COMBAT_BLOCKING && currentEnemy.currentAttack.isBlockable);
-    bool isDodgable = ((playerState == COMBAT_DODGING_LEFT || playerState == COMBAT_DODGING_RIGHT) && currentEnemy.currentAttack.isDodgeable);
+    bool isDodgable = ((playerState == COMBAT_DODGING_LEFT || playerState == COMBAT_DODGING_RIGHT)
+                       && currentEnemy.currentAttack.isDodgeable);
     if (currentEnemy.isAttacking)
     {
         if (!(isBlockable|| isDodgable))

@@ -34,6 +34,7 @@
 
 - (void)setupFooterElements
 {
+    [self setupInfoLabel];
     [self setupSwordLabel];
     [self setupUpgradeButton];
 }
@@ -56,6 +57,26 @@
     
     // Enable autolayout
     _goldLabel.translatesAutoresizingMaskIntoConstraints = false;
+}
+
+/*!
+ * @brief Create the label element for displaying the info message.
+ * @author Henry Loo
+ */
+- (void)setupInfoLabel
+{
+    _infoLabel = [[UIPaddedLabel alloc] initWithFrame:CGRectZero];
+    _infoLabel.textColor = [UIColor whiteColor];
+    _infoLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.8];
+    _infoLabel.numberOfLines = 3;
+    float margin = 16;
+    [_infoLabel setContentEdgeInsets:UIEdgeInsetsMake(margin, margin, margin, margin)];
+    _infoLabel.layer.borderColor = UIColor.whiteColor.CGColor;
+    _infoLabel.layer.borderWidth = 1;
+    [self.footerArea addSubview:_infoLabel];
+    
+    // Enable autolayout
+    _infoLabel.translatesAutoresizingMaskIntoConstraints = false;
 }
 
 /*!
@@ -110,6 +131,10 @@
     // Sword label constraints
     [_swordLabel.centerXAnchor constraintEqualToAnchor:self.footerArea.centerXAnchor].active = YES;
     [_swordLabel.bottomAnchor constraintEqualToAnchor:_upgradeButton.topAnchor constant:-25].active = YES;
+    
+    // Info label constraints
+    [_infoLabel.centerXAnchor constraintEqualToAnchor:self.headerArea.centerXAnchor].active = YES;
+    [_infoLabel.bottomAnchor constraintEqualToAnchor:_swordLabel.topAnchor constant:-16].active = YES;
 }
 
 @end
