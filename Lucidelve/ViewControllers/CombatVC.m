@@ -187,6 +187,9 @@
     // Initialize throwables
     [self initializeItem:0];
     [self initializeItem:1];
+    
+    // Play the dungeon's music
+    [[AudioPlayer getInstance] playMusic:_currentDungeon.music];
 }
 
 - (void)didReceiveMemoryWarning {

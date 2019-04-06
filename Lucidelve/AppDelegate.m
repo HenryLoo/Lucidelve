@@ -23,26 +23,31 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Load audio files
-    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"block.wav"] key:KEY_SOUND_BLOCK];
-    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"bomb.wav"] key:KEY_SOUND_BOMB];
-    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"buy.wav"] key:KEY_SOUND_BUY];
-    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"combat_win.wav"] key:KEY_SOUND_COMBAT_WIN];
-    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"player_block.wav"] key:KEY_SOUND_PLAYER_BLOCK];
-    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"player_hurt.wav"] key:KEY_SOUND_PLAYER_HURT];
-    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"player_dead.wav"] key:KEY_SOUND_PLAYER_DEAD];
-    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"dodge.wav"] key:KEY_SOUND_DODGE];
-    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"gold.wav"] key:KEY_SOUND_GOLD];
-    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"healing_potion.wav"] key:KEY_SOUND_HEALING_POTION];
-    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"blacksmith_upgrade.wav"] key:KEY_SOUND_BLACKSMITH_UPGRADE];
-    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"goose_upgrade.wav"] key:KEY_SOUND_GOOSE_UPGRADE];
-    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"select.wav"] key:KEY_SOUND_SELECT];
-    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"item_equip.wav"] key:KEY_SOUND_ITEM_EQUIP];
-    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"item_unequip.wav"] key:KEY_SOUND_ITEM_UNEQUIP];
-    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"dungeon_enter.wav"] key:KEY_SOUND_DUNGEON_ENTER];
-    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"enemy_block.wav"] key:KEY_SOUND_ENEMY_BLOCK];
-    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"enemy_hurt.wav"] key:KEY_SOUND_ENEMY_HURT];
-    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"enemy_stun_hurt.wav"] key:KEY_SOUND_ENEMY_STUN_HURT];
-    [[AudioPlayer getInstance] addAudioFile:[NSString stringWithUTF8String:"enemy_dead.wav"] key:KEY_SOUND_ENEMY_DEAD];
+    [[AudioPlayer getInstance] addSoundFile:[NSString stringWithUTF8String:"block.wav"] key:KEY_SOUND_BLOCK];
+    [[AudioPlayer getInstance] addSoundFile:[NSString stringWithUTF8String:"bomb.wav"] key:KEY_SOUND_BOMB];
+    [[AudioPlayer getInstance] addSoundFile:[NSString stringWithUTF8String:"buy.wav"] key:KEY_SOUND_BUY];
+    [[AudioPlayer getInstance] addSoundFile:[NSString stringWithUTF8String:"combat_win.wav"] key:KEY_SOUND_COMBAT_WIN];
+    [[AudioPlayer getInstance] addSoundFile:[NSString stringWithUTF8String:"player_block.wav"] key:KEY_SOUND_PLAYER_BLOCK];
+    [[AudioPlayer getInstance] addSoundFile:[NSString stringWithUTF8String:"player_hurt.wav"] key:KEY_SOUND_PLAYER_HURT];
+    [[AudioPlayer getInstance] addSoundFile:[NSString stringWithUTF8String:"player_dead.wav"] key:KEY_SOUND_PLAYER_DEAD];
+    [[AudioPlayer getInstance] addSoundFile:[NSString stringWithUTF8String:"dodge.wav"] key:KEY_SOUND_DODGE];
+    [[AudioPlayer getInstance] addSoundFile:[NSString stringWithUTF8String:"gold.wav"] key:KEY_SOUND_GOLD];
+    [[AudioPlayer getInstance] addSoundFile:[NSString stringWithUTF8String:"healing_potion.wav"] key:KEY_SOUND_HEALING_POTION];
+    [[AudioPlayer getInstance] addSoundFile:[NSString stringWithUTF8String:"blacksmith_upgrade.wav"] key:KEY_SOUND_BLACKSMITH_UPGRADE];
+    [[AudioPlayer getInstance] addSoundFile:[NSString stringWithUTF8String:"goose_upgrade.wav"] key:KEY_SOUND_GOOSE_UPGRADE];
+    [[AudioPlayer getInstance] addSoundFile:[NSString stringWithUTF8String:"select.wav"] key:KEY_SOUND_SELECT];
+    [[AudioPlayer getInstance] addSoundFile:[NSString stringWithUTF8String:"item_equip.wav"] key:KEY_SOUND_ITEM_EQUIP];
+    [[AudioPlayer getInstance] addSoundFile:[NSString stringWithUTF8String:"item_unequip.wav"] key:KEY_SOUND_ITEM_UNEQUIP];
+    [[AudioPlayer getInstance] addSoundFile:[NSString stringWithUTF8String:"dungeon_enter.wav"] key:KEY_SOUND_DUNGEON_ENTER];
+    [[AudioPlayer getInstance] addSoundFile:[NSString stringWithUTF8String:"enemy_block.wav"] key:KEY_SOUND_ENEMY_BLOCK];
+    [[AudioPlayer getInstance] addSoundFile:[NSString stringWithUTF8String:"enemy_hurt.wav"] key:KEY_SOUND_ENEMY_HURT];
+    [[AudioPlayer getInstance] addSoundFile:[NSString stringWithUTF8String:"enemy_stun_hurt.wav"] key:KEY_SOUND_ENEMY_STUN_HURT];
+    [[AudioPlayer getInstance] addSoundFile:[NSString stringWithUTF8String:"enemy_dead.wav"] key:KEY_SOUND_ENEMY_DEAD];
+    
+    [[AudioPlayer getInstance] addMusicFile:[NSString stringWithUTF8String:"hub.mp3"] key:KEY_BGM_HUB];
+    [[AudioPlayer getInstance] addMusicFile:[NSString stringWithUTF8String:"forest.mp3"] key:KEY_BGM_FOREST];
+    [[AudioPlayer getInstance] addMusicFile:[NSString stringWithUTF8String:"caves.mp3"] key:KEY_BGM_CAVES];
+    [[AudioPlayer getInstance] addMusicFile:[NSString stringWithUTF8String:"depths.mp3"] key:KEY_BGM_DEPTHS];
     
     // Load save data
     [[Storage getInstance] loadData];

@@ -24,7 +24,7 @@ void main() {
         float alpha = gl_FragColor.a;
         
         float fogDistance = gl_FragCoord.z / gl_FragCoord.w;
-        float fogAmount = 1.0 - clamp(exp(-0.12 * fogDistance), 0.0, 1.0);
+        float fogAmount = 1.0 - clamp(exp(-0.2 * fogDistance), 0.0, 1.0);
         gl_FragColor = mix(gl_FragColor, fogColour, fogAmount);
         
         // Restore the alpha value

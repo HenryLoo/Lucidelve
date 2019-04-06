@@ -200,6 +200,7 @@
     NSString *wallTexture = [dungeonJSON valueForKey:@"wallTexture"];
     int minNodes = [[dungeonJSON valueForKey:@"minNodes"] intValue];
     int maxNodes = [[dungeonJSON valueForKey:@"maxNodes"] intValue];
+    NSString *music = [dungeonJSON valueForKey:@"music"];
     
     // Add combat nodes
     NSMutableArray *combatNodes = [[NSMutableArray alloc] init];
@@ -224,8 +225,8 @@
     
     // Instantiate the dungeon and add it to the list of dungeons
     Dungeon *dungeon = [[Dungeon alloc] init:name withFog:fogColour withFloor:floorTexture withWall:wallTexture
-                             withCombatNodes:combatNodes withEventNodes:eventNodes withMinNodes:minNodes
-                                withMaxNodes:maxNodes];
+                                   withMusic:music withCombatNodes:combatNodes withEventNodes:eventNodes
+                                    withMinNodes:minNodes withMaxNodes:maxNodes];
     
     [dungeons addObject:dungeon];
 }

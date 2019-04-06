@@ -30,6 +30,11 @@ NSString *KEY_SOUND_ENEMY_HURT = @"enemy_hurt";
 NSString *KEY_SOUND_ENEMY_STUN_HURT = @"enemy_stun_hurt";
 NSString *KEY_SOUND_ENEMY_DEAD = @"enemy_dead";
 
+NSString *KEY_BGM_HUB = @"hub";
+NSString *KEY_BGM_FOREST = @"forest";
+NSString *KEY_BGM_CAVES = @"caves";
+NSString *KEY_BGM_DEPTHS = @"depths";
+
 static AudioPlayer *INSTANCE = nil;
 
 @interface AudioPlayer() {
@@ -37,6 +42,10 @@ static AudioPlayer *INSTANCE = nil;
     NSMutableDictionary<NSString *, NSData *> *audioFiles;
 	// An array of currently playing sound sources
     NSMutableArray<AVAudioPlayer *> *soundSources;
+    AVAudioPlayer *musicSource;
+    
+    // The key of the music being played
+    NSString *currentMusic;
 }
 
 @end
@@ -66,24 +75,45 @@ static AudioPlayer *INSTANCE = nil;
     }
 }
 
-- (void)addAudioFile:(NSString *)filename key:(NSString *)key {
-    NSString *filePath = [[Utility getInstance] getFilepath:filename fileType:@"sfx"];
+- (void)addSoundFile:(NSString *)filename key:(NSString *)key {
+    [self addAudioFile:filename key:key type:@"sfx"];
+}
+
+- (void)addMusicFile:(NSString *)filename key:(NSString *)key {
+    [self addAudioFile:filename key:key type:@"bgm"];
+}
+
+- (void)addAudioFile:(NSString *)filename key:(NSString *)key type:(NSString *)type {
+    NSString *filePath = [[Utility getInstance] getFilepath:filename fileType:type];
     NSData *audioFile = [[Utility getInstance] loadResource:filePath];
     [audioFiles setValue:audioFile forKey:key];
 }
 
 - (void)play:(NSString *)key {
-    [self play:key loop:false];
+    [self play:key loop:false isMusic:false];
 }
 
-- (void)play:(NSString *)key loop:(bool)loop {
+- (void)playMusic:(NSString *)key
+{
+    // Already playing this music, so don't restart it
+    if (currentMusic == key) return;
+    
+    currentMusic = key;
+    [self play:key loop:true isMusic:true];
+    musicSource.volume = 0.05;
+}
+
+- (void)play:(NSString *)key loop:(bool)loop isMusic:(bool)isMusic {
     if ([audioFiles objectForKey:key]) {
         NSError *error;
         AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithData:[audioFiles objectForKey:key] error:&error];
         player.delegate = self;
         if (loop)
             player.numberOfLoops = -1;
-        [soundSources addObject:player];
+        
+        if (isMusic) musicSource = player;
+        else [soundSources addObject:player];
+        
         [player play];
     }
 }

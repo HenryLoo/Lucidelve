@@ -161,6 +161,9 @@
     // Initialize player animation values
     playerSpriteTimer = PLAYER_WALK_SPEED;
     playerSpriteIndex = 0;
+    
+    // Play Hub music
+    [[AudioPlayer getInstance] playMusic:KEY_BGM_HUB];
 }
 
 - (void)didReceiveMemoryWarning {

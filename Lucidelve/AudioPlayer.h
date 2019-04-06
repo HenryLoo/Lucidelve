@@ -40,7 +40,10 @@ NS_ASSUME_NONNULL_BEGIN
  * @param filename The absolute path to the file
  * @param key The key to access the audio file after loading
  */
-- (void)addAudioFile:(NSString *)filename key:(NSString *)key;
+- (void)addSoundFile:(NSString *)filename key:(NSString *)key;
+- (void)addMusicFile:(NSString *)filename key:(NSString *)key;
+
+
 /*!
  * Plays a sound from the array of loaded audio files.
  * @author Jason Chung
@@ -48,6 +51,8 @@ NS_ASSUME_NONNULL_BEGIN
  * @param key The key of the preloaded audio file
  */
 - (void)play:(NSString *)key;
+- (void)playMusic:(NSString *)key;
+
 /*!
  * Plays a sound from the array of loaded audio files.
  * @author Jason Chung
@@ -55,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param key The key of the preloaded audio file
  * @param loop True to loop the audio file and false otherwise
  */
-- (void)play:(NSString *)key loop:(bool)loop;
+- (void)play:(NSString *)key loop:(bool)loop isMusic:(bool)isMusic ;
 
 extern NSString *KEY_SOUND_BLOCK;
 extern NSString *KEY_SOUND_BOMB;
@@ -77,6 +82,11 @@ extern NSString *KEY_SOUND_ENEMY_BLOCK;
 extern NSString *KEY_SOUND_ENEMY_HURT;
 extern NSString *KEY_SOUND_ENEMY_STUN_HURT;
 extern NSString *KEY_SOUND_ENEMY_DEAD;
+
+extern NSString *KEY_BGM_HUB;
+extern NSString *KEY_BGM_FOREST;
+extern NSString *KEY_BGM_CAVES;
+extern NSString *KEY_BGM_DEPTHS;
 
 @end
 

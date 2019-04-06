@@ -3,6 +3,7 @@
     "fogColour": { "r": 0.6, "g": 0.5, "b": 0.1, "a": 1.0 },
     "floorTexture": "depths_floor",
     "wallTexture": "depths_wall",
+    "music": "depths",
     "minNodes": 2,
     "maxNodes": 4,
     "combatNodes": [

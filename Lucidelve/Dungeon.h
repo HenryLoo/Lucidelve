@@ -35,6 +35,9 @@
 @property NSString *floorTexture;
 @property NSString *wallTexture;
 
+// The dungeon's music
+@property NSString *music;
+
 /*!
  * @brief Initialize a dungeon with a name.
  * @author Henry Loo
@@ -43,14 +46,15 @@
  * @param fog The dungeon's fog colour.
  * @param floor The dungeon's floor texture.
  * @param wall The dungeon's wall texture.
+ * @param music The dungeon's music.
  * @param combatNodes The dungeon's combat nodes.
  * @param eventNodes The dungeon's event nodes.
  * @param minNodes The minimum number of nodes in the dungeon.
  * @param maxNodes The maximum number of nodes in the dungeon.
  */
-- (id)init:(NSString*)name withFog:(GLKVector4)fog withFloor:(NSString*)floor withWall:(NSString*)wall
-withCombatNodes:(NSMutableArray*)combatNodes withEventNodes:(NSMutableArray*)eventNodes
-withMinNodes:(int)minNodes withMaxNodes:(int)maxNodes;
+- (id)init:(NSString *)name withFog:(GLKVector4)fog withFloor:(NSString *)floor withWall:(NSString *)wall
+    withMusic:(NSString *)music withCombatNodes:(NSMutableArray *)combatNodes
+    withEventNodes:(NSMutableArray *)eventNodes withMinNodes:(int)minNodes withMaxNodes:(int)maxNodes;
 
 /*!
  * @brief Return a random node for this dungeon.
