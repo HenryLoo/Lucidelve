@@ -243,7 +243,9 @@
             [self processItem:0];
             [self processItem:1];
             
-            [currentEnemy update:self.game.deltaTime];
+            // The enemy won't block if the player has no stamina
+            [currentEnemy update:self.game.deltaTime isAggressive:([player getCurrentStamina] == 0)];
+            
             [self processEnemyAttack];
             [self updateEnemyLabels];
         }
@@ -282,7 +284,18 @@
         [self.renderer renderSprite:enemyMesh spriteIndex:currentEnemy.spriteIndex fogColour:_currentDungeon.fogColour textureColour:enemyColour textureColourAmount:amount];
     }
     
-    float amount = (playerColourTime > 0) ? playerColourCurrentTime / playerColourTime : 0;
+    float amount;
+    if ([player getCurrentStamina] == 0)
+    {
+        // No stamina, blend black colour with player
+        playerColour = GLKVector4Make(0, 0, 0, 1);
+        amount = 0.6;
+    }
+    else
+    {
+        // Flashing colour, so we determine the amount to mix based on time
+        amount = (playerColourTime > 0) ? playerColourCurrentTime / playerColourTime : 0;
+    }
     [self.renderer renderSprite:playerMesh spriteIndex:player.spriteIndex fogColour:_currentDungeon.fogColour textureColour:playerColour
             textureColourAmount:amount];
     
@@ -484,6 +497,7 @@
 {
     [player addLife:-currentEnemy.currentAttack.damage isHurt:true];
     player.actionTimer = currentEnemy.currentAttack.attackDelay;
+    player.position = playerNeutralPos;
 }
 
 
@@ -551,6 +565,7 @@
 - (void)processEnemyAttack
 {
     CombatState playerState = [player getCombatState];
+    if (playerState == COMBAT_DEAD) return;
     
     // If the enemy is attacking and the player is not blocking a blockable attack or
     // dodging a dodgeable attack
@@ -559,7 +574,7 @@
                        && currentEnemy.currentAttack.isDodgeable);
     if (currentEnemy.isAttacking)
     {
-        if (!(isBlockable|| isDodgable))
+        if (!(isBlockable|| isDodgable) && [player getCombatState] != COMBAT_DEAD)
         {
             // Reset player position
             player.position = playerNeutralPos;
@@ -814,14 +829,15 @@
         if (itemNames[itemSlot] == ITEMS[ITEM_HEALING_POTION].name)
         {
             soundKey = KEY_SOUND_HEALING_POTION;
-            [player addLife:POTION_HEAL_AMOUNT isHurt:false];
+            [player addLife:[player getMaxLife] isHurt:false];
+            [player addStamina:[player getMaxStamina]];
             [self setPlayerColour:GLKVector4Make(0, 1, 0.25, 1) time:0.5];
         }
         else
         {
             soundKey = KEY_SOUND_BOMB;
             [currentEnemy addLife:-BOMB_DAMAGE isHurt:true];
-            currentEnemy.actionTimer = COMBAT_COOLDOWN;
+            currentEnemy.actionTimer = ENEMY_STUN_DURATION;
             [self setEnemyColour:GLKVector4Make(1, 0.5, 0, 1) time:0.5];
         }
         

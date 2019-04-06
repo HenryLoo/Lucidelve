@@ -67,8 +67,11 @@ typedef struct EnemyAttack
 /*!
  * @brief Update the character's values.
  * This should be called each frame in the update loop.
+ *
+ * @param isAggressive Flag for if the enemy is aggressive.
+ * Aggressive enemies will not block and will attack more frequently.
  */
-- (void)update:(float)deltaTime;
+- (void)update:(float)deltaTime isAggressive:(bool)isAggressive;
 
 
 /*!

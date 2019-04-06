@@ -52,12 +52,18 @@
     return self;
 }
 
-- (void)update:(float)deltaTime
+- (void)update:(float)deltaTime isAggressive:(bool)isAggressive
 {
     [super update:deltaTime];
     
     // Only register the attack on the first frame
     _isAttacking = false;
+    
+    // If aggresssive and blocking, immediately stop blocking
+    if (isAggressive && [self getCombatState] == COMBAT_BLOCKING)
+    {
+        self.actionTimer = 0;
+    }
     
     if (self.actionTimer == 0)
     {
@@ -68,7 +74,7 @@
                 int rollBlockChance = [[Utility getInstance] random:1 withMax:100];
                 
                 // Switch to blocking
-                if (rollBlockChance <= blockChance*100)
+                if (!isAggressive && rollBlockChance <= blockChance*100)
                 {
                     const float precision = 10.f;
                     float duration = (float)[[Utility getInstance] random:minAttackDelay*precision
@@ -104,6 +110,10 @@
                 const float precision = 10.f;
                 float duration = (float)[[Utility getInstance] random:minAttackDelay*precision
                                                               withMax:maxAttackDelay*precision] / precision;
+                
+                // Perform actions more often if aggressive
+                if (isAggressive) duration *= 0.5;
+                
                 [self setCombatState:COMBAT_NEUTRAL duration:duration];
                 break;
             }

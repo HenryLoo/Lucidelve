@@ -284,7 +284,8 @@
             break;
         case COMBAT_DEAD:
             self.spriteIndex = 6;
-            self.position = self.neutralPos;
+            self.velocity = GLKVector3Make(0, sinf(M_PI / 2 - FLOOR_ANGLE) * -3,
+                                           -cosf(M_PI / 2 - FLOOR_ANGLE) * -3);
             if (prevState != newState) [[AudioPlayer getInstance] play:KEY_SOUND_PLAYER_DEAD];
             break;
         default:
