@@ -917,7 +917,10 @@
  */
 - (void)processItem:(int)itemSlot
 {
-    if (itemObjects[itemSlot]) [itemObjects[itemSlot] update:self.game.deltaTime];
+    if (itemObjects[itemSlot] && itemObjects[itemSlot].isThrown)
+    {
+       [itemObjects[itemSlot] update:self.game.deltaTime];
+    }
     
     // Check for collisions if the item is thrown
     if (itemObjects[itemSlot].isThrown && [itemObjects[itemSlot] isColliding:itemTargets[itemSlot]])
@@ -930,7 +933,7 @@
             [player addStamina:[player getMaxStamina]];
             [self setPlayerColour:GLKVector4Make(0, 1, 0.25, 1) time:0.5];
         }
-        else if (itemNames[itemSlot] == ITEMS[ITEM_HEALING_POTION].name)
+        else if (itemNames[itemSlot] == ITEMS[ITEM_BOMB].name)
         {
             soundKey = KEY_SOUND_BOMB;
             [currentEnemy addLife:-BOMB_DAMAGE isHurt:true];
