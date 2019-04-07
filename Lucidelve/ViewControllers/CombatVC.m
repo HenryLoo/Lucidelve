@@ -295,7 +295,7 @@
     [self updateEnemyColour];
     
     // Update the total time played while in combat
-    if (!isNodeCleared)
+    if (currentEnemy && [currentEnemy getCurrentLife] > 0)
     {
         totalTime -= self.game.deltaTime;
     }
@@ -402,12 +402,12 @@
         {
             // All dungeons cleared
             [[AudioPlayer getInstance] play:KEY_SOUND_GAME_CLEAR];
-            stateString = @"With the final dungeon cleared, \nyou can finally escape this dream...\n\nThanks for playing!\n";
+            stateString = @"With the final dungeon cleared, \nyou can finally escape this dream...\n\nThanks for playing!\n\n";
         }
         else
         {
             // Show the end message
-            stateString = @"DUNGEON CLEARED!\n";
+            stateString = @"DUNGEON CLEARED!\n\n";
         }
         
         // If new high score, show "new best time" message
@@ -415,11 +415,18 @@
         float currentHighScore = self.game.highscores[dungeonIndex].floatValue;
         if (currentHighScore == 0 || totalTime < currentHighScore)
         {
-            stateString = [stateString stringByAppendingString:@"\n*NEW BEST TIME*"];
+            stateString = [stateString stringByAppendingString:@"*NEW* "];
         }
         
+        // Show clear time
+        int minutes = (int) (totalTime / 60) % 60;
+        int seconds = (int) totalTime % 60;
+        int milliseconds = (int) ((totalTime - floor(totalTime)) * 1000);
+        stateString = [stateString stringByAppendingString:[NSString stringWithFormat:@"Time: %02i:%02i:%03i\n",
+                                                                 minutes, seconds, milliseconds]];
+        
         // Show the amount of gold earned
-        stateString = [stateString stringByAppendingString:[NSString stringWithFormat:@"\n<Tap to continue - Total Earned: %i G>",
+        stateString = [stateString stringByAppendingString:[NSString stringWithFormat:@"<Tap to continue - Total Earned: %i G>",
                                                             totalRewardGold]];
         [self updateCombatStatusLabel:stateString];
         
@@ -763,12 +770,8 @@
  */
 - (void)updateRemainingNodes
 {
-    int minutes = (int) (totalTime / 60) % 60;
-    int seconds = (int) totalTime % 60;
-    int milliseconds = (int) ((totalTime - floor(totalTime)) * 1000);
-    
-    remainingNodesLabel.text = [NSString stringWithFormat:@"Room: %i/%i [%02i:%02i:%03i]",
-                                numNodes - remainingNodes, numNodes, minutes, seconds, milliseconds];
+    remainingNodesLabel.text = [NSString stringWithFormat:@"Room: %i/%i",
+                                numNodes - remainingNodes, numNodes];
 }
 
 /*!
