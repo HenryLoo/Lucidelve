@@ -8,8 +8,8 @@
     "minNodes": 6,
     "maxNodes": 6,
     "combatNodes": [
-        { "goldReward": 45, "enemy": "turtle" },
-        { "goldReward": 60, "enemy": "fox" }
+        { "goldReward": 140, "enemy": "turtle" },
+        { "goldReward": 150, "enemy": "fox" }
     ],
     "eventNodes": []
 }

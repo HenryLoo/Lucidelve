@@ -1,11 +1,11 @@
 {
     "name": "Firefox",
     "texture": "fox",
-    "life": 100,
+    "life": 200,
     "minAttackDelay": 0.5,
     "maxAttackDelay": 1.0,
-    "blockChance": 0.8,
+    "blockChance": 0.6,
     "attackPatterns": [
-        { "damage": 2, "isBlockable": true, "isDodgeable": true, "isInterruptable": true, "alertDelay": 0.3, "attackDelay": 0.5 }
+        { "damage": 2, "isBlockable": true, "isDodgeable": true, "isInterruptable": true, "alertDelay": 0.5, "attackDelay": 0.7 }
     ]
 }

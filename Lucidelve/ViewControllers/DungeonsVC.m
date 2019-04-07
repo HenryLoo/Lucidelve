@@ -101,7 +101,7 @@
     
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.game.numDungeonsCleared + 1;
+    return MIN(self.game.numDungeonsCleared + 1, [self.game getNumDungeons]);
 }
     
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

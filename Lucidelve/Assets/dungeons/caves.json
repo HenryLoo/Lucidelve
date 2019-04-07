@@ -8,8 +8,8 @@
     "minNodes": 5,
     "maxNodes": 5,
     "combatNodes": [
-        { "goldReward": 30, "enemy": "golem" },
-        { "goldReward": 25, "enemy": "bat" }
+        { "goldReward": 80, "enemy": "golem" },
+        { "goldReward": 70, "enemy": "bat" }
     ],
     "eventNodes": []
 }

@@ -1,10 +1,10 @@
 {
     "name": "The Lost Leaper",
     "texture": "frog",
-    "life": 200,
+    "life": 1000,
     "minAttackDelay": 0.5,
     "maxAttackDelay": 0.8,
-    "blockChance": 0.8,
+    "blockChance": 0.5,
     "attackPatterns": [
         { "damage": 2, "isBlockable": true, "isDodgeable": true, "isInterruptable": true, "alertDelay": 0.3, "attackDelay": 0.4 }
     ]

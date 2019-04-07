@@ -227,7 +227,7 @@ NSString *KEY_MESH_SWORD = @"sword";
     texture = [[Texture alloc] initWithFilename:@"turtle.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_TURTLE];
     texture = [[Texture alloc] initWithFilename:@"fox.png"];
-    [textures setObject:texture forKey:KEY_TEXTURE_FROG];
+    [textures setObject:texture forKey:KEY_TEXTURE_FOX];
     texture = [[Texture alloc] initWithFilename:@"frog.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_FROG];
     texture = [[Texture alloc] initWithFilename:@"forest_floor.png"];

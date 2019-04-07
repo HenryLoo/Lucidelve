@@ -1027,6 +1027,13 @@
  */
 - (void)setEnemyColour:(GLKVector4)colour time:(float)time
 {
+    // Don't override the alert colour
+    if ([currentEnemy getCombatState] == COMBAT_ALERT &&
+        [currentEnemy getPrevCombatState] == COMBAT_ALERT)
+    {
+        return;
+    }
+    
     enemyColour = colour;
     enemyColourTime = time;
     enemyColourCurrentTime = time;
