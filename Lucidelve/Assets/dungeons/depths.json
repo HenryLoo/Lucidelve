@@ -5,10 +5,9 @@
     "floorTexture": "depths_floor",
     "wallTexture": "depths_wall",
     "music": "depths",
-    "minNodes": 2,
-    "maxNodes": 4,
+    "minNodes": 6,
+    "maxNodes": 6,
     "combatNodes": [
-        { "goldReward": 30, "enemy": "golem" },
         { "goldReward": 45, "enemy": "turtle" },
         { "goldReward": 60, "enemy": "fox" }
     ],

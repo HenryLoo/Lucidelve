@@ -29,6 +29,7 @@ NSString *KEY_SOUND_ENEMY_BLOCK = @"enemy_block";
 NSString *KEY_SOUND_ENEMY_HURT = @"enemy_hurt";
 NSString *KEY_SOUND_ENEMY_STUN_HURT = @"enemy_stun_hurt";
 NSString *KEY_SOUND_ENEMY_DEAD = @"enemy_dead";
+NSString *KEY_SOUND_GAME_CLEAR = @"game_clear";
 
 NSString *KEY_BGM_HUB = @"hub";
 NSString *KEY_BGM_FOREST = @"forest";
@@ -39,9 +40,9 @@ NSString *KEY_BGM_RUINS = @"ruins";
 static AudioPlayer *INSTANCE = nil;
 
 @interface AudioPlayer() {
-	// A Dictionary of preloaded audio files
+    // A Dictionary of preloaded audio files
     NSMutableDictionary<NSString *, NSData *> *audioFiles;
-	// An array of currently playing sound sources
+    // An array of currently playing sound sources
     NSMutableArray<AVAudioPlayer *> *soundSources;
     AVAudioPlayer *musicSource;
     

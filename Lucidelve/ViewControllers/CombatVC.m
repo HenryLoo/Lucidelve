@@ -210,13 +210,12 @@
     }
     
     // Initialize intro
-    NSString *introStr = [NSString stringWithFormat:@"%@\n- %@ -",
+    NSString *introStr = [NSString stringWithFormat:@"- %@ -\n%@",
                           _currentDungeon.name, _currentDungeon.intro];
     [self updateCombatStatusLabel:introStr];
     [player reset:false];
     [self updateEnemyLabels];
     [self updatePlayerLabels];
-    [self updateRemainingNodes];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -258,7 +257,6 @@
         [self updateCombatStatusLabel:@""];
         isNodeCleared = false;
         remainingNodes--;
-        [self updateRemainingNodes];
     }
     // Otherwise, continue performing updates for this node
     else
@@ -301,6 +299,8 @@
     {
         totalTime -= self.game.deltaTime;
     }
+    
+    [self updateRemainingNodes];
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
@@ -401,15 +401,26 @@
         if (_dungeonNumber == [self.game getNumDungeons])
         {
             // All dungeons cleared
-            stateString = [NSString stringWithFormat:@"With the final dungeon cleared, \nyou can finally escape this dream...\n\nThanks for playing!\n\n<Tap to continue - Total Earned: %i G>", totalRewardGold];
+            [[AudioPlayer getInstance] play:KEY_SOUND_GAME_CLEAR];
+            stateString = @"With the final dungeon cleared, \nyou can finally escape this dream...\n\nThanks for playing!\n";
         }
         else
         {
             // Show the end message
-            stateString = [NSString stringWithFormat:@"DUNGEON CLEARED!\n<Tap to continue - Total Earned: %i G>",
-                           totalRewardGold];
-            [self updateCombatStatusLabel:stateString];
+            stateString = @"DUNGEON CLEARED!\n";
         }
+        
+        // If new high score, show "new best time" message
+        int dungeonIndex = _dungeonNumber - 1;
+        float currentHighScore = self.game.highscores[dungeonIndex].floatValue;
+        if (currentHighScore == 0 || totalTime < currentHighScore)
+        {
+            stateString = [stateString stringByAppendingString:@"\n*NEW BEST TIME*"];
+        }
+        
+        // Show the amount of gold earned
+        stateString = [stateString stringByAppendingString:[NSString stringWithFormat:@"\n<Tap to continue - Total Earned: %i G>",
+                                                            totalRewardGold]];
         [self updateCombatStatusLabel:stateString];
         
         [[AudioPlayer getInstance] play:KEY_SOUND_COMBAT_WIN];
@@ -533,7 +544,17 @@
     // Play a different sound depending on if the enemy was stunned/dead
     if ([currentEnemy getCombatState] == COMBAT_DEAD)
     {
-        soundKey = KEY_SOUND_ENEMY_DEAD;
+        // Regular enemy death
+        if (_dungeonNumber < [self.game getNumDungeons])
+        {
+            soundKey = KEY_SOUND_ENEMY_DEAD;
+        }
+        // Final boss death
+        else
+        {
+            soundKey = KEY_SOUND_PLAYER_DEAD;
+            [[AudioPlayer getInstance] stopMusic];
+        }
     }
     else if (isHurt)
     {
@@ -742,8 +763,12 @@
  */
 - (void)updateRemainingNodes
 {
-    remainingNodesLabel.text = [NSString stringWithFormat:@"Room: %i/%i",
-                                numNodes - remainingNodes, numNodes];
+    int minutes = (int) (totalTime / 60) % 60;
+    int seconds = (int) totalTime % 60;
+    int milliseconds = (int) ((totalTime - floor(totalTime)) * 1000);
+    
+    remainingNodesLabel.text = [NSString stringWithFormat:@"Room: %i/%i [%02i:%02i:%03i]",
+                                numNodes - remainingNodes, numNodes, minutes, seconds, milliseconds];
 }
 
 /*!
@@ -1031,10 +1056,10 @@
 - (void)setHighScore
 {
     int dungeonIndex = _dungeonNumber - 1;
-    NSNumber *scoreNum = [NSNumber numberWithFloat:totalTime];
     float currentHighScore = self.game.highscores[dungeonIndex].floatValue;
-    if (currentHighScore == 0 || scoreNum.floatValue < currentHighScore)
+    if (currentHighScore == 0 || totalTime < currentHighScore)
     {
+        NSNumber *scoreNum = [NSNumber numberWithFloat:totalTime];
         [self.game.highscores replaceObjectAtIndex:dungeonIndex withObject:scoreNum];
     }
 }

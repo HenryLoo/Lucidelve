@@ -5,12 +5,11 @@
     "floorTexture": "caves_floor",
     "wallTexture": "caves_wall",
     "music": "caves",
-    "minNodes": 2,
-    "maxNodes": 4,
+    "minNodes": 5,
+    "maxNodes": 5,
     "combatNodes": [
-        { "goldReward": 15, "enemy": "goblin" },
         { "goldReward": 30, "enemy": "golem" },
-        { "goldReward": 30, "enemy": "bat" }
+        { "goldReward": 25, "enemy": "bat" }
     ],
     "eventNodes": []
 }

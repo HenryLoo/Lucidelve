@@ -5,7 +5,7 @@
     "floorTexture": "forest_floor",
     "wallTexture": "forest_wall",
     "music": "forest",
-    "minNodes": 2,
+    "minNodes": 4,
     "maxNodes": 4,
     "combatNodes": [
         { "goldReward": 10, "enemy": "wolf" },

@@ -88,6 +88,7 @@ extern NSString *KEY_SOUND_ENEMY_BLOCK;
 extern NSString *KEY_SOUND_ENEMY_HURT;
 extern NSString *KEY_SOUND_ENEMY_STUN_HURT;
 extern NSString *KEY_SOUND_ENEMY_DEAD;
+extern NSString *KEY_SOUND_GAME_CLEAR;
 
 extern NSString *KEY_BGM_HUB;
 extern NSString *KEY_BGM_FOREST;

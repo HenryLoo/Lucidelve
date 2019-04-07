@@ -86,7 +86,7 @@
     _combatStatusLabel = [[UIPaddedLabel alloc] init];
     _combatStatusLabel.textAlignment = NSTextAlignmentCenter;
     _combatStatusLabel.textColor = UIColor.whiteColor;
-    _combatStatusLabel.numberOfLines = 6;
+    _combatStatusLabel.numberOfLines = 7;
     [_combatStatusLabel setContentEdgeInsets:UIEdgeInsetsMake(8, 8, 8, 8)];
     [self.bodyArea addSubview:_combatStatusLabel];
     

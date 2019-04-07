@@ -43,6 +43,7 @@
     [[AudioPlayer getInstance] addSoundFile:[NSString stringWithUTF8String:"enemy_hurt.wav"] key:KEY_SOUND_ENEMY_HURT];
     [[AudioPlayer getInstance] addSoundFile:[NSString stringWithUTF8String:"enemy_stun_hurt.wav"] key:KEY_SOUND_ENEMY_STUN_HURT];
     [[AudioPlayer getInstance] addSoundFile:[NSString stringWithUTF8String:"enemy_dead.wav"] key:KEY_SOUND_ENEMY_DEAD];
+    [[AudioPlayer getInstance] addSoundFile:[NSString stringWithUTF8String:"game_clear.mp3"] key:KEY_SOUND_GAME_CLEAR];
     
     [[AudioPlayer getInstance] addMusicFile:[NSString stringWithUTF8String:"hub.mp3"] key:KEY_BGM_HUB];
     [[AudioPlayer getInstance] addMusicFile:[NSString stringWithUTF8String:"forest.mp3"] key:KEY_BGM_FOREST];
