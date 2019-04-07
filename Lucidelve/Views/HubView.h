@@ -34,7 +34,4 @@
 // Button for moving to the Blacksmith
 @property (nonatomic, strong) UIButton *blacksmithButton;
 
-// Button for moving to the Highscore
-@property (nonatomic, strong) UIButton *highscoreButton;
-
 @end

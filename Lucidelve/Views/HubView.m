@@ -34,7 +34,6 @@
     _dungeonsButton = [self setupMenuButton:@"Dungeons"];
     _gooseButton = [self setupMenuButton:@"Golden Goose"];
     _blacksmithButton = [self setupMenuButton:@"Blacksmith"];
-    _highscoreButton = [self setupMenuButton:@"Highscore"];
 }
 
 - (void)setupBodyElements
@@ -116,10 +115,6 @@
     // Gold button constraints
     [_goldButton.centerXAnchor constraintEqualToAnchor:self.footerArea.centerXAnchor].active = YES;
     [_goldButton.topAnchor constraintEqualToAnchor:_goldLabel.bottomAnchor].active = YES;
-    
-    // Highscore button constrants
-    [_highscoreButton.topAnchor constraintEqualToAnchor:_goldLabel.bottomAnchor].active = YES;
-    [_highscoreButton.rightAnchor constraintEqualToAnchor:self.footerArea.rightAnchor].active = YES;
 
     // Shop button constraints
     float xOffset = self.headerArea.frame.size.width / 4;

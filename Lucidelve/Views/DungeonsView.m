@@ -11,7 +11,7 @@
 
 @interface DungeonsView ()
 {
-    UIPaddedLabel *descriptionLabel;
+    
 }
     
 @end
@@ -37,7 +37,7 @@
     
 - (void)setupBodyElements
 {
-    
+    [self setupStartButton];
 }
 
 - (void)setupFooterElements
@@ -47,19 +47,37 @@
     
 - (void)setupDescriptionLabel
 {
-    descriptionLabel = [[UIPaddedLabel alloc] initWithFrame:CGRectZero];
-    descriptionLabel.text = @"Select your adventure...";
-    descriptionLabel.textColor = [UIColor whiteColor];
-    descriptionLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0.2 alpha:0.8];
+    _descriptionLabel = [[UIPaddedLabel alloc] initWithFrame:CGRectZero];
+    _descriptionLabel.textColor = [UIColor whiteColor];
+    _descriptionLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0.2 alpha:0.8];
     float halfWidth = self.frame.size.width / 2;
-    [descriptionLabel setContentEdgeInsets:UIEdgeInsetsMake(12, halfWidth, 12, halfWidth)];
-    descriptionLabel.layer.borderColor = UIColor.whiteColor.CGColor;
-    descriptionLabel.layer.borderWidth = 1;
-    [self.headerArea addSubview:descriptionLabel];
+    [_descriptionLabel setContentEdgeInsets:UIEdgeInsetsMake(12, halfWidth, 12, halfWidth)];
+    _descriptionLabel.layer.borderColor = UIColor.whiteColor.CGColor;
+    _descriptionLabel.layer.borderWidth = 1;
+    [self.headerArea addSubview:_descriptionLabel];
     
     // Enable autolayout
-    descriptionLabel.translatesAutoresizingMaskIntoConstraints = false;
+    _descriptionLabel.translatesAutoresizingMaskIntoConstraints = false;
 }
+
+/*!
+ * @brief Create the button element for starting a dungeon run.
+ * @author Henry Loo
+ */
+- (void)setupStartButton
+{
+    _startButton = [[UIButton alloc] initWithFrame:CGRectZero];
+    _startButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _startButton.layer.borderColor = UIColor.blackColor.CGColor;
+    [_startButton setTitle:@"ENTER THE DUNGEON" forState:UIControlStateNormal];
+    [_startButton setTitle:@"" forState:UIControlStateDisabled];
+    [_startButton setEnabled:false];
+    [self.bodyArea addSubview:_startButton];
+    
+    // Enable autolayout
+    _startButton.translatesAutoresizingMaskIntoConstraints = false;
+}
+
     
 /*!
  * @brief Create the element for displaying the dungeons.
@@ -83,8 +101,12 @@
 - (void)setupLayout
 {
     // Description label constraints
-    [descriptionLabel.centerXAnchor constraintEqualToAnchor:self.headerArea.centerXAnchor].active = YES;
-    [descriptionLabel.bottomAnchor constraintEqualToAnchor:self.headerArea.bottomAnchor].active = YES;
+    [_descriptionLabel.centerXAnchor constraintEqualToAnchor:self.headerArea.centerXAnchor].active = YES;
+    [_descriptionLabel.bottomAnchor constraintEqualToAnchor:self.headerArea.bottomAnchor].active = YES;
+    
+    // Start button constraints
+    [_startButton.centerXAnchor constraintEqualToAnchor:self.bodyArea.centerXAnchor].active = YES;
+    [_startButton.bottomAnchor constraintEqualToAnchor:self.bodyArea.bottomAnchor].active = YES;
     
     // Dungeons constraints
     [_dungeons.leftAnchor constraintEqualToAnchor:self.footerArea.leftAnchor constant:25].active = YES;

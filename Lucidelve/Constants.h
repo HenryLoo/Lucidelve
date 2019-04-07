@@ -75,6 +75,9 @@ extern const int NO_SELECTED_ITEM;
 // The maximum number of equipped items
 extern const int MAX_EQUIPPED_ITEMS;
 
+// The index that represents no dungeon selected in the Dungeons list
+extern const int NO_SELECTED_DUNGEON;
+
 // The maximum number of upgrades for the Golden Goose
 extern const int MAX_GOOSE_UPGRADES;
 

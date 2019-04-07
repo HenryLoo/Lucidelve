@@ -1,7 +1,7 @@
 {
     "name": "Wolf",
     "texture": "wolf",
-    "life": 60,
+    "life": 1,
     "minAttackDelay": 2.0,
     "maxAttackDelay": 4.0,
     "blockChance": 0.2,

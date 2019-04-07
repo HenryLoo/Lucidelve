@@ -15,5 +15,11 @@
     
 // Show all dungeons
 @property (nonatomic, strong) UITableView *dungeons;
+
+// The label to show descriptions
+@property (nonatomic, strong) UIPaddedLabel *descriptionLabel;
+
+// Button to start a dungeon run
+@property (nonatomic, strong) UIButton *startButton;
     
 @end

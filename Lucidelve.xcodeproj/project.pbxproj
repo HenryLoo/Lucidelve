@@ -35,8 +35,6 @@
 		8A746BCC224AFC5100649D91 /* UIPaddedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A746BCB224AFC5100649D91 /* UIPaddedLabel.m */; };
 		8AB49F772214A720004E6C5C /* DungeonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB49F762214A720004E6C5C /* DungeonsView.m */; };
 		8AB49F7A2214A7CF004E6C5C /* DungeonsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB49F792214A7CF004E6C5C /* DungeonsVC.m */; };
-		B79A6C85225559D2002616B5 /* HighscoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = B79A6C84225559D2002616B5 /* HighscoreView.m */; };
-		B79A6C8822555AF5002616B5 /* HighscoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B79A6C8722555AF5002616B5 /* HighscoreVC.m */; };
 		B7A3BBD12230486000DB0373 /* Storage.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A3BBD02230486000DB0373 /* Storage.m */; };
 		B7A3BBD42230AC1100DB0373 /* AudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A3BBD32230AC1100DB0373 /* AudioPlayer.m */; };
 		D62CEBB6220D035500E778F6 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D62CEBB5220D035500E778F6 /* OpenGLES.framework */; };
@@ -133,10 +131,6 @@
 		8AB49F762214A720004E6C5C /* DungeonsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DungeonsView.m; sourceTree = "<group>"; };
 		8AB49F782214A7AE004E6C5C /* DungeonsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DungeonsVC.h; sourceTree = "<group>"; };
 		8AB49F792214A7CF004E6C5C /* DungeonsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DungeonsVC.m; sourceTree = "<group>"; };
-		B79A6C83225559D2002616B5 /* HighscoreView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HighscoreView.h; sourceTree = "<group>"; };
-		B79A6C84225559D2002616B5 /* HighscoreView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HighscoreView.m; sourceTree = "<group>"; };
-		B79A6C8622555AF5002616B5 /* HighscoreVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HighscoreVC.h; sourceTree = "<group>"; };
-		B79A6C8722555AF5002616B5 /* HighscoreVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HighscoreVC.m; sourceTree = "<group>"; };
 		B7A3BBCF2230486000DB0373 /* Storage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Storage.h; sourceTree = "<group>"; };
 		B7A3BBD02230486000DB0373 /* Storage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Storage.m; sourceTree = "<group>"; };
 		B7A3BBD22230AC1100DB0373 /* AudioPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioPlayer.h; sourceTree = "<group>"; };
@@ -223,8 +217,6 @@
 				5FFA34C42220C63100994AEF /* GooseVC.m */,
 				5F60B95622232F6600583CCD /* BlacksmithVC.h */,
 				5F60B95722232F7600583CCD /* BlacksmithVC.m */,
-				B79A6C8622555AF5002616B5 /* HighscoreVC.h */,
-				B79A6C8722555AF5002616B5 /* HighscoreVC.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -248,8 +240,6 @@
 				5FFA34C72220C93A00994AEF /* GooseView.m */,
 				5F60B95922232FB500583CCD /* BlacksmithView.h */,
 				5F60B95A22232FC400583CCD /* BlacksmithView.m */,
-				B79A6C83225559D2002616B5 /* HighscoreView.h */,
-				B79A6C84225559D2002616B5 /* HighscoreView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -508,7 +498,6 @@
 				D632C650221C02B500A315BA /* PointLight.m in Sources */,
 				5F8AF59A221B72F7002A715E /* GameCharacter.m in Sources */,
 				5F77C1612204482F002A8300 /* main.m in Sources */,
-				B79A6C8822555AF5002616B5 /* HighscoreVC.m in Sources */,
 				D632C648221C02B500A315BA /* Uniform.m in Sources */,
 				5F6CB681220FE5D4004B5312 /* InventoryVC.m in Sources */,
 				5F77C1532204482B002A8300 /* AppDelegate.m in Sources */,
@@ -516,7 +505,6 @@
 				D632C646221C02B500A315BA /* GLProgram.m in Sources */,
 				5F96A4DA220AD39100026AD0 /* Player.m in Sources */,
 				5F78DCFC220E60730039EA92 /* BaseView.m in Sources */,
-				B79A6C85225559D2002616B5 /* HighscoreView.m in Sources */,
 				8AB49F7A2214A7CF004E6C5C /* DungeonsVC.m in Sources */,
 				D632C64E221C02B500A315BA /* Light.m in Sources */,
 			);

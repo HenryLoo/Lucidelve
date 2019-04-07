@@ -1,7 +1,7 @@
 {
     "name": "Goblin",
     "texture": "goblin",
-    "life": 50,
+    "life": 1,
     "minAttackDelay": 1.0,
     "maxAttackDelay": 3.0,
     "blockChance": 0.4,

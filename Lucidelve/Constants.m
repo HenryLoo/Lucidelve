@@ -43,6 +43,7 @@ const float GOLD_COOLDOWN = 5.f;
 const int GOLD_EARN_AMOUNT = 10;
 const int NO_SELECTED_ITEM = -1;
 const int MAX_EQUIPPED_ITEMS = 2;
+const int NO_SELECTED_DUNGEON = -1;
 const int MAX_GOOSE_UPGRADES = 4;
 const int GOOSE_BASE_PRICE = 1; //20
 const int GOOSE_BASE_AMOUNT = 1;

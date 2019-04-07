@@ -36,6 +36,7 @@ NSString *KEY_GAME_IS_BLACKSMITH_UNLOCKED = @"KEY_GAME_IS_BLACKSMITH_UNLOCKED";
 NSString *KEY_GAME_NUM_BLACKSMITH_UPGRADES = @"KEY_GAME_NUM_BLACKSMITH_UPGRADES";
 NSString *KEY_GAME_NUM_LIFE_UPGRADES = @"KEY_GAME_NUM_LIFE_UPGRADES";
 NSString *KEY_GAME_NUM_DUNGEONS_CLEARED = @"KEY_GAME_NUM_DUNGEONS_CLEARED";
+NSString *KEY_GAME_HIGHSCORES = @"KEY_GAME_HIGHSCORES";
 
 @interface Storage() {
     NSMutableDictionary<NSString *, NSObject *> *data;
@@ -90,6 +91,8 @@ NSString *KEY_GAME_NUM_DUNGEONS_CLEARED = @"KEY_GAME_NUM_DUNGEONS_CLEARED";
     data[KEY_GAME_NUM_BLACKSMITH_UPGRADES] = [NSNumber numberWithInt:0];
     data[KEY_GAME_NUM_LIFE_UPGRADES] = [NSNumber numberWithInt:0];
     data[KEY_GAME_NUM_DUNGEONS_CLEARED] = [NSNumber numberWithInt:0];
+    
+    [((NSMutableArray *)data[KEY_GAME_HIGHSCORES]) removeAllObjects];
 }
 
 - (void)saveData {
@@ -194,6 +197,14 @@ NSString *KEY_GAME_NUM_DUNGEONS_CLEARED = @"KEY_GAME_NUM_DUNGEONS_CLEARED";
     game.numBlacksmithUpgrades = ((NSNumber *)data[KEY_GAME_NUM_BLACKSMITH_UPGRADES]).intValue;
     game.numLifeUpgrades = ((NSNumber *)data[KEY_GAME_NUM_LIFE_UPGRADES]).intValue;
     game.numDungeonsCleared = ((NSNumber *)data[KEY_GAME_NUM_DUNGEONS_CLEARED]).intValue;
+    
+    for (int i = 0; i < [game getNumDungeons]; ++i)
+    {
+        NSNumber *score = ((NSMutableArray *)data[KEY_GAME_HIGHSCORES])[i];
+        if (!score) continue;
+        
+        [game.highscores replaceObjectAtIndex:i withObject:score];
+    }
 }
 
 - (void)setGameData:(Game *)game {
@@ -207,6 +218,7 @@ NSString *KEY_GAME_NUM_DUNGEONS_CLEARED = @"KEY_GAME_NUM_DUNGEONS_CLEARED";
     data[KEY_GAME_NUM_BLACKSMITH_UPGRADES] = [NSNumber numberWithInt:game.numBlacksmithUpgrades];
     data[KEY_GAME_NUM_LIFE_UPGRADES] = [NSNumber numberWithInt:game.numLifeUpgrades];
     data[KEY_GAME_NUM_DUNGEONS_CLEARED] = [NSNumber numberWithInteger:game.numDungeonsCleared];
+    data[KEY_GAME_HIGHSCORES] = game.highscores;
 }
 
 - (NSObject *)getObject:(NSString *)key {

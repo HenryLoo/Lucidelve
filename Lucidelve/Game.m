@@ -40,6 +40,12 @@
         _goldCooldownTimer = 0;
         [self initAssets];
         
+        _highscores = [[NSMutableArray alloc] init];
+        for (int i = 0; i < [self getNumDungeons]; ++i)
+        {
+            [self.highscores addObject:[NSNumber numberWithFloat:0]];
+        }
+        
         // Reload saved values
         [[Storage getInstance] loadPlayer:player];
         [[Storage getInstance] loadGameData:self];
@@ -135,8 +141,6 @@
     {
         [self initDungeon:dungeonType];
     }
-    
-    _highscores = [NSMutableArray array];
 }
 
 /*!

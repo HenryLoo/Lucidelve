@@ -48,6 +48,10 @@
     // The total amount of gold earned so far.
     int totalRewardGold;
     
+    // The total time that the player has played for during
+    // this dungeon run.
+    float totalTime;
+    
     // Gesture pointers
     UITapGestureRecognizer *tapGesture;
     UISwipeGestureRecognizer *swipeUpGesture;
@@ -267,6 +271,12 @@
     // Update colour mixes
     [self updatePlayerColour];
     [self updateEnemyColour];
+    
+    // Update the total time played while in combat
+    if (!isNodeCleared)
+    {
+        totalTime -= self.game.deltaTime;
+    }
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
@@ -359,6 +369,9 @@
     else if (isReturningToHub || [player getCurrentLife] == 0)
     {
         [[AudioPlayer getInstance] play:KEY_SOUND_SELECT];
+        
+        // Set the high score if applicable
+        [self setHighScore];
         
         // Return to The Hub with all gold earned
         [player addGold:totalRewardGold];
@@ -849,6 +862,14 @@
     }
 }
 
+/*!
+ * @brief Set the player's colour with a given duration.
+ * This is used to make the player's sprite flash a certain colour.
+ * @author Henry Loo
+ *
+ * @param colour The colour to mix with the player's sprite.
+ * @param time The duration in seconds to flash for.
+ */
 - (void)setPlayerColour:(GLKVector4)colour time:(float)time
 {
     playerColour = colour;
@@ -856,6 +877,11 @@
     playerColourCurrentTime = time;
 }
 
+/*!
+ * @brief Update the player's colour.
+ * This should be called once each iteration in the update loop.
+ * @author Henry Loo
+ */
 - (void)updatePlayerColour
 {
     if (playerColourTime > 0)
@@ -870,6 +896,14 @@
     }
 }
 
+/*!
+ * @brief Set the enemy's colour with a given duration.
+ * This is used to make the enemy's sprite flash a certain colour.
+ * @author Henry Loo
+ *
+ * @param colour The colour to mix with the enemy's sprite.
+ * @param time The duration in seconds to flash for.
+ */
 - (void)setEnemyColour:(GLKVector4)colour time:(float)time
 {
     enemyColour = colour;
@@ -877,6 +911,11 @@
     enemyColourCurrentTime = time;
 }
 
+/*!
+ * @brief Update the enemy's colour.
+ * This should be called once each iteration in the update loop.
+ * @author Henry Loo
+ */
 - (void)updateEnemyColour
 {
     if (enemyColourTime > 0)
@@ -888,6 +927,21 @@
     {
         enemyColourCurrentTime = 0;
         enemyColourTime = 0;
+    }
+}
+
+/*!
+ * @brief Set the high score for this dungeon if the playtime
+ * is less than the previous high score.
+ * @author Henry Loo
+ */
+- (void)setHighScore
+{
+    int dungeonIndex = _dungeonNumber - 1;
+    NSNumber *scoreNum = [NSNumber numberWithFloat:totalTime];
+    if (scoreNum.floatValue < self.game.highscores[dungeonIndex].floatValue)
+    {
+        [self.game.highscores replaceObjectAtIndex:dungeonIndex withObject:scoreNum];
     }
 }
 

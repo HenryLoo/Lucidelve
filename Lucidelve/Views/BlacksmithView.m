@@ -106,7 +106,7 @@
     _upgradeButton = [[UIButton alloc] initWithFrame:CGRectZero];
     _upgradeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _upgradeButton.backgroundColor = [UIColor colorWithRed:0.04 green:0.77 blue:1.00 alpha:0.8];
-    _upgradeButton.layer.borderColor = UIColor.whiteColor.CGColor;
+    _upgradeButton.layer.borderColor = UIColor.blackColor.CGColor;
     _upgradeButton.layer.borderWidth = 1;
     [self.footerArea addSubview:_upgradeButton];
     
