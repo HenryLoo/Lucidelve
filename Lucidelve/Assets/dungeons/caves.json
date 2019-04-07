@@ -1,5 +1,6 @@
 {
     "name": "Caves",
+    "intro": "Dark and spooky halls",
     "fogColour": { "r": 0.0, "g": 0.0, "b": 0.2, "a": 1.0 },
     "floorTexture": "caves_floor",
     "wallTexture": "caves_wall",

@@ -70,7 +70,6 @@
     _enemyNameLabel = [[UIPaddedLabel alloc] init];
     _enemyNameLabel.textAlignment = NSTextAlignmentCenter;
     _enemyNameLabel.textColor = UIColor.whiteColor;
-    _enemyNameLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     [_enemyNameLabel setContentEdgeInsets:UIEdgeInsetsMake(8, 8, 8, 8)];
     [self.bodyArea addSubview:_enemyNameLabel];
     

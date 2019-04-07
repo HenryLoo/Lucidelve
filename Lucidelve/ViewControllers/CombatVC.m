@@ -97,6 +97,9 @@
     // Flag for if the shield item was used
     // This should be reset after each fight
     bool usedShield;
+    
+    // Flag for if the intro has been shown yet
+    bool hasShownIntro;
 }
 @end
 
@@ -198,6 +201,15 @@
     
     // Play the dungeon's music
     [[AudioPlayer getInstance] playMusic:_currentDungeon.music];
+    
+    // Initialize intro
+    NSString *introStr = [NSString stringWithFormat:@"%@\n- %@ -",
+                          _currentDungeon.name, _currentDungeon.intro];
+    [self updateCombatStatusLabel:introStr];
+    [player reset:false];
+    [self updateEnemyLabels];
+    [self updatePlayerLabels];
+    [self updateRemainingNodes];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -209,7 +221,7 @@
 {
     // If current node is cleared and the dungeon run is not over,
     // then process the next node
-    if (isNodeCleared && remainingNodes > 0)
+    if (isNodeCleared && remainingNodes > 0 && hasShownIntro)
     {
         currentNode = [_currentDungeon getDungeonNode];
         
@@ -247,7 +259,7 @@
         [player update:self.game.deltaTime];
         [self updatePlayerLabels];
         
-        if (currentEnemy != nil)
+        if (currentEnemy)
         {
             [self processItem:0];
             [self processItem:1];
@@ -299,7 +311,7 @@
         [self.renderer renderSprite:enemyMesh spriteIndex:currentEnemy.spriteIndex fogColour:_currentDungeon.fogColour textureColour:enemyColour textureColourAmount:amount];
     }
     
-    float amount;
+    float amount = 0;
     if (playerColourTime == 0)
     {
         if ([player getCurrentStamina] == 0)
@@ -361,8 +373,15 @@
         }
     }
     
+    // Tap to progress through intro
+    if (!hasShownIntro)
+    {
+        [[AudioPlayer getInstance] play:KEY_SOUND_SELECT];
+        hasShownIntro = true;
+        [self updateCombatStatusLabel:@""];
+    }
     // Show the end message if dungeon run is over
-    if (isNodeCleared && remainingNodes == 0 && currentEnemy == nil
+    else if (isNodeCleared && remainingNodes == 0 && currentEnemy == nil
         && !isReturningToHub)
     {
         // Show the end message
@@ -672,11 +691,19 @@
 
 - (void)updateEnemyLabels
 {
+    if (!currentEnemy)
+    {
+        enemyNameLabel.text = @"";
+        enemyNameLabel.backgroundColor = UIColor.clearColor;
+        return;
+    }
+    
     NSString *name = [currentEnemy getName];
     int currentLife = [currentEnemy getCurrentLife];
     int maxLife = [currentEnemy getMaxLife];
     enemyNameLabel.text = [NSString stringWithFormat:@"%@ [%i / %i]", name,
                            currentLife, maxLife];
+    enemyNameLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     
     if ([currentEnemy getCombatState] == COMBAT_DEAD)
     {

@@ -19,6 +19,9 @@
 // The dungeon's name
 @property NSString *name;
 
+// The dungeon's intro description
+@property NSString *intro;
+
 // The dungeon's theme, which determines the visuals of the environment
 //@property theme
 
