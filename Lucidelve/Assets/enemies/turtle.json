@@ -1,9 +1,9 @@
 {
     "name": "Lava Turtle",
     "texture": "turtle",
-    "life": 1,
-    "minAttackDelay": 3.0,
-    "maxAttackDelay": 5.0,
+    "life": 80,
+    "minAttackDelay": 1.0,
+    "maxAttackDelay": 2.0,
     "blockChance": 1.0,
     "attackPatterns": [
         { "damage": 3, "isBlockable": true, "isDodgeable": true, "isInterruptable": true, "alertDelay": 1.0, "attackDelay": 1.3 }

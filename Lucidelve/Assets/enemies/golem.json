@@ -1,9 +1,9 @@
 {
     "name": "Golem",
     "texture": "golem",
-    "life": 1,
-    "minAttackDelay": 4.0,
-    "maxAttackDelay": 6.0,
+    "life": 50,
+    "minAttackDelay": 2.0,
+    "maxAttackDelay": 4.0,
     "blockChance": 0.7,
     "attackPatterns": [
         { "damage": 2, "isBlockable": true, "isDodgeable": true, "isInterruptable": true, "alertDelay": 0.8, "attackDelay": 1.2 }

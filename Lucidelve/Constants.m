@@ -11,14 +11,14 @@
 const Item ITEMS[ITEM_NUM_ITEMS] = {
     [ITEM_NONE] = (Item){.name = @"None"},
     [ITEM_RUSTY_SWORD] = (Item){.name = @"Rusty Sword", .description = @"You can explore the Dungeon with this.", .shopPrice = 10},
-    [ITEM_HEALING_POTION] = (Item){.name = @"Healing Potion", .description = @"Fully restore Life and Stamina.", .shopPrice = 1, .isEquippable = true},
+    [ITEM_HEALING_POTION] = (Item){.name = @"Potion", .description = @"Fully restore Life and Stamina.", .shopPrice = 20, .isEquippable = true},
     [ITEM_POLISHED_SWORD] = (Item){.name = @"Polished Sword", .description = @"It's not rusty anymore."},
     [ITEM_SHARP_SWORD] = (Item){.name = @"Sharp Sword", .description = @"It's pretty sharp, I guess."},
     [ITEM_TOO_SHARP_SWORD] = (Item){.name = @"Way-too-sharp Sword", .description = @"Those monsters had better watch out."},
     [ITEM_MAGIC_GOOSE_SWORD] = (Item){.name = @"Magic Goose Sword", .description = @"NOTHING IS IMPOSSIBLE."},
-    [ITEM_BOMB] = (Item){.name = @"Bomb", .description = @"Stun and deal 30 damage.", .shopPrice = 1, .isEquippable = true},
-    [ITEM_HEART_COOKIE] = (Item){.name = @"Heart Cookie", .shopPrice = 1},
-    [ITEM_SHIELD] = (Item){.name = @"Shield", .description = @"50% chance to auto-block for 1 fight.", .shopPrice = 1, .isEquippable = true},
+    [ITEM_BOMB] = (Item){.name = @"Bomb", .description = @"Stun and deal 30 damage.", .shopPrice = 30, .isEquippable = true},
+    [ITEM_HEART_COOKIE] = (Item){.name = @"Heart Cookie", .shopPrice = 30},
+    [ITEM_SHIELD] = (Item){.name = @"Shield", .description = @"50% chance to auto-block for 1 fight.", .shopPrice = 15, .isEquippable = true},
     [ITEM_GOLDEN_EGG] = (Item){.name = @"Golden Egg", .description = @"I threw all my money for this."},
 };
 
@@ -45,12 +45,12 @@ const int NO_SELECTED_ITEM = -1;
 const int MAX_EQUIPPED_ITEMS = 2;
 const int NO_SELECTED_DUNGEON = -1;
 const int MAX_GOOSE_UPGRADES = 4;
-const int GOOSE_BASE_PRICE = 1; //20
+const int GOOSE_BASE_PRICE = 20;
 const int GOOSE_BASE_AMOUNT = 1;
 const int GOOSE_BASE_DELAY = 5;
 const float GOOSE_PRICE_MULTIPLIER = 1.2;
 const int MAX_BLACKSMITH_UPGRADES = 3;
-const int BLACKSMITH_BASE_PRICE = 1; // 10
+const int BLACKSMITH_BASE_PRICE = 100;
 const float BLACKSMITH_PRICE_MULTIPLIER = 1.5;
 
 const int SWORD_UPGRADES[MAX_BLACKSMITH_UPGRADES+2] = {

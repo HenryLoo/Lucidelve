@@ -1,7 +1,7 @@
 {
     "name": "Bat",
     "texture": "bat",
-    "life": 1,
+    "life": 40,
     "minAttackDelay": 1.0,
     "maxAttackDelay": 2.0,
     "blockChance": 0.5,

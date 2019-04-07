@@ -815,7 +815,7 @@
 - (void)onItemButtonPress:(int)itemSlot
 {
     // Must be in combat with an enemy
-    if (!currentEnemy || [currentEnemy getCurrentLife] == 0) return;
+    if (!currentEnemy || [currentEnemy getCurrentLife] == 0 || [player getCurrentLife] == 0) return;
     
     // Bounds checking
     if (itemSlot < 0 || itemSlot >= MAX_EQUIPPED_ITEMS) return;
