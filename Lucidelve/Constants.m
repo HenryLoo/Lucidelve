@@ -10,16 +10,16 @@
 
 const Item ITEMS[ITEM_NUM_ITEMS] = {
     [ITEM_NONE] = (Item){.name = @"None"},
-    [ITEM_RUSTY_SWORD] = (Item){.name = @"Rusty Sword", .shopPrice = 10},
-    [ITEM_HEALING_POTION] = (Item){.name = @"Healing Potion", .shopPrice = 1, .isEquippable = true},
-    [ITEM_POLISHED_SWORD] = (Item){.name = @"Polished Sword"},
-    [ITEM_SHARP_SWORD] = (Item){.name = @"Sharp Sword"},
-    [ITEM_TOO_SHARP_SWORD] = (Item){.name = @"Way-too-sharp Sword"},
-    [ITEM_MAGIC_GOOSE_SWORD] = (Item){.name = @"Magic Goose Sword"},
-    [ITEM_BOMB] = (Item){.name = @"Bomb", .shopPrice = 1, .isEquippable = true},
+    [ITEM_RUSTY_SWORD] = (Item){.name = @"Rusty Sword", .description = @"You can explore the Dungeon with this.", .shopPrice = 10},
+    [ITEM_HEALING_POTION] = (Item){.name = @"Healing Potion", .description = @"Fully restore Life and Stamina.", .shopPrice = 1, .isEquippable = true},
+    [ITEM_POLISHED_SWORD] = (Item){.name = @"Polished Sword", .description = @"It's not rusty anymore."},
+    [ITEM_SHARP_SWORD] = (Item){.name = @"Sharp Sword", .description = @"It's pretty sharp, I guess."},
+    [ITEM_TOO_SHARP_SWORD] = (Item){.name = @"Way-too-sharp Sword", .description = @"Those monsters had better watch out."},
+    [ITEM_MAGIC_GOOSE_SWORD] = (Item){.name = @"Magic Goose Sword", .description = @"NOTHING IS IMPOSSIBLE."},
+    [ITEM_BOMB] = (Item){.name = @"Bomb", .description = @"Stun and deal 30 damage.", .shopPrice = 1, .isEquippable = true},
     [ITEM_HEART_COOKIE] = (Item){.name = @"Heart Cookie", .shopPrice = 1},
-    [ITEM_SHIELD] = (Item){.name = @"Shield", .shopPrice = 1, .isEquippable = true},
-    [ITEM_GOLDEN_EGG] = (Item){.name = @"Golden Egg"},
+    [ITEM_SHIELD] = (Item){.name = @"Shield", .description = @"50% chance to auto-block for 1 fight.", .shopPrice = 1, .isEquippable = true},
+    [ITEM_GOLDEN_EGG] = (Item){.name = @"Golden Egg", .description = @"I threw all my money for this."},
 };
 
 const float PLAYER_WALK_SPEED = 0.2;

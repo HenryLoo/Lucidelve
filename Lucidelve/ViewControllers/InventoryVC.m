@@ -25,6 +25,7 @@
     UITableView *items;
     
     // Pointer to UI elements
+    UILabel *descriptionLabel;
     UILabel *item1Label;
     UILabel *item2Label;
     UIButton *item1Button;
@@ -60,6 +61,7 @@
     [items registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CellId"];
     
     // Set the UI element pointers
+    descriptionLabel = ((InventoryView*) self.view).descriptionLabel;
     item1Label = ((InventoryView*) self.view).item1Label;
     item2Label = ((InventoryView*) self.view).item2Label;
     item1Button = ((InventoryView*) self.view).item1Button;
@@ -89,6 +91,7 @@
 {
     [super update];
     [self updateSelectedItem];
+    [self updateDescriptionLabel];
     [self updateItemLabels];
     [self updateEquippedMesh:0];
     [self updateEquippedMesh:1];
@@ -234,6 +237,23 @@
 }
 
 /*!
+ * @brief Update the description of the selected item.
+ * @author Henry Loo
+ */
+- (void)updateDescriptionLabel
+{
+    if ([self isItemSelected])
+    {
+        Item item = [player getItem:selectedItem];
+        descriptionLabel.text = item.description;
+    }
+    else
+    {
+        descriptionLabel.text = @"No item selected.";
+    }
+}
+
+/*!
  * @brief Update the labels for item 1 and item 2.
  * @author Henry Loo
  */
@@ -261,15 +281,22 @@
     {
         itemMesh[itemSlot] = [[Assets getInstance] getMesh:KEY_MESH_POTION];
         [itemMesh[itemSlot] setScale:GLKVector3Make(0.08f, 0.08f, 0.08f)];
-        [itemMesh[itemSlot] setPosition:GLKVector3Make(direction * 0.35, 0.25, 1.0f)];
+        [itemMesh[itemSlot] setPosition:GLKVector3Make(direction * 0.35, 0, 1.0f)];
         [itemMesh[itemSlot] addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_POTION]];
     }
     else if(item.name == ITEMS[ITEM_BOMB].name)
     {
         itemMesh[itemSlot] = [[Assets getInstance] getMesh:KEY_MESH_BOMB];
         [itemMesh[itemSlot] setScale:GLKVector3Make(0.1f, 0.1f, 0.1f)];
-        [itemMesh[itemSlot] setPosition:GLKVector3Make(direction * 0.35, 0.25, 1.0f)];
+        [itemMesh[itemSlot] setPosition:GLKVector3Make(direction * 0.35, 0, 1.0f)];
         [itemMesh[itemSlot] addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_BOMB]];
+    }
+    else if(item.name == ITEMS[ITEM_SHIELD].name)
+    {
+        itemMesh[itemSlot] = [[Assets getInstance] getMesh:KEY_MESH_SHIELD];
+        [itemMesh[itemSlot] setScale:GLKVector3Make(0.05f, 0.05f, 0.05f)];
+        [itemMesh[itemSlot] setPosition:GLKVector3Make(direction * 0.35, -0.05, 1.0f)];
+        [itemMesh[itemSlot] addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_SHIELD]];
     }
     else
     {

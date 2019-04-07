@@ -93,6 +93,10 @@
     GLKVector4 enemyColour;
     float enemyColourCurrentTime;
     float enemyColourTime;
+    
+    // Flag for if the shield item was used
+    // This should be reset after each fight
+    bool usedShield;
 }
 @end
 
@@ -229,6 +233,7 @@
             [currentEnemy reset:true];
             
             [player reset:false];
+            usedShield = false;
         }
         
         [self updateCombatStatusLabel:@""];
@@ -295,11 +300,20 @@
     }
     
     float amount;
-    if ([player getCurrentStamina] == 0)
+    if (playerColourTime == 0)
     {
-        // No stamina, blend black colour with player
-        playerColour = GLKVector4Make(0, 0, 0, 1);
-        amount = 0.6;
+        if ([player getCurrentStamina] == 0)
+        {
+            // No stamina, blend black colour with player
+            playerColour = GLKVector4Make(0, 0, 0, 1);
+            amount = 0.6;
+        }
+        else if (usedShield)
+        {
+            // Shield item was used, blend blue colour with player
+            playerColour = GLKVector4Make(0.1, 0.1, 1, 1);
+            amount = 0.6;
+        }
     }
     else
     {
@@ -589,6 +603,18 @@
     {
         if (!(isBlockable|| isDodgable) && [player getCombatState] != COMBAT_DEAD)
         {
+            // 50% to auto-block if the shield item was used
+            if (usedShield)
+            {
+                int rollBlockChance = [[Utility getInstance] random:1 withMax:100];
+                if (rollBlockChance <= 50)
+                {
+                    [self performBlock];
+                    [self performSuccessfulBlock];
+                    return;
+                }
+            }
+            
             // Reset player position
             player.position = playerNeutralPos;
             
@@ -603,11 +629,7 @@
         }
         else if(isBlockable)
         {
-            [[AudioPlayer getInstance] play:KEY_SOUND_PLAYER_BLOCK];
-            [self setPlayerColour:GLKVector4Make(1, 1, 1, 1) time:0.3];
-            
-            // Instantly reset player to neutral if block was successful
-            [player setCombatState:COMBAT_NEUTRAL duration:0];
+            [self performSuccessfulBlock];
         }
     }
     
@@ -618,6 +640,15 @@
         // Enemy sprite should flash red when preparing to attack
         [self setEnemyColour:GLKVector4Make(1, 0, 0, 0.8) time:currentEnemy.currentAttack.alertDelay / 2];
     }
+}
+
+- (void)performSuccessfulBlock
+{
+    [[AudioPlayer getInstance] play:KEY_SOUND_PLAYER_BLOCK];
+    [self setPlayerColour:GLKVector4Make(1, 1, 1, 1) time:0.3];
+    
+    // Instantly reset player to neutral if block was successful
+    [player setCombatState:COMBAT_NEUTRAL duration:0];
 }
 
 - (void)updatePlayerLabels
@@ -695,13 +726,9 @@
     // we want to update even after the item has been consumed
     NSString *itemName = itemNames[itemSlot];
     
-    if (itemName == ITEMS[ITEM_HEALING_POTION].name)
-    {
-        [itemMesh[itemSlot] setScale:itemObjects[itemSlot].scale];
-        [itemMesh[itemSlot] setPosition:itemObjects[itemSlot].position];
-        [itemMesh[itemSlot] setRotation:itemObjects[itemSlot].rotation];
-    }
-    else if(itemName == ITEMS[ITEM_BOMB].name)
+    if (itemName == ITEMS[ITEM_HEALING_POTION].name ||
+        itemName == ITEMS[ITEM_BOMB].name ||
+        itemName == ITEMS[ITEM_SHIELD].name)
     {
         [itemMesh[itemSlot] setScale:itemObjects[itemSlot].scale];
         [itemMesh[itemSlot] setPosition:itemObjects[itemSlot].position];
@@ -749,7 +776,8 @@
         GLKVector3 subPos = GLKVector3MultiplyScalar(itemObjects[itemSlot].position, -1);
         GLKVector3 dist;
         
-        if (item.name == ITEMS[ITEM_HEALING_POTION].name)
+        if (item.name == ITEMS[ITEM_HEALING_POTION].name ||
+            item.name == ITEMS[ITEM_SHIELD].name)
         {
             dist = GLKVector3Add(playerNeutralPos, subPos);
             itemTargets[itemSlot] = player;
@@ -810,6 +838,12 @@
         itemMesh[itemSlot] = [[Assets getInstance] getMesh:KEY_MESH_BOMB];
         [itemMesh[itemSlot] addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_BOMB]];
     }
+    else if(item.name == ITEMS[ITEM_SHIELD].name)
+    {
+        itemObjects[itemSlot].scale = GLKVector3Make(0.05f, 0.05f, 0.05f);
+        itemMesh[itemSlot] = [[Assets getInstance] getMesh:KEY_MESH_SHIELD];
+        [itemMesh[itemSlot] addTexture:[[Assets getInstance] getTexture:KEY_TEXTURE_SHIELD]];
+    }
 }
 
 /*!
@@ -846,12 +880,18 @@
             [player addStamina:[player getMaxStamina]];
             [self setPlayerColour:GLKVector4Make(0, 1, 0.25, 1) time:0.5];
         }
-        else
+        else if (itemNames[itemSlot] == ITEMS[ITEM_HEALING_POTION].name)
         {
             soundKey = KEY_SOUND_BOMB;
             [currentEnemy addLife:-BOMB_DAMAGE isHurt:true];
             currentEnemy.actionTimer = ENEMY_STUN_DURATION;
             [self setEnemyColour:GLKVector4Make(1, 0.5, 0, 1) time:0.5];
+        }
+        else
+        {
+            soundKey = KEY_SOUND_BLACKSMITH_UPGRADE;
+            [self setPlayerColour:GLKVector4Make(0, 0.25, 1, 1) time:0.5];
+            usedShield = true;
         }
         
         [[AudioPlayer getInstance] play:soundKey];

@@ -16,6 +16,9 @@
 // Show all player's items
 @property (nonatomic, strong) UITableView *items;
 
+// Show the selected item's description
+@property (nonatomic, strong) UIPaddedLabel *descriptionLabel;
+
 // Displays the labels for item 1 and item 2
 @property (nonatomic, strong) UILabel *item1Label;
 @property (nonatomic, strong) UILabel *item2Label;

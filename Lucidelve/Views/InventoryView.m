@@ -15,7 +15,7 @@
 {
     if (self = [super initWithFrame:frame]) {
         // Set up elements in the view
-        [super setupLayout:0.25f withBody:0.25f];
+        [super setupLayout:0.35f withBody:0.25f];
         [self setupLayout];
     }
     return self;
@@ -25,6 +25,7 @@
 {
     [super addTitle:@"INVENTORY"];
     [super addBackButton];
+    [self setupDescriptionLabel];
 }
 
 - (void)setupBodyElements
@@ -36,6 +37,25 @@
 - (void)setupFooterElements
 {
     [self setupItemsTable];
+}
+
+/*!
+ * @brief Create the label element for displaying the selected item's description.
+ * @author Henry Loo
+ */
+- (void)setupDescriptionLabel
+{
+    _descriptionLabel = [[UIPaddedLabel alloc] initWithFrame:CGRectZero];
+    _descriptionLabel.textColor = [UIColor whiteColor];
+    _descriptionLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0.2 alpha:0.8];
+    float halfWidth = self.frame.size.width / 2;
+    [_descriptionLabel setContentEdgeInsets:UIEdgeInsetsMake(12, halfWidth, 12, halfWidth)];
+    _descriptionLabel.layer.borderColor = UIColor.whiteColor.CGColor;
+    _descriptionLabel.layer.borderWidth = 1;
+    [self.headerArea addSubview:_descriptionLabel];
+    
+    // Enable autolayout
+    _descriptionLabel.translatesAutoresizingMaskIntoConstraints = false;
 }
 
 /*!
@@ -102,6 +122,10 @@
  */
 - (void)setupLayout
 {
+    // Description label constraints
+    [_descriptionLabel.centerXAnchor constraintEqualToAnchor:self.headerArea.centerXAnchor].active = YES;
+    [_descriptionLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:25].active = YES;
+    
     // Item label constraints
     float itemLabelOffset = self.bodyArea.frame.size.width / 4;
     [_item1Label.centerXAnchor constraintEqualToAnchor:self.bodyArea.centerXAnchor constant:-itemLabelOffset].active = YES;
@@ -125,7 +149,7 @@
     // Items constraints
     [_items.leftAnchor constraintEqualToAnchor:self.footerArea.leftAnchor constant:25].active = YES;
     [_items.rightAnchor constraintEqualToAnchor:self.footerArea.rightAnchor constant:-25].active = YES;
-    [_items.topAnchor constraintEqualToAnchor:self.footerArea.topAnchor constant:25].active = YES;
+    [_items.topAnchor constraintEqualToAnchor:self.footerArea.topAnchor constant:8].active = YES;
     [_items.bottomAnchor constraintEqualToAnchor:self.footerArea.bottomAnchor constant:-25].active = YES;
 }
 

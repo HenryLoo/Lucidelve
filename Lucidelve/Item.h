@@ -33,6 +33,9 @@ typedef struct Item
     // The name of the item.
     NSString *name;
     
+    // The item's description.
+    NSString *description;
+    
     // The item's price in the shop
     int shopPrice;
     
