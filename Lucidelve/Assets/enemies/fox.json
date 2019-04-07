@@ -1,7 +1,7 @@
 {
     "name": "Firefox",
     "texture": "fox",
-    "life": 600,
+    "life": 1,
     "minAttackDelay": 1.0,
     "maxAttackDelay": 3.0,
     "blockChance": 0.8,

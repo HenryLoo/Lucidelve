@@ -382,11 +382,21 @@
     }
     // Show the end message if dungeon run is over
     else if (isNodeCleared && remainingNodes == 0 && currentEnemy == nil
-        && !isReturningToHub)
+             && !isReturningToHub)
     {
-        // Show the end message
-        NSString *stateString = [NSString stringWithFormat:@"DUNGEON CLEARED!\n<Tap to continue - Total Earned: %i G>",
-                                 totalRewardGold];
+        NSString *stateString;
+        if (_dungeonNumber == [self.game getNumDungeons])
+        {
+            // All dungeons cleared
+            stateString = [NSString stringWithFormat:@"With the final dungeon cleared, \nyou can finally escape this dream...\n\nThanks for playing!\n\n<Tap to continue - Total Earned: %i G>", totalRewardGold];
+        }
+        else
+        {
+            // Show the end message
+            stateString = [NSString stringWithFormat:@"DUNGEON CLEARED!\n<Tap to continue - Total Earned: %i G>",
+                           totalRewardGold];
+            [self updateCombatStatusLabel:stateString];
+        }
         [self updateCombatStatusLabel:stateString];
         
         [[AudioPlayer getInstance] play:KEY_SOUND_COMBAT_WIN];

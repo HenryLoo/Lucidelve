@@ -1,7 +1,7 @@
 {
     "name": "Lava Turtle",
     "texture": "turtle",
-    "life": 500,
+    "life": 1,
     "minAttackDelay": 3.0,
     "maxAttackDelay": 5.0,
     "blockChance": 1.0,
