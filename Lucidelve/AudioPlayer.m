@@ -34,6 +34,7 @@ NSString *KEY_BGM_HUB = @"hub";
 NSString *KEY_BGM_FOREST = @"forest";
 NSString *KEY_BGM_CAVES = @"caves";
 NSString *KEY_BGM_DEPTHS = @"depths";
+NSString *KEY_BGM_RUINS = @"ruins";
 
 static AudioPlayer *INSTANCE = nil;
 
@@ -101,6 +102,12 @@ static AudioPlayer *INSTANCE = nil;
     currentMusic = key;
     [self play:key loop:true isMusic:true];
     musicSource.volume = 0.05;
+}
+
+- (void)stopMusic
+{
+    [musicSource stop];
+    currentMusic = @"";
 }
 
 - (void)play:(NSString *)key loop:(bool)loop isMusic:(bool)isMusic {

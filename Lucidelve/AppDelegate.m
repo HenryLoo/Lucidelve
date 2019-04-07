@@ -48,6 +48,7 @@
     [[AudioPlayer getInstance] addMusicFile:[NSString stringWithUTF8String:"forest.mp3"] key:KEY_BGM_FOREST];
     [[AudioPlayer getInstance] addMusicFile:[NSString stringWithUTF8String:"caves.mp3"] key:KEY_BGM_CAVES];
     [[AudioPlayer getInstance] addMusicFile:[NSString stringWithUTF8String:"depths.mp3"] key:KEY_BGM_DEPTHS];
+    [[AudioPlayer getInstance] addMusicFile:[NSString stringWithUTF8String:"ruins.mp3"] key:KEY_BGM_RUINS];
     
     // Load save data
     [[Storage getInstance] loadData];

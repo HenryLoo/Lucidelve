@@ -1,0 +1,14 @@
+{
+    "name": "Abandoned Laboratory",
+    "intro": "Amidst the ruins, \na lone figure blocks the way",
+    "fogColour": { "r": 0.8, "g": 0.8, "b": 1, "a": 1.0 },
+    "floorTexture": "ruins_floor",
+    "wallTexture": "ruins_wall",
+    "music": "ruins",
+    "minNodes": 1,
+    "maxNodes": 1,
+    "combatNodes": [
+        { "goldReward": 1000, "enemy": "frog" },
+    ],
+    "eventNodes": []
+}

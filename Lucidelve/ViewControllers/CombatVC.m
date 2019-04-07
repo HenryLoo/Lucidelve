@@ -199,8 +199,15 @@
     [self initializeItem:0];
     [self initializeItem:1];
     
-    // Play the dungeon's music
-    [[AudioPlayer getInstance] playMusic:_currentDungeon.music];
+    // Play the dungeon's music if this isn't the final dungeon
+    if (_dungeonNumber < [self.game getNumDungeons])
+    {
+        [[AudioPlayer getInstance] playMusic:_currentDungeon.music];
+    }
+    else
+    {
+        [[AudioPlayer getInstance] stopMusic];
+    }
     
     // Initialize intro
     NSString *introStr = [NSString stringWithFormat:@"%@\n- %@ -",
@@ -379,6 +386,12 @@
         [[AudioPlayer getInstance] play:KEY_SOUND_SELECT];
         hasShownIntro = true;
         [self updateCombatStatusLabel:@""];
+        
+        // Play the dungeon's music if this the final dungeon
+        if (_dungeonNumber == [self.game getNumDungeons])
+        {
+            [[AudioPlayer getInstance] playMusic:_currentDungeon.music];
+        }
     }
     // Show the end message if dungeon run is over
     else if (isNodeCleared && remainingNodes == 0 && currentEnemy == nil
@@ -1016,7 +1029,8 @@
 {
     int dungeonIndex = _dungeonNumber - 1;
     NSNumber *scoreNum = [NSNumber numberWithFloat:totalTime];
-    if (scoreNum.floatValue < self.game.highscores[dungeonIndex].floatValue)
+    float currentHighScore = self.game.highscores[dungeonIndex].floatValue;
+    if (currentHighScore == 0 || scoreNum.floatValue < currentHighScore)
     {
         [self.game.highscores replaceObjectAtIndex:dungeonIndex withObject:scoreNum];
     }

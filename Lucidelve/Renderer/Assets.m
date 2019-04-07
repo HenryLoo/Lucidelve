@@ -44,12 +44,15 @@ NSString *KEY_TEXTURE_GOLEM = @"golem";
 NSString *KEY_TEXTURE_BAT = @"bat";
 NSString *KEY_TEXTURE_TURTLE = @"turtle";
 NSString *KEY_TEXTURE_FOX = @"fox";
+NSString *KEY_TEXTURE_FROG = @"frog";
 NSString *KEY_TEXTURE_FOREST_FLOOR = @"forest_floor";
 NSString *KEY_TEXTURE_FOREST_WALL = @"forest_wall";
 NSString *KEY_TEXTURE_CAVES_FLOOR = @"caves_floor";
 NSString *KEY_TEXTURE_CAVES_WALL = @"caves_wall";
 NSString *KEY_TEXTURE_DEPTHS_FLOOR = @"depths_floor";
 NSString *KEY_TEXTURE_DEPTHS_WALL = @"depths_wall";
+NSString *KEY_TEXTURE_RUINS_FLOOR = @"ruins_floor";
+NSString *KEY_TEXTURE_RUINS_WALL = @"ruins_wall";
 
 NSString *KEY_MESH_ANVIL = @"anvil";
 NSString *KEY_MESH_CUBE = @"cube";
@@ -224,7 +227,9 @@ NSString *KEY_MESH_SWORD = @"sword";
     texture = [[Texture alloc] initWithFilename:@"turtle.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_TURTLE];
     texture = [[Texture alloc] initWithFilename:@"fox.png"];
-    [textures setObject:texture forKey:KEY_TEXTURE_FOX];
+    [textures setObject:texture forKey:KEY_TEXTURE_FROG];
+    texture = [[Texture alloc] initWithFilename:@"frog.png"];
+    [textures setObject:texture forKey:KEY_TEXTURE_FROG];
     texture = [[Texture alloc] initWithFilename:@"forest_floor.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_FOREST_FLOOR];
     texture = [[Texture alloc] initWithFilename:@"forest_wall.png"];
@@ -237,6 +242,10 @@ NSString *KEY_MESH_SWORD = @"sword";
     [textures setObject:texture forKey:KEY_TEXTURE_DEPTHS_FLOOR];
     texture = [[Texture alloc] initWithFilename:@"depths_wall.png"];
     [textures setObject:texture forKey:KEY_TEXTURE_DEPTHS_WALL];
+    texture = [[Texture alloc] initWithFilename:@"ruins_floor.png"];
+    [textures setObject:texture forKey:KEY_TEXTURE_RUINS_FLOOR];
+    texture = [[Texture alloc] initWithFilename:@"ruins_wall.png"];
+    [textures setObject:texture forKey:KEY_TEXTURE_RUINS_WALL];
 }
 
 - (void)loadMeshes {

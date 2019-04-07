@@ -54,6 +54,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)playMusic:(NSString *)key;
 
 /*!
+ * Stop playing the current music.
+ * @author Henry Loo
+ */
+- (void)stopMusic;
+
+/*!
  * Plays a sound from the array of loaded audio files.
  * @author Jason Chung
  *
@@ -87,6 +93,7 @@ extern NSString *KEY_BGM_HUB;
 extern NSString *KEY_BGM_FOREST;
 extern NSString *KEY_BGM_CAVES;
 extern NSString *KEY_BGM_DEPTHS;
+extern NSString *KEY_BGM_RUINS;
 
 @end
 

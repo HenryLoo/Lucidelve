@@ -49,12 +49,15 @@ extern NSString *KEY_TEXTURE_GOLEM;
 extern NSString *KEY_TEXTURE_BAT;
 extern NSString *KEY_TEXTURE_TURTLE;
 extern NSString *KEY_TEXTURE_FOX;
+extern NSString *KEY_TEXTURE_FROG;
 extern NSString *KEY_TEXTURE_FOREST_FLOOR;
 extern NSString *KEY_TEXTURE_FOREST_WALL;
 extern NSString *KEY_TEXTURE_CAVES_FLOOR;
 extern NSString *KEY_TEXTURE_CAVES_WALL;
 extern NSString *KEY_TEXTURE_DEPTHS_FLOOR;
 extern NSString *KEY_TEXTURE_DEPTHS_WALL;
+extern NSString *KEY_TEXTURE_RUINS_FLOOR;
+extern NSString *KEY_TEXTURE_RUINS_WALL;
 
 /* Mesh keys */
 extern NSString *KEY_MESH_ANVIL;
