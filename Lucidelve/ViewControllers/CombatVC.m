@@ -100,6 +100,9 @@
     
     // Flag for if the intro has been shown yet
     bool hasShownIntro;
+    
+    // Hold the elapsed time for the message delay
+    float messageDelay;
 }
 @end
 
@@ -362,6 +365,12 @@
         // onto the total amount of reward gold.
         if ([currentEnemy getCombatState] == COMBAT_DEAD)
         {
+            // Message delay for the final boss, don't allow tapping
+            if ([self isFinalBoss] && messageDelay < MESSAGE_DELAY_DURATION)
+            {
+                return;
+            }
+            
             [[AudioPlayer getInstance] play:KEY_SOUND_SELECT];
             
             isNodeCleared = true;
@@ -397,11 +406,14 @@
     else if (isNodeCleared && remainingNodes == 0 && currentEnemy == nil
              && !isReturningToHub)
     {
+        // Clear the enemy label
+        enemyNameLabel.text = @"";
+        enemyNameLabel.backgroundColor = UIColor.clearColor;
+        
         NSString *stateString;
         if (_dungeonNumber == [self.game getNumDungeons])
         {
             // All dungeons cleared
-            [[AudioPlayer getInstance] play:KEY_SOUND_GAME_CLEAR];
             stateString = @"With the final dungeon cleared, \nyou can finally escape this dream...\n\nThanks for playing!\n\n";
         }
         else
@@ -552,7 +564,7 @@
     if ([currentEnemy getCombatState] == COMBAT_DEAD)
     {
         // Regular enemy death
-        if (_dungeonNumber < [self.game getNumDungeons])
+        if (![self isFinalBoss])
         {
             soundKey = KEY_SOUND_ENEMY_DEAD;
         }
@@ -561,6 +573,7 @@
         {
             soundKey = KEY_SOUND_PLAYER_DEAD;
             [[AudioPlayer getInstance] stopMusic];
+            [[AudioPlayer getInstance] play:KEY_SOUND_GAME_CLEAR];
         }
     }
     else if (isHurt)
@@ -758,6 +771,13 @@
     
     if ([currentEnemy getCombatState] == COMBAT_DEAD)
     {
+        // Add a message delay when the final boss is defeated
+        if ([self isFinalBoss] && messageDelay < MESSAGE_DELAY_DURATION)
+        {
+            messageDelay -= self.game.deltaTime;
+            return;
+        }
+        
         NSString *text = [NSString stringWithFormat:@"<Tap to continue - Reward: %i G>",
                           [currentNode getGoldReward]];
         [self updateCombatStatusLabel:text];
@@ -1072,6 +1092,17 @@
         NSNumber *scoreNum = [NSNumber numberWithFloat:totalTime];
         [self.game.highscores replaceObjectAtIndex:dungeonIndex withObject:scoreNum];
     }
+}
+
+/*!
+ * @brief Check if this is the last node of the last dungeon.
+ * @author Henry Loo
+ *
+ * @return If this is the last node of the last dungeon.
+ */
+- (bool)isFinalBoss
+{
+    return (_dungeonNumber == [self.game getNumDungeons] && remainingNodes == 0);
 }
 
 @end

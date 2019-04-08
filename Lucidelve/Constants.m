@@ -38,6 +38,7 @@ const float BLOCK_DURATION = 0.2f;
 const float DODGE_DURATION = 0.4f;
 const float DEFENCE_COOLDOWN = 0.4f;
 const float ENEMY_STUN_DURATION = 2.f;
+const float MESSAGE_DELAY_DURATION = 3.f;
 const int MAX_LIFE_UPGRADES = 10;
 const float GOLD_COOLDOWN = 5.f;
 const int GOLD_EARN_AMOUNT = 10;

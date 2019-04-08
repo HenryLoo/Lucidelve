@@ -60,6 +60,9 @@ extern const float DEFENCE_COOLDOWN;
 // The duration for enemies being stunned
 extern const float ENEMY_STUN_DURATION;
 
+// The duration for the message delay in combat
+extern const float MESSAGE_DELAY_DURATION;
+
 // The maximum number of heart cookies that a player can purchase
 extern const int MAX_LIFE_UPGRADES;
 

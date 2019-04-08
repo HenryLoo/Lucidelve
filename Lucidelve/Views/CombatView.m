@@ -152,8 +152,9 @@
     [_remainingNodesLabel.topAnchor constraintEqualToAnchor:self.headerArea.topAnchor constant:25].active = YES;
     
     // Enemy label constraints
+    float enemyLabelOffset = self.bodyArea.frame.size.height / 4;
     [_enemyNameLabel.centerXAnchor constraintEqualToAnchor:self.bodyArea.centerXAnchor].active = YES;
-    [_enemyNameLabel.topAnchor constraintEqualToAnchor:self.bodyArea.topAnchor constant:25].active = YES;
+    [_enemyNameLabel.centerYAnchor constraintEqualToAnchor:self.bodyArea.centerYAnchor constant:-enemyLabelOffset].active = YES;
     
     // Combat label label constraints
     [_combatStatusLabel.centerXAnchor constraintEqualToAnchor:self.bodyArea.centerXAnchor].active = YES;
