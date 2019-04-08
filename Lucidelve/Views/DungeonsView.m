@@ -22,7 +22,7 @@
     {
         if (self = [super initWithFrame:frame]) {
             // Set up elements in the view
-            [super setupLayout:0.3f withBody:0.3f];
+            [super setupLayout:0.3f withBody:0.25f];
             [self setupLayout];
         }
         return self;
@@ -111,8 +111,8 @@
     // Dungeons constraints
     [_dungeons.leftAnchor constraintEqualToAnchor:self.footerArea.leftAnchor constant:25].active = YES;
     [_dungeons.rightAnchor constraintEqualToAnchor:self.footerArea.rightAnchor constant:-25].active = YES;
-    [_dungeons.topAnchor constraintEqualToAnchor:self.footerArea.topAnchor constant:25].active = YES;
-    [_dungeons.bottomAnchor constraintEqualToAnchor:self.footerArea.bottomAnchor constant:-25].active = YES;
+    [_dungeons.topAnchor constraintEqualToAnchor:self.footerArea.topAnchor constant:18].active = YES;
+    [_dungeons.bottomAnchor constraintEqualToAnchor:self.footerArea.bottomAnchor constant:-18].active = YES;
 }
 
 @end

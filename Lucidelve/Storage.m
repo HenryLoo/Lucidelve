@@ -41,6 +41,7 @@ NSString *KEY_GAME_HIGHSCORE_1 = @"KEY_GAME_HIGHSCORE_1";
 NSString *KEY_GAME_HIGHSCORE_2 = @"KEY_GAME_HIGHSCORE_2";
 NSString *KEY_GAME_HIGHSCORE_3 = @"KEY_GAME_HIGHSCORE_3";
 NSString *KEY_GAME_HIGHSCORE_4 = @"KEY_GAME_HIGHSCORE_4";
+NSString *KEY_GAME_HIGHSCORE_5 = @"KEY_GAME_HIGHSCORE_5";
 
 @interface Storage() {
     NSMutableDictionary<NSString *, NSObject *> *data;
@@ -100,6 +101,7 @@ NSString *KEY_GAME_HIGHSCORE_4 = @"KEY_GAME_HIGHSCORE_4";
     data[KEY_GAME_HIGHSCORE_2] = [NSNumber numberWithFloat:0];
     data[KEY_GAME_HIGHSCORE_3] = [NSNumber numberWithFloat:0];
     data[KEY_GAME_HIGHSCORE_4] = [NSNumber numberWithFloat:0];
+    data[KEY_GAME_HIGHSCORE_5] = [NSNumber numberWithFloat:0];
 }
 
 - (void)saveData {
@@ -204,11 +206,17 @@ NSString *KEY_GAME_HIGHSCORE_4 = @"KEY_GAME_HIGHSCORE_4";
     game.numBlacksmithUpgrades = ((NSNumber *)data[KEY_GAME_NUM_BLACKSMITH_UPGRADES]).intValue;
     game.numLifeUpgrades = ((NSNumber *)data[KEY_GAME_NUM_LIFE_UPGRADES]).intValue;
     game.numDungeonsCleared = ((NSNumber *)data[KEY_GAME_NUM_DUNGEONS_CLEARED]).intValue;
-    
-    [game.highscores replaceObjectAtIndex:0 withObject:((NSNumber *)data[KEY_GAME_HIGHSCORE_1])];
-    [game.highscores replaceObjectAtIndex:1 withObject:((NSNumber *)data[KEY_GAME_HIGHSCORE_2])];
-    [game.highscores replaceObjectAtIndex:2 withObject:((NSNumber *)data[KEY_GAME_HIGHSCORE_3])];
-    [game.highscores replaceObjectAtIndex:3 withObject:((NSNumber *)data[KEY_GAME_HIGHSCORE_4])];
+
+    NSNumber *score1 = [NSNumber numberWithFloat:((NSNumber *)data[KEY_GAME_HIGHSCORE_1]).floatValue];
+    [game.highscores replaceObjectAtIndex:0 withObject:score1];
+    NSNumber *score2 = [NSNumber numberWithFloat:((NSNumber *)data[KEY_GAME_HIGHSCORE_2]).floatValue];
+    [game.highscores replaceObjectAtIndex:1 withObject:score2];
+    NSNumber *score3 = [NSNumber numberWithFloat:((NSNumber *)data[KEY_GAME_HIGHSCORE_3]).floatValue];
+    [game.highscores replaceObjectAtIndex:2 withObject:score3];
+    NSNumber *score4 = [NSNumber numberWithFloat:((NSNumber *)data[KEY_GAME_HIGHSCORE_4]).floatValue];
+    [game.highscores replaceObjectAtIndex:3 withObject:score4];
+    NSNumber *score5 = [NSNumber numberWithFloat:((NSNumber *)data[KEY_GAME_HIGHSCORE_5]).floatValue];
+    [game.highscores replaceObjectAtIndex:4 withObject:score5];
 }
 
 - (void)setGameData:(Game *)game {
@@ -227,6 +235,7 @@ NSString *KEY_GAME_HIGHSCORE_4 = @"KEY_GAME_HIGHSCORE_4";
     data[KEY_GAME_HIGHSCORE_2] = game.highscores[1];
     data[KEY_GAME_HIGHSCORE_3] = game.highscores[2];
     data[KEY_GAME_HIGHSCORE_4] = game.highscores[3];
+    data[KEY_GAME_HIGHSCORE_5] = game.highscores[4];
 }
 
 - (NSObject *)getObject:(NSString *)key {

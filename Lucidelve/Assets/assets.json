@@ -1,4 +1,4 @@
 {
-    "dungeons": ["forest", "caves", "depths", "ruins"],
-    "enemies": ["wolf", "goblin", "golem", "bat", "turtle", "fox", "frog"]
+    "dungeons": ["tutorial", "forest", "caves", "depths", "ruins"],
+    "enemies": ["shadow", "wolf", "goblin", "golem", "bat", "turtle", "fox", "frog"]
 }

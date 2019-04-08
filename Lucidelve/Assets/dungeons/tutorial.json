@@ -1,0 +1,14 @@
+{
+    "name": "Shadowboxing",
+    "intro": "Tap - Attack\nSwipe left/right - Dodge\nSwipe down - Block\nCounterattack for double damage!",
+    "fogColour": { "r": 0.8, "g": 0.8, "b": 0.8, "a": 1.0 },
+    "floorTexture": "tutorial_floor",
+    "wallTexture": "tutorial_wall",
+    "music": "hub",
+    "minNodes": 1,
+    "maxNodes": 1,
+    "combatNodes": [
+        { "goldReward": 0, "enemy": "shadow" }
+    ],
+    "eventNodes": []
+}
